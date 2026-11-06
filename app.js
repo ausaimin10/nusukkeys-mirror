@@ -484,7 +484,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v1').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v3').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }

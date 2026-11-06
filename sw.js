@@ -20,14 +20,16 @@
 //    serves a small offline page with the mirror links instead of a
 //    browser error page.
 //
-// The cache is explicit and single-version ('nk-v2'); old caches are
-// deleted on activate. Bump this version on every deploy that changes
-// the shell files, or returning visitors keep running the old cached
-// app.js/styles.css (seen live 2026-11-06: new index.html + old JS/CSS
-// from the nk-v1 cache, so card 2 used the old code and the share icon
-// did nothing). Nothing here overrides the page's own failover
-// chain — it only covers the case the page cannot run at all.
-const CACHE = 'nk-v2';
+// The cache is explicit and single-version ('nk-v3'); old caches are
+// deleted on activate. Bump this version on EVERY deploy that changes
+// any shell file (index.html, app.js, styles.css, sw.js itself), or
+// returning visitors keep running the old cached files: the worker
+// serves app.js/styles.css stale-while-revalidate from ITS cache, so
+// a deploy that only changes app.js never reaches a returning
+// visitor's page until the worker itself changes. (Seen live twice:
+// 2026-11-06 the Task-18 app.js ran stale under nk-v1, and the
+// reload fix ran stale under nk-v2 because only app.js changed.)
+const CACHE = 'nk-v3';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'favicon.svg', 'manifest.webmanifest', 'codes.json', 'codes-head.json'];
 const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',
