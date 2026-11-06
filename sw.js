@@ -32,7 +32,7 @@ const CHAIN = [
   'https://ausaimin10.github.io/nusukkeys-mirror/',
   'https://nusukkeys-mirror.netlify.app/',
   'https://nusukkeys-mirror.web.app/',
-  'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/'
+  'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/index.html'
 ];
 const OFFLINE_HTML = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NusukKeys — temporarily unavailable</title><style>body{margin:0;background:#0b261f;color:#e8f0e9;font-family:system-ui,sans-serif;text-align:center;padding:48px 20px}a{color:#f2b84b}</style></head><body><h1>NusukKeys</h1><p>This host is not reachable right now. Try a backup copy of the site:</p><p><a href="https://nusukkeys-mirror.pages.dev/">Backup mirror</a> &middot; <a href="https://nusukkeys-backup.pages.dev/">Second backup</a></p><p>Your used codes are saved in this browser, so they are not lost.</p></body></html>';
 
@@ -47,7 +47,10 @@ async function probeHost(url) {
   try {
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), 3000);
-    try { await fetch(url + 'codes-head.json', { mode: 'no-cors', signal: ctl.signal }); return true; }
+    // The chain entry is a page URL (a root, a subpath, or a file URL
+    // like the jsDelivr index.html): probe the code file next to it.
+    const base = url.endsWith('/') ? url : url.slice(0, url.lastIndexOf('/') + 1);
+    try { await fetch(base + 'codes-head.json', { mode: 'no-cors', signal: ctl.signal }); return true; }
     finally { clearTimeout(timer); }
   } catch (e) { return false; }
 }

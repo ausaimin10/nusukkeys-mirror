@@ -785,7 +785,7 @@ const FAILOVER_CHAIN = [
   'https://ausaimin10.github.io/nusukkeys-mirror/',
   'https://nusukkeys-mirror.netlify.app/',
   'https://nusukkeys-mirror.web.app/',
-  'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/'
+  'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/index.html'
 ];
 function failoverTried() {
   try { return new Set((new URLSearchParams(location.search).get('fo') || '').split(',').filter(Boolean)); }
@@ -825,7 +825,10 @@ async function probeHost(url) {
   try {
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), 3000);
-    try { await fetch(url + 'codes-head.json', { mode: 'no-cors', signal: ctl.signal }); return true; }
+    // The chain entry is a page URL (a root, a subpath, or a file URL
+    // like the jsDelivr index.html): probe the code file next to it.
+    const base = url.endsWith('/') ? url : url.slice(0, url.lastIndexOf('/') + 1);
+    try { await fetch(base + 'codes-head.json', { mode: 'no-cors', signal: ctl.signal }); return true; }
     finally { clearTimeout(timer); }
   } catch { return false; }
 }
