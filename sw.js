@@ -29,7 +29,9 @@ const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',
   'https://nusukkeys-mirror.pages.dev/',
   'https://nusukkeys-backup.pages.dev/',
-  'https://nusukkeys-mirror.web.app/'
+  'https://ausaimin10.github.io/nusukkeys-mirror/',
+  'https://nusukkeys-mirror.web.app/',
+  'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/'
 ];
 const OFFLINE_HTML = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NusukKeys — temporarily unavailable</title><style>body{margin:0;background:#0b261f;color:#e8f0e9;font-family:system-ui,sans-serif;text-align:center;padding:48px 20px}a{color:#f2b84b}</style></head><body><h1>NusukKeys</h1><p>This host is not reachable right now. Try a backup copy of the site:</p><p><a href="https://nusukkeys-mirror.pages.dev/">Backup mirror</a> &middot; <a href="https://nusukkeys-backup.pages.dev/">Second backup</a></p><p>Your used codes are saved in this browser, so they are not lost.</p></body></html>';
 
