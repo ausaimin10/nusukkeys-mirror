@@ -203,10 +203,12 @@ const state = {
   // Static-first code data: the whole public code list is loaded once
   // from /codes.json (browser + edge cached) and filtered here, so the
   // code list never reads the database. `usedIds` is this user's used
-  // set (from the session); `all` is the static list plus the delta
-  // (codes shared after the seed). When the static file cannot load,
-  // the frontend falls back to the server queue/list endpoints.
-  codes: { loaded: false, from: null, all: [], byId: new Map(), usedIds: new Set(), maxRid: -1 }
+  // set (from the session); `badIds` is codes reported dead by two
+  // different users (from the session, excluded for everyone); `all`
+  // is the static list plus the delta (codes shared after the seed).
+  // When the static file cannot load, the frontend falls back to the
+  // server queue/list endpoints.
+  codes: { loaded: false, from: null, all: [], byId: new Map(), usedIds: new Set(), badIds: new Set(), maxRid: -1 }
 };
 
 const t = (k) => (I18N[state.lang] || I18N.en)[k] ?? I18N.en[k];
@@ -419,9 +421,10 @@ function firstFirst(a, b) {
 }
 
 // All codes this user has not used, mandatory first code first.
+// Codes reported dead (badIds) are excluded for everyone.
 function remainingCodes() {
   return state.codes.all
-    .filter((c) => !state.codes.usedIds.has(c.id) && !isOwnCode(c))
+    .filter((c) => !state.codes.usedIds.has(c.id) && !state.codes.badIds.has(c.id) && !isOwnCode(c))
     .sort(firstFirst);
 }
 
@@ -438,8 +441,8 @@ function listPool() {
   const used = state.codes.usedIds;
   let pool = state.codes.all;
   if (filter === 'used') pool = pool.filter((c) => used.has(c.id));
-  else if (filter === 'all') { /* everything */ }
-  else pool = pool.filter((c) => !used.has(c.id) && !isOwnCode(c));
+  else if (filter === 'all') pool = pool.filter((c) => !state.codes.badIds.has(c.id));
+  else pool = pool.filter((c) => !used.has(c.id) && !state.codes.badIds.has(c.id) && !isOwnCode(c));
   if (needle) {
     pool = pool.filter((c) => {
       const code = String(c.code).toLowerCase();
@@ -484,7 +487,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v4').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v5').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -645,6 +648,21 @@ function loadLocalUsed() {
 function saveLocalUsed() {
   try { localStorage.setItem(LOCAL_USED_KEY, JSON.stringify([...state.codes.usedIds])); } catch {}
 }
+// Codes reported dead (badIds) are remembered in this browser too, so
+// they stay excluded even while the database is unreachable and no
+// session can return the list. Same pattern as the used set.
+const LOCAL_BAD_KEY = 'mk_bad_codes_v1';
+function loadLocalBad() {
+  try {
+    const raw = localStorage.getItem(LOCAL_BAD_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.filter((x) => typeof x === 'string') : [];
+  } catch { return []; }
+}
+function saveLocalBad() {
+  try { localStorage.setItem(LOCAL_BAD_KEY, JSON.stringify([...state.codes.badIds])); } catch {}
+}
 function markLocal(ids) {
   const set = new Set(ids);
   for (const id of set) state.codes.usedIds.add(id);
@@ -743,35 +761,34 @@ async function recordCopy(c, toastMsg) {
 // (Android) and Universal Link (iOS) for the Nusuk app, and this is the
 // same link format the app itself creates when a user shares a code:
 // p=27 is the Free Umrah Challenge, id= is the code. The link itself
-// is Nusuk's official referral format and is a verified App Link /
+// is Nusuk's official referral format and a verified App Link /
 // Universal Link (assetlinks.json lists com.moh.nusukapp with
-// handle_all_urls; apple-app-site-association lists /app*), so the OS
-// CAN open the app from it — but in practice the App Link does not
-// always fire from a web page: the /app landing page then loads in the
-// browser and its own script redirects to the Play Store even when
-// Nusuk is already installed (the page cannot know the app is there).
-// That is the Play Store symptom. So on Android the button opens an
-// intent:// URL that names the Nusuk package directly: Android opens
-// the installed app at once and hands it the same deep-link data
-// (p=27, id=code), never touching the landing page or the store; only
-// if the app is not installed does Chrome open the Play Store page
-// (browser_fallback_url). On iOS there is no intent:// equivalent —
-// the https URL IS the Universal Link, which iOS opens in the app
-// directly when it is installed (and falls back to the App Store via
-// the landing page when it is not). Desktop keeps the https URL.
-// The code is also copied to the clipboard first, in case the app
-// still needs a manual paste. The link must open synchronously inside
-// the click, or popup blockers stop it.
-const NUSUK_PACKAGE = 'com.moh.nusukapp';
-const NUSUK_PLAY_STORE = 'https://play.google.com/store/apps/details?id=' + NUSUK_PACKAGE;
+// handle_all_urls; apple-app-site-association lists /app*). It must be
+// opened by a REAL tap on a link element: the OS only hands the link
+// to the app (no browser page, no store, no prompt) when the user taps
+// a link. Opening it with window.open() does not fire the App Link —
+// the page loads in the browser and redirects to the Play Store even
+// when Nusuk is installed — and an intent:// URL opened with
+// window.open() shows Chrome's "Allow" prompt for the external app.
+// So openInNusukApp clicks a temporary anchor instead (same new-tab
+// behaviour as window.open, but a genuine link tap). If the app is
+// not installed, the link lands on Nusuk's own page, which redirects
+// Android to the Play Store and iOS to the App Store by itself. The
+// code is also copied to the clipboard first, in case the app still
+// needs a manual paste. The link must open synchronously inside the
+// click, or popup blockers stop it.
 const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code);
-function isAndroid() { return /Android/i.test(navigator.userAgent || ''); }
-function nusukOpenUrl(code) {
-  const link = NUSUK_DEEP_LINK(code);
-  if (!isAndroid()) return link;
-  return 'intent://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code) +
-    '#Intent;scheme=https;package=' + NUSUK_PACKAGE +
-    ';S.browser_fallback_url=' + encodeURIComponent(NUSUK_PLAY_STORE) + ';end';
+// Open a URL in a new tab by tapping a real link element, not by
+// window.open(): only a link tap fires the OS App Link / Universal
+// Link handling (opens the app directly, no prompt, no store page).
+function openLinkNewTab(url) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 // The code the visitor copied most recently in this tab: the
@@ -801,7 +818,7 @@ function openInNusukApp(c) {
   // the popup is allowed and the write keeps its user gesture.
   const alreadyRecorded = (state.lastCopied && state.lastCopied.id === c.id) || state.codes.usedIds.has(c.id);
   const clip = copyText(c.code);
-  window.open(nusukOpenUrl(c.code), '_blank', 'noopener');
+  openLinkNewTab(NUSUK_DEEP_LINK(c.code));
   clip.then((ok) => {
     if (!ok) { toast(c.code); return; }
     if (alreadyRecorded) toast(t('toastNusuk')(c.code));
@@ -1011,6 +1028,7 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
       state.me = { copied: savedUsed.length, copied_today: 0, remaining: Math.max(0, state.codes.all.length - savedUsed.length), total: state.codes.all.length, anon: true, mine: null };
       state.stats = { ...state.stats, codes: first.data.total || state.codes.all.length };
       state.codes.usedIds = new Set(savedUsed);
+      state.codes.badIds = new Set(loadLocalBad());
       state.queue = [];
       state.lastCopied = null;
       hideGate();
@@ -1044,6 +1062,8 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
   state.me = d.me;
   state.stats = d.stats;
   state.codes.usedIds = new Set(d.usedIds || []);
+  state.codes.badIds = new Set(d.badIds || []);
+  saveLocalBad();
   state.queue = [];
   state.lastCopied = null;
   hideGate();
