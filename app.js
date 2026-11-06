@@ -319,6 +319,7 @@ function renderAll() {
   renderMetrics();
   renderDispenser();
   renderGrid();
+  updateNusukLink();
   $('hero-total').textContent = fmt(state.stats.codes || state.me.total);
   if (state.key) {
     $('acct-label').textContent = state.me.anon ? 'Guest (No Key)' : state.key;
@@ -487,7 +488,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v5').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v6').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -764,32 +765,21 @@ async function recordCopy(c, toastMsg) {
 // is Nusuk's official referral format and a verified App Link /
 // Universal Link (assetlinks.json lists com.moh.nusukapp with
 // handle_all_urls; apple-app-site-association lists /app*). It must be
-// opened by a REAL tap on a link element: the OS only hands the link
-// to the app (no browser page, no store, no prompt) when the user taps
-// a link. Opening it with window.open() does not fire the App Link —
-// the page loads in the browser and redirects to the Play Store even
-// when Nusuk is installed — and an intent:// URL opened with
-// window.open() shows Chrome's "Allow" prompt for the external app.
-// So openInNusukApp clicks a temporary anchor instead (same new-tab
-// behaviour as window.open, but a genuine link tap). If the app is
-// not installed, the link lands on Nusuk's own page, which redirects
-// Android to the Play Store and iOS to the App Store by itself. The
-// code is also copied to the clipboard first, in case the app still
-// needs a manual paste. The link must open synchronously inside the
-// click, or popup blockers stop it.
+// opened by a REAL tap on a REAL link element in the page: the OS only
+// hands the link to the app (no browser page, no store, no prompt)
+// when the user taps a link directly. A synthetic click() on a
+// JS-created temporary anchor does NOT fire the App Link — Chrome
+// treats it as a script navigation, loads the URL in the browser, and
+// Nusuk's page redirects to the Play Store even when the app is
+// installed (that is the Play Store symptom). window.open() has the
+// same problem, and an intent:// URL shows Chrome's "Allow" prompt.
+// So card 2 IS a real <a> in the HTML (id nusuk-link); its href is
+// kept pointed at the copied code, and the user taps the card itself.
+// If the app is not installed, the link lands on Nusuk's own page,
+// which redirects Android to the Play Store and iOS to the App Store
+// by itself. The code is also copied to the clipboard first, in case
+// the app still needs a manual paste.
 const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code);
-// Open a URL in a new tab by tapping a real link element, not by
-// window.open(): only a link tap fires the OS App Link / Universal
-// Link handling (opens the app directly, no prompt, no store page).
-function openLinkNewTab(url) {
-  const a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
 
 // The code the visitor copied most recently in this tab: the
 // in-memory one if set, else the one remembered across a reload in
@@ -804,21 +794,37 @@ function lastCopiedCode() {
   return state.queue.find((x) => x.id === id) || null;
 }
 
-function openInNusukApp(c) {
-  if (!c) return;
+// Keep card 2's real link pointed at the code the visitor just copied
+// (or the next code if nothing is copied yet), so a direct tap on the
+// card opens the right code in the Nusuk app.
+function updateNusukLink() {
+  const a = $('nusuk-link');
+  if (!a) return;
+  const c = lastCopiedCode() || state.queue[0];
+  if (c) a.href = NUSUK_DEEP_LINK(c.code);
+  else a.removeAttribute('href');
+}
+
+// Card 2's tap: the browser follows the real link (that is what fires
+// the App Link). This handler only makes sure the clipboard holds the
+// code and the copy is recorded — it never navigates itself.
+function onNusukLinkClick(e) {
+  const c = lastCopiedCode() || state.queue[0];
+  if (!c) { e.preventDefault(); return; }
+  // Point the link at this exact code (it normally already is —
+  // updateNusukLink keeps it current — but a tap must never open a
+  // stale code).
+  $('nusuk-link').href = NUSUK_DEEP_LINK(c.code);
   // If this is a code the visitor already copied (this page load or an
   // earlier one — the used set survives reloads), it is already
   // recorded (counter, used set) — open it again without recording a
   // second copy, or the counter and the used set would count one
   // entry as two codes.
-  // Start the clipboard write while this page still has focus. Opening
-  // the new tab moves focus away, and a clipboard write started after
-  // that fails in real browsers — the copy, the counter and the toast
-  // then never happen. Both calls stay inside the click handler, so
-  // the popup is allowed and the write keeps its user gesture.
+  // Start the clipboard write while this page still has focus. The
+  // write is started inside the click, so it keeps its user gesture;
+  // the navigation happens after this handler returns.
   const alreadyRecorded = (state.lastCopied && state.lastCopied.id === c.id) || state.codes.usedIds.has(c.id);
   const clip = copyText(c.code);
-  openLinkNewTab(NUSUK_DEEP_LINK(c.code));
   clip.then((ok) => {
     if (!ok) { toast(c.code); return; }
     if (alreadyRecorded) toast(t('toastNusuk')(c.code));
@@ -1103,21 +1109,20 @@ function bind() {
   document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang)));
   $('btn-copy').addEventListener('click', () => state.queue[0] && copyCode(state.queue[0]));
   // Instruction cards: 1 copies the current code (same as the main
-  // button), 2 opens the code in the Nusuk app (deep link, with a
-  // store fallback) — the code the visitor just copied if there is
-  // one (kept across a reload, so Copy -> reload -> Open Nusuk still
-  // carries the copied code, not the next one) — 3 skips/reports the
-  // current code (same as Skip).
+  // button), 3 skips/reports the current code (same as Skip). Card 2
+  // is a real link in the HTML (id nusuk-link) — the user taps it
+  // directly, and the browser follows it; its handler below only
+  // copies/records the code and never navigates.
   document.querySelectorAll('[data-step]').forEach((el) => {
     const act = () => {
       const step = el.dataset.step;
       if (step === 'copy') { if (state.queue[0]) copyCode(state.queue[0]); }
-      else if (step === 'nusuk') { const c = lastCopiedCode() || state.queue[0]; if (c) openInNusukApp(c); }
       else if (step === 'skip') { skip(); }
     };
     el.addEventListener('click', act);
     el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); } });
   });
+  $('nusuk-link').addEventListener('click', onNusukLinkClick);
   $('btn-skip').addEventListener('click', skip);
   $('s-used').addEventListener('click', () => reportLast('already_used'));
   $('s-bad').addEventListener('click', () => reportLast('invalid'));

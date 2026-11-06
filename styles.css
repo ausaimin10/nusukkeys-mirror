@@ -249,6 +249,14 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .steps li:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .steps li.step-action { cursor: pointer; }
 .steps li.step-action:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* Card 2 is a real link, not a JS button: only a direct tap on a real
+   <a> fires the OS App Link / Universal Link (a synthetic click() on
+   a JS-created anchor does not — the browser loads the URL and
+   Nusuk's page sends the user to the Play Store). The link fills the
+   whole card so the entire card is the tap target. */
+#nusuk-step { padding: 0; }
+#nusuk-link { display: flex; gap: var(--sp-3); flex: 1; padding: var(--sp-4); color: inherit; text-decoration: none; border-radius: 16px; cursor: pointer; }
+#nusuk-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .steps b { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: rgba(242, 184, 75, 0.22); color: #8c6110; font-size: 0.8rem; }
 .steps strong { display: block; font-size: 0.88rem; }
 .steps span { font-size: 0.78rem; color: var(--ink-2); }
@@ -364,6 +372,7 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   /* Steps: one compact horizontal row, short labels only */
   .steps { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
   .steps li { flex-direction: column; gap: 6px; padding: 10px; }
+  #nusuk-link { flex-direction: column; gap: 6px; padding: 10px; }
   .steps li span { display: none; }
   .steps strong { font-size: 0.8rem; line-height: 1.25; }
   .steps b { width: 24px; height: 24px; font-size: 0.72rem; }
@@ -394,6 +403,7 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .disp-actions .btn-cta { flex: 1; min-width: 0; }
   .btn-ghost { padding: 13px 16px; }
   .steps li { padding: 8px; }
+  #nusuk-link { padding: 8px; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .chip { font-size: 0.78rem; padding: 11px 10px; }
   .controls input { flex-basis: 100%; }
