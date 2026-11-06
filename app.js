@@ -484,7 +484,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v3').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v4').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -742,17 +742,37 @@ async function recordCopy(c, toastMsg) {
 // Deep link into the Nusuk app. services.nusuk.sa is a verified App Link
 // (Android) and Universal Link (iOS) for the Nusuk app, and this is the
 // same link format the app itself creates when a user shares a code:
-// p=27 is the Free Umrah Challenge, id= is the code. If the app is
-// installed the OS opens it straight into the challenge with the code.
-// If it is not installed, the link lands on Nusuk's own page, which
-// redirects Android to the Play Store and iOS to the App Store by
-// itself on load — so this code needs no store fallback timer (and a
-// timer could not work anyway: opening a new tab hides this page, so
-// there is no signal for whether the app opened). The code is also
-// copied to the clipboard first, in case the app still needs a manual
-// paste. The link must open synchronously inside the click, or popup
-// blockers stop it.
+// p=27 is the Free Umrah Challenge, id= is the code. The link itself
+// is Nusuk's official referral format and is a verified App Link /
+// Universal Link (assetlinks.json lists com.moh.nusukapp with
+// handle_all_urls; apple-app-site-association lists /app*), so the OS
+// CAN open the app from it — but in practice the App Link does not
+// always fire from a web page: the /app landing page then loads in the
+// browser and its own script redirects to the Play Store even when
+// Nusuk is already installed (the page cannot know the app is there).
+// That is the Play Store symptom. So on Android the button opens an
+// intent:// URL that names the Nusuk package directly: Android opens
+// the installed app at once and hands it the same deep-link data
+// (p=27, id=code), never touching the landing page or the store; only
+// if the app is not installed does Chrome open the Play Store page
+// (browser_fallback_url). On iOS there is no intent:// equivalent —
+// the https URL IS the Universal Link, which iOS opens in the app
+// directly when it is installed (and falls back to the App Store via
+// the landing page when it is not). Desktop keeps the https URL.
+// The code is also copied to the clipboard first, in case the app
+// still needs a manual paste. The link must open synchronously inside
+// the click, or popup blockers stop it.
+const NUSUK_PACKAGE = 'com.moh.nusukapp';
+const NUSUK_PLAY_STORE = 'https://play.google.com/store/apps/details?id=' + NUSUK_PACKAGE;
 const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code);
+function isAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+function nusukOpenUrl(code) {
+  const link = NUSUK_DEEP_LINK(code);
+  if (!isAndroid()) return link;
+  return 'intent://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code) +
+    '#Intent;scheme=https;package=' + NUSUK_PACKAGE +
+    ';S.browser_fallback_url=' + encodeURIComponent(NUSUK_PLAY_STORE) + ';end';
+}
 
 // The code the visitor copied most recently in this tab: the
 // in-memory one if set, else the one remembered across a reload in
@@ -781,7 +801,7 @@ function openInNusukApp(c) {
   // the popup is allowed and the write keeps its user gesture.
   const alreadyRecorded = (state.lastCopied && state.lastCopied.id === c.id) || state.codes.usedIds.has(c.id);
   const clip = copyText(c.code);
-  window.open(NUSUK_DEEP_LINK(c.code), '_blank', 'noopener');
+  window.open(nusukOpenUrl(c.code), '_blank', 'noopener');
   clip.then((ok) => {
     if (!ok) { toast(c.code); return; }
     if (alreadyRecorded) toast(t('toastNusuk')(c.code));
