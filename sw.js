@@ -30,6 +30,7 @@ const CHAIN = [
   'https://nusukkeys-mirror.pages.dev/',
   'https://nusukkeys-backup.pages.dev/',
   'https://ausaimin10.github.io/nusukkeys-mirror/',
+  'https://nusukkeys-mirror.netlify.app/',
   'https://nusukkeys-mirror.web.app/',
   'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/'
 ];
