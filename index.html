@@ -58,6 +58,18 @@
   .share-btns { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
   .share-btn { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--ink); text-decoration:none; background:#0a1f18; border:1px solid var(--line); border-radius:99px; padding:7px 12px; }
   .share-btn:hover { border-color:var(--gold); }
+  .sponsor { background:var(--green2); border:1.5px solid rgba(242,184,75,.5); border-radius:14px; padding:22px 18px; margin:18px 0; text-align:center; }
+  .sponsor h2 { color:var(--gold); margin:8px 0; font-size:22px; }
+  .sponsor p { color:var(--ink); font-size:14px; margin:0 auto 6px; max-width:560px; }
+  .sponsor .sponsor-line2 { color:var(--gold); font-weight:700; margin-bottom:14px; }
+  .sponsor-dialog { position:fixed; inset:0; z-index:60; display:grid; place-items:center; padding:20px; background:rgba(7,22,18,.8); }
+  .sponsor-card { width:100%; max-width:440px; background:var(--green2); border:1.5px solid rgba(242,184,75,.45); border-radius:16px; padding:24px; }
+  .sponsor-card h2 { color:var(--gold); margin:0 0 10px; }
+  .sponsor-card p { color:var(--ink); font-size:14px; margin:0 0 10px; }
+  .sponsor-card p b { color:var(--gold); }
+  .sponsor-card .btn-gold { width:100%; display:block; text-align:center; text-decoration:none; margin-top:6px; }
+  .sponsor-card .link { display:block; margin:12px auto 0; background:none; border:0; color:var(--muted); font-size:14px; text-decoration:underline; cursor:pointer; }
+  .sponsor-card .hint { color:var(--muted); font-size:12px; display:block; text-align:center; margin-top:10px; }
   .share-btn .dot { width:8px; height:8px; border-radius:50%; }
   .dot.fb { background:#1877f2; } .dot.wa { background:#25d366; } .dot.tg { background:#229ed9; } .dot.x { background:#fff; } .dot.in { background:#0a66c2; }
   .expiry { margin-top:6px; }
@@ -114,6 +126,13 @@
   <div class="empty" id="empty" style="display:none">Nothing here yet.</div>
   <button class="btn-ghost more" id="btn-more" style="display:none">Load more</button>
 
+  <section class="sponsor" aria-label="Sponsor hosting">
+    <div aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f2b84b"/></svg></div>
+    <h2>Sponsor Hosting</h2>
+    <p>Your contribution goes directly towards upgrading the website's primary hosting server.</p>
+    <p class="sponsor-line2">A small contribution, a lasting benefit for the Ummah.</p>
+    <button type="button" class="btn-gold" id="btn-sponsor">Sponsor Hosting</button>
+  </section>
   <footer>Created by <a href="https://www.facebook.com/hasan.m1a" target="_blank" rel="noopener">Hasan Mahmud</a>.<br>Independent community tool. Not affiliated with Nusuk or the Ministry of Hajj and Umrah. We never ask for your login.<br>© Hasan Mahmud. All rights reserved.<br><span class="expiry">This page will remain active until December 20, 2026 (unless Nusuk changes the date of its Umrah campaign).</span></footer>
 </div>
 <div id="toasts"></div>
@@ -410,6 +429,30 @@
       navigator.serviceWorker.register('sw.js').catch(function () {});
     });
   }
+</script>
+<div id="sponsor-dialog" class="sponsor-dialog hidden" role="dialog" aria-modal="true">
+  <div class="sponsor-card">
+    <h2>Sponsor Hosting</h2>
+    <p>Your contribution goes directly towards upgrading the website's primary hosting server.</p>
+    <p><b>A small contribution, a lasting benefit for the Ummah.</b></p>
+    <p>This site runs on free hosting. A paid plan for the main server starts at about $5 a month and raises the limits. Every contribution goes to that upgrade, nothing else.</p>
+    <a class="btn-gold" href="mailto:ausaimin10@gmail.com?subject=Sponsor%20NusukKeys%20hosting">Email to sponsor</a>
+    <button type="button" class="link" id="sponsor-close">Close</button>
+    <span class="hint">Contributions are voluntary. No payment details are collected on this site.</span>
+  </div>
+</div>
+<script>
+  // Sponsor hosting dialog.
+  (function () {
+    var dlg = document.getElementById('sponsor-dialog');
+    var openBtn = document.getElementById('btn-sponsor');
+    var closeBtn = document.getElementById('sponsor-close');
+    if (!dlg || !openBtn) return;
+    openBtn.addEventListener('click', function () { dlg.classList.remove('hidden'); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { dlg.classList.add('hidden'); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.classList.add('hidden'); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') dlg.classList.add('hidden'); });
+  })();
 </script>
 </body>
 </html>
