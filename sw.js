@@ -24,7 +24,7 @@
 // deleted on activate. Nothing here overrides the page's own failover
 // chain — it only covers the case the page cannot run at all.
 const CACHE = 'nk-v1';
-const SHELL = ['/', '/index.html', '/codes.json', '/codes-head.json'];
+const SHELL = ['./', 'index.html', 'codes.json', 'codes-head.json'];
 const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',
   'https://nusukkeys-mirror.pages.dev/',
@@ -80,7 +80,7 @@ self.addEventListener('fetch', (event) => {
         putCache(event.request, res);
         return res;
       } catch (e) {
-        const cached = (await caches.match(event.request, { ignoreSearch: true })) || (await caches.match('/index.html'));
+        const cached = (await caches.match(event.request, { ignoreSearch: true })) || (await caches.match('index.html'));
         if (cached) return cached;
         for (const host of CHAIN) {
           if (new URL(host).hostname === self.location.hostname) continue;
@@ -92,7 +92,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (url.pathname === '/codes.json' || url.pathname === '/codes-head.json') {
+  if (url.pathname.endsWith('/codes.json') || url.pathname.endsWith('/codes-head.json')) {
     event.respondWith((async () => {
       try {
         const res = await fetchWithTimeout(event.request.url, 4000);
