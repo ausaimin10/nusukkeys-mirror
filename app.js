@@ -720,6 +720,11 @@ async function recordCopy(c, toastMsg) {
   setTimeout(() => $('d-code').classList.remove('pop'), 160);
 
   state.lastCopied = c;
+  // Remember the copied code for this tab even across a reload, so
+  // "Open in Nusuk" after a reload still opens the code the visitor
+  // copied (not the next one) — a reload clears the in-memory
+  // lastCopied, and without this the card would burn a second code.
+  try { sessionStorage.setItem('mk_last_copied', c.id); } catch {}
   state.me.copied++;
   state.me.copied_today = (state.me.copied_today || 0) + 1;
   state.me.remaining = Math.max(0, state.me.remaining - 1);
@@ -749,9 +754,23 @@ async function recordCopy(c, toastMsg) {
 // blockers stop it.
 const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code);
 
+// The code the visitor copied most recently in this tab: the
+// in-memory one if set, else the one remembered across a reload in
+// sessionStorage. Used by card 2 so Copy -> (reload) -> Open Nusuk
+// still opens the copied code.
+function lastCopiedCode() {
+  if (state.lastCopied) return state.lastCopied;
+  let id = null;
+  try { id = sessionStorage.getItem('mk_last_copied'); } catch {}
+  if (!id) return null;
+  if (state.codes.loaded && state.codes.byId && state.codes.byId.has(id)) return state.codes.byId.get(id);
+  return state.queue.find((x) => x.id === id) || null;
+}
+
 function openInNusukApp(c) {
   if (!c) return;
-  // If this is the code the visitor just copied, it is already
+  // If this is a code the visitor already copied (this page load or an
+  // earlier one — the used set survives reloads), it is already
   // recorded (counter, used set) — open it again without recording a
   // second copy, or the counter and the used set would count one
   // entry as two codes.
@@ -760,7 +779,7 @@ function openInNusukApp(c) {
   // that fails in real browsers — the copy, the counter and the toast
   // then never happen. Both calls stay inside the click handler, so
   // the popup is allowed and the write keeps its user gesture.
-  const alreadyRecorded = state.lastCopied && state.lastCopied.id === c.id;
+  const alreadyRecorded = (state.lastCopied && state.lastCopied.id === c.id) || state.codes.usedIds.has(c.id);
   const clip = copyText(c.code);
   window.open(NUSUK_DEEP_LINK(c.code), '_blank', 'noopener');
   clip.then((ok) => {
@@ -788,6 +807,7 @@ async function reportLast(reason) {
   const c = state.lastCopied;
   if (!c) return;
   state.lastCopied = null;
+  try { sessionStorage.removeItem('mk_last_copied'); } catch {}
   renderAll();
   await api('report', { id: c.id, reason });
   toast(reason === 'invalid' ? t('toastBad') : t('toastNoted'));
@@ -797,6 +817,7 @@ async function undoLast() {
   const c = state.lastCopied;
   if (!c) return;
   state.lastCopied = null;
+  try { sessionStorage.removeItem('mk_last_copied'); } catch {}
   state.me.copied = Math.max(0, state.me.copied - 1);
   state.me.copied_today = Math.max(0, (state.me.copied_today || 1) - 1);
   state.me.remaining++;
@@ -1044,13 +1065,14 @@ function bind() {
   // Instruction cards: 1 copies the current code (same as the main
   // button), 2 opens the code in the Nusuk app (deep link, with a
   // store fallback) — the code the visitor just copied if there is
-  // one, so Copy -> Open Nusuk always carries the copied code, not
-  // the next one — 3 skips/reports the current code (same as Skip).
+  // one (kept across a reload, so Copy -> reload -> Open Nusuk still
+  // carries the copied code, not the next one) — 3 skips/reports the
+  // current code (same as Skip).
   document.querySelectorAll('[data-step]').forEach((el) => {
     const act = () => {
       const step = el.dataset.step;
       if (step === 'copy') { if (state.queue[0]) copyCode(state.queue[0]); }
-      else if (step === 'nusuk') { const c = state.lastCopied || state.queue[0]; if (c) openInNusukApp(c); }
+      else if (step === 'nusuk') { const c = lastCopiedCode() || state.queue[0]; if (c) openInNusukApp(c); }
       else if (step === 'skip') { skip(); }
     };
     el.addEventListener('click', act);
