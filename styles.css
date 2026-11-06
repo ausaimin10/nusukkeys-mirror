@@ -95,6 +95,15 @@ body {
 .acct:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .acct-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); flex: none; }
 .acct-dot.warn { background: #f59e0b; }
+/* Header share icon: opens the share dialog (the five platforms) */
+.share-ico {
+  /* Mobile only: desktop keeps the share bar below the statistics. */
+  display: none;
+  flex: none; width: 38px; height: 38px; border-radius: 999px; place-items: center;
+  background: rgba(255, 255, 255, 0.75); border: 1px solid var(--line-gold); color: var(--ink-2); cursor: pointer;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.share-ico:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); color: var(--ink); }
 /* Creator credit — centred, just under the header. The name is a
    touch larger and in a deeper gold so it is clearly visible, while
    staying elegant and quiet next to the header. */
@@ -106,7 +115,8 @@ body {
    Playfair Display (SIL Open Font Licence) instead. */
 .credit a { font-family: 'Playfair Display', 'Bodoni Moda', Georgia, serif; font-size: 1.28rem; font-weight: 500; line-height: 1.4; color: #0a6b4e; letter-spacing: 0.01em; text-decoration: none; border-bottom: 1px solid rgba(10, 107, 78, 0.45); }
 .credit a:hover { color: #085c40; border-bottom-color: #085c40; }
-/* Share bar — compact row under the metrics, above the dispenser */
+/* Share buttons — desktop share bar (hidden on mobile, where the
+   header share icon opens the same links in a dialog instead) */
 .share-bar { text-align: center; margin: 0 0 var(--sp-4); padding: var(--sp-3) var(--sp-4); background: var(--surface); border: 1px solid var(--line-gold); border-radius: 14px; box-shadow: var(--shadow-sm); }
 .share-msg { font-size: 0.88rem; color: var(--ink-2); font-weight: 600; margin-bottom: var(--sp-2); }
 .share-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
@@ -338,10 +348,25 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .wrap { padding: 0 18px; }
   .top-in { gap: 10px; }
   .hero { padding: 18px 18px 20px; }
-  .metrics-bar { grid-template-columns: 1fr; }
-  .metric-card + .metric-card { border-inline-start: 0; border-top: 1px solid rgba(242, 184, 75, 0.22); }
-  .metric-card { padding: 10px 14px; min-height: 58px; }
-  .steps { grid-template-columns: 1fr; margin-bottom: 28px; }
+  /* Mobile only: the desktop share bar is replaced by the header
+     share icon, which opens the same links in a popup. */
+  .share-bar { display: none; }
+  .share-ico { display: grid; }
+  /* Mobile first screen: metrics stay in one compact 3-column row */
+  .metrics-bar { grid-template-columns: repeat(3, 1fr); }
+  .metric-card { flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 12px; min-height: 0; }
+  .metric-card + .metric-card { border-inline-start: 1px solid rgba(242, 184, 75, 0.22); }
+  .metric-ico { display: none; }
+  .metric-head { font-size: 0.6rem; }
+  .metric-val { flex-direction: column; align-items: flex-start; gap: 0; }
+  .metric-val strong { font-size: 1.15rem; }
+  .metric-val small { font-size: 0.62rem; white-space: normal; }
+  /* Steps: one compact horizontal row, short labels only */
+  .steps { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+  .steps li { flex-direction: column; gap: 6px; padding: 10px; }
+  .steps li span { display: none; }
+  .steps strong { font-size: 0.8rem; line-height: 1.25; }
+  .steps b { width: 24px; height: 24px; font-size: 0.72rem; }
   .dispenser { padding: 24px 22px 22px; border-radius: 22px; }
   .disp-kaaba-art { width: 240px; height: 210px; opacity: 0.65; }
   .disp-code { padding-inline-end: 80px; font-size: clamp(1.7rem, 7vw, 2.6rem); }
@@ -354,14 +379,21 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .top { padding-top: 16px; }
   .logo { font-size: 1rem; }
   .top-actions { width: 100%; justify-content: flex-start; }
-  .hero { padding: 16px; margin-bottom: 12px; }
-  .hero h1 { font-size: 1.65rem; }
-  .hero p { font-size: 0.92rem; }
-  .dispenser { padding: 22px 18px 20px; }
-  .disp-kaaba-art { width: 190px; height: 168px; opacity: 0.5; right: 0; top: 0; }
+  .acct { padding: 6px 10px; font-size: 0.78rem; }
+  .hero { padding: 12px 16px; margin-bottom: 10px; }
+  .hero-ornament { margin-bottom: 4px; }
+  .hero h1 { font-size: 1.45rem; }
+  .hero p { display: none; }
+  .credit { font-size: 0.8rem; }
+  .metric-card { padding: 8px; }
+  .dispenser { padding: 18px 16px 16px; }
+  .disp-kaaba-art { width: 130px; height: 114px; opacity: 0.35; right: 0; top: 0; }
   .disp-code { padding-inline-end: 0; font-size: clamp(1.55rem, 8.5vw, 2.1rem); }
-  .disp-actions { flex-direction: column; }
-  .btn-ghost { padding: 13px 22px; }
+  /* Copy + Skip stay side by side so the card stays short */
+  .disp-actions { flex-direction: row; margin-top: 14px; }
+  .disp-actions .btn-cta { flex: 1; min-width: 0; }
+  .btn-ghost { padding: 13px 16px; }
+  .steps li { padding: 8px; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .chip { font-size: 0.78rem; padding: 11px 10px; }
   .controls input { flex-basis: 100%; }

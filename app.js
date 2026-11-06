@@ -15,11 +15,13 @@ const I18N = {
     nextCode: 'Your next code', copyNext: 'Copy & show next', skip: 'Skip',
     copied: 'Copied', alreadyUsed: 'Already used', invalid: "Doesn't work", undo: 'Undo',
     s1t: 'Copy a code', s1d: 'Use the big button or tap any code below.',
-    s2t: 'Open in Nusuk app', s2d: 'Opens the challenge with this code.',
+    s2t: 'Open in Nusuk app', s2d: 'Start the challenge in the Nusuk app first, then tap here — the code should already be filled in. If not, just paste it.',
     s3t: 'Not accepted? Next.', s3d: "Mark it and we'll never show it again.",
     search: 'Search codes…', fRemaining: 'Remaining', fNew: 'Newly Added', fUsed: 'Used', fAll: 'All', more: 'Load more',
     addTitle: 'Have another code to share?', shareBtn: 'Share',
     shareMsg: 'Please share this for the benefit of the Ummah.',
+    shareTitle: 'Share NusukKeys',
+    shareClose: 'Close',
     sponsorTitle: 'Sponsor Hosting',
     sponsorLine1: "Your contribution goes directly towards upgrading the website's primary hosting server.",
     sponsorLine2: 'A small contribution, a lasting benefit for the Ummah.',
@@ -68,11 +70,13 @@ const I18N = {
     nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
     copied: 'কপি হয়েছে', alreadyUsed: 'আগে ব্যবহৃত', invalid: 'কাজ করছে না', undo: 'আনডু',
     s1t: 'কোড কপি করুন', s1d: 'বড় বাটন বা নিচের যেকোনো কোডে ট্যাপ করুন।',
-    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'এই কোডসহ চ্যালেঞ্জ খুলবে।',
+    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন।',
     s3t: 'কাজ না করলে পরেরটা', s3d: 'মার্ক করুন, আর কখনো দেখাব না।',
     search: 'কোড খুঁজুন…', fRemaining: 'বাকি', fNew: 'নতুন যুক্ত', fUsed: 'ব্যবহৃত', fAll: 'সব', more: 'আরও দেখুন',
     addTitle: 'আরেকটি কোড শেয়ার করবেন?', shareBtn: 'শেয়ার',
     shareMsg: 'Please share this for the benefit of the Ummah.',
+    shareTitle: 'NusukKeys শেয়ার করুন',
+    shareClose: 'বন্ধ করুন',
     sponsorTitle: 'হোস্টিং স্পনসর করুন',
     sponsorLine1: 'আপনার অবদান সরাসরি এই ওয়েবসাইটের প্রধান হোস্টিং সার্ভার আপগ্রেডের কাজে যাবে।',
     sponsorLine2: 'একটি ছোট অবদান, উম্মাহর জন্য স্থায়ী উপকার।',
@@ -121,11 +125,13 @@ const I18N = {
     nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
     copied: 'تم النسخ', alreadyUsed: 'مستخدم سابقًا', invalid: 'لا يعمل', undo: 'تراجع',
     s1t: 'انسخ كودًا', s1d: 'استخدم الزر الكبير أو اضغط أي كود بالأسفل.',
-    s2t: 'افتح في تطبيق نسك', s2d: 'يفتح التحدي بهذا الكود.',
+    s2t: 'افتح في تطبيق نسك', s2d: 'ابدأ التحدي في تطبيق نسك أولاً، ثم اضغط هنا — من المفترض أن يكون الكود مملوءًا بالفعل. إن لم يكن، الصقه فقط.',
     s3t: 'لم يُقبل؟ التالي.', s3d: 'علّمه ولن نعرضه لك مجددًا.',
     search: 'ابحث عن كود…', fRemaining: 'المتبقي', fNew: 'المضاف حديثًا', fUsed: 'المستخدم', fAll: 'الكل', more: 'عرض المزيد',
     addTitle: 'لديك كود آخر للمشاركة؟', shareBtn: 'مشاركة',
     shareMsg: 'Please share this for the benefit of the Ummah.',
+    shareTitle: 'شارك NusukKeys',
+    shareClose: 'إغلاق',
     sponsorTitle: 'ادعم الاستضافة',
     sponsorLine1: 'تذهب مساهمتك مباشرة إلى ترقية خادم الاستضافة الرئيسي للموقع.',
     sponsorLine2: 'مساهمة صغيرة، وفائدة دائمة للأمة.',
@@ -455,6 +461,9 @@ function listPool() {
 // Returns {data, isHead} or null when no source answered at all
 // (then the caller falls back to the server queue/list endpoints).
 const CODES_HOSTS = ['.', 'https://nusukkeys-cu9.pages.dev', 'https://nusukkeys-mirror.pages.dev', 'https://nusukkeys-backup.pages.dev', 'https://ausaimin10.github.io/nusukkeys-mirror', 'https://nusukkeys-mirror.netlify.app', 'https://nusukkeys-mirror.web.app', 'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main'];
+// The primary host holds the only database; static mirrors fetch their
+// live visitor numbers from it (the API allows any origin).
+const PRIMARY_ORIGIN = 'https://nusukkeys-cu9.pages.dev';
 async function fetchWithTimeout(url, ms) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), ms);
@@ -532,6 +541,46 @@ function applyCodes(data, delta) {
 async function loadStats() {
   const d = await api('stats');
   if (d.ok) { state.me = d.me; state.stats = d.stats; renderAll(); }
+}
+
+// Cross-origin call to the primary host's API, for pages served by a
+// static mirror (which has no database of its own).
+async function apiPrimary(path, payload = {}) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 10000);
+  try {
+    const res = await fetch(PRIMARY_ORIGIN + '/api/' + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: state.key, fp: fingerprint(), ...payload }),
+      signal: ctl.signal,
+    });
+    return await res.json();
+  } catch { return { ok: false, error: 'network' }; }
+  finally { clearTimeout(timer); }
+}
+
+let primaryStatsTimer = null;
+// Local mode (static mirror, or the database briefly unreachable):
+// register this visitor on the primary host so the "active now"
+// number is real here too, and refresh the live numbers every 30s.
+// Only state.stats is ever replaced — the local copy counts (which
+// the server cannot see in this mode) are never overwritten.
+async function startPrimaryStats() {
+  if (primaryStatsTimer) return;
+  const poll = async () => {
+    if (document.visibilityState !== 'visible') return;
+    if (!state.key) {
+      const saved = readCookie() || localStorage.getItem('mk_key');
+      const s = await apiPrimary('session', saved ? { key: saved } : { anon: true });
+      if (s.ok && s.me && s.me.key) { persistKey(s.me.key); state.key = s.me.key; state.stats = s.stats; renderAll(); }
+      return;
+    }
+    const d = await apiPrimary('stats', {});
+    if (d.ok && d.stats) { state.stats = d.stats; renderAll(); }
+  };
+  await poll();
+  primaryStatsTimer = setInterval(poll, 30000);
 }
 
 async function refillQueue() {
@@ -648,11 +697,19 @@ function buildShareLinks() {
   const u = encodeURIComponent(url);
   const tx = encodeURIComponent(text + ' ' + url);
   const set = (id, href) => { const el = $(id); if (el) el.href = href; };
-  set('share-fb', 'https://www.facebook.com/sharer/sharer.php?u=' + u);
-  set('share-wa', 'https://wa.me/?text=' + tx);
-  set('share-tg', 'https://t.me/share/url?url=' + u + '&text=' + encodeURIComponent(text));
-  set('share-x', 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + u);
-  set('share-in', 'https://www.linkedin.com/sharing/share-offsite/?url=' + u);
+  // Two surfaces share the same five links: the desktop share bar
+  // (share-*) and the mobile share dialog (share-d-*).
+  const links = {
+    fb: 'https://www.facebook.com/sharer/sharer.php?u=' + u,
+    wa: 'https://wa.me/?text=' + tx,
+    tg: 'https://t.me/share/url?url=' + u + '&text=' + encodeURIComponent(text),
+    x: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + u,
+    in: 'https://www.linkedin.com/sharing/share-offsite/?url=' + u,
+  };
+  for (const [k, href] of Object.entries(links)) {
+    set('share-' + k, href);
+    set('share-d-' + k, href);
+  }
 }
 
 // Records a copy once the clipboard write succeeded: toast, counts,
@@ -694,16 +751,22 @@ const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + enc
 
 function openInNusukApp(c) {
   if (!c) return;
+  // If this is the code the visitor just copied, it is already
+  // recorded (counter, used set) — open it again without recording a
+  // second copy, or the counter and the used set would count one
+  // entry as two codes.
   // Start the clipboard write while this page still has focus. Opening
   // the new tab moves focus away, and a clipboard write started after
   // that fails in real browsers — the copy, the counter and the toast
   // then never happen. Both calls stay inside the click handler, so
   // the popup is allowed and the write keeps its user gesture.
+  const alreadyRecorded = state.lastCopied && state.lastCopied.id === c.id;
   const clip = copyText(c.code);
   window.open(NUSUK_DEEP_LINK(c.code), '_blank', 'noopener');
   clip.then((ok) => {
-    if (ok) recordCopy(c, (code) => t('toastNusuk')(code));
-    else toast(c.code);
+    if (!ok) { toast(c.code); return; }
+    if (alreadyRecorded) toast(t('toastNusuk')(c.code));
+    else recordCopy(c, (code) => t('toastNusuk')(code));
   });
 }
 
@@ -901,6 +964,9 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
       // one-time-per-user rule holds across reloads and host switches.
       const savedUsed = loadLocalUsed();
       state.key = null;
+      // Remember the key the visitor just entered (or the saved one),
+      // so the primary host can use the same identity for live stats.
+      if (key) persistKey(key);
       state.me = { copied: savedUsed.length, copied_today: 0, remaining: Math.max(0, state.codes.all.length - savedUsed.length), total: state.codes.all.length, anon: true, mine: null };
       state.stats = { ...state.stats, codes: first.data.total || state.codes.all.length };
       state.codes.usedIds = new Set(savedUsed);
@@ -912,6 +978,9 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
       cancelFailover();
       cleanFailoverMarker();
       try { localStorage.setItem('mk_last_good', location.hostname); } catch {}
+      // No database on this host: fetch the live visitor numbers from
+      // the primary host instead, so "active now" is real here too.
+      startPrimaryStats();
       if (first.isHead) {
         fetchFullCodesJson().then((full) => {
           if (!full) return;
@@ -973,14 +1042,15 @@ function bind() {
   document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang)));
   $('btn-copy').addEventListener('click', () => state.queue[0] && copyCode(state.queue[0]));
   // Instruction cards: 1 copies the current code (same as the main
-  // button), 2 copies the current code and opens it in the Nusuk app
-  // (deep link, with a store fallback), 3 skips/reports the current
-  // code (same as Skip).
+  // button), 2 opens the code in the Nusuk app (deep link, with a
+  // store fallback) — the code the visitor just copied if there is
+  // one, so Copy -> Open Nusuk always carries the copied code, not
+  // the next one — 3 skips/reports the current code (same as Skip).
   document.querySelectorAll('[data-step]').forEach((el) => {
     const act = () => {
       const step = el.dataset.step;
       if (step === 'copy') { if (state.queue[0]) copyCode(state.queue[0]); }
-      else if (step === 'nusuk') { if (state.queue[0]) openInNusukApp(state.queue[0]); }
+      else if (step === 'nusuk') { const c = state.lastCopied || state.queue[0]; if (c) openInNusukApp(c); }
       else if (step === 'skip') { skip(); }
     };
     el.addEventListener('click', act);
@@ -995,7 +1065,10 @@ function bind() {
   $('btn-sponsor').addEventListener('click', () => $('sponsor-dialog').classList.remove('hidden'));
   $('sponsor-close').addEventListener('click', () => $('sponsor-dialog').classList.add('hidden'));
   $('sponsor-dialog').addEventListener('click', (e) => { if (e.target === $('sponsor-dialog')) $('sponsor-dialog').classList.add('hidden'); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('sponsor-dialog').classList.add('hidden'); });
+  $('btn-share').addEventListener('click', () => { buildShareLinks(); $('share-dialog').classList.remove('hidden'); });
+  $('share-close').addEventListener('click', () => $('share-dialog').classList.add('hidden'));
+  $('share-dialog').addEventListener('click', (e) => { if (e.target === $('share-dialog')) $('share-dialog').classList.add('hidden'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { $('sponsor-dialog').classList.add('hidden'); $('share-dialog').classList.add('hidden'); } });
   $('btn-more').addEventListener('click', () => loadList(false));
 
   // Top horizontal guest warning button opens the Key Gate to let the user enter their NG- key
@@ -1102,10 +1175,14 @@ async function boot() {
   state.key = saved;
   const d = await startSession({ key: saved });
   if (!d.ok && d.error !== 'network') { forgetKey(); showGate(); }
-  // Periodically refresh real visitor & copy stats every 60s
+  // Periodically refresh real visitor & copy stats every 30s, and
+  // immediately when the tab comes back into view.
   setInterval(() => {
     if (document.visibilityState === 'visible' && state.key) loadStats();
-  }, 60000);
+  }, 30000);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && state.key) loadStats();
+  });
 }
 
 boot();

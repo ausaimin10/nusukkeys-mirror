@@ -330,6 +330,9 @@
         <button type="button" id="acct" class="acct hidden" title="Switch key">
           <span class="acct-dot" id="acct-dot"></span><span id="acct-label">NG-••••••••</span>
         </button>
+        <button type="button" id="btn-share" class="share-ico" title="Share" aria-label="Share NusukKeys">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+        </button>
       </div>
     </div>
   </header>
@@ -380,7 +383,8 @@
       </div>
     </section>
 
-    <!-- Share the site — compact, top of the page -->
+    <!-- Share the site — desktop only (on mobile the header share
+         icon opens the same links in a popup instead) -->
     <section class="share-bar" aria-label="Share NusukKeys">
       <p class="share-msg" data-i18n="shareMsg">Please share this for the benefit of the Ummah.</p>
       <div class="share-btns">
@@ -562,6 +566,22 @@
       <a class="btn-cta full sponsor-mail" href="mailto:ausaimin10@gmail.com?subject=Sponsor%20NusukKeys%20hosting" data-i18n="sponsorEmail">Email to sponsor</a>
       <button type="button" class="link" id="sponsor-close" data-i18n="sponsorClose">Close</button>
       <small class="hint" data-i18n="sponsorHint">Contributions are voluntary. No payment details are collected on this site.</small>
+    </div>
+  </div>
+
+  <!-- Share dialog: the five platforms, from the header share icon -->
+  <div class="gate hidden" id="share-dialog" role="dialog" aria-modal="true" aria-labelledby="share-dialog-title">
+    <div class="gate-card">
+      <h2 id="share-dialog-title" data-i18n="shareTitle">Share NusukKeys</h2>
+      <p data-i18n="shareMsg">Please share this for the benefit of the Ummah.</p>
+      <div class="share-btns">
+        <a id="share-d-fb" class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot fb" aria-hidden="true"></span>Facebook</a>
+        <a id="share-d-wa" class="share-btn" href="https://wa.me/?text=NusukKeys%20%E2%80%94%2013%2C721%20Nusuk%20referral%20codes.%20Copy%20one%2C%20get%20a%20key.%20https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot wa" aria-hidden="true"></span>WhatsApp</a>
+        <a id="share-d-tg" class="share-btn" href="https://t.me/share/url?url=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F&amp;text=NusukKeys%20%E2%80%94%2013%2C721%20Nusuk%20referral%20codes." target="_blank" rel="noopener"><span class="dot tg" aria-hidden="true"></span>Telegram</a>
+        <a id="share-d-x" class="share-btn" href="https://twitter.com/intent/tweet?text=NusukKeys%20%E2%80%94%2013%2C721%20Nusuk%20referral%20codes.&amp;url=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot x" aria-hidden="true"></span>X</a>
+        <a id="share-d-in" class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot in" aria-hidden="true"></span>LinkedIn</a>
+      </div>
+      <button type="button" class="link" id="share-close" data-i18n="shareClose">Close</button>
     </div>
   </div>
 
