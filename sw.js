@@ -20,10 +20,14 @@
 //    serves a small offline page with the mirror links instead of a
 //    browser error page.
 //
-// The cache is explicit and single-version ('nk-v1'); old caches are
-// deleted on activate. Nothing here overrides the page's own failover
+// The cache is explicit and single-version ('nk-v2'); old caches are
+// deleted on activate. Bump this version on every deploy that changes
+// the shell files, or returning visitors keep running the old cached
+// app.js/styles.css (seen live 2026-11-06: new index.html + old JS/CSS
+// from the nk-v1 cache, so card 2 used the old code and the share icon
+// did nothing). Nothing here overrides the page's own failover
 // chain — it only covers the case the page cannot run at all.
-const CACHE = 'nk-v1';
+const CACHE = 'nk-v2';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'favicon.svg', 'manifest.webmanifest', 'codes.json', 'codes-head.json'];
 const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',

@@ -593,7 +593,22 @@
     // this host is completely unreachable. It never touches /api/*.
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () {});
+        // Remember whether a worker already controls this page: on a
+        // first visit there is none, on a return visit the old worker
+        // is still in charge and the new one is an update.
+        var hadController = !!navigator.serviceWorker.controller;
+        navigator.serviceWorker.register('sw.js').then(function (reg) {
+          reg.addEventListener('updatefound', function () {
+            var nw = reg.installing;
+            if (!nw) return;
+            nw.addEventListener('statechange', function () {
+              // A new worker took over while the old one controlled
+              // this page: reload once so the page runs the new code
+              // instead of the old worker's cached files.
+              if (nw.state === 'activated' && hadController) location.reload();
+            });
+          });
+        }).catch(function () {});
       });
     }
   </script>

@@ -1,11 +1,15 @@
-# Cloudflare Pages custom headers.
-# codes.json / codes-head.json are the immutable seed (new codes arrive
-# via the API delta, never by editing these files), so a long cache is
-# safe and keeps repeat loads fast. Access-Control-Allow-Origin: * lets
-# a mirror on another host fetch this host's code list when its own
-# copy fails — one more cross-provider fallback layer. Every other file
-# keeps the default no-store behaviour (the local server also sends
-# no-store) so a cached index.html can never mix with a newer app.js.
+# The shell files (page, code, style, worker) must never be served
+# stale: the worker itself is the cache, and a cached sw.js would keep
+# an old worker (and its old cached files) alive after a deploy. no-cache
+# makes the browser revalidate them on every load.
+/sw.js
+  Cache-Control: no-cache
+/app.js
+  Cache-Control: no-cache
+/styles.css
+  Cache-Control: no-cache
+/
+  Cache-Control: no-cache
 /codes.json
   Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
