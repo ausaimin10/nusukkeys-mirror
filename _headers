@@ -1,0 +1,10 @@
+# Cloudflare Pages custom headers for the static mirror.
+# codes.json / codes-head.json are the immutable seed, so a long cache
+# is safe. Access-Control-Allow-Origin: * lets the main site (or
+# another mirror) fetch this host's code list when its own copy fails.
+/codes.json
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *
+/codes-head.json
+  Cache-Control: public, max-age=86400
+  Access-Control-Allow-Origin: *

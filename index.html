@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NusukKeys — Backup Mirror</title>
+<meta name="description" content="Backup mirror of NusukKeys: copy a Nusuk referral code. Read-only; your used codes are saved only in this browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --green:#0b261f; --green2:#103228; --gold:#f2b84b; --gold2:#d99a2b; --ink:#e8f0e9; --muted:#9db8a8; --line:#1e463a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--green); color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  a { color:var(--gold); }
+  .wrap { max-width:920px; margin:0 auto; padding:20px 16px 48px; }
+  header { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  h1 { margin:0; font-size:26px; }
+  h1 span { color:var(--gold); }
+  .note { background:var(--green2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; color:var(--muted); font-size:14px; margin:14px 0; }
+  .note b { color:var(--gold); }
+  .card { background:var(--green2); border:1px solid var(--line); border-radius:14px; padding:18px; margin:14px 0; }
+  .d-code { font-size:34px; letter-spacing:1px; font-weight:700; direction:ltr; }
+  .d-code .pre { color:var(--gold); }
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  button { cursor:pointer; border:0; border-radius:10px; padding:12px 18px; font-size:16px; font-weight:600; }
+  .btn-gold { background:var(--gold); color:#241a05; }
+  .btn-gold:hover { background:var(--gold2); }
+  .btn-ghost { background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .btn-ghost:hover { border-color:var(--gold); }
+  .btn-gold:disabled, .btn-ghost:disabled { opacity:.45; cursor:default; }
+  .stats { color:var(--muted); font-size:14px; margin-top:10px; }
+  .stats b { color:var(--ink); }
+  .bar { height:8px; background:#0a1f18; border-radius:99px; overflow:hidden; margin-top:12px; }
+  .bar > div { height:100%; background:var(--gold); width:0; }
+  .tools { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:6px 0 12px; }
+  .tools input[type="search"] { flex:1; min-width:180px; background:#0a1f18; border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:11px 12px; font-size:15px; }
+  .filters { display:flex; gap:8px; flex-wrap:wrap; }
+  .filters button { padding:9px 13px; font-size:14px; border-radius:99px; background:transparent; color:var(--muted); border:1px solid var(--line); }
+  .filters button.active { background:var(--gold); color:#241a05; border-color:var(--gold); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .chip { display:flex; justify-content:space-between; align-items:center; gap:8px; background:#0a1f18; border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:12px; font-size:15px; font-weight:600; direction:ltr; text-align:left; }
+  .chip:hover { border-color:var(--gold); }
+  .chip.used { opacity:.55; }
+  .chip .pre { color:var(--gold); }
+  .chip .tag { font-size:11px; color:var(--gold); font-weight:700; }
+  .empty { color:var(--muted); padding:18px 0; }
+  .more { margin-top:14px; }
+  #toasts { position:fixed; left:50%; bottom:18px; transform:translateX(-50%); display:flex; flex-direction:column; gap:8px; z-index:50; }
+  .toast { background:#123b2e; border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:10px 14px; font-size:14px; box-shadow:0 6px 24px rgba(0,0,0,.35); }
+  footer { color:var(--muted); font-size:13px; margin-top:26px; }
+  footer a { font-family:'Playfair Display','Bodoni Moda',Georgia,serif; font-weight:500; font-size:1.25rem; }
+  .strip { display:none; margin-top:12px; font-size:14px; color:var(--muted); }
+  .strip.show { display:block; }
+  .strip button { padding:6px 10px; font-size:13px; margin-left:8px; }
+  .share-bar { background:var(--green2); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:14px 0; text-align:center; }
+  .share-bar p { margin:0 0 10px; color:var(--ink); font-size:14px; }
+  .share-btns { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+  .share-btn { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--ink); text-decoration:none; background:#0a1f18; border:1px solid var(--line); border-radius:99px; padding:7px 12px; }
+  .share-btn:hover { border-color:var(--gold); }
+  .share-btn .dot { width:8px; height:8px; border-radius:50%; }
+  .dot.fb { background:#1877f2; } .dot.wa { background:#25d366; } .dot.tg { background:#229ed9; } .dot.x { background:#fff; } .dot.in { background:#0a66c2; }
+  .expiry { margin-top:6px; }
+  .hidden { display:none !important; }
+  .failover { background:var(--gold); color:#241a05; border-radius:10px; padding:10px 12px; font-size:14px; font-weight:600; margin:14px 0; text-align:center; }
+  .failover button { padding:6px 12px; font-size:13px; margin-left:8px; background:#241a05; color:var(--gold); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Nusuk<span>Keys</span></h1>
+    <span style="color:var(--muted)">Backup mirror</span>
+  </header>
+  <div class="note"><b>Read-only backup.</b> This mirror works with no server at all: the code list is a static file, and the codes you use are remembered only in this browser (localStorage). If the main site is up, use it instead — it saves your used codes across devices. Main site: <a href="https://nusukkeys-cu9.pages.dev/">nusukkeys-cu9.pages.dev</a> · Second backup: <a href="https://nusukkeys-backup.pages.dev/">nusukkeys-backup.pages.dev</a></div>
+  <div id="failover" class="failover hidden" role="alert">This backup could not load its code list. <span id="failover-count"></span> <button id="failover-stay" type="button">Stay here</button></div>
+
+  <div class="card">
+    <div style="color:var(--muted);font-size:14px">Your next code</div>
+    <div class="d-code" id="d-code"><span class="pre">NG-</span>••••••••</div>
+    <div class="stats" id="d-stats">Loading…</div>
+    <div class="bar"><div id="d-bar"></div></div>
+    <div class="row">
+      <button class="btn-gold" id="btn-copy" disabled>Copy &amp; show next</button>
+      <button class="btn-ghost" id="btn-nusuk" disabled>Open in Nusuk app</button>
+      <button class="btn-ghost" id="btn-skip" disabled>Skip</button>
+    </div>
+    <div class="strip" id="strip">Copied <b id="strip-code"></b>
+      <button class="btn-ghost" id="s-undo">Undo</button>
+    </div>
+  </div>
+
+  <div class="share-bar">
+    <p>Please share this for the benefit of the Ummah.</p>
+    <div class="share-btns">
+      <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot fb"></span>Facebook</a>
+      <a class="share-btn" href="https://wa.me/?text=NusukKeys%20%E2%80%94%2013%2C721%20Nusuk%20referral%20codes.%20https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot wa"></span>WhatsApp</a>
+      <a class="share-btn" href="https://t.me/share/url?url=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F&amp;text=NusukKeys%20%E2%80%94%2013%2C721%20Nusuk%20referral%20codes." target="_blank" rel="noopener"><span class="dot tg"></span>Telegram</a>
+      <a class="share-btn" href="https://twitter.com/intent/tweet?text=NusukKeys%20%E2%80%94%2013%2C721%20Nusuk%20referral%20codes.&amp;url=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot x"></span>X</a>
+      <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fnusukkeys-cu9.pages.dev%2F" target="_blank" rel="noopener"><span class="dot in"></span>LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="tools">
+    <input type="search" id="q" placeholder="Search codes…" autocomplete="off">
+    <div class="filters" id="filters">
+      <button data-f="remaining" class="active">Remaining</button>
+      <button data-f="new">Newly Added</button>
+      <button data-f="used">Used</button>
+      <button data-f="all">All</button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">Nothing here yet.</div>
+  <button class="btn-ghost more" id="btn-more" style="display:none">Load more</button>
+
+  <footer>Created by <a href="https://www.facebook.com/hasan.m1a" target="_blank" rel="noopener">Hasan Mahmud</a>.<br>Independent community tool. Not affiliated with Nusuk or the Ministry of Hajj and Umrah. We never ask for your login.<br>© Hasan Mahmud. All rights reserved.<br><span class="expiry">This page will remain active until December 20, 2026 (unless Nusuk changes the date of its Umrah campaign).</span></footer>
+</div>
+<div id="toasts"></div>
+<script>
+(function () {
+  var LS_KEY = 'mk_mirror_used_v1';
+  var usedIds = new Set();
+  try { (JSON.parse(localStorage.getItem(LS_KEY) || '[]') || []).forEach(function (id) { usedIds.add(id); }); } catch (e) {}
+  function saveUsed() { try { localStorage.setItem(LS_KEY, JSON.stringify(Array.from(usedIds))); } catch (e) {} }
+
+  var all = [], byId = new Map(), filter = 'remaining', q = '', shown = 60, lastCopied = null, queue = [];
+  var totalCount = 0; // true total from the head/full file (all.length is only 400 until the full list arrives)
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var fmt = function (n) { return Number(n || 0).toLocaleString('en'); };
+  var NUSUK_DEEP_LINK = function (code) { return 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code); };
+
+  function fromCompact(o) {
+    return { id: o.i, code: o.c, rid: o.r, device_id: o.d || 'community-import', name: o.n || '', copies: o.p || 0 };
+  }
+  var FIRST_CODE = 'NG-0GjkSPjM';
+  function firstFirst(a, b) {
+    var af = String(a.code) === FIRST_CODE ? 0 : 1, bf = String(b.code) === FIRST_CODE ? 0 : 1;
+    if (af !== bf) return af - bf;
+    return a.rid - b.rid;
+  }
+  function remaining() { return all.filter(function (c) { return !usedIds.has(c.id); }).sort(firstFirst); }
+  function refreshQueue() { queue = remaining().slice(0, 40); }
+  function pool() {
+    var needle = String(q || '').trim().toLowerCase().replace(/^ng-/, '');
+    var p = all;
+    if (filter === 'used') p = p.filter(function (c) { return usedIds.has(c.id); });
+    else if (filter === 'all') { /* everything */ }
+    else p = p.filter(function (c) { return !usedIds.has(c.id); });
+    if (needle) p = p.filter(function (c) { var code = String(c.code).toLowerCase(); return code.indexOf(needle) !== -1 || code.replace(/^ng-/, '').indexOf(needle) !== -1; });
+    p = p.slice();
+    p.sort(function (a, b) { return filter === 'new' ? b.rid - a.rid : (filter === 'remaining' ? firstFirst(a, b) : a.rid - b.rid); });
+    return p;
+  }
+  function toast(msg) {
+    var el = document.createElement('div'); el.className = 'toast'; el.textContent = msg;
+    $('toasts').appendChild(el);
+    setTimeout(function () { el.style.opacity = '0'; el.style.transition = 'opacity .2s'; setTimeout(function () { el.remove(); }, 220); }, 2200);
+  }
+  async function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) { try { await navigator.clipboard.writeText(text); return true; } catch (e) {} }
+    var ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    ta.remove(); return ok;
+  }
+  function render() {
+    var c = queue[0];
+    var total = totalCount || all.length, copied = usedIds.size, rem = Math.max(0, total - copied);
+    var done = total > 0 ? Math.round((copied / total) * 100) : 0;
+    $('d-bar').style.width = done + '%';
+    $('d-stats').innerHTML = 'You copied <b>' + fmt(copied) + '</b> · Remaining <b>' + fmt(rem) + '</b> · Total <b>' + fmt(total) + '</b>';
+    $('btn-copy').disabled = !c; $('btn-nusuk').disabled = !c; $('btn-skip').disabled = !c;
+    if (c) {
+      $('d-code').innerHTML = '<span class="pre">NG-</span>' + esc(c.code.slice(3));
+    } else {
+      $('d-code').innerHTML = '<span class="pre">NG-</span>••••••••';
+    }
+    if (lastCopied) { $('strip').classList.add('show'); $('strip-code').textContent = lastCopied.code; }
+    else { $('strip').classList.remove('show'); }
+    var p = pool();
+    var items = p.slice(0, shown);
+    var grid = $('grid');
+    if (!items.length) { grid.innerHTML = ''; $('empty').style.display = 'block'; }
+    else {
+      $('empty').style.display = 'none';
+      grid.innerHTML = items.map(function (cc) {
+        var isNew = cc.device_id && cc.device_id !== 'community-import';
+        var isUsed = usedIds.has(cc.id);
+        return '<button type="button" class="chip' + (isUsed ? ' used' : '') + '" data-id="' + esc(cc.id) + '" data-code="' + esc(cc.code) + '">' +
+          '<span><span class="pre">NG-</span>' + esc(cc.code.slice(3)) + '</span>' +
+          '<span class="chip-right">' + (isNew ? '<span class="tag">NEW</span> ' : '') + (isUsed ? '✓' : '⧉') + '</span></button>';
+      }).join('');
+    }
+    $('btn-more').style.display = p.length > shown ? '' : 'none';
+  }
+  function markUsed(id) { usedIds.add(id); saveUsed(); refreshQueue(); render(); }
+  async function recordCopy(c, msg) {
+    toast(msg || ('Copied ' + c.code + '. Paste it in Nusuk'));
+    lastCopied = c;
+    markUsed(c.id);
+  }
+  async function copyCode(c) {
+    if (!c) return;
+    if (await copyText(c.code)) recordCopy(c);
+    else toast(c.code);
+  }
+  function openInNusukApp(c) {
+    if (!c) return;
+    var clip = copyText(c.code);
+    window.open(NUSUK_DEEP_LINK(c.code), '_blank', 'noopener');
+    clip.then(function (ok) { if (ok) recordCopy(c, 'Opening Nusuk app — ' + c.code + ' copied, paste it there if needed'); else toast(c.code); });
+  }
+  function skip() {
+    var c = queue.shift();
+    if (!c) return;
+    markUsed(c.id);
+  }
+  function undoLast() {
+    var c = lastCopied;
+    if (!c) return;
+    lastCopied = null;
+    usedIds.delete(c.id); saveUsed();
+    refreshQueue();
+    queue = [c].concat(queue.filter(function (x) { return x.id !== c.id; }));
+    render();
+    toast('Undone');
+  }
+
+  $('btn-copy').addEventListener('click', function () { if (queue[0]) copyCode(queue[0]); });
+  $('btn-nusuk').addEventListener('click', function () { if (queue[0]) openInNusukApp(queue[0]); });
+  $('btn-skip').addEventListener('click', skip);
+  $('s-undo').addEventListener('click', undoLast);
+  $('btn-more').addEventListener('click', function () { shown += 60; render(); });
+  $('filters').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-f]'); if (!b) return;
+    document.querySelectorAll('#filters button').forEach(function (x) { x.classList.toggle('active', x === b); });
+    filter = b.dataset.f; shown = 60; render();
+  });
+  var timer;
+  $('q').addEventListener('input', function (e) {
+    clearTimeout(timer);
+    timer = setTimeout(function () { q = e.target.value.trim(); shown = 60; render(); }, 250);
+  });
+  $('grid').addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip'); if (!chip) return;
+    var item = all.find(function (c) { return c.id === chip.dataset.id; });
+    if (!item) return;
+    if (usedIds.has(item.id)) { copyText(item.code).then(function () { toast('Copied ' + item.code + '. Paste it in Nusuk'); }); return; }
+    copyCode(item);
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code !== 'Space' || /INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName)) return;
+    e.preventDefault();
+    if (queue[0]) copyCode(queue[0]);
+  });
+
+  // ---------- Automatic failover chain ----------
+  // Same chain as the main site, in capacity order. If this mirror
+  // cannot load its code list, the page counts down 5 seconds and
+  // moves the visitor to the next host. The ?fo= marker records
+  // hosts already tried, so the chain always moves forward and can
+  // never loop back. A host is listed only once it is LIVE.
+  var FAILOVER_CHAIN = [
+    'https://nusukkeys-cu9.pages.dev/',
+    'https://nusukkeys-mirror.pages.dev/',
+    'https://nusukkeys-backup.pages.dev/',
+    'https://nusukkeys-mirror.web.app/'
+  ];
+  function failoverTried() {
+    try { return new Set((new URLSearchParams(location.search).get('fo') || '').split(',').filter(Boolean)); }
+    catch (e) { return new Set(); }
+  }
+  function failoverTargets() {
+    var tried = failoverTried();
+    var out = [];
+    for (var i = 0; i < FAILOVER_CHAIN.length; i++) {
+      try {
+        var host = new URL(FAILOVER_CHAIN[i]).hostname;
+        if (host !== location.hostname && !tried.has(host)) out.push(FAILOVER_CHAIN[i]);
+      } catch (e) { /* skip a bad entry */ }
+    }
+    return out;
+  }
+  function failoverTarget() {
+    var t = failoverTargets();
+    return t.length ? t[0] : null;
+  }
+  // Before moving, check the target is actually alive (its head file
+  // must answer within 3s). A redirect to a dead host is worse than
+  // staying put. No-cors fetch: reachability only, needs no CORS.
+  function probeHost(url) {
+    return new Promise(function (resolve) {
+      var ctl = new AbortController();
+      var timer = setTimeout(function () { ctl.abort(); }, 3000);
+      fetch(url + 'codes-head.json', { mode: 'no-cors', signal: ctl.signal }).then(function () { clearTimeout(timer); resolve(true); }).catch(function () { clearTimeout(timer); resolve(false); });
+    });
+  }
+  var failoverTimer = null;
+  function startFailover() {
+    if (failoverTimer) return;
+    $('failover').classList.remove('hidden');
+    var n = 5;
+    var tick = function () {
+      if (n <= 0) {
+        (async function () {
+          var targets = failoverTargets();
+          var results = await Promise.all(targets.map(function (t) { return probeHost(t); }));
+          for (var i = 0; i < targets.length; i++) {
+            if (results[i]) {
+              var tried = Array.from(failoverTried()); tried.push(location.hostname);
+              location.replace(targets[i] + (targets[i].indexOf('?') >= 0 ? '&' : '?') + 'fo=' + tried.join(','));
+              return;
+            }
+          }
+          failoverTimer = null; // no live host: stay put
+        })();
+        return;
+      }
+      $('failover-count').textContent = 'Moving to the next backup in ' + n + 's…';
+      n -= 1;
+      failoverTimer = setTimeout(tick, 1000);
+    };
+    tick();
+  }
+  $('failover-stay').addEventListener('click', function () {
+    if (failoverTimer) { clearTimeout(failoverTimer); failoverTimer = null; }
+    $('failover-count').textContent = '';
+  });
+
+  // ---------- Code list: fast, multi-source ----------
+  // Same idea as the main site: the 17 KB head file first (usable at
+  // once), the full list in the background, each from this host, the
+  // main site, or the second backup — whichever answers first. Each
+  // attempt has its own timeout, so a slow host is abandoned.
+  var CODES_HOSTS = ['', 'https://nusukkeys-cu9.pages.dev/', 'https://nusukkeys-backup.pages.dev/', 'https://nusukkeys-mirror.web.app/'];
+  function tryFile(url, ms) {
+    return new Promise(function (resolve) {
+      var ctl = new AbortController();
+      var timer = setTimeout(function () { ctl.abort(); }, ms);
+      fetch(url, { signal: ctl.signal }).then(function (r) {
+        clearTimeout(timer);
+        if (!r.ok) return resolve(null);
+        var clone = r.clone();
+        r.json().then(function (data) {
+          if (data && Array.isArray(data.codes) && url.indexOf('http') !== 0 && 'caches' in window) {
+            // Warm the service-worker cache (same reason as the main
+            // site: the worker may not have been controlling yet).
+            caches.open('nk-v1').then(function (c) { return c.put(url, clone); }).catch(function () {});
+          }
+          resolve(data);
+        }, function () { resolve(null); });
+      }).catch(function () { clearTimeout(timer); resolve(null); });
+    });
+  }
+  function applyData(data) {
+    all = (data.codes || []).map(fromCompact);
+    all.sort(function (a, b) { return a.rid - b.rid; });
+    byId = new Map(all.map(function (c) { return [c.id, c]; }));
+    if (data.total) totalCount = data.total;
+    refreshQueue();
+    render();
+  }
+  function cleanFailoverMarker() {
+    try {
+      var p = new URLSearchParams(location.search);
+      if (p.has('fo')) { p.delete('fo'); var q = p.toString(); history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash); }
+    } catch (e) { /* leave the URL alone */ }
+  }
+  (async function loadCodes() {
+    var data = null, isHead = false;
+    data = await tryFile('codes-head.json', 4000); isHead = !!data;
+    if (!data) {
+      var heads = await Promise.all(CODES_HOSTS.slice(1).map(function (host) { return tryFile(host + 'codes-head.json', 4000); }));
+      for (var h = 0; h < heads.length && !data; h++) { data = heads[h]; isHead = !!data; }
+    }
+    if (!data) {
+      var fulls = await Promise.all(CODES_HOSTS.map(function (host) { return tryFile(host + 'codes.json', 8000); }));
+      for (var f = 0; f < fulls.length && !data; f++) { data = fulls[f]; }
+    }
+    if (!data) {
+      $('d-stats').textContent = 'Could not load the code list. Check that codes.json sits next to this page.';
+      startFailover();
+      return;
+    }
+    applyData(data);
+    cleanFailoverMarker();
+    try { localStorage.setItem('mk_mirror_last_good', location.hostname); } catch (e) {}
+    if (isHead) {
+      var full = await tryFile('codes.json', 8000);
+      if (!full) {
+        var rest = await Promise.all(CODES_HOSTS.slice(1).map(function (host) { return tryFile(host + 'codes.json', 8000); }));
+        for (var r = 0; r < rest.length && !full; r++) full = rest[r];
+      }
+      if (full) applyData(full);
+    }
+  })();
+})();
+</script>
+<script>
+  // Offline layer: after the first visit, a service worker keeps this
+  // mirror opening (from cache) and redirects to a live host when this
+  // host is completely unreachable.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
+</script>
+</body>
+</html>
