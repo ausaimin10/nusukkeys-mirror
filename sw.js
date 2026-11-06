@@ -1,6 +1,6 @@
-// NusukKeys mirror service worker — the offline layer.
-// Same as the main site's worker, except this mirror's chain
-// redirects to the main site first (it is the primary).
+// NusukKeys service worker — the offline layer. One shared file for
+// every host (main site and all mirrors, at a root or under a subpath):
+// all paths are relative, so it works identically everywhere.
 //
 // Installed on a visitor's first load. Afterwards it adds the one
 // layer the page itself cannot provide: working when the page cannot
@@ -24,7 +24,7 @@
 // deleted on activate. Nothing here overrides the page's own failover
 // chain — it only covers the case the page cannot run at all.
 const CACHE = 'nk-v1';
-const SHELL = ['./', 'index.html', 'codes.json', 'codes-head.json'];
+const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'favicon.svg', 'manifest.webmanifest', 'codes.json', 'codes-head.json'];
 const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',
   'https://nusukkeys-mirror.pages.dev/',
@@ -74,7 +74,7 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return; // cross-origin: pass through
-  if (url.pathname.startsWith('/api/')) return; // API: network only
+  if (url.pathname.includes('/api/')) return; // API: network only (root or subpath)
 
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {

@@ -1,0 +1,1108 @@
+// NusukKeys frontend. Identity = the user's own Nusuk key, stored in the `mk_key` cookie
+// (mirrored to localStorage). Displays real visitor stats and newly added code stats,
+// and a top warning bar whenever a user is browsing without entering their own key.
+
+const I18N = {
+  en: {
+    dir: 'ltr',
+    guestWarnText: 'You are browsing without your Nusuk key — enter your key so your used & remaining codes stay saved across devices.',
+    guestWarnBtn: 'Enter My Key →',
+    mVisitorsLabel: 'Real Visitors',
+    mCopiesLabel: 'Code Copy Times',
+    mAddedLabel: 'Newly Added Codes',
+    heroTitle: 'referral codes. Copy one, get a key.',
+    heroSub: "Tap once to copy, paste it in the Nusuk app. We remember what you've used, so you never see the same code twice.",
+    nextCode: 'Your next code', copyNext: 'Copy & show next', skip: 'Skip',
+    copied: 'Copied', alreadyUsed: 'Already used', invalid: "Doesn't work", undo: 'Undo',
+    s1t: 'Copy a code', s1d: 'Use the big button or tap any code below.',
+    s2t: 'Open in Nusuk app', s2d: 'Opens the challenge with this code.',
+    s3t: 'Not accepted? Next.', s3d: "Mark it and we'll never show it again.",
+    search: 'Search codes…', fRemaining: 'Remaining', fNew: 'Newly Added', fUsed: 'Used', fAll: 'All', more: 'Load more',
+    addTitle: 'Have another code to share?', shareBtn: 'Share',
+    shareMsg: 'Please share this for the benefit of the Ummah.',
+    sponsorTitle: 'Sponsor Hosting',
+    sponsorLine1: "Your contribution goes directly towards upgrading the website's primary hosting server.",
+    sponsorLine2: 'A small contribution, a lasting benefit for the Ummah.',
+    sponsorBtn: 'Sponsor Hosting',
+    sponsorNote: 'This site runs on free hosting. A paid plan for the main server starts at about $5 a month and raises the limits. Every contribution goes to that upgrade, nothing else.',
+    sponsorEmail: 'Email to sponsor',
+    sponsorClose: 'Close',
+    sponsorHint: 'Contributions are voluntary. No payment details are collected on this site.',
+    failoverMsg: 'This site could not load its code list. Try a backup mirror \u2014 codes you use there are saved only in that browser.',
+    failoverCount: (n) => `Moving to the backup mirror in ${n}s\u2026`,
+    failoverStay: 'Stay here',
+    gateShareNote: 'Your code is also added to the pool, so others can use it. It will never be shown back to you.',
+    foot: 'Independent community tool. Not affiliated with Nusuk or the Ministry of Hajj and Umrah. We never ask for your login.',
+    gateTitle: 'Enter your Nusuk key',
+    gateSub: "It's your private ID here. We use it to remember which codes you've already used, on any device. It's saved in a cookie so you only do this once.",
+    gateGo: 'Continue', gateAnon: "I don't have a key yet",
+    gateHint: 'Find it in Nusuk: Start the challenge → Share → copy the code that starts with NG-.',
+    by: (n) => (n ? `shared by ${n}` : ''),
+    activeNow: (n) => `${n} active now`,
+    copiedToday: (n) => `${n} copied today`,
+    addedSub: (today, latest) => (latest ? `Latest: ${latest} (+${today} today)` : `${today} added today`),
+    stats: (c, r, mine) =>
+      `You copied <b>${c}</b> · Remaining <b>${r}</b>` +
+      (mine ? ` · Your key (${mine.code}) copied <b>${mine.copies}×</b>` : ''),
+    shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} shown`,
+    none: 'Nothing here yet.', allDone: "You've used every code. Check back soon!",
+    toastCopied: (c) => `Copied ${c}. Paste it in Nusuk`,
+    toastNusuk: (c) => `Opening Nusuk app — ${c} copied, paste it there if needed`,
+    toastNoted: 'Noted. Next one!', toastBad: 'Thanks, reported', toastUndo: 'Undone',
+    toastShared: 'Your code is in the pool', toastWelcome: 'Welcome back',
+    err: {
+      empty: 'Please paste a code first.', invalid_code: 'That does not look like a Nusuk key. It is NG- followed by 8 characters.',
+      duplicate: 'That code is already shared.', device_limit: 'You have reached the sharing limit.',
+      name_link: 'Names cannot contain links.', name_number: 'Names cannot contain phone numbers.', server: 'Something went wrong. Try again.'
+    }
+  },
+  bn: {
+    dir: 'ltr',
+    guestWarnText: 'আপনি এখনো আপনার নিজের নুসুক কী দেননি — আপনার ব্যবহৃত ও বাকি কোডের হিসাব যেকোনো ডিভাইসে সেভ রাখতে আপনার কী দিন।',
+    guestWarnBtn: 'আমার কী দিন →',
+    mVisitorsLabel: 'মোট ভিজিটর',
+    mCopiesLabel: 'কোড কপি সংখ্যা',
+    mAddedLabel: 'নতুন যুক্ত কোড',
+    heroTitle: 'টি রেফারেল কোড। কপি করুন, কী পান।',
+    heroSub: 'একবার ট্যাপ করে কপি করুন, নুসুক অ্যাপে পেস্ট করুন। কোনটা ব্যবহার করেছেন আমরা মনে রাখি, তাই একই কোড দ্বিতীয়বার দেখবেন না।',
+    nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
+    copied: 'কপি হয়েছে', alreadyUsed: 'আগে ব্যবহৃত', invalid: 'কাজ করছে না', undo: 'আনডু',
+    s1t: 'কোড কপি করুন', s1d: 'বড় বাটন বা নিচের যেকোনো কোডে ট্যাপ করুন।',
+    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'এই কোডসহ চ্যালেঞ্জ খুলবে।',
+    s3t: 'কাজ না করলে পরেরটা', s3d: 'মার্ক করুন, আর কখনো দেখাব না।',
+    search: 'কোড খুঁজুন…', fRemaining: 'বাকি', fNew: 'নতুন যুক্ত', fUsed: 'ব্যবহৃত', fAll: 'সব', more: 'আরও দেখুন',
+    addTitle: 'আরেকটি কোড শেয়ার করবেন?', shareBtn: 'শেয়ার',
+    shareMsg: 'Please share this for the benefit of the Ummah.',
+    sponsorTitle: 'হোস্টিং স্পনসর করুন',
+    sponsorLine1: 'আপনার অবদান সরাসরি এই ওয়েবসাইটের প্রধান হোস্টিং সার্ভার আপগ্রেডের কাজে যাবে।',
+    sponsorLine2: 'একটি ছোট অবদান, উম্মাহর জন্য স্থায়ী উপকার।',
+    sponsorBtn: 'হোস্টিং স্পনসর করুন',
+    sponsorNote: 'এই সাইটটি এখন বিনামূল্যের হোস্টিংয়ে চলে। মূল সার্ভারের জন্য পেইড প্ল্যান মাসে প্রায় $৫ থেকে শুরু হয় এবং সীমা বাড়ায়। প্রতিটি অবদান শুধু সেই আপগ্রেডের কাজেই যাবে।',
+    sponsorEmail: 'স্পনসর করতে ইমেইল করুন',
+    sponsorClose: 'বন্ধ করুন',
+    sponsorHint: 'অবদান সম্পূর্ণ স্বেচ্ছায়। এই সাইটে কোনো পেমেন্ট তথ্য নেওয়া হয় না।',
+    failoverMsg: '\u098f\u0987 \u09b8\u09be\u0987\u099f\u099f\u09bf \u0995\u09cb\u09a1\u09c7\u09b0 \u09a4\u09be\u09b2\u09bf\u0995\u09be \u09b2\u09cb\u09a1 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u09a8\u09bf. \u09ac\u09cd\u09af\u0995\u09be\u09aa \u09ae\u09bf\u09b0\u09b0 \u09ac\u09cd\u09af\u09b9\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u2014 \u09b8\u09c7\u0996\u09be\u09a8\u09c7 \u0995\u09cb\u09a1 \u09b6\u09c1\u09a7\u09c1 \u0993\u0987 \u09ac\u09cd\u09b0\u09be\u0989\u099c\u09be\u09b0\u09c7\u0987 \u09b8\u0982\u09b0\u0995\u09cd\u09b7\u09bf\u09a4 \u09a5\u09be\u0995\u09ac\u09c7.',
+    failoverCount: (n) => `ব্যাকআপ মিররে যাওয়া হচ্ছে ${n} সেকেন্ডের মধ্যে…`,
+    failoverStay: 'এখানেই থাকুন',
+    gateShareNote: 'আপনার কোডও পুলে যোগ হবে, যেন অন্যরা ব্যবহার করতে পারে। এটি আর কখনো আপনাকে দেখানো হবে না।',
+    foot: 'স্বাধীন কমিউনিটি টুল। নুসুক বা হজ ও উমরাহ মন্ত্রণালয়ের সাথে সম্পর্কিত নয়। আমরা কখনো লগইন চাই না।',
+    gateTitle: 'আপনার নুসুক কী দিন',
+    gateSub: 'এটিই এখানে আপনার ব্যক্তিগত আইডি। কোন কোড আপনি ব্যবহার করেছেন তা যেকোনো ডিভাইসে মনে রাখতে এটি ব্যবহার হয়। কুকিতে সেভ থাকে, তাই একবারই দিতে হবে।',
+    gateGo: 'এগিয়ে যান', gateAnon: 'আমার এখনো কী নেই',
+    gateHint: 'নুসুকে পাবেন: Start the challenge → Share → NG- দিয়ে শুরু কোডটি কপি করুন।',
+    by: (n) => (n ? `শেয়ার করেছেন ${n}` : ''),
+    activeNow: (n) => `${n} জন এখন সক্রিয়`,
+    copiedToday: (n) => `আজ ${n} বার কপি`,
+    addedSub: (today, latest) => (latest ? `সর্বশেষ: ${latest} (আজ +${today})` : `আজ +${today}টি যুক্ত`),
+    stats: (c, r, mine) =>
+      `কপি করেছেন <b>${c}</b> · বাকি <b>${r}</b>` +
+      (mine ? ` · আপনার কোড (${mine.code}) কপি হয়েছে <b>${mine.copies} বার</b>` : ''),
+    shown: (n) => `${n}${n >= 60 ? '+' : ''}টি দেখানো হচ্ছে`,
+    none: 'এখানে কিছু নেই।', allDone: 'সব কোড ব্যবহার হয়ে গেছে। পরে আবার দেখুন!',
+    toastCopied: (c) => `${c} কপি হয়েছে। নুসুকে পেস্ট করুন`,
+    toastNusuk: (c) => `নুসুক অ্যাপ খুলছে — ${c} কপি হয়েছে, প্রয়োজনে সেখানে পেস্ট করুন`,
+    toastNoted: 'ঠিক আছে, পরেরটা!', toastBad: 'ধন্যবাদ, রিপোর্ট হয়েছে', toastUndo: 'আনডু হয়েছে',
+    toastShared: 'আপনার কোড পুলে যোগ হয়েছে', toastWelcome: 'স্বাগতম',
+    err: {
+      empty: 'আগে একটি কোড পেস্ট করুন।', invalid_code: 'এটি নুসুক কী মনে হচ্ছে না। NG- এর পরে ৮টি অক্ষর থাকতে হবে।',
+      duplicate: 'এই কোড আগেই শেয়ার হয়েছে।', device_limit: 'শেয়ারের সীমা শেষ।',
+      name_link: 'নামে লিংক দেওয়া যাবে না।', name_number: 'নামে ফোন নম্বর দেওয়া যাবে না।', server: 'সমস্যা হয়েছে, আবার চেষ্টা করুন।'
+    }
+  },
+  ar: {
+    dir: 'rtl',
+    guestWarnText: 'أنت تتصفح بدون مفتاح نسك الخاص بك — أدخل مفتاحك لحفظ سجل الأكواد المستخدمة والمتبقية عبر جميع أجهزتك.',
+    guestWarnBtn: 'أدخل مفتاحي ←',
+    mVisitorsLabel: 'الزوار الفعليون',
+    mCopiesLabel: 'مرات نسخ الكود',
+    mAddedLabel: 'أكواد أُضيفت حديثًا',
+    heroTitle: 'كود إحالة. انسخ كودًا واحصل على مفتاح.',
+    heroSub: 'اضغط مرة واحدة للنسخ ثم الصقه في تطبيق نسك. نتذكر ما استخدمته فلا يظهر لك الكود نفسه مرتين.',
+    nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
+    copied: 'تم النسخ', alreadyUsed: 'مستخدم سابقًا', invalid: 'لا يعمل', undo: 'تراجع',
+    s1t: 'انسخ كودًا', s1d: 'استخدم الزر الكبير أو اضغط أي كود بالأسفل.',
+    s2t: 'افتح في تطبيق نسك', s2d: 'يفتح التحدي بهذا الكود.',
+    s3t: 'لم يُقبل؟ التالي.', s3d: 'علّمه ولن نعرضه لك مجددًا.',
+    search: 'ابحث عن كود…', fRemaining: 'المتبقي', fNew: 'المضاف حديثًا', fUsed: 'المستخدم', fAll: 'الكل', more: 'عرض المزيد',
+    addTitle: 'لديك كود آخر للمشاركة؟', shareBtn: 'مشاركة',
+    shareMsg: 'Please share this for the benefit of the Ummah.',
+    sponsorTitle: 'ادعم الاستضافة',
+    sponsorLine1: 'تذهب مساهمتك مباشرة إلى ترقية خادم الاستضافة الرئيسي للموقع.',
+    sponsorLine2: 'مساهمة صغيرة، وفائدة دائمة للأمة.',
+    sponsorBtn: 'ادعم الاستضافة',
+    sponsorNote: 'يعمل هذا الموقع حاليًا على استضافة مجانية. تبدأ الخطة المدفوعة للخادم الرئيسي من نحو ٥ دولارات شهريًا وترفع الحدود، وتذهب كل مساهمة إلى تلك الترقية فقط.',
+    sponsorEmail: 'راسلنا للرعاية',
+    sponsorClose: 'إغلاق',
+    sponsorHint: 'المساهمات طوعية. لا يجمع هذا الموقع أي بيانات دفع.',
+    failoverMsg: '\u062a\u0639\u0630\u0651\u0631 \u062a\u062d\u0645\u064a\u0644 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0631\u0645\u0648\u0632 \u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639. \u062c\u0631\u0651\u0628 \u0646\u0633\u062e\u0629 \u0627\u062d\u062a\u064a\u0627\u0637\u064a\u0629 \u2014 \u062a\u064f\u062d\u0641\u0638 \u0627\u0644\u0631\u0645\u0648\u0632 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u0629 \u0647\u0646\u0627\u0643 \u0641\u064a \u0630\u0644\u0643 \u0627\u0644\u0645\u062a\u0635\u0641\u062d \u0641\u0642\u0637.',
+    failoverCount: (n) => `جارٍ الانتقال إلى النسخة الاحتياطية خلال ${n} ثوانٍ…`,
+    failoverStay: 'ابقَ هنا',
+    gateShareNote: 'سيُضاف كودك أيضًا إلى القائمة ليستخدمه الآخرون، ولن يظهر لك مرة أخرى أبدًا.',
+    foot: 'أداة مجتمعية مستقلة، غير تابعة لنسك أو وزارة الحج والعمرة. لا نطلب بيانات دخولك أبدًا.',
+    gateTitle: 'أدخل مفتاح نسك الخاص بك',
+    gateSub: 'هو معرّفك الخاص هنا. نستخدمه لنتذكر الأكواد التي استخدمتها على أي جهاز. يُحفظ في كوكي فتدخله مرة واحدة فقط.',
+    gateGo: 'متابعة', gateAnon: 'ليس لدي مفتاح بعد',
+    gateHint: 'تجده في نسك: ابدأ التحدي ← مشاركة ← انسخ الكود الذي يبدأ بـ NG-.',
+    by: (n) => (n ? `شاركه ${n}` : ''),
+    activeNow: (n) => `${n} متصل الآن`,
+    copiedToday: (n) => `${n} نُسخ اليوم`,
+    addedSub: (today, latest) => (latest ? `الأحدث: ${latest} (+${today} اليوم)` : `+${today} أُضيف اليوم`),
+    stats: (c, r, mine) =>
+      `نسخت <b>${c}</b> · المتبقي <b>${r}</b>` +
+      (mine ? ` · كودك (${mine.code}) نُسخ <b>${mine.copies}×</b>` : ''),
+    shown: (n) => `${n}${n >= 60 ? '+' : ''} معروض`,
+    none: 'لا شيء هنا بعد.', allDone: 'استخدمت كل الأكواد. عد قريبًا!',
+    toastCopied: (c) => `تم نسخ ${c}. الصقه في نسك`,
+    toastNusuk: (c) => `جارٍ فتح تطبيق نسك — تم نسخ ${c}، الصقه هناك إذا لزم الأمر`,
+    toastNoted: 'تم. التالي!', toastBad: 'شكرًا، تم الإبلاغ', toastUndo: 'تم التراجع',
+    toastShared: 'تمت إضافة كودك', toastWelcome: 'أهلًا بعودتك',
+    err: {
+      empty: 'الصق كودًا أولًا.', invalid_code: 'لا يبدو مفتاح نسك. هو NG- يليه 8 أحرف.',
+      duplicate: 'هذا الكود مُشارك بالفعل.', device_limit: 'وصلت إلى حد المشاركة.',
+      name_link: 'لا يمكن أن يحتوي الاسم على روابط.', name_number: 'لا يمكن أن يحتوي الاسم على أرقام هواتف.', server: 'حدث خطأ، حاول مرة أخرى.'
+    }
+  }
+};
+
+// Mandatory first code: every new user is shown this code first.
+// It already exists in the repository (id nk-12256) — reused, never
+// duplicated. Once a user copies/reports it, the one-time-per-user
+// rule hides it from them like any other code.
+const FIRST_CODE = 'NG-0GjkSPjM';
+const FIRST_CODE_ID = 'nk-12256';
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = (n) => Number(n || 0).toLocaleString('en');
+const COPY_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+const CHECK_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+const state = {
+  lang: localStorage.getItem('mk_lang') || 'en',
+  key: null,
+  me: { copied: 0, copied_today: 0, remaining: 0, total: 0, anon: false, mine: null },
+  stats: {
+    codes: 0,
+    used_today: 0,
+    used_total: 0,
+    visitors_online: 1,
+    visitors_total: 1,
+    added_today: 0,
+    user_added: 0,
+    latest_code: null
+  },
+  queue: [],
+  lastCopied: null,
+  list: { filter: 'remaining', q: '', items: [], next: 0, hasMore: false, loading: false, seq: 0, pool: [] },
+  // Static-first code data: the whole public code list is loaded once
+  // from /codes.json (browser + edge cached) and filtered here, so the
+  // code list never reads the database. `usedIds` is this user's used
+  // set (from the session); `all` is the static list plus the delta
+  // (codes shared after the seed). When the static file cannot load,
+  // the frontend falls back to the server queue/list endpoints.
+  codes: { loaded: false, from: null, all: [], byId: new Map(), usedIds: new Set(), maxRid: -1 }
+};
+
+const t = (k) => (I18N[state.lang] || I18N.en)[k] ?? I18N.en[k];
+
+// ---------- API ----------
+// A 401 here means the server does not know this key. That happens in
+// the in-memory fallback (offline mode) because each Function isolate
+// has its own memory — the identity lives in D1 in normal mode, but
+// not in a fallback isolate. Showing the key gate for that would
+// re-prompt the user after every copy, so only the session call (the
+// one that establishes identity) may open the gate. Every other
+// endpoint just returns the error; the frontend already applied the
+// action locally, and the next page load re-establishes identity
+// through the session.
+async function api(path, payload = {}) {
+  let res;
+  try {
+    // Slow is failing: if the host cannot answer a tiny JSON call in
+    // 10s it is overloaded or dying, so the caller treats it exactly
+    // like unreachable and the failover chain takes over — the page
+    // never hangs on a dying host.
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 10000);
+    try {
+      res = await fetch('api/' + path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: state.key, fp: fingerprint(), ...payload }),
+        signal: ctl.signal
+      });
+    } finally { clearTimeout(timer); }
+  } catch {
+    // Network unreachable (host down) — the caller decides what to do;
+    // startSession turns this into the automatic failover redirect.
+    return { ok: false, error: 'network' };
+  }
+  const data = await res.json().catch(() => ({ ok: false, error: 'server' }));
+  if (res.status === 401 && path === 'session') showGate();
+  return data;
+}
+
+function fingerprint() {
+  try {
+    return [screen.width, screen.height, devicePixelRatio, Intl.DateTimeFormat().resolvedOptions().timeZone].join('|');
+  } catch {
+    return '';
+  }
+}
+
+// ---------- Identity (cookie + localStorage) ----------
+function readCookie() {
+  const m = document.cookie.match(/(?:^|;\s*)mk_key=([^;]+)/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+function persistKey(key) {
+  state.key = key;
+  try { localStorage.setItem('mk_key', key); } catch {}
+  document.cookie = `mk_key=${encodeURIComponent(key)}; path=/; max-age=31536000; SameSite=Lax`;
+}
+function forgetKey() {
+  state.key = null;
+  try { localStorage.removeItem('mk_key'); } catch {}
+  document.cookie = 'mk_key=; path=/; max-age=0';
+}
+function normalizeKey(s) {
+  const m = String(s || '').match(/NG-[A-Za-z0-9]{8}/i) || String(s || '').trim().match(/^()([A-Za-z0-9]{8})$/);
+  if (!m) return null;
+  return m[0].length === 8 ? 'NG-' + m[0] : 'NG-' + m[0].slice(3);
+}
+
+// ---------- UI helpers ----------
+function toast(msg) {
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  $('toasts').appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .2s'; setTimeout(() => el.remove(), 220); }, 2200);
+}
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    try { await navigator.clipboard.writeText(text); return true; } catch {}
+  }
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch {}
+  ta.remove();
+  return ok;
+}
+
+function applyLang(lang) {
+  state.lang = I18N[lang] ? lang : 'en';
+  localStorage.setItem('mk_lang', state.lang);
+  const d = I18N[state.lang];
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = d.dir;
+  document.querySelectorAll('[data-lang]').forEach((b) => b.classList.toggle('active', b.dataset.lang === state.lang));
+  document.querySelectorAll('[data-i18n]').forEach((el) => { if (d[el.dataset.i18n]) el.textContent = d[el.dataset.i18n]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = d[el.dataset.i18nPh] || ''; });
+  renderAll();
+}
+
+// ---------- Rendering ----------
+function renderAll() {
+  renderGuestWarning();
+  renderMetrics();
+  renderDispenser();
+  renderGrid();
+  $('hero-total').textContent = fmt(state.stats.codes || state.me.total);
+  if (state.key) {
+    $('acct-label').textContent = state.me.anon ? 'Guest (No Key)' : state.key;
+    $('acct-dot').classList.toggle('warn', !!state.me.anon);
+  }
+}
+
+function renderGuestWarning() {
+  const showWarn = !state.key || !!state.me.anon;
+  $('guest-alert').classList.toggle('hidden', !showWarn);
+}
+
+function renderMetrics() {
+  const s = state.stats || {};
+  $('m-visitors-total').textContent = fmt(Math.max(1, s.visitors_total || 1));
+  $('m-visitors-online').textContent = t('activeNow')(fmt(Math.max(1, s.visitors_online || 1)));
+
+  // CODE COPY TIMES is personal: big = this user's total copied codes,
+  // small = how many this user copied today. Never any global total.
+  $('m-copies-total').textContent = fmt(state.me.copied || 0);
+  $('m-copies-today').textContent = t('copiedToday')(fmt(state.me.copied_today || 0));
+
+  // CODE COPY TIMES is now personal: how many codes THIS user copied
+  // today. The global total is kept separately, in the subtitle.
+  $('m-added-total').textContent = fmt(s.user_added || 0);
+  const latestCode = s.latest_code?.code || null;
+  $('m-added-sub').textContent = t('addedSub')(fmt(s.added_today || 0), latestCode);
+}
+
+function renderDispenser() {
+  const c = state.queue[0];
+  const { copied, remaining, mine } = state.me;
+  const done = copied + remaining > 0 ? Math.round((copied / (copied + remaining)) * 100) : 0;
+  $('d-bar').style.width = done + '%';
+  $('d-stats').innerHTML = t('stats')(fmt(copied), fmt(remaining), mine);
+  $('btn-copy').disabled = !c;
+  if (c) {
+    $('d-code').innerHTML = `<span class="pre">NG-</span>${esc(c.code.slice(3))}`;
+    const isNew = c.device_id && c.device_id !== 'community-import';
+    const byParts = [];
+    if (isNew) byParts.push('<span class="disp-pill">✨ NEW</span>');
+    if (c.name) byParts.push(esc(t('by')(c.name)));
+    $('d-by').innerHTML = byParts.join(' · ');
+  } else {
+    $('d-code').innerHTML = `<span class="pre">NG-</span>••••••••`;
+    $('d-by').textContent = state.me.remaining === 0 && state.key ? t('allDone') : '';
+  }
+  if (state.lastCopied) {
+    $('strip').classList.remove('hidden');
+    $('strip-code').textContent = state.lastCopied.code;
+  } else {
+    $('strip').classList.add('hidden');
+  }
+}
+
+function renderGrid() {
+  const L = state.list;
+  const grid = $('grid');
+  if (!L.items.length) {
+    grid.innerHTML = `<div class="empty">${L.loading ? '…' : esc(t('none'))}</div>`;
+  } else {
+    grid.innerHTML = L.items
+      .map((c) => {
+        const isUserAdded = c.device_id && c.device_id !== 'community-import';
+        const badge = isUserAdded ? `<span class="chip-meta new">NEW</span>` : '';
+        return `<button type="button" class="chip${c.used ? ' used' : ''}" data-id="${esc(c.id)}" data-code="${esc(c.code)}" dir="ltr">
+          <span><span class="pre">NG-</span>${esc(c.code.slice(3))}</span>
+          <span class="chip-right">${badge}${c.used ? CHECK_ICON : COPY_ICON}</span>
+        </button>`;
+      })
+      .join('');
+  }
+  const names = { remaining: t('fRemaining'), new: t('fNew'), used: t('fUsed'), all: t('fAll') };
+  $('count').textContent = L.items.length ? t('shown')(L.items.length, (names[L.filter] || '').toLowerCase()) : '';
+  $('btn-more').classList.toggle('hidden', !L.hasMore);
+}
+
+// ---------- Static code list (client-side filtering) ----------
+// Compact code form (codes.json) -> frontend code object.
+function fromCompact(o) {
+  return {
+    id: o.i, code: o.c, rid: o.r,
+    device_id: o.d || 'community-import',
+    name: o.n || '', copies: o.p || 0,
+    used: 0
+  };
+}
+
+// Is this code the user's own key? Never shown in their queue/list.
+function isOwnCode(c) {
+  return !!state.key && String(c.code).toLowerCase() === String(state.key).toLowerCase();
+}
+
+// Sort helper: the mandatory first code comes first, then rid order.
+function firstFirst(a, b) {
+  const af = String(a.code) === FIRST_CODE ? 0 : 1;
+  const bf = String(b.code) === FIRST_CODE ? 0 : 1;
+  if (af !== bf) return af - bf;
+  return (Number(a.rid) || 0) - (Number(b.rid) || 0);
+}
+
+// All codes this user has not used, mandatory first code first.
+function remainingCodes() {
+  return state.codes.all
+    .filter((c) => !state.codes.usedIds.has(c.id) && !isOwnCode(c))
+    .sort(firstFirst);
+}
+
+// Recompute the dispenser queue from the client-side list.
+function refreshQueue() {
+  state.queue = remainingCodes().slice(0, 40);
+}
+
+// Current list pool for the active filter + search, client-side.
+// 'new' is rid descending; every other filter is rid ascending.
+function listPool() {
+  const { filter, q } = state.list;
+  const needle = String(q || '').trim().toLowerCase().replace(/^ng-/, '');
+  const used = state.codes.usedIds;
+  let pool = state.codes.all;
+  if (filter === 'used') pool = pool.filter((c) => used.has(c.id));
+  else if (filter === 'all') { /* everything */ }
+  else pool = pool.filter((c) => !used.has(c.id) && !isOwnCode(c));
+  if (needle) {
+    pool = pool.filter((c) => {
+      const code = String(c.code).toLowerCase();
+      return code.includes(needle) || code.replace(/^ng-/, '').includes(needle);
+    });
+  }
+  if (filter === 'new') return [...pool].sort((a, b) => b.rid - a.rid);
+  if (filter === 'remaining') return [...pool].sort(firstFirst);
+  return [...pool].sort((a, b) => a.rid - b.rid);
+}
+
+// ---------- Static code list: fast, multi-source, proactive ----------
+// The code list is public data, so the page does not depend on one
+// host for it. It tries, in order: this host's 17 KB head file (the
+// first 400 codes — enough for the dispenser at once), the same head
+// file on the two mirrors, then the full 618 KB list on each host.
+// Each attempt has its own timeout, so a slow host is abandoned
+// instead of hanging the page: slowness is treated as failure.
+// Returns {data, isHead} or null when no source answered at all
+// (then the caller falls back to the server queue/list endpoints).
+const CODES_HOSTS = ['.', 'https://nusukkeys-cu9.pages.dev', 'https://nusukkeys-mirror.pages.dev', 'https://nusukkeys-backup.pages.dev', 'https://ausaimin10.github.io/nusukkeys-mirror', 'https://nusukkeys-mirror.netlify.app', 'https://nusukkeys-mirror.web.app', 'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main'];
+async function fetchWithTimeout(url, ms) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), ms);
+  try { return await fetch(url, { signal: ctl.signal }); }
+  finally { clearTimeout(timer); }
+}
+async function tryCodesFile(host, file, ms) {
+  try {
+    const res = await fetchWithTimeout(host + '/' + file, ms);
+    if (!res.ok) return null;
+    const clone = res.clone();
+    const data = await res.json();
+    if (!data || !Array.isArray(data.codes)) return null;
+    // Warm the service-worker cache with the same-origin copy, so the
+    // site still opens with codes on a later visit even if this was
+    // the very first visit (the worker may not have been controlling
+    // the page yet when this fetch ran, so its own handler may never
+    // have seen it). The key is relative so it works at a root and
+    // under a subpath alike.
+    if (host === '.' && 'caches' in window) {
+      caches.open('nk-v1').then((c) => c.put(file, clone)).catch(() => {});
+    }
+    return data;
+  } catch { return null; }
+}
+async function fetchCodesJson() {
+  // Same-origin head first (the common case: one small request).
+  // If it fails, try the other hosts' head files in parallel (one
+  // 4s window, not one per host), then all hosts' full files in
+  // parallel (one 8s window). Parallel on the failure path only, so
+  // a healthy load never spams the mirrors.
+  const selfHead = await tryCodesFile('', 'codes-head.json', 4000);
+  if (selfHead) return { data: selfHead, isHead: true };
+  const heads = await Promise.all(CODES_HOSTS.slice(1).map((h) => tryCodesFile(h, 'codes-head.json', 4000)));
+  for (const data of heads) if (data) return { data, isHead: true };
+  const fulls = await Promise.all(CODES_HOSTS.map((h) => tryCodesFile(h, 'codes.json', 8000)));
+  for (const data of fulls) if (data) return { data, isHead: false };
+  return null;
+}
+// Background upgrade: after the head file made the page usable, fetch
+// the full list (same hosts, same order) so the code browser can
+// search all 13,721 codes. Returns the full data or null.
+async function fetchFullCodesJson() {
+  const self = await tryCodesFile('', 'codes.json', 8000);
+  if (self) return self;
+  const fulls = await Promise.all(CODES_HOSTS.slice(1).map((h) => tryCodesFile(h, 'codes.json', 8000)));
+  for (const data of fulls) if (data) return data;
+  return null;
+}
+
+// Merge the static list with the session delta (codes shared after
+// the seed). Returns true when the static list is available.
+function applyCodes(data, delta) {
+  if (!data || !Array.isArray(data.codes)) {
+    state.codes.loaded = false;
+    state.codes.from = 'server';
+    return false;
+  }
+  const all = data.codes.map(fromCompact);
+  const byId = new Map(all.map((c) => [c.id, c]));
+  for (const d of delta || []) {
+    const c = fromCompact(d);
+    if (!byId.has(c.id)) { all.push(c); byId.set(c.id, c); }
+  }
+  all.sort((a, b) => a.rid - b.rid);
+  state.codes.all = all;
+  state.codes.byId = byId;
+  state.codes.maxRid = typeof data.maxRid === 'number' ? data.maxRid : -1;
+  state.codes.loaded = true;
+  state.codes.from = 'static';
+  return true;
+}
+
+// ---------- Data ----------
+async function loadStats() {
+  const d = await api('stats');
+  if (d.ok) { state.me = d.me; state.stats = d.stats; renderAll(); }
+}
+
+async function refillQueue() {
+  // Static list: recompute locally, no database read.
+  if (state.codes.loaded) { refreshQueue(); return; }
+  // Server fallback (static list unavailable).
+  const d = await api('queue');
+  if (!d.ok) return;
+  const have = new Set(state.queue.map((c) => c.id));
+  state.queue.push(...d.codes.filter((c) => !have.has(c.id)));
+}
+
+function loadListLocal(reset = true) {
+  const L = state.list;
+  if (reset) { L.pool = listPool(); L.next = 0; L.hasMore = false; }
+  const pool = L.pool || [];
+  const page = pool.slice(L.next, L.next + 60);
+  const used = state.codes.usedIds;
+  const items = page.map((c) => ({ ...c, used: used.has(c.id) ? 1 : 0 }));
+  L.items = reset ? items : L.items.concat(items);
+  L.next += items.length;
+  L.hasMore = L.next < pool.length;
+  L.loading = false;
+  renderGrid();
+}
+
+async function loadList(reset = true) {
+  // Static list: paginate the client-side pool, no database read.
+  if (state.codes.loaded) { loadListLocal(reset); return; }
+  // Server fallback (static list unavailable).
+  const L = state.list;
+  if (L.loading && !reset) return;
+  const seq = ++L.seq;
+  if (reset) { L.items = []; L.next = 0; L.hasMore = false; }
+  L.loading = true;
+  if (reset) renderGrid();
+  const d = await api('list', { filter: L.filter, q: L.q, after: L.next });
+  if (seq !== L.seq) return;
+  L.loading = false;
+  if (d.ok) {
+    L.items = reset ? d.codes : L.items.concat(d.codes);
+    L.next = d.next;
+    L.hasMore = d.hasMore;
+  }
+  renderGrid();
+}
+
+// ---------- Actions ----------
+// The used set, remembered in this browser for hosts with no server.
+// On the main site the server is authoritative and overwrites this set
+// on every session; the saved copy is only a fallback, so a used code
+// is never shown again after a reload or a move to another host.
+const LOCAL_USED_KEY = 'mk_local_used_v1';
+function loadLocalUsed() {
+  try {
+    const raw = localStorage.getItem(LOCAL_USED_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.filter((x) => typeof x === 'string') : [];
+  } catch { return []; }
+}
+function saveLocalUsed() {
+  try { localStorage.setItem(LOCAL_USED_KEY, JSON.stringify([...state.codes.usedIds])); } catch {}
+}
+function markLocal(ids) {
+  const set = new Set(ids);
+  for (const id of set) state.codes.usedIds.add(id);
+  saveLocalUsed();
+  state.queue = state.queue.filter((c) => !set.has(c.id));
+  state.list.items.forEach((c) => {
+    if (set.has(c.id)) {
+      c.used = 1;
+      c.copies = Number(c.copies || 0) + 1;
+    }
+  });
+  if (state.list.filter === 'remaining' || state.list.filter === 'new') {
+    state.list.items = state.list.items.filter((c) => !set.has(c.id));
+  }
+  // Static list: rebuild the visible list from the refreshed pool so
+  // the count stays full and "Load more" never resurfaces a used code,
+  // and refresh the queue from the same client-side data.
+  if (state.codes.loaded) {
+    const L = state.list;
+    const shown = L.items.length;
+    L.pool = listPool();
+    const used = state.codes.usedIds;
+    L.items = L.pool.slice(0, shown).map((c) => ({ ...c, used: used.has(c.id) ? 1 : 0 }));
+    L.next = L.items.length;
+    L.hasMore = L.next < L.pool.length;
+    refreshQueue();
+  }
+}
+
+async function copyCode(c, toastMsg) {
+  // Your own key is never issued back to you: copy the text only,
+  // never record it as a used code.
+  if (isOwnCode(c)) {
+    if (await copyText(c.code)) toast(t('toastCopied')(c.code));
+    else toast(c.code);
+    return;
+  }
+  const ok = await copyText(c.code);
+  if (!ok) { toast(c.code); return; }
+  await recordCopy(c, toastMsg);
+}
+
+// Share bar: the five platform links share this page's URL with a
+// short text. Facebook opens its sharer page for posting the link;
+// the others use their normal link-sharing pages. Built in JS so the
+// links follow the page's real URL (live, staging, or mirror).
+function buildShareLinks() {
+  const url = location.href.split('#')[0];
+  const text = 'NusukKeys — 13,721 Nusuk referral codes. Copy one, get a key.';
+  const u = encodeURIComponent(url);
+  const tx = encodeURIComponent(text + ' ' + url);
+  const set = (id, href) => { const el = $(id); if (el) el.href = href; };
+  set('share-fb', 'https://www.facebook.com/sharer/sharer.php?u=' + u);
+  set('share-wa', 'https://wa.me/?text=' + tx);
+  set('share-tg', 'https://t.me/share/url?url=' + u + '&text=' + encodeURIComponent(text));
+  set('share-x', 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + u);
+  set('share-in', 'https://www.linkedin.com/sharing/share-offsite/?url=' + u);
+}
+
+// Records a copy once the clipboard write succeeded: toast, counts,
+// local exclusion, server record, queue refill.
+async function recordCopy(c, toastMsg) {
+  toast(toastMsg ? toastMsg(c.code) : t('toastCopied')(c.code));
+  $('d-code').classList.add('pop');
+  setTimeout(() => $('d-code').classList.remove('pop'), 160);
+
+  state.lastCopied = c;
+  state.me.copied++;
+  state.me.copied_today = (state.me.copied_today || 0) + 1;
+  state.me.remaining = Math.max(0, state.me.remaining - 1);
+  state.stats.used_today = (state.stats.used_today || 0) + 1;
+  state.stats.used_total = (state.stats.used_total || 0) + 1;
+  markLocal([c.id]);
+  renderAll();
+
+  await api('copy', { id: c.id });
+  // Static list: markLocal already refreshed the queue locally.
+  // Server fallback: top the queue up from the server.
+  if (!state.codes.loaded && state.queue.length < 8) refillQueue().then(renderAll);
+}
+
+// Deep link into the Nusuk app. services.nusuk.sa is a verified App Link
+// (Android) and Universal Link (iOS) for the Nusuk app, and this is the
+// same link format the app itself creates when a user shares a code:
+// p=27 is the Free Umrah Challenge, id= is the code. If the app is
+// installed the OS opens it straight into the challenge with the code.
+// If it is not installed, the link lands on Nusuk's own page, which
+// redirects Android to the Play Store and iOS to the App Store by
+// itself on load — so this code needs no store fallback timer (and a
+// timer could not work anyway: opening a new tab hides this page, so
+// there is no signal for whether the app opened). The code is also
+// copied to the clipboard first, in case the app still needs a manual
+// paste. The link must open synchronously inside the click, or popup
+// blockers stop it.
+const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code);
+
+function openInNusukApp(c) {
+  if (!c) return;
+  // Start the clipboard write while this page still has focus. Opening
+  // the new tab moves focus away, and a clipboard write started after
+  // that fails in real browsers — the copy, the counter and the toast
+  // then never happen. Both calls stay inside the click handler, so
+  // the popup is allowed and the write keeps its user gesture.
+  const clip = copyText(c.code);
+  window.open(NUSUK_DEEP_LINK(c.code), '_blank', 'noopener');
+  clip.then((ok) => {
+    if (ok) recordCopy(c, (code) => t('toastNusuk')(code));
+    else toast(c.code);
+  });
+}
+
+async function copyAlreadyUsedChip(chip) {
+  if (await copyText(chip.dataset.code)) toast(t('toastCopied')(chip.dataset.code));
+}
+
+async function skip() {
+  const c = state.queue.shift();
+  if (!c) return;
+  state.me.remaining = Math.max(0, state.me.remaining - 1);
+  markLocal([c.id]);
+  renderAll();
+  await api('report', { id: c.id, reason: 'skipped' });
+  if (!state.codes.loaded && state.queue.length < 8) refillQueue().then(renderAll);
+}
+
+async function reportLast(reason) {
+  const c = state.lastCopied;
+  if (!c) return;
+  state.lastCopied = null;
+  renderAll();
+  await api('report', { id: c.id, reason });
+  toast(reason === 'invalid' ? t('toastBad') : t('toastNoted'));
+}
+
+async function undoLast() {
+  const c = state.lastCopied;
+  if (!c) return;
+  state.lastCopied = null;
+  state.me.copied = Math.max(0, state.me.copied - 1);
+  state.me.copied_today = Math.max(0, (state.me.copied_today || 1) - 1);
+  state.me.remaining++;
+  state.stats.used_today = Math.max(0, (state.stats.used_today || 1) - 1);
+  state.stats.used_total = Math.max(0, (state.stats.used_total || 1) - 1);
+  // The code is usable again: drop it from the used set and put it
+  // back at the front of the queue.
+  state.codes.usedIds.delete(c.id);
+  saveLocalUsed();
+  if (state.codes.loaded) {
+    refreshQueue();
+    const canonical = state.codes.byId.get(c.id) || c;
+    state.queue = [canonical, ...state.queue.filter((x) => x.id !== c.id)];
+  } else {
+    state.queue.unshift(c);
+  }
+  await api('undo', { id: c.id });
+  toast(t('toastUndo'));
+  renderAll();
+  if (state.list.filter !== 'remaining') loadList(true);
+}
+
+// ---------- Gate (first load & upgrade from guest) ----------
+function showGate() {
+  $('gate').classList.remove('hidden');
+  setTimeout(() => $('gate-input').focus(), 50);
+}
+function hideGate() { $('gate').classList.add('hidden'); $('acct').classList.remove('hidden'); }
+
+// ---------- Automatic failover ----------
+// The browser is the load balancer on free hosting: no free provider
+// reports its live load or quota to the page, so the only signal the
+// page can act on is failure. When this host cannot serve any code at
+// all (static list AND server fallback both failed, or the session
+// call itself never reached the server), the page counts down 5
+// seconds and moves the visitor to the next host in the chain
+// automatically — no click needed. "Stay here" cancels the move.
+// FAILOVER_CHAIN is in capacity order (verified free limits,
+// 2026-11-06). A host is listed only once it is LIVE — a redirect
+// to a dead address helps nobody. New hosts are inserted here, in
+// capacity order, as each one is deployed and verified (Surge,
+// Vercel, Render, GitLab Pages).
+// The ?fo=host1,host2 marker records hosts already tried, so the
+// chain always moves forward and can never loop back.
+const FAILOVER_CHAIN = [
+  'https://nusukkeys-cu9.pages.dev/',
+  'https://nusukkeys-mirror.pages.dev/',
+  'https://nusukkeys-backup.pages.dev/',
+  'https://ausaimin10.github.io/nusukkeys-mirror/',
+  'https://nusukkeys-mirror.netlify.app/',
+  'https://nusukkeys-mirror.web.app/',
+  'https://cdn.jsdelivr.net/gh/ausaimin10/nusukkeys-mirror@main/'
+];
+function failoverTried() {
+  try { return new Set((new URLSearchParams(location.search).get('fo') || '').split(',').filter(Boolean)); }
+  catch (e) { return new Set(); }
+}
+function failoverTargets() {
+  // Ordered candidates: first the host that last served this visitor
+  // codes (if it is in the chain), then the chain in capacity order.
+  // Hosts already tried (the ?fo= marker) and this host are skipped.
+  const tried = failoverTried();
+  const out = [];
+  const push = (u) => {
+    try {
+      const host = new URL(u).hostname;
+      if (host !== location.hostname && !tried.has(host) && !out.some((x) => new URL(x).hostname === host)) out.push(u);
+    } catch (e) { /* skip a bad entry */ }
+  };
+  let lastGood = null;
+  try { lastGood = localStorage.getItem('mk_last_good'); } catch {}
+  if (lastGood) {
+    const hit = FAILOVER_CHAIN.find((u) => { try { return new URL(u).hostname === lastGood; } catch (e) { return false; } });
+    if (hit) push(hit);
+  }
+  FAILOVER_CHAIN.forEach(push);
+  return out;
+}
+function failoverTarget() {
+  const t = failoverTargets();
+  return t.length ? t[0] : null;
+}
+// Before moving, check the target is actually alive: its head file
+// must answer within 3s. A redirect to a dead host is worse than
+// staying put — the visitor would land on an error page instead of
+// this one. The probe is a no-cors fetch, so it only tests
+// reachability and needs no CORS headers on the target.
+async function probeHost(url) {
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 3000);
+    try { await fetch(url + 'codes-head.json', { mode: 'no-cors', signal: ctl.signal }); return true; }
+    finally { clearTimeout(timer); }
+  } catch { return false; }
+}
+async function probeAndRedirect() {
+  const targets = failoverTargets();
+  // Probe all candidates in parallel (one 3s window) and take the
+  // first live one in priority order.
+  const results = await Promise.all(targets.map((t) => probeHost(t)));
+  for (let i = 0; i < targets.length; i++) {
+    if (results[i]) {
+      const target = targets[i];
+      const tried = [...failoverTried(), location.hostname];
+      location.replace(target + (target.includes('?') ? '&' : '?') + 'fo=' + tried.join(','));
+      return;
+    }
+  }
+  failoverTimer = null; // no live host: stay put, banner stays visible
+}
+function cleanFailoverMarker() {
+  try {
+    const p = new URLSearchParams(location.search);
+    if (!p.has('fo')) return;
+    p.delete('fo');
+    const q = p.toString();
+    history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash);
+  } catch (e) { /* leave the URL alone */ }
+}
+let failoverTimer = null;
+function startFailover() {
+  if (failoverTimer) return; // already counting down
+  // The key gate is a modal overlay: hide it, or the visitor could
+  // never reach the banner's "Stay here" button.
+  hideGate();
+  $('failover').classList.remove('hidden');
+  let n = 5;
+  const tick = () => {
+    if (n <= 0) { probeAndRedirect(); return; }
+    const el = $('failover-count');
+    if (el) el.textContent = t('failoverCount')(n);
+    n -= 1;
+    failoverTimer = setTimeout(tick, 1000);
+  };
+  tick();
+}
+function cancelFailover() {
+  if (failoverTimer) { clearTimeout(failoverTimer); failoverTimer = null; }
+  const el = $('failover-count');
+  if (el) el.textContent = '';
+}
+
+async function startSession({ key, anon = false, share = false, prevKey = null }) {
+  // Fetch the static code list in parallel with the session call, so
+  // the first load is not slower than before.
+  const codesPromise = fetchCodesJson();
+  const d = await api('session', { key, anon, share, prevKey });
+  if (!d.ok && d.error !== 'no_key') {
+    // The server is unreachable or erroring, but the public code list
+    // may still be available (service-worker cache, cross-origin
+    // mirror). Serve codes locally as a guest instead of abandoning
+    // the visitor: the dispenser, browser, copy/skip/undo all work
+    // from the static list, with copies tracked only in this browser
+    // for this visit (the server cannot record them while it is
+    // unreachable). The saved key is NOT forgotten, so the next
+    // online visit re-establishes identity. If no code list loads
+    // either, the failover chain takes over as before.
+    const first = await codesPromise;
+    if (first && applyCodes(first.data, [])) {
+      // Codes used on this device are remembered in this browser even
+      // with no server (static hosts have no database), so the
+      // one-time-per-user rule holds across reloads and host switches.
+      const savedUsed = loadLocalUsed();
+      state.key = null;
+      state.me = { copied: savedUsed.length, copied_today: 0, remaining: Math.max(0, state.codes.all.length - savedUsed.length), total: state.codes.all.length, anon: true, mine: null };
+      state.stats = { ...state.stats, codes: first.data.total || state.codes.all.length };
+      state.codes.usedIds = new Set(savedUsed);
+      state.queue = [];
+      state.lastCopied = null;
+      hideGate();
+      renderAll();
+      await Promise.all([refillQueue(), loadList(true)]);
+      cancelFailover();
+      cleanFailoverMarker();
+      try { localStorage.setItem('mk_last_good', location.hostname); } catch {}
+      if (first.isHead) {
+        fetchFullCodesJson().then((full) => {
+          if (!full) return;
+          applyCodes(full, []);
+          state.me.remaining = Math.max(0, state.codes.all.length - state.codes.usedIds.size);
+          state.me.total = state.codes.all.length;
+          refreshQueue();
+          loadList(true);
+          renderAll();
+        });
+      }
+      renderAll();
+      return { ok: true, offline: true, local: true, me: state.me, stats: state.stats };
+    }
+    startFailover();
+    return d;
+  }
+  if (!d.ok) return d;
+  persistKey(d.me.key);
+  state.me = d.me;
+  state.stats = d.stats;
+  state.codes.usedIds = new Set(d.usedIds || []);
+  state.queue = [];
+  state.lastCopied = null;
+  hideGate();
+  renderAll();
+  const first = await codesPromise; // {data, isHead} or null
+  applyCodes(first ? first.data : null, d.delta || []);
+  await Promise.all([refillQueue(), loadList(true)]);
+  // Failover: if neither the static list nor the server fallback
+  // produced any code, move the visitor to the backup mirror
+  // automatically (5s countdown, cancellable with "Stay here").
+  const anyCodes = state.codes.loaded || state.queue.length > 0 || state.list.items.length > 0;
+  $('failover').classList.toggle('hidden', anyCodes);
+  if (anyCodes) {
+    cancelFailover(); cleanFailoverMarker();
+    // Remember the host that served codes — if it ever fails later,
+    // the chain tries this host first.
+    try { localStorage.setItem('mk_last_good', location.hostname); } catch {}
+    // Background upgrade: the head file made the page usable at once;
+    // now fetch the full list so the code browser can search every
+    // code. The queue and grid refresh when it arrives.
+    if (first && first.isHead) {
+      fetchFullCodesJson().then((full) => {
+        if (!full) return;
+        applyCodes(full, d.delta || []);
+        refreshQueue();
+        loadList(true);
+        renderAll();
+      });
+    }
+  } else startFailover();
+  renderAll();
+  return d;
+}
+
+// ---------- Boot ----------
+function bind() {
+  document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+  $('btn-copy').addEventListener('click', () => state.queue[0] && copyCode(state.queue[0]));
+  // Instruction cards: 1 copies the current code (same as the main
+  // button), 2 copies the current code and opens it in the Nusuk app
+  // (deep link, with a store fallback), 3 skips/reports the current
+  // code (same as Skip).
+  document.querySelectorAll('[data-step]').forEach((el) => {
+    const act = () => {
+      const step = el.dataset.step;
+      if (step === 'copy') { if (state.queue[0]) copyCode(state.queue[0]); }
+      else if (step === 'nusuk') { if (state.queue[0]) openInNusukApp(state.queue[0]); }
+      else if (step === 'skip') { skip(); }
+    };
+    el.addEventListener('click', act);
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); } });
+  });
+  $('btn-skip').addEventListener('click', skip);
+  $('s-used').addEventListener('click', () => reportLast('already_used'));
+  $('s-bad').addEventListener('click', () => reportLast('invalid'));
+  $('s-undo').addEventListener('click', undoLast);
+  $('failover-stay').addEventListener('click', cancelFailover);
+  // Sponsor hosting dialog
+  $('btn-sponsor').addEventListener('click', () => $('sponsor-dialog').classList.remove('hidden'));
+  $('sponsor-close').addEventListener('click', () => $('sponsor-dialog').classList.add('hidden'));
+  $('sponsor-dialog').addEventListener('click', (e) => { if (e.target === $('sponsor-dialog')) $('sponsor-dialog').classList.add('hidden'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('sponsor-dialog').classList.add('hidden'); });
+  $('btn-more').addEventListener('click', () => loadList(false));
+
+  // Top horizontal guest warning button opens the Key Gate to let the user enter their NG- key
+  $('guest-alert-btn').addEventListener('click', () => {
+    $('gate-input').value = '';
+    showGate();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.code !== 'Space' || /INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName)) return;
+    if (!$('gate').classList.contains('hidden')) return;
+    e.preventDefault();
+    if (state.queue[0]) copyCode(state.queue[0]);
+  });
+
+  $('grid').addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    const item = state.list.items.find((c) => c.id === chip.dataset.id);
+    if (!item) return;
+    if (item.used) return copyAlreadyUsedChip(chip);
+    chip.classList.add('flash');
+    copyCode(item);
+  });
+
+  $('filters').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-f]');
+    if (!b) return;
+    document.querySelectorAll('#filters button').forEach((x) => x.classList.toggle('active', x === b));
+    state.list.filter = b.dataset.f;
+    loadList(true);
+  });
+
+  let timer;
+  $('q').addEventListener('input', (e) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { state.list.q = e.target.value.trim(); loadList(true); }, 250);
+  });
+
+  $('share-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = $('share-err');
+    err.classList.add('hidden');
+    const d = await api('share', { code: $('share-input').value });
+    if (!d.ok) { err.textContent = t('err')[d.error] || t('err').server; err.classList.remove('hidden'); return; }
+    $('share-input').value = '';
+    toast(t('toastShared'));
+    // Add the shared code to the client-side list so it appears at once.
+    if (d.code && state.codes.loaded && !state.codes.byId.has(d.code.id)) {
+      const c = {
+        id: d.code.id, code: d.code.code, rid: d.code.rid,
+        device_id: d.code.device_id || 'community-import',
+        name: d.code.name || '', copies: 0, used: 0
+      };
+      state.codes.all.push(c);
+      state.codes.byId.set(c.id, c);
+      state.codes.all.sort((a, b) => a.rid - b.rid);
+      refreshQueue();
+    }
+    await loadStats();
+    if (state.list.filter === 'new') loadList(true);
+  });
+
+  $('acct').addEventListener('click', () => {
+    $('gate-input').value = state.me.anon ? '' : (state.key || '');
+    showGate();
+  });
+
+  $('gate-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = $('gate-err');
+    err.classList.add('hidden');
+    const key = normalizeKey($('gate-input').value);
+    if (!key) {
+      err.textContent = $('gate-input').value.trim() ? t('err').invalid_code : t('err').empty;
+      err.classList.remove('hidden');
+      return;
+    }
+    const prevKey = state.me?.anon ? state.key : null;
+    $('gate-go').disabled = true;
+    // Entering with your own key always adds it to the pool (the
+    // server adds it when missing); it is never shown back to you.
+    const d = await startSession({ key, share: true, prevKey });
+    $('gate-go').disabled = false;
+    if (!d.ok) { err.textContent = t('err').server; err.classList.remove('hidden'); return; }
+    toast(d.me.copied > 0 ? `${t('toastWelcome')} · ${fmt(d.me.copied)}` : t('toastWelcome'));
+  });
+
+  $('gate-anon').addEventListener('click', () => {
+    if (state.key && state.me.anon) {
+      hideGate();
+      return;
+    }
+    startSession({ anon: true });
+  });
+}
+
+async function boot() {
+  bind();
+  buildShareLinks();
+  applyLang(state.lang);
+  const saved = readCookie() || localStorage.getItem('mk_key');
+  if (!saved) return showGate();
+  state.key = saved;
+  const d = await startSession({ key: saved });
+  if (!d.ok && d.error !== 'network') { forgetKey(); showGate(); }
+  // Periodically refresh real visitor & copy stats every 60s
+  setInterval(() => {
+    if (document.visibilityState === 'visible' && state.key) loadStats();
+  }, 60000);
+}
+
+boot();

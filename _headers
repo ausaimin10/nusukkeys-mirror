@@ -1,7 +1,11 @@
-# Cloudflare Pages custom headers for the static mirror.
-# codes.json / codes-head.json are the immutable seed, so a long cache
-# is safe. Access-Control-Allow-Origin: * lets the main site (or
-# another mirror) fetch this host's code list when its own copy fails.
+# Cloudflare Pages custom headers.
+# codes.json / codes-head.json are the immutable seed (new codes arrive
+# via the API delta, never by editing these files), so a long cache is
+# safe and keeps repeat loads fast. Access-Control-Allow-Origin: * lets
+# a mirror on another host fetch this host's code list when its own
+# copy fails — one more cross-provider fallback layer. Every other file
+# keeps the default no-store behaviour (the local server also sends
+# no-store) so a cached index.html can never mix with a newer app.js.
 /codes.json
   Cache-Control: public, max-age=86400
   Access-Control-Allow-Origin: *
