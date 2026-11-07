@@ -167,7 +167,280 @@ const I18N = {
       duplicate: 'هذا الكود مُشارك بالفعل.', device_limit: 'وصلت إلى حد المشاركة.',
       name_link: 'لا يمكن أن يحتوي الاسم على روابط.', name_number: 'لا يمكن أن يحتوي الاسم على أرقام هواتف.', server: 'حدث خطأ، حاول مرة أخرى.'
     }
-  }
+  },
+  ur: {
+    dir: 'rtl',
+    guestWarnText: 'آپ اپنی نسک کی کے بغیر براؤز کر رہے ہیں — اپنی کی درج کریں تاکہ آپ کے استعمال شدہ اور باقی کوڈز تمام آلات پر محفوظ رہیں۔',
+    guestWarnBtn: 'میری کی درج کریں →',
+    mVisitorsLabel: 'اصل وزٹرز',
+    mCopiesLabel: 'کوڈ کاپی کی تعداد',
+    mAddedLabel: 'نئے شامل شدہ کوڈز',
+    heroTitle: 'ریفرل کوڈز۔ ایک کاپی کریں، ایک کی حاصل کریں۔',
+    heroSub: 'ایک بار ٹیپ کر کے کاپی کریں، نسک ایپ میں پیسٹ کریں۔ ہم یاد رکھتے ہیں کہ آپ نے کیا استعمال کیا، اس لیے آپ کو وہی کوڈ دوبارہ کبھی نہیں دکھایا جائے گا۔',
+    nextCode: 'آپ کا اگلا کوڈ',
+    copyNext: 'کاپی کریں اور اگلا دکھائیں',
+    skip: 'چھوڑیں',
+    copied: 'کاپی ہو گیا',
+    alreadyUsed: 'پہلے سے استعمال شدہ',
+    invalid: 'کام نہیں کرتا',
+    undo: 'واپس کریں',
+    s1t: 'ایک کوڈ کاپی کریں',
+    s1d: 'بڑا بٹن استعمال کریں یا نیچے کسی بھی کوڈ پر ٹیپ کریں۔',
+    s2t: 'نسک ایپ میں کھولیں',
+    s2d: 'پہلے نسک ایپ میں چیلنج شروع کریں، پھر یہاں ٹیپ کریں — کوڈ پہلے سے بھرا ہونا چاہیے۔ اگر نہیں، تو بس پیسٹ کریں۔',
+    s3t: 'قبول نہیں ہوا؟ اگلا۔',
+    s3d: 'اسے نشان زد کریں اور ہم اسے دوبارہ کبھی نہیں دکھائیں گے۔',
+    search: 'کوڈز تلاش کریں…',
+    fRemaining: 'باقی',
+    fNew: 'نئے شامل شدہ',
+    fUsed: 'استعمال شدہ',
+    fAll: 'سب',
+    more: 'مزید لوڈ کریں',
+    addTitle: 'کوئی اور کوڈ شیئر کرنا ہے؟',
+    shareBtn: 'شیئر کریں',
+    shareMsg: 'براہ کرم امت کے فائدے کے لیے اسے شیئر کریں۔',
+    shareTitle: 'نسک کیز شیئر کریں',
+    shareClose: 'بند کریں',
+    sponsorTitle: 'ہوسٹنگ سپانسر کریں',
+    sponsorLine1: 'آپ کا تعاون براہ راست ویب سائٹ کے مرکزی ہوسٹنگ سرور کو اپ گریڈ کرنے کے لیے جاتا ہے۔',
+    sponsorLine2: 'ایک چھوٹا تعاون، امت کے لیے دیرپا فائدہ۔',
+    sponsorBtn: 'ہوسٹنگ سپانسر کریں',
+    sponsorNote: 'یہ سائٹ مفت ہوسٹنگ پر چلتی ہے۔ مرکزی سرور کے لیے ایک ادا شدہ پلان تقریباً $5 ماہانہ سے شروع ہوتا ہے اور حدود بڑھاتا ہے۔ ہر تعاون صرف اس اپ گریڈ کے لیے جاتا ہے، اور کچھ نہیں۔',
+    sponsorEmail: 'سپانسر کرنے کے لیے ای میل کریں',
+    sponsorClose: 'بند کریں',
+    sponsorHint: 'تعاون رضاکارانہ ہے۔ اس سائٹ پر ادائیگی کی کوئی تفصیلات جمع نہیں کی جاتیں۔',
+    failoverMsg: 'یہ سائٹ اپنی کوڈ لسٹ لوڈ نہیں کر سکی۔ بیک اپ مرر آزمائیں — وہاں استعمال کیے گئے کوڈز صرف اس براؤزر میں محفوظ ہوتے ہیں۔',
+    failoverCount: (n) => `بیک اپ مرر پر ${n}s میں جا رہے ہیں…`,
+    failoverStay: 'یہیں رہیں',
+    gateShareNote: 'آپ کا کوڈ بھی پول میں شامل کیا جاتا ہے، تاکہ دوسرے اسے استعمال کر سکیں۔ یہ آپ کو کبھی واپس نہیں دکھایا جائے گا۔',
+    foot: 'آزاد کمیونٹی ٹول۔ نسک یا وزارت حج و عمرہ سے وابستہ نہیں۔ ہم کبھی آپ کا لاگ ان نہیں مانگتے۔',
+    gateTitle: 'اپنی نسک کی درج کریں',
+    gateSub: 'یہ یہاں آپ کی نجی شناخت ہے۔ ہم اسے یہ یاد رکھنے کے لیے استعمال کرتے ہیں کہ آپ نے کون سے کوڈز پہلے استعمال کیے ہیں، کسی بھی ڈیوائس پر۔ یہ کوکی میں محفوظ ہے اس لیے آپ یہ صرف ایک بار کرتے ہیں۔',
+    gateGo: 'جاری رکھیں',
+    gateAnon: 'میرے پاس ابھی کی نہیں ہے',
+    gateHint: 'نسک میں تلاش کریں: چیلنج شروع کریں → شیئر کریں → وہ کوڈ کاپی کریں جو NG- سے شروع ہوتا ہے۔',
+    by: (n) => (n ? `${n} کے ذریعے شیئر کیا گیا` : ''),
+    activeNow: (n) => `${n} ابھی فعال`,
+    copiedToday: (n) => `آج ${n} کاپی کیے گئے`,
+    addedSub: (today, latest) => (latest ? `تازہ ترین: ${latest} (+آج ${today})` : `آج ${today} شامل کیے گئے`),
+    stats: (c, r, mine) => `آپ نے <b>${c}</b> کاپی کیے · باقی <b>${r}</b>` + (mine ? ` · آپ کی کی (${mine.code}) <b>${mine.copies}×</b> کاپی کی گئی` : ''),
+    shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} دکھائے گئے`,
+    none: 'یہاں ابھی کچھ نہیں ہے۔',
+    allDone: 'آپ نے ہر کوڈ استعمال کر لیا ہے۔ جلد واپس چیک کریں!',
+    toastCopied: (c) => `کاپی ہو گیا ${c}۔ نسک میں پیسٹ کریں`,
+    toastNusuk: (c) => `نسک ایپ کھل رہی ہے — ${c} کاپی ہو گیا، اگر ضرورت ہو تو وہاں پیسٹ کریں`,
+    toastNoted: 'نوٹ کر لیا۔ اگلا!',
+    toastBad: 'شکریہ، رپورٹ کر دیا گیا',
+    toastUndo: 'واپس کر دیا گیا',
+    toastShared: 'آپ کا کوڈ پول میں شامل ہے',
+    toastWelcome: 'واپس خوش آمدید',
+    err: { empty: 'براہ کرم پہلے ایک کوڈ پیسٹ کریں۔', invalid_code: 'یہ نسک کی جیسی نہیں لگتی۔ یہ NG- کے بعد 8 حروف ہوتی ہے۔', duplicate: 'یہ کوڈ پہلے سے شیئر کیا گیا ہے۔', device_limit: 'آپ شیئر کرنے کی حد تک پہنچ گئے ہیں۔', name_link: 'ناموں میں لنکس نہیں ہو سکتے۔', name_number: 'ناموں میں فون نمبر نہیں ہو سکتے۔', server: 'کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔' },
+  },
+  id: {
+    dir: 'ltr',
+    guestWarnText: 'Anda menjelajah tanpa kunci Nusuk — masukkan kunci Anda agar kode yang sudah dipakai dan tersisa tetap tersimpan di semua perangkat.',
+    guestWarnBtn: 'Masukkan Kunci Saya →',
+    mVisitorsLabel: 'Pengunjung Asli',
+    mCopiesLabel: 'Jumlah Salinan Kode',
+    mAddedLabel: 'Kode Baru Ditambahkan',
+    heroTitle: 'kode referral. Salin satu, dapatkan satu kunci.',
+    heroSub: 'Ketuk sekali untuk menyalin, tempel di aplikasi Nusuk. Kami mengingat yang sudah Anda pakai, jadi Anda tidak akan pernah melihat kode yang sama dua kali.',
+    nextCode: 'Kode Anda berikutnya',
+    copyNext: 'Salin & tampilkan berikutnya',
+    skip: 'Lewati',
+    copied: 'Tersalin',
+    alreadyUsed: 'Sudah dipakai',
+    invalid: 'Tidak berfungsi',
+    undo: 'Urungkan',
+    s1t: 'Salin sebuah kode',
+    s1d: 'Gunakan tombol besar atau ketuk kode apa pun di bawah.',
+    s2t: 'Buka di aplikasi Nusuk',
+    s2d: 'Mulai tantangan di aplikasi Nusuk dulu, lalu ketuk di sini — kodenya seharusnya sudah terisi. Jika belum, tempel saja.',
+    s3t: 'Tidak diterima? Berikutnya.',
+    s3d: 'Tandai, dan kami tidak akan pernah menampilkannya lagi.',
+    search: 'Cari kode…',
+    fRemaining: 'Tersisa',
+    fNew: 'Baru Ditambahkan',
+    fUsed: 'Dipakai',
+    fAll: 'Semua',
+    more: 'Muat lebih banyak',
+    addTitle: 'Punya kode lain untuk dibagikan?',
+    shareBtn: 'Bagikan',
+    shareMsg: 'Mohon bagikan ini untuk kebaikan umat.',
+    shareTitle: 'Bagikan NusukKeys',
+    shareClose: 'Tutup',
+    sponsorTitle: 'Sponsori Hosting',
+    sponsorLine1: 'Kontribusi Anda langsung digunakan untuk meningkatkan server hosting utama situs web.',
+    sponsorLine2: 'Kontribusi kecil, manfaat abadi untuk umat.',
+    sponsorBtn: 'Sponsori Hosting',
+    sponsorNote: 'Situs ini berjalan di hosting gratis. Paket berbayar untuk server utama mulai dari sekitar $5 per bulan dan menaikkan batas. Setiap kontribusi hanya untuk peningkatan itu, tidak ada yang lain.',
+    sponsorEmail: 'Email untuk mensponsori',
+    sponsorClose: 'Tutup',
+    sponsorHint: 'Kontribusi bersifat sukarela. Tidak ada detail pembayaran yang dikumpulkan di situs ini.',
+    failoverMsg: 'Situs ini tidak dapat memuat daftar kodenya. Coba mirror cadangan — kode yang Anda pakai di sana hanya tersimpan di browser itu.',
+    failoverCount: (n) => `Beralih ke mirror cadangan dalam ${n} dtk…`,
+    failoverStay: 'Tetap di sini',
+    gateShareNote: 'Kode Anda juga ditambahkan ke kumpulan, agar orang lain dapat menggunakannya. Kode itu tidak akan pernah ditampilkan kembali kepada Anda.',
+    foot: 'Alat komunitas independen. Tidak berafiliasi dengan Nusuk atau Kementerian Haji dan Umrah. Kami tidak pernah meminta login Anda.',
+    gateTitle: 'Masukkan kunci Nusuk Anda',
+    gateSub: 'Ini adalah ID pribadi Anda di sini. Kami menggunakannya untuk mengingat kode mana yang sudah Anda pakai, di perangkat apa pun. Ini disimpan dalam cookie sehingga Anda hanya melakukannya sekali.',
+    gateGo: 'Lanjutkan',
+    gateAnon: 'Saya belum punya kunci',
+    gateHint: 'Temukan di Nusuk: Mulai tantangan → Bagikan → salin kode yang diawali NG-.',
+    by: (n) => (n ? `dibagikan oleh ${n}` : ''),
+    activeNow: (n) => `${n} aktif sekarang`,
+    copiedToday: (n) => `${n} disalin hari ini`,
+    addedSub: (today, latest) => (latest ? `Terbaru: ${latest} (+${today} hari ini)` : `${today} ditambahkan hari ini`),
+    stats: (c, r, mine) => `Anda menyalin <b>${c}</b> · Tersisa <b>${r}</b>` + (mine ? ` · Kunci Anda (${mine.code}) disalin <b>${mine.copies}×</b>` : ''),
+    shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} ditampilkan`,
+    none: 'Belum ada apa pun di sini.',
+    allDone: 'Anda sudah memakai semua kode. Periksa lagi nanti!',
+    toastCopied: (c) => `Tersalin ${c}. Tempel di Nusuk`,
+    toastNusuk: (c) => `Membuka aplikasi Nusuk — ${c} tersalin, tempel di sana jika perlu`,
+    toastNoted: 'Dicatat. Berikutnya!',
+    toastBad: 'Terima kasih, sudah dilaporkan',
+    toastUndo: 'Dibatalkan',
+    toastShared: 'Kode Anda ada di kumpulan',
+    toastWelcome: 'Selamat datang kembali',
+    err: { empty: 'Tempel sebuah kode dulu.', invalid_code: 'Itu tidak tampak seperti kunci Nusuk. Formatnya NG- diikuti 8 karakter.', duplicate: 'Kode itu sudah dibagikan.', device_limit: 'Anda telah mencapai batas berbagi.', name_link: 'Nama tidak boleh berisi tautan.', name_number: 'Nama tidak boleh berisi nomor telepon.', server: 'Terjadi kesalahan. Coba lagi.' },
+  },
+  tr: {
+    dir: 'ltr',
+    guestWarnText: 'Nusuk anahtarınız olmadan geziniyorsunuz — kullandığınız ve kalan kodların tüm cihazlarda kayıtlı kalması için anahtarınızı girin.',
+    guestWarnBtn: 'Anahtarımı Gir →',
+    mVisitorsLabel: 'Gerçek Ziyaretçiler',
+    mCopiesLabel: 'Kod Kopyalama Sayısı',
+    mAddedLabel: 'Yeni Eklenen Kodlar',
+    heroTitle: 'yönlendirme kodları. Birini kopyalayın, bir anahtar kazanın.',
+    heroSub: 'Kopyalamak için bir kez dokunun, Nusuk uygulamasına yapıştırın. Neyi kullandığınızı hatırlıyoruz, böylece aynı kodu iki kez görmezsiniz.',
+    nextCode: 'Sonraki kodunuz',
+    copyNext: 'Kopyala ve sonrakini göster',
+    skip: 'Atla',
+    copied: 'Kopyalandı',
+    alreadyUsed: 'Zaten kullanılmış',
+    invalid: 'Çalışmıyor',
+    undo: 'Geri al',
+    s1t: 'Bir kod kopyalayın',
+    s1d: 'Büyük düğmeyi kullanın veya aşağıdaki herhangi bir koda dokunun.',
+    s2t: 'Nusuk uygulamasında açın',
+    s2d: 'Önce Nusuk uygulamasında meydan okumayı başlatın, sonra buraya dokunun — kod zaten doldurulmuş olmalı. Değilse, yapıştırın.',
+    s3t: 'Kabul edilmedi mi? Sonraki.',
+    s3d: 'İşaretleyin, bir daha asla göstermeyelim.',
+    search: 'Kod arayın…',
+    fRemaining: 'Kalan',
+    fNew: 'Yeni Eklenen',
+    fUsed: 'Kullanılan',
+    fAll: 'Tümü',
+    more: 'Daha fazla yükle',
+    addTitle: 'Paylaşacak başka kodunuz var mı?',
+    shareBtn: 'Paylaş',
+    shareMsg: 'Lütfen ümmetin yararı için bunu paylaşın.',
+    shareTitle: 'NusukKeys\'i Paylaş',
+    shareClose: 'Kapat',
+    sponsorTitle: 'Barındırmaya Sponsor Olun',
+    sponsorLine1: 'Katkınız doğrudan web sitesinin ana barındırma sunucusunu yükseltmek için kullanılır.',
+    sponsorLine2: 'Küçük bir katkı, ümmet için kalıcı bir fayda.',
+    sponsorBtn: 'Barındırmaya Sponsor Olun',
+    sponsorNote: 'Bu site ücretsiz barındırmada çalışıyor. Ana sunucu için ücretli plan ayda yaklaşık $5 seviyesinden başlar ve sınırları yükseltir. Her katkı yalnızca bu yükseltmeye gider, başka bir şeye değil.',
+    sponsorEmail: 'Sponsor olmak için e-posta gönderin',
+    sponsorClose: 'Kapat',
+    sponsorHint: 'Katkılar gönüllüdür. Bu sitede ödeme bilgisi toplanmaz.',
+    failoverMsg: 'Bu site kod listesini yükleyemedi. Bir yedek aynayı deneyin — orada kullandığınız kodlar yalnızca o tarayıcıda kaydedilir.',
+    failoverCount: (n) => `${n} sn içinde yedek aynaya geçiliyor…`,
+    failoverStay: 'Burada kal',
+    gateShareNote: 'Kodunuz da havuza eklenir, böylece başkaları kullanabilir. Size asla geri gösterilmez.',
+    foot: 'Bağımsız topluluk aracı. Nusuk veya Hac ve Umre Bakanlığı ile bağlantılı değildir. Giriş bilgilerinizi asla istemeyiz.',
+    gateTitle: 'Nusuk anahtarınızı girin',
+    gateSub: 'Bu, buradaki özel kimliğinizdir. Hangi kodları zaten kullandığınızı hatırlamak için kullanırız, herhangi bir cihazda. Bir çerezde saklanır, böylece bunu yalnızca bir kez yaparsınız.',
+    gateGo: 'Devam et',
+    gateAnon: 'Henüz anahtarım yok',
+    gateHint: 'Nusuk\'ta bulun: Meydan okumayı başlat → Paylaş → NG- ile başlayan kodu kopyalayın.',
+    by: (n) => (n ? `${n} tarafından paylaşıldı` : ''),
+    activeNow: (n) => `${n} şu an aktif`,
+    copiedToday: (n) => `bugün ${n} kopyalandı`,
+    addedSub: (today, latest) => (latest ? `En son: ${latest} (+bugün ${today})` : `bugün ${today} eklendi`),
+    stats: (c, r, mine) => `<b>${c}</b> kopyaladınız · Kalan <b>${r}</b>` + (mine ? ` · Anahtarınız (${mine.code}) <b>${mine.copies}×</b> kopyalandı` : ''),
+    shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} gösteriliyor`,
+    none: 'Burada henüz hiçbir şey yok.',
+    allDone: 'Tüm kodları kullandınız. Yakında tekrar kontrol edin!',
+    toastCopied: (c) => `${c} kopyalandı. Nusuk'a yapıştırın`,
+    toastNusuk: (c) => `Nusuk uygulaması açılıyor — ${c} kopyalandı, gerekirse oraya yapıştırın`,
+    toastNoted: 'Not edildi. Sonraki!',
+    toastBad: 'Teşekkürler, bildirildi',
+    toastUndo: 'Geri alındı',
+    toastShared: 'Kodunuz havuzda',
+    toastWelcome: 'Tekrar hoş geldiniz',
+    err: { empty: 'Önce bir kod yapıştırın.', invalid_code: 'Bu bir Nusuk anahtarına benzemiyor. NG- ve ardından 8 karakter olmalı.', duplicate: 'Bu kod zaten paylaşılmış.', device_limit: 'Paylaşım sınırına ulaştınız.', name_link: 'Adlar bağlantı içeremez.', name_number: 'Adlar telefon numarası içeremez.', server: 'Bir şeyler yanlış gitti. Tekrar deneyin.' },
+  },
+  hi: {
+    dir: 'ltr',
+    guestWarnText: 'आप अपनी नुसुक कुंजी के बिना ब्राउज़ कर रहे हैं — अपनी कुंजी दर्ज करें ताकि आपके उपयोग किए गए और शेष कोड सभी उपकरणों पर सहेजे रहें।',
+    guestWarnBtn: 'मेरी कुंजी दर्ज करें →',
+    mVisitorsLabel: 'वास्तविक आगंतुक',
+    mCopiesLabel: 'कोड कॉपी की संख्या',
+    mAddedLabel: 'नए जोड़े गए कोड',
+    heroTitle: 'रेफ़रल कोड। एक कॉपी करें, एक कुंजी पाएं।',
+    heroSub: 'कॉपी करने के लिए एक बार टैप करें, नुसुक ऐप में पेस्ट करें। हम याद रखते हैं कि आपने क्या उपयोग किया है, इसलिए आप वही कोड दोबारा कभी नहीं देखेंगे।',
+    nextCode: 'आपका अगला कोड',
+    copyNext: 'कॉपी करें और अगला दिखाएं',
+    skip: 'छोड़ें',
+    copied: 'कॉपी हो गया',
+    alreadyUsed: 'पहले से उपयोग किया गया',
+    invalid: 'काम नहीं करता',
+    undo: 'वापस लें',
+    s1t: 'एक कोड कॉपी करें',
+    s1d: 'बड़े बटन का उपयोग करें या नीचे किसी भी कोड पर टैप करें।',
+    s2t: 'नुसुक ऐप में खोलें',
+    s2d: 'पहले नुसुक ऐप में चुनौती शुरू करें, फिर यहाँ टैप करें — कोड पहले से भरा होना चाहिए। यदि नहीं, तो बस पेस्ट करें।',
+    s3t: 'स्वीकार नहीं हुआ? अगला।',
+    s3d: 'इसे चिह्नित करें और हम इसे फिर कभी नहीं दिखाएंगे।',
+    search: 'कोड खोजें…',
+    fRemaining: 'शेष',
+    fNew: 'नए जोड़े गए',
+    fUsed: 'उपयोग किए गए',
+    fAll: 'सभी',
+    more: 'और लोड करें',
+    addTitle: 'साझा करने के लिए कोई और कोड है?',
+    shareBtn: 'साझा करें',
+    shareMsg: 'कृपया उम्मत के लाभ के लिए इसे साझा करें।',
+    shareTitle: 'नुसुककीज़ साझा करें',
+    shareClose: 'बंद करें',
+    sponsorTitle: 'होस्टिंग प्रायोजित करें',
+    sponsorLine1: 'आपका योगदान सीधे वेबसाइट के प्राथमिक होस्टिंग सर्वर को अपग्रेड करने के लिए जाता है।',
+    sponsorLine2: 'एक छोटा योगदान, उम्मत के लिए स्थायी लाभ।',
+    sponsorBtn: 'होस्टिंग प्रायोजित करें',
+    sponsorNote: 'यह साइट मुफ्त होस्टिंग पर चलती है। मुख्य सर्वर के लिए सशुल्क योजना लगभग $5 प्रति माह से शुरू होती है और सीमाएं बढ़ाती है। हर योगदान केवल उसी अपग्रेड के लिए जाता है, और कुछ नहीं।',
+    sponsorEmail: 'प्रायोजित करने के लिए ईमेल करें',
+    sponsorClose: 'बंद करें',
+    sponsorHint: 'योगदान स्वैच्छिक है। इस साइट पर कोई भुगतान विवरण एकत्र नहीं किया जाता है।',
+    failoverMsg: 'यह साइट अपनी कोड सूची लोड नहीं कर सकी। बैकअप मिरर आज़माएं — वहाँ उपयोग किए गए कोड केवल उसी ब्राउज़र में सहेजे जाते हैं।',
+    failoverCount: (n) => `${n} सेकंड में बैकअप मिरर पर जा रहे हैं…`,
+    failoverStay: 'यहीं रहें',
+    gateShareNote: 'आपका कोड भी पूल में जोड़ा जाता है, ताकि दूसरे इसका उपयोग कर सकें। यह आपको कभी वापस नहीं दिखाया जाएगा।',
+    foot: 'स्वतंत्र सामुदायिक उपकरण। नुसुक या हज और उमराह मंत्रालय से संबद्ध नहीं। हम कभी आपका लॉगिन नहीं मांगते।',
+    gateTitle: 'अपनी नुसुक कुंजी दर्ज करें',
+    gateSub: 'यह यहाँ आपकी निजी पहचान है। हम इसका उपयोग यह याद रखने के लिए करते हैं कि आपने कौन से कोड पहले ही उपयोग किए हैं, किसी भी उपकरण पर। यह कुकी में सहेजा जाता है इसलिए आप यह केवल एक बार करते हैं।',
+    gateGo: 'जारी रखें',
+    gateAnon: 'मेरे पास अभी कुंजी नहीं है',
+    gateHint: 'नुसुक में खोजें: चुनौती शुरू करें → साझा करें → NG- से शुरू होने वाला कोड कॉपी करें।',
+    by: (n) => (n ? `${n} द्वारा साझा किया गया` : ''),
+    activeNow: (n) => `${n} अभी सक्रिय`,
+    copiedToday: (n) => `आज ${n} कॉपी किए गए`,
+    addedSub: (today, latest) => (latest ? `नवीनतम: ${latest} (+आज ${today})` : `आज ${today} जोड़े गए`),
+    stats: (c, r, mine) => `आपने <b>${c}</b> कॉपी किए · शेष <b>${r}</b>` + (mine ? ` · आपकी कुंजी (${mine.code}) <b>${mine.copies}×</b> कॉपी की गई` : ''),
+    shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} दिखाए गए`,
+    none: 'यहाँ अभी कुछ नहीं है।',
+    allDone: 'आपने हर कोड उपयोग कर लिया है। जल्द ही वापस देखें!',
+    toastCopied: (c) => `${c} कॉपी हो गया। नुसुक में पेस्ट करें`,
+    toastNusuk: (c) => `नुसुक ऐप खुल रहा है — ${c} कॉपी हो गया, यदि आवश्यक हो तो वहाँ पेस्ट करें`,
+    toastNoted: 'नोट कर लिया। अगला!',
+    toastBad: 'धन्यवाद, रिपोर्ट कर दिया गया',
+    toastUndo: 'वापस ले लिया गया',
+    toastShared: 'आपका कोड पूल में है',
+    toastWelcome: 'वापस स्वागत है',
+    err: { empty: 'कृपया पहले एक कोड पेस्ट करें।', invalid_code: 'यह नुसुक कुंजी जैसी नहीं लगती। यह NG- के बाद 8 वर्ण होती है।', duplicate: 'वह कोड पहले से साझा किया गया है।', device_limit: 'आप साझा करने की सीमा तक पहुँच गए हैं।', name_link: 'नामों में लिंक नहीं हो सकते।', name_number: 'नामों में फ़ोन नंबर नहीं हो सकते।', server: 'कुछ गलत हो गया। पुनः प्रयास करें।' },
+  },
+
 };
 
 // Mandatory first code: every new user is shown this code first.
@@ -334,8 +607,11 @@ function renderGuestWarning() {
 
 function renderMetrics() {
   const s = state.stats || {};
-  $('m-visitors-total').textContent = fmt(Math.max(1, s.visitors_total || 1));
-  $('m-visitors-online').textContent = t('activeNow')(fmt(Math.max(1, s.visitors_online || 1)));
+  // Show the true counts from the server (no minimum fudge: a real
+  // 0 is honest, and the backend now counts every visitor even while
+  // D1 reads are exhausted, so these are accurate, not placeholders).
+  $('m-visitors-total').textContent = fmt(s.visitors_total || 0);
+  $('m-visitors-online').textContent = t('activeNow')(fmt(s.visitors_online || 0));
 
   // CODE COPY TIMES is personal: big = this user's total copied codes,
   // small = how many this user copied today. Never any global total.
@@ -488,7 +764,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v6').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v11').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -567,7 +843,7 @@ async function apiPrimary(path, payload = {}) {
 let primaryStatsTimer = null;
 // Local mode (static mirror, or the database briefly unreachable):
 // register this visitor on the primary host so the "active now"
-// number is real here too, and refresh the live numbers every 30s.
+// number is real here too, and refresh the live numbers every 60s.
 // Only state.stats is ever replaced — the local copy counts (which
 // the server cannot see in this mode) are never overwritten.
 async function startPrimaryStats() {
@@ -584,7 +860,7 @@ async function startPrimaryStats() {
     if (d.ok && d.stats) { state.stats = d.stats; renderAll(); }
   };
   await poll();
-  primaryStatsTimer = setInterval(poll, 30000);
+  primaryStatsTimer = setInterval(poll, 60000);
 }
 
 async function refillQueue() {
@@ -772,14 +1048,32 @@ async function recordCopy(c, toastMsg) {
 // treats it as a script navigation, loads the URL in the browser, and
 // Nusuk's page redirects to the Play Store even when the app is
 // installed (that is the Play Store symptom). window.open() has the
-// same problem, and an intent:// URL shows Chrome's "Allow" prompt.
-// So card 2 IS a real <a> in the HTML (id nusuk-link); its href is
-// kept pointed at the copied code, and the user taps the card itself.
-// If the app is not installed, the link lands on Nusuk's own page,
-// which redirects Android to the Play Store and iOS to the App Store
-// by itself. The code is also copied to the clipboard first, in case
-// the app still needs a manual paste.
-const NUSUK_DEEP_LINK = (code) => 'https://services.nusuk.sa/app?p=27&id=' + encodeURIComponent(code);
+// same problem.
+// The plain https App Link alone still sent some Android users to the
+// Play Store (a stored "open in browser" choice, or a failed App Link
+// verification on that phone, makes Chrome load the page instead of
+// handing it to the app). So on Android the link is now an intent://
+// URL that names the Nusuk app package explicitly
+// (com.moh.nusukapp) with the https referral URL as its
+// browser_fallback_url: if the app is installed the intent opens it
+// directly at the referral-code field; only if the app is truly not
+// installed does Chrome fall back to the https page (which then sends
+// the user to the Play Store to install it — the correct outcome).
+// The intent:// URL is only the href of the real <a> card, never
+// opened by script, so a genuine tap fires it without Chrome's
+// "Allow" prompt (that prompt only appeared for window.open()).
+// iOS and desktop keep the plain https Universal Link, which iOS
+// handles natively. The code is also copied to the clipboard first,
+// in case the app still needs a manual paste.
+const NUSUK_WEB_LINK = (code) => 'https://services.nusuk.sa/app/?p=27&id=' + encodeURIComponent(code);
+const NUSUK_INTENT_LINK = (code) => {
+  const web = NUSUK_WEB_LINK(code);
+  return 'intent://services.nusuk.sa/app/?p=27&id=' + encodeURIComponent(code) +
+    '#Intent;scheme=https;package=com.moh.nusukapp;S.browser_fallback_url=' +
+    encodeURIComponent(web) + ';end';
+};
+const IS_ANDROID = typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent || '');
+const NUSUK_DEEP_LINK = (code) => IS_ANDROID ? NUSUK_INTENT_LINK(code) : NUSUK_WEB_LINK(code);
 
 // The code the visitor copied most recently in this tab: the
 // in-memory one if set, else the one remembered across a reload in
@@ -1242,11 +1536,14 @@ async function boot() {
   state.key = saved;
   const d = await startSession({ key: saved });
   if (!d.ok && d.error !== 'network') { forgetKey(); showGate(); }
-  // Periodically refresh real visitor & copy stats every 30s, and
-  // immediately when the tab comes back into view.
+  // Periodically refresh real visitor & copy stats every 60s, and
+  // immediately when the tab comes back into view. 60s (not 30s)
+  // halves the recurring Function calls — the free tier allows
+  // 100k/day — and the 'active now' window is 2 minutes, so the
+  // number stays current.
   setInterval(() => {
     if (document.visibilityState === 'visible' && state.key) loadStats();
-  }, 30000);
+  }, 60000);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && state.key) loadStats();
   });
