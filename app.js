@@ -10,6 +10,8 @@ const I18N = {
     mVisitorsLabel: 'Real Visitors',
     mCopiesLabel: 'Code Copy Times',
     mAddedLabel: 'Newly Added Codes',
+    mTotalCopiesLabel: 'Total Copies',
+    mTotalCopiesSub: 'copied by everyone',
     heroTitle: 'referral codes. Copy one, get a key.',
     heroSub: "Tap once to copy, paste it in the Nusuk app. We remember what you've used, so you never see the same code twice.",
     nextCode: 'Your next code', copyNext: 'Copy & show next', skip: 'Skip',
@@ -65,6 +67,8 @@ const I18N = {
     mVisitorsLabel: 'মোট ভিজিটর',
     mCopiesLabel: 'কোড কপি সংখ্যা',
     mAddedLabel: 'নতুন যুক্ত কোড',
+    mTotalCopiesLabel: 'মোট কপি',
+    mTotalCopiesSub: 'সবাই কপি করেছে',
     heroTitle: 'টি রেফারেল কোড। কপি করুন, কী পান।',
     heroSub: 'একবার ট্যাপ করে কপি করুন, নুসুক অ্যাপে পেস্ট করুন। কোনটা ব্যবহার করেছেন আমরা মনে রাখি, তাই একই কোড দ্বিতীয়বার দেখবেন না।',
     nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
@@ -120,6 +124,8 @@ const I18N = {
     mVisitorsLabel: 'الزوار الفعليون',
     mCopiesLabel: 'مرات نسخ الكود',
     mAddedLabel: 'أكواد أُضيفت حديثًا',
+    mTotalCopiesLabel: 'إجمالي النسخ',
+    mTotalCopiesSub: 'نسخها الجميع',
     heroTitle: 'كود إحالة. انسخ كودًا واحصل على مفتاح.',
     heroSub: 'اضغط مرة واحدة للنسخ ثم الصقه في تطبيق نسك. نتذكر ما استخدمته فلا يظهر لك الكود نفسه مرتين.',
     nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
@@ -175,6 +181,8 @@ const I18N = {
     mVisitorsLabel: 'اصل وزٹرز',
     mCopiesLabel: 'کوڈ کاپی کی تعداد',
     mAddedLabel: 'نئے شامل شدہ کوڈز',
+    mTotalCopiesLabel: 'کل کاپیاں',
+    mTotalCopiesSub: 'سب نے کاپی کیے',
     heroTitle: 'ریفرل کوڈز۔ ایک کاپی کریں، ایک کی حاصل کریں۔',
     heroSub: 'ایک بار ٹیپ کر کے کاپی کریں، نسک ایپ میں پیسٹ کریں۔ ہم یاد رکھتے ہیں کہ آپ نے کیا استعمال کیا، اس لیے آپ کو وہی کوڈ دوبارہ کبھی نہیں دکھایا جائے گا۔',
     nextCode: 'آپ کا اگلا کوڈ',
@@ -243,6 +251,8 @@ const I18N = {
     mVisitorsLabel: 'Pengunjung Asli',
     mCopiesLabel: 'Jumlah Salinan Kode',
     mAddedLabel: 'Kode Baru Ditambahkan',
+    mTotalCopiesLabel: 'Total Salinan',
+    mTotalCopiesSub: 'disalin semua orang',
     heroTitle: 'kode referral. Salin satu, dapatkan satu kunci.',
     heroSub: 'Ketuk sekali untuk menyalin, tempel di aplikasi Nusuk. Kami mengingat yang sudah Anda pakai, jadi Anda tidak akan pernah melihat kode yang sama dua kali.',
     nextCode: 'Kode Anda berikutnya',
@@ -311,6 +321,8 @@ const I18N = {
     mVisitorsLabel: 'Gerçek Ziyaretçiler',
     mCopiesLabel: 'Kod Kopyalama Sayısı',
     mAddedLabel: 'Yeni Eklenen Kodlar',
+    mTotalCopiesLabel: 'Toplam Kopya',
+    mTotalCopiesSub: 'herkes tarafından kopyalandı',
     heroTitle: 'yönlendirme kodları. Birini kopyalayın, bir anahtar kazanın.',
     heroSub: 'Kopyalamak için bir kez dokunun, Nusuk uygulamasına yapıştırın. Neyi kullandığınızı hatırlıyoruz, böylece aynı kodu iki kez görmezsiniz.',
     nextCode: 'Sonraki kodunuz',
@@ -379,6 +391,8 @@ const I18N = {
     mVisitorsLabel: 'वास्तविक आगंतुक',
     mCopiesLabel: 'कोड कॉपी की संख्या',
     mAddedLabel: 'नए जोड़े गए कोड',
+    mTotalCopiesLabel: 'कुल प्रतियाँ',
+    mTotalCopiesSub: 'सभी द्वारा कॉपी किया गया',
     heroTitle: 'रेफ़रल कोड। एक कॉपी करें, एक कुंजी पाएं।',
     heroSub: 'कॉपी करने के लिए एक बार टैप करें, नुसुक ऐप में पेस्ट करें। हम याद रखते हैं कि आपने क्या उपयोग किया है, इसलिए आप वही कोड दोबारा कभी नहीं देखेंगे।',
     nextCode: 'आपका अगला कोड',
@@ -627,6 +641,11 @@ function renderMetrics() {
   $('m-added-total').textContent = fmt(s.user_added || 0);
   const latestCode = s.latest_code?.code || null;
   $('m-added-sub').textContent = t('addedSub')(fmt(s.added_today || 0), latestCode);
+
+  // TOTAL COPIES is global and honest: every copy by every user, all
+  // time. It is the public popularity number, kept separate from the
+  // personal CODE COPY TIMES above.
+  $('m-total-copies').textContent = fmt(s.used_total || 0);
 }
 
 function renderDispenser() {
@@ -774,7 +793,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v17').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v18').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }

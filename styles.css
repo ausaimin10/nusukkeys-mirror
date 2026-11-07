@@ -172,7 +172,7 @@ body {
 .hero p { color: var(--ink-2); margin-top: 10px; max-width: 560px; font-size: 0.98rem; }
 /* Metrics bar — equal, aligned cards */
 .metrics-bar {
-  display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: var(--sp-4);
+  display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-4);
   background: linear-gradient(135deg, #0b261f 0%, #123a2f 100%);
   border: 1px solid rgba(242, 184, 75, 0.5); border-radius: 16px;
   box-shadow: var(--shadow-md), inset 0 1px 0 rgba(242, 184, 75, 0.3); overflow: hidden;
@@ -387,8 +387,8 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
      share icon, which opens the same links in a popup. */
   .share-bar { display: none; }
   .share-ico { display: grid; }
-  /* Mobile first screen: metrics stay in one compact 3-column row */
-  .metrics-bar { grid-template-columns: repeat(3, 1fr); }
+  /* Mobile first screen: metrics stay in one compact 4-column row */
+  .metrics-bar { grid-template-columns: repeat(4, 1fr); }
   .metric-card { flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 12px; min-height: 0; }
   .metric-card + .metric-card { border-inline-start: 1px solid rgba(242, 184, 75, 0.22); }
   .metric-ico { display: none; }
