@@ -113,7 +113,7 @@ body {
    of the Bulagria font Ahmad showed: Bulagria's free download is
    "personal use only" (commercial licence is paid), so the site uses
    Playfair Display (SIL Open Font Licence) instead. */
-.credit a { font-family: 'Playfair Display', 'Bodoni Moda', Georgia, serif; font-size: 1.28rem; font-weight: 500; line-height: 1.4; color: #0a6b4e; letter-spacing: 0.01em; text-decoration: none; border-bottom: 1px solid rgba(10, 107, 78, 0.45); }
+.credit a { font-family: 'Playfair Display', 'Bodoni Moda', Georgia, serif; font-size: 1.28rem; font-weight: 500; line-height: 1.4; color: #0a6b4e; letter-spacing: 0.01em; text-decoration: none; border-bottom: 1px solid rgba(10, 107, 78, 0.45); background: rgba(212, 175, 55, 0.35); padding: 0.05em 0.35em; border-radius: 0.35em; border: 1px solid rgba(212, 175, 55, 0.55); }
 .credit a:hover { color: #085c40; border-bottom-color: #085c40; }
 /* Share buttons — desktop share bar (hidden on mobile, where the
    header share icon opens the same links in a dialog instead) */
