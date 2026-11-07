@@ -17,7 +17,7 @@ const I18N = {
     nextCode: 'Your next code', copyNext: 'Copy & show next', skip: 'Skip',
     copied: 'Copied', alreadyUsed: 'Already used', invalid: "Doesn't work", undo: 'Undo',
     s1t: 'Copy a code', s1d: 'Use the big button or tap any code below.',
-    s2t: 'Open in Nusuk app', s2d: 'Start the challenge in the Nusuk app first, then tap here — the code should already be filled in. If not, just paste it.',
+    s2t: 'Open in Nusuk app', s2d: 'Start the challenge in the Nusuk app first, then tap here — the code should already be filled in. If not, just paste it. Keep the Nusuk app open in the background so the code goes straight to it.',
     s3t: 'Not accepted? Next.', s3d: "Mark it and we'll never show it again.",
     search: 'Search codes…', fRemaining: 'Remaining', fNew: 'Newly Added', fUsed: 'Used', fAll: 'All', more: 'Load more',
     addTitle: 'Have another code to share?', shareBtn: 'Share',
@@ -40,7 +40,7 @@ const I18N = {
     gateTitle: 'Enter your Nusuk key',
     gateSub: "It's your private ID here. We use it to remember which codes you've already used, on any device. It's saved in a cookie so you only do this once.",
     gateGo: 'Continue', gateAnon: "I don't have a key yet",
-    gateHint: 'Find it in Nusuk: Start the challenge → Share → copy the code that starts with NG-.',
+    gateHint: 'Find it in Nusuk: Start the challenge → Share → copy the code that starts with NG-. You can also paste your full Nusuk share link here — the code is pulled out automatically.',
     by: (n) => (n ? `shared by ${n}` : ''),
     activeNow: (n) => `${n} active now`,
     copiedToday: (n) => `${n} copied today`,
@@ -74,7 +74,7 @@ const I18N = {
     nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
     copied: 'কপি হয়েছে', alreadyUsed: 'আগে ব্যবহৃত', invalid: 'কাজ করছে না', undo: 'আনডু',
     s1t: 'কোড কপি করুন', s1d: 'বড় বাটন বা নিচের যেকোনো কোডে ট্যাপ করুন।',
-    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন।',
+    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন। নুসুক অ্যাপ ব্যাকগ্রাউন্ডে খোলা রাখুন, যাতে কোড সরাসরি সেখানে যায়।',
     s3t: 'কাজ না করলে পরেরটা', s3d: 'মার্ক করুন, আর কখনো দেখাব না।',
     search: 'কোড খুঁজুন…', fRemaining: 'বাকি', fNew: 'নতুন যুক্ত', fUsed: 'ব্যবহৃত', fAll: 'সব', more: 'আরও দেখুন',
     addTitle: 'আরেকটি কোড শেয়ার করবেন?', shareBtn: 'শেয়ার',
@@ -97,7 +97,7 @@ const I18N = {
     gateTitle: 'আপনার নুসুক কী দিন',
     gateSub: 'এটিই এখানে আপনার ব্যক্তিগত আইডি। কোন কোড আপনি ব্যবহার করেছেন তা যেকোনো ডিভাইসে মনে রাখতে এটি ব্যবহার হয়। কুকিতে সেভ থাকে, তাই একবারই দিতে হবে।',
     gateGo: 'এগিয়ে যান', gateAnon: 'আমার এখনো কী নেই',
-    gateHint: 'নুসুকে পাবেন: Start the challenge → Share → NG- দিয়ে শুরু কোডটি কপি করুন।',
+    gateHint: 'নুসুকে পাবেন: Start the challenge → Share → NG- দিয়ে শুরু কোডটি কপি করুন। পুরো নুসুক শেয়ার লিংকও এখানে পেস্ট করতে পারেন — কোডটি নিজে থেকেই বের করা হবে।',
     by: (n) => (n ? `শেয়ার করেছেন ${n}` : ''),
     activeNow: (n) => `${n} জন এখন সক্রিয়`,
     copiedToday: (n) => `আজ ${n} বার কপি`,
@@ -131,7 +131,7 @@ const I18N = {
     nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
     copied: 'تم النسخ', alreadyUsed: 'مستخدم سابقًا', invalid: 'لا يعمل', undo: 'تراجع',
     s1t: 'انسخ كودًا', s1d: 'استخدم الزر الكبير أو اضغط أي كود بالأسفل.',
-    s2t: 'افتح في تطبيق نسك', s2d: 'ابدأ التحدي في تطبيق نسك أولاً، ثم اضغط هنا — من المفترض أن يكون الكود مملوءًا بالفعل. إن لم يكن، الصقه فقط.',
+    s2t: 'افتح في تطبيق نسك', s2d: 'ابدأ التحدي في تطبيق نسك أولاً، ثم اضغط هنا — من المفترض أن يكون الكود مملوءًا بالفعل. إن لم يكن، الصقه فقط. أبقِ تطبيق نسك مفتوحًا في الخلفية ليصل الكود إليه مباشرة.',
     s3t: 'لم يُقبل؟ التالي.', s3d: 'علّمه ولن نعرضه لك مجددًا.',
     search: 'ابحث عن كود…', fRemaining: 'المتبقي', fNew: 'المضاف حديثًا', fUsed: 'المستخدم', fAll: 'الكل', more: 'عرض المزيد',
     addTitle: 'لديك كود آخر للمشاركة؟', shareBtn: 'مشاركة',
@@ -154,7 +154,7 @@ const I18N = {
     gateTitle: 'أدخل مفتاح نسك الخاص بك',
     gateSub: 'هو معرّفك الخاص هنا. نستخدمه لنتذكر الأكواد التي استخدمتها على أي جهاز. يُحفظ في كوكي فتدخله مرة واحدة فقط.',
     gateGo: 'متابعة', gateAnon: 'ليس لدي مفتاح بعد',
-    gateHint: 'تجده في نسك: ابدأ التحدي ← مشاركة ← انسخ الكود الذي يبدأ بـ NG-.',
+    gateHint: 'تجده في نسك: ابدأ التحدي ← مشاركة ← انسخ الكود الذي يبدأ بـ NG-. ويمكنك أيضًا لصق رابط مشاركة نسك الكامل هنا — وسيُستخرج الكود تلقائيًا.',
     by: (n) => (n ? `شاركه ${n}` : ''),
     activeNow: (n) => `${n} متصل الآن`,
     copiedToday: (n) => `${n} نُسخ اليوم`,
@@ -195,7 +195,7 @@ const I18N = {
     s1t: 'ایک کوڈ کاپی کریں',
     s1d: 'بڑا بٹن استعمال کریں یا نیچے کسی بھی کوڈ پر ٹیپ کریں۔',
     s2t: 'نسک ایپ میں کھولیں',
-    s2d: 'پہلے نسک ایپ میں چیلنج شروع کریں، پھر یہاں ٹیپ کریں — کوڈ پہلے سے بھرا ہونا چاہیے۔ اگر نہیں، تو بس پیسٹ کریں۔',
+    s2d: 'پہلے نسک ایپ میں چیلنج شروع کریں، پھر یہاں ٹیپ کریں — کوڈ پہلے سے بھرا ہونا چاہیے۔ اگر نہیں، تو بس پیسٹ کریں۔ نسک ایپ بیک گراؤنڈ میں کھلی رکھیں تاکہ کوڈ سیدھا وہاں جائے۔',
     s3t: 'قبول نہیں ہوا؟ اگلا۔',
     s3d: 'اسے نشان زد کریں اور ہم اسے دوبارہ کبھی نہیں دکھائیں گے۔',
     search: 'کوڈز تلاش کریں…',
@@ -226,7 +226,7 @@ const I18N = {
     gateSub: 'یہ یہاں آپ کی نجی شناخت ہے۔ ہم اسے یہ یاد رکھنے کے لیے استعمال کرتے ہیں کہ آپ نے کون سے کوڈز پہلے استعمال کیے ہیں، کسی بھی ڈیوائس پر۔ یہ کوکی میں محفوظ ہے اس لیے آپ یہ صرف ایک بار کرتے ہیں۔',
     gateGo: 'جاری رکھیں',
     gateAnon: 'میرے پاس ابھی کی نہیں ہے',
-    gateHint: 'نسک میں تلاش کریں: چیلنج شروع کریں → شیئر کریں → وہ کوڈ کاپی کریں جو NG- سے شروع ہوتا ہے۔',
+    gateHint: 'نسک میں تلاش کریں: چیلنج شروع کریں → شیئر کریں → وہ کوڈ کاپی کریں جو NG- سے شروع ہوتا ہے۔ آپ اپنا مکمل نسک شیئر لنک بھی یہاں پیسٹ کر سکتے ہیں — کوڈ خود بخود نکال لیا جائے گا۔',
     by: (n) => (n ? `${n} کے ذریعے شیئر کیا گیا` : ''),
     activeNow: (n) => `${n} ابھی فعال`,
     copiedToday: (n) => `آج ${n} کاپی کیے گئے`,
@@ -265,7 +265,7 @@ const I18N = {
     s1t: 'Salin sebuah kode',
     s1d: 'Gunakan tombol besar atau ketuk kode apa pun di bawah.',
     s2t: 'Buka di aplikasi Nusuk',
-    s2d: 'Mulai tantangan di aplikasi Nusuk dulu, lalu ketuk di sini — kodenya seharusnya sudah terisi. Jika belum, tempel saja.',
+    s2d: 'Mulai tantangan di aplikasi Nusuk dulu, lalu ketuk di sini — kodenya seharusnya sudah terisi. Jika belum, tempel saja. Biarkan aplikasi Nusuk tetap terbuka di latar belakang agar kode langsung masuk ke sana.',
     s3t: 'Tidak diterima? Berikutnya.',
     s3d: 'Tandai, dan kami tidak akan pernah menampilkannya lagi.',
     search: 'Cari kode…',
@@ -296,7 +296,7 @@ const I18N = {
     gateSub: 'Ini adalah ID pribadi Anda di sini. Kami menggunakannya untuk mengingat kode mana yang sudah Anda pakai, di perangkat apa pun. Ini disimpan dalam cookie sehingga Anda hanya melakukannya sekali.',
     gateGo: 'Lanjutkan',
     gateAnon: 'Saya belum punya kunci',
-    gateHint: 'Temukan di Nusuk: Mulai tantangan → Bagikan → salin kode yang diawali NG-.',
+    gateHint: 'Temukan di Nusuk: Mulai tantangan → Bagikan → salin kode yang diawali NG-. Anda juga bisa menempel tautan berbagi Nusuk lengkap di sini — kodenya diambil otomatis.',
     by: (n) => (n ? `dibagikan oleh ${n}` : ''),
     activeNow: (n) => `${n} aktif sekarang`,
     copiedToday: (n) => `${n} disalin hari ini`,
@@ -335,7 +335,7 @@ const I18N = {
     s1t: 'Bir kod kopyalayın',
     s1d: 'Büyük düğmeyi kullanın veya aşağıdaki herhangi bir koda dokunun.',
     s2t: 'Nusuk uygulamasında açın',
-    s2d: 'Önce Nusuk uygulamasında meydan okumayı başlatın, sonra buraya dokunun — kod zaten doldurulmuş olmalı. Değilse, yapıştırın.',
+    s2d: 'Önce Nusuk uygulamasında meydan okumayı başlatın, sonra buraya dokunun — kod zaten doldurulmuş olmalı. Değilse, yapıştırın. Kodun doğrudan gitmesi için Nusuk uygulamasını arka planda açık tutun.',
     s3t: 'Kabul edilmedi mi? Sonraki.',
     s3d: 'İşaretleyin, bir daha asla göstermeyelim.',
     search: 'Kod arayın…',
@@ -366,7 +366,7 @@ const I18N = {
     gateSub: 'Bu, buradaki özel kimliğinizdir. Hangi kodları zaten kullandığınızı hatırlamak için kullanırız, herhangi bir cihazda. Bir çerezde saklanır, böylece bunu yalnızca bir kez yaparsınız.',
     gateGo: 'Devam et',
     gateAnon: 'Henüz anahtarım yok',
-    gateHint: 'Nusuk\'ta bulun: Meydan okumayı başlat → Paylaş → NG- ile başlayan kodu kopyalayın.',
+    gateHint: 'Nusuk\'ta bulun: Meydan okumayı başlat → Paylaş → NG- ile başlayan kodu kopyalayın. Tam Nusuk paylaşım bağlantınızı da buraya yapıştırabilirsiniz — kod otomatik olarak çıkarılır.',
     by: (n) => (n ? `${n} tarafından paylaşıldı` : ''),
     activeNow: (n) => `${n} şu an aktif`,
     copiedToday: (n) => `bugün ${n} kopyalandı`,
@@ -405,7 +405,7 @@ const I18N = {
     s1t: 'एक कोड कॉपी करें',
     s1d: 'बड़े बटन का उपयोग करें या नीचे किसी भी कोड पर टैप करें।',
     s2t: 'नुसुक ऐप में खोलें',
-    s2d: 'पहले नुसुक ऐप में चुनौती शुरू करें, फिर यहाँ टैप करें — कोड पहले से भरा होना चाहिए। यदि नहीं, तो बस पेस्ट करें।',
+    s2d: 'पहले नुसुक ऐप में चुनौती शुरू करें, फिर यहाँ टैप करें — कोड पहले से भरा होना चाहिए। यदि नहीं, तो बस पेस्ट करें। नुसुक ऐप को बैकग्राउंड में खुला रखें ताकि कोड सीधे वहाँ जाए।',
     s3t: 'स्वीकार नहीं हुआ? अगला।',
     s3d: 'इसे चिह्नित करें और हम इसे फिर कभी नहीं दिखाएंगे।',
     search: 'कोड खोजें…',
@@ -436,7 +436,7 @@ const I18N = {
     gateSub: 'यह यहाँ आपकी निजी पहचान है। हम इसका उपयोग यह याद रखने के लिए करते हैं कि आपने कौन से कोड पहले ही उपयोग किए हैं, किसी भी उपकरण पर। यह कुकी में सहेजा जाता है इसलिए आप यह केवल एक बार करते हैं।',
     gateGo: 'जारी रखें',
     gateAnon: 'मेरे पास अभी कुंजी नहीं है',
-    gateHint: 'नुसुक में खोजें: चुनौती शुरू करें → साझा करें → NG- से शुरू होने वाला कोड कॉपी करें।',
+    gateHint: 'नुसुक में खोजें: चुनौती शुरू करें → साझा करें → NG- से शुरू होने वाला कोड कॉपी करें। आप अपना पूरा नुसुक शेयर लिंक भी यहाँ पेस्ट कर सकते हैं — कोड अपने आप निकाल लिया जाएगा।',
     by: (n) => (n ? `${n} द्वारा साझा किया गया` : ''),
     activeNow: (n) => `${n} अभी सक्रिय`,
     copiedToday: (n) => `आज ${n} कॉपी किए गए`,
@@ -793,7 +793,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v18').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v19').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1092,8 +1092,24 @@ async function recordCopy(c, toastMsg) {
 // opened by script, so a genuine tap fires it without Chrome's
 // "Allow" prompt (that prompt only appeared for window.open()).
 // iOS and desktop keep the plain https Universal Link, which iOS
-// handles natively. The code is also copied to the clipboard first,
-// in case the app still needs a manual paste.
+// Deep link: the Nusuk app reads the code from the referral URL's id
+// parameter and fills the challenge field itself ("autopaste") — that
+// is the app's own behaviour, so the website's job is only to get the
+// link to the app reliably. Two URL forms exist:
+//  - intent:// (names the Nusuk package explicitly) — the most direct
+//    route, but it ONLY works in Chromium-based browsers on Android
+//    (Chrome, Edge, Samsung Internet, Brave, Opera). It fails silently
+//    in Firefox for Android and in in-app browsers (WhatsApp, Facebook,
+//    Instagram, Telegram, WebView), where the tap does nothing or
+//    errors — that is why the link sometimes worked and sometimes did
+//    not: it depended on which browser the visitor used.
+//  - plain https Universal Link — handled by the OS App Links system,
+//    so it works in the most browsers (Firefox, in-app browsers, iOS,
+//    desktop). If the app does not open, the browser loads the Nusuk
+//    web page (which offers the Play Store) instead of failing.
+// So: intent:// only where it is reliable (Chromium on Android),
+// plain https everywhere else. The code is also copied to the
+// clipboard first, so a manual paste still works if auto-fill fails.
 const NUSUK_WEB_LINK = (code) => 'https://services.nusuk.sa/app/?p=27&id=' + encodeURIComponent(code);
 const NUSUK_INTENT_LINK = (code) => {
   const web = NUSUK_WEB_LINK(code);
@@ -1101,8 +1117,12 @@ const NUSUK_INTENT_LINK = (code) => {
     '#Intent;scheme=https;package=com.moh.nusukapp;S.browser_fallback_url=' +
     encodeURIComponent(web) + ';end';
 };
-const IS_ANDROID = typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent || '');
-const NUSUK_DEEP_LINK = (code) => IS_ANDROID ? NUSUK_INTENT_LINK(code) : NUSUK_WEB_LINK(code);
+const UA = typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '';
+const IS_ANDROID = /Android/i.test(UA);
+const IS_INTENT_CAPABLE = IS_ANDROID
+  && /Chrome/i.test(UA)
+  && !/Firefox|FxiOS|FBAN|FBAV|WhatsApp|Instagram|Telegram|\bwv\b/i.test(UA);
+const NUSUK_DEEP_LINK = (code) => IS_INTENT_CAPABLE ? NUSUK_INTENT_LINK(code) : NUSUK_WEB_LINK(code);
 
 // The code the visitor copied most recently in this tab: the
 // in-memory one if set, else the one remembered across a reload in
