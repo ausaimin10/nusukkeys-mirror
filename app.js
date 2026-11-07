@@ -774,7 +774,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v16').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v17').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1371,7 +1371,12 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
   persistKey(d.me.key);
   state.me = d.me;
   state.stats = d.stats;
-  state.codes.usedIds = new Set(d.usedIds || []);
+  // Merge the server's used set with this browser's local used set:
+  // when the database is unreachable the server cannot know the codes
+  // this guest already used, so the local list is the only record and
+  // replacing it would show already-used codes again.
+  state.codes.usedIds = new Set([...(d.usedIds || []), ...loadLocalUsed()]);
+  saveLocalUsed();
   state.codes.badIds = new Set(d.badIds || []);
   saveLocalBad();
   state.queue = [];
