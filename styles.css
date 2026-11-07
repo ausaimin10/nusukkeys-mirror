@@ -87,6 +87,27 @@ body {
 }
 .seg button:hover { color: var(--ink); transform: translateY(-1px); }
 .seg button.active { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
+/* Mobile language dropdown: hidden on desktop, where the full
+   seven-language segmented control is shown instead. */
+.lang-drop { display: none; position: relative; }
+.lang-btn {
+  display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line-gold); background: var(--surface);
+  font: inherit; font-size: 0.78rem; font-weight: 700; color: var(--ink);
+  padding: 7px 11px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(8px); white-space: nowrap;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.lang-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.lang-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; min-width: 168px; z-index: 50;
+  background: var(--surface); border: 1px solid var(--line-gold); border-radius: 14px; box-shadow: var(--shadow);
+  padding: 6px; display: flex; flex-direction: column; gap: 2px;
+}
+.lang-menu button {
+  border: 0; background: transparent; font: inherit; font-size: 0.82rem; font-weight: 600; color: var(--ink-2);
+  text-align: left; padding: 8px 12px; border-radius: 9px; cursor: pointer; white-space: nowrap;
+}
+.lang-menu button:hover { background: rgba(18, 33, 28, 0.06); color: var(--ink); }
+.lang-menu button.active { background: rgba(212, 175, 55, 0.20); color: var(--ink); }
 .acct {
   display: inline-flex; align-items: center; gap: var(--sp-2); border: 1px solid var(--line-gold); background: var(--surface);
   font: inherit; font-family: var(--mono); font-size: 0.76rem; font-weight: 700; color: var(--ink);
@@ -354,7 +375,13 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 }
 @media (max-width: 720px) {
   .wrap { padding: 0 18px; }
-  .top-in { gap: 10px; }
+  .top-in { gap: 10px; flex-wrap: nowrap; }
+  /* Mobile header: one row — logo left; Language, Share, Code/Guest
+     right. The seven-language strip is replaced by one Language
+     button that opens a dropdown (see .lang-drop). */
+  .top-actions { flex-wrap: nowrap; gap: 8px; }
+  .seg.lang { display: none; }
+  .lang-drop { display: inline-block; }
   .hero { padding: 18px 18px 20px; }
   /* Mobile only: the desktop share bar is replaced by the header
      share icon, which opens the same links in a popup. */
@@ -387,8 +414,12 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .wrap { padding: 0 16px; }
   .top { padding-top: 16px; }
   .logo { font-size: 1rem; }
-  .top-actions { width: 100%; justify-content: flex-start; }
-  .acct { padding: 6px 10px; font-size: 0.78rem; }
+  /* The header stays on one row on mobile: the actions never take
+     a full second row. The account chip shrinks so logo + Language
+     + Share + Code/Guest all fit on a 360px screen. */
+  .top-actions { width: auto; justify-content: flex-end; gap: 6px; }
+  .acct { padding: 6px 9px; font-size: 0.72rem; max-width: 128px; }
+  #acct-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .hero { padding: 12px 16px; margin-bottom: 10px; }
   .hero-ornament { margin-bottom: 4px; }
   .hero h1 { font-size: 1.45rem; }

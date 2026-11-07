@@ -581,6 +581,10 @@ function applyLang(lang) {
   document.documentElement.lang = state.lang;
   document.documentElement.dir = d.dir;
   document.querySelectorAll('[data-lang]').forEach((b) => b.classList.toggle('active', b.dataset.lang === state.lang));
+  // Mobile language button shows the current language's short label.
+  const short = { en: 'EN', bn: 'বাংলা', ar: 'عربي', ur: 'اردو', id: 'ID', tr: 'TR', hi: 'हिन्दी' };
+  const cur = $('lang-current');
+  if (cur) cur.textContent = short[state.lang] || 'EN';
   document.querySelectorAll('[data-i18n]').forEach((el) => { if (d[el.dataset.i18n]) el.textContent = d[el.dataset.i18n]; });
   document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = d[el.dataset.i18nPh] || ''; });
   renderAll();
@@ -770,7 +774,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v14').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v16').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1406,7 +1410,20 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
 
 // ---------- Boot ----------
 function bind() {
-  document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+  // Mobile language dropdown: one button, seven options in a menu.
+  const langBtn = $('btn-lang');
+  const langMenu = $('lang-menu');
+  const closeLangMenu = () => { if (langMenu) langMenu.classList.add('hidden'); if (langBtn) langBtn.setAttribute('aria-expanded', 'false'); };
+  document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => { applyLang(b.dataset.lang); closeLangMenu(); }));
+  if (langBtn && langMenu) {
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = langMenu.classList.toggle('hidden');
+      langBtn.setAttribute('aria-expanded', String(!open));
+    });
+    document.addEventListener('click', (e) => { if (!langMenu.classList.contains('hidden') && !e.target.closest('.lang-drop')) closeLangMenu(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLangMenu(); });
+  }
   $('btn-copy').addEventListener('click', () => state.queue[0] && copyCode(state.queue[0]));
   // Instruction cards: 1 copies the current code (same as the main
   // button), 3 skips/reports the current code (same as Skip). Card 2
