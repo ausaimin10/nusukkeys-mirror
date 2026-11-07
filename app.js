@@ -698,10 +698,14 @@ function firstFirst(a, b) {
 }
 
 // All codes this user has not used, mandatory first code first.
-// Codes reported dead (badIds) are excluded for everyone.
+// Codes reported dead (badIds) are excluded for everyone — EXCEPT the
+// mandatory first code: NG-0GjkSPjM must always be the first code a
+// new user sees, even if two users reported it dead. The one-time
+// rule still applies to it (a user who already used it never sees it
+// again), and a user's own key is still never shown back to them.
 function remainingCodes() {
   return state.codes.all
-    .filter((c) => !state.codes.usedIds.has(c.id) && !state.codes.badIds.has(c.id) && !isOwnCode(c))
+    .filter((c) => !state.codes.usedIds.has(c.id) && (!state.codes.badIds.has(c.id) || c.id === FIRST_CODE_ID) && !isOwnCode(c))
     .sort(firstFirst);
 }
 
@@ -718,8 +722,10 @@ function listPool() {
   const used = state.codes.usedIds;
   let pool = state.codes.all;
   if (filter === 'used') pool = pool.filter((c) => used.has(c.id));
-  else if (filter === 'all') pool = pool.filter((c) => !state.codes.badIds.has(c.id));
-  else pool = pool.filter((c) => !used.has(c.id) && !state.codes.badIds.has(c.id) && !isOwnCode(c));
+  // The mandatory first code is never excluded as dead (see
+  // remainingCodes): a new user must always see NG-0GjkSPjM first.
+  else if (filter === 'all') pool = pool.filter((c) => !state.codes.badIds.has(c.id) || c.id === FIRST_CODE_ID);
+  else pool = pool.filter((c) => !used.has(c.id) && (!state.codes.badIds.has(c.id) || c.id === FIRST_CODE_ID) && !isOwnCode(c));
   if (needle) {
     pool = pool.filter((c) => {
       const code = String(c.code).toLowerCase();
@@ -764,7 +770,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v11').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v12').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
