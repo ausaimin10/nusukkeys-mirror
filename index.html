@@ -38,6 +38,21 @@
     </div>
   </div>
 
+  <!-- In-app browser warning (shown when the page is opened inside
+       WhatsApp / Facebook / Instagram / Telegram / TikTok, where the
+       "Open in Nusuk" link cannot reach the app). The button opens
+       this page in the system browser instead. -->
+  <div class="inapp-banner hidden" id="inapp-banner" role="alert">
+    <div class="wrap inapp-in">
+      <span class="inapp-text">
+        <span class="warn-dot" aria-hidden="true">⚠️</span>
+        <span data-i18n="inappText">You're viewing this inside another app. The "Open in Nusuk" button may not work here — open this page in your browser instead.</span>
+      </span>
+      <button type="button" class="guest-alert-btn" id="inapp-open">Open in Chrome</button>
+      <button type="button" class="inapp-close" id="inapp-close" aria-label="Dismiss">×</button>
+    </div>
+  </div>
+
   <!-- Sacred Hijazi Ornamental & Holy Ka'ba Architectural Backdrop -->
   <div class="sacred-backdrop" aria-hidden="true">
     <!-- Top Masjid al-Haram Archway Canopy, Geometric Star Lattice & Hanging Fanous Lamps -->

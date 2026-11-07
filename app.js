@@ -6,6 +6,10 @@ const I18N = {
   en: {
     dir: 'ltr',
     guestWarnText: 'You are browsing without your Nusuk key — enter your key so your used & remaining codes stay saved across devices.',
+    inappText: 'You\'re viewing this inside another app. The "Open in Nusuk" button may not work here — open this page in your browser instead.',
+    inappOpenChrome: 'Open in Chrome',
+    inappCopyLink: 'Copy link to open in Safari',
+    inappCopied: 'Link copied — paste it in Safari to open this page.',
     guestWarnBtn: 'Enter My Key →',
     mVisitorsLabel: 'Real Visitors',
     mCopiesLabel: 'Code Copy Times',
@@ -17,7 +21,7 @@ const I18N = {
     nextCode: 'Your next code', copyNext: 'Copy & show next', skip: 'Skip',
     copied: 'Copied', alreadyUsed: 'Already used', invalid: "Doesn't work", undo: 'Undo',
     s1t: 'Copy a code', s1d: 'Use the big button or tap any code below.',
-    s2t: 'Open in Nusuk app', s2d: 'Start the challenge in the Nusuk app first, then tap here — the code should already be filled in. If not, just paste it. Keep the Nusuk app open in the background so the code goes straight to it.',
+    s2t: 'Open in Nusuk app', s2d: 'Start the challenge in the Nusuk app first, then tap here — the code should already be filled in. If not, just paste it. Keep the Nusuk app open in the background so the code goes straight to it. When the Congratulations page shows, stay on it — don\'t close the app or go back.',
     s3t: 'Not accepted? Next.', s3d: "Mark it and we'll never show it again.",
     search: 'Search codes…', fRemaining: 'Remaining', fNew: 'Newly Added', fUsed: 'Used', fAll: 'All', more: 'Load more',
     addTitle: 'Have another code to share?', shareBtn: 'Share',
@@ -63,6 +67,10 @@ const I18N = {
   bn: {
     dir: 'ltr',
     guestWarnText: 'আপনি এখনো আপনার নিজের নুসুক কী দেননি — আপনার ব্যবহৃত ও বাকি কোডের হিসাব যেকোনো ডিভাইসে সেভ রাখতে আপনার কী দিন।',
+    inappText: 'আপনি অন্য একটি অ্যাপের ভেতরে দেখছেন। এখানে "Open in Nusuk" বোতাম কাজ নাও করতে পারে — পেজটি আপনার ব্রাউজারে খুলুন।',
+    inappOpenChrome: 'Chrome-এ খুলুন',
+    inappCopyLink: 'Safari-তে খুলতে লিংক কপি করুন',
+    inappCopied: 'লিংক কপি হয়েছে — পেজটি খুলতে Safari-তে পেস্ট করুন।',
     guestWarnBtn: 'আমার কী দিন →',
     mVisitorsLabel: 'মোট ভিজিটর',
     mCopiesLabel: 'কোড কপি সংখ্যা',
@@ -74,7 +82,7 @@ const I18N = {
     nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
     copied: 'কপি হয়েছে', alreadyUsed: 'আগে ব্যবহৃত', invalid: 'কাজ করছে না', undo: 'আনডু',
     s1t: 'কোড কপি করুন', s1d: 'বড় বাটন বা নিচের যেকোনো কোডে ট্যাপ করুন।',
-    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন। নুসুক অ্যাপ ব্যাকগ্রাউন্ডে খোলা রাখুন, যাতে কোড সরাসরি সেখানে যায়।',
+    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন। নুসুক অ্যাপ ব্যাকগ্রাউন্ডে খোলা রাখুন, যাতে কোড সরাসরি সেখানে যায়। Congratulations পেজ দেখা গেলে সেখানেই থাকুন — অ্যাপ বন্ধ করবেন না বা ফিরে যাবেন না।',
     s3t: 'কাজ না করলে পরেরটা', s3d: 'মার্ক করুন, আর কখনো দেখাব না।',
     search: 'কোড খুঁজুন…', fRemaining: 'বাকি', fNew: 'নতুন যুক্ত', fUsed: 'ব্যবহৃত', fAll: 'সব', more: 'আরও দেখুন',
     addTitle: 'আরেকটি কোড শেয়ার করবেন?', shareBtn: 'শেয়ার',
@@ -120,6 +128,10 @@ const I18N = {
   ar: {
     dir: 'rtl',
     guestWarnText: 'أنت تتصفح بدون مفتاح نسك الخاص بك — أدخل مفتاحك لحفظ سجل الأكواد المستخدمة والمتبقية عبر جميع أجهزتك.',
+    inappText: 'أنت تشاهد هذه الصفحة داخل تطبيق آخر. قد لا يعمل زر "الفتح في نسك" هنا — افتح هذه الصفحة في متصفحك بدلاً من ذلك.',
+    inappOpenChrome: 'فتح في Chrome',
+    inappCopyLink: 'انسخ الرابط لفتحه في Safari',
+    inappCopied: 'تم نسخ الرابط — الصقه في Safari لفتح هذه الصفحة.',
     guestWarnBtn: 'أدخل مفتاحي ←',
     mVisitorsLabel: 'الزوار الفعليون',
     mCopiesLabel: 'مرات نسخ الكود',
@@ -131,7 +143,7 @@ const I18N = {
     nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
     copied: 'تم النسخ', alreadyUsed: 'مستخدم سابقًا', invalid: 'لا يعمل', undo: 'تراجع',
     s1t: 'انسخ كودًا', s1d: 'استخدم الزر الكبير أو اضغط أي كود بالأسفل.',
-    s2t: 'افتح في تطبيق نسك', s2d: 'ابدأ التحدي في تطبيق نسك أولاً، ثم اضغط هنا — من المفترض أن يكون الكود مملوءًا بالفعل. إن لم يكن، الصقه فقط. أبقِ تطبيق نسك مفتوحًا في الخلفية ليصل الكود إليه مباشرة.',
+    s2t: 'افتح في تطبيق نسك', s2d: 'ابدأ التحدي في تطبيق نسك أولاً، ثم اضغط هنا — من المفترض أن يكون الكود مملوءًا بالفعل. إن لم يكن، الصقه فقط. أبقِ تطبيق نسك مفتوحًا في الخلفية ليصل الكود إليه مباشرة. عند ظهور صفحة التهنئة، ابقَ عليها — لا تغلق التطبيق ولا ترجع.',
     s3t: 'لم يُقبل؟ التالي.', s3d: 'علّمه ولن نعرضه لك مجددًا.',
     search: 'ابحث عن كود…', fRemaining: 'المتبقي', fNew: 'المضاف حديثًا', fUsed: 'المستخدم', fAll: 'الكل', more: 'عرض المزيد',
     addTitle: 'لديك كود آخر للمشاركة؟', shareBtn: 'مشاركة',
@@ -177,6 +189,10 @@ const I18N = {
   ur: {
     dir: 'rtl',
     guestWarnText: 'آپ اپنی نسک کی کے بغیر براؤز کر رہے ہیں — اپنی کی درج کریں تاکہ آپ کے استعمال شدہ اور باقی کوڈز تمام آلات پر محفوظ رہیں۔',
+    inappText: 'آپ یہ صفحہ کسی اور ایپ کے اندر دیکھ رہے ہیں۔ یہاں "Open in Nusuk" بٹن کام نہیں کر سکتا — اس صفحے کو اپنے براؤزر میں کھولیں۔',
+    inappOpenChrome: 'Chrome میں کھولیں',
+    inappCopyLink: 'Safari میں کھولنے کے لیے لنک کاپی کریں',
+    inappCopied: 'لنک کاپی ہو گیا — یہ صفحہ کھولنے کے لیے اسے Safari میں پیسٹ کریں۔',
     guestWarnBtn: 'میری کی درج کریں →',
     mVisitorsLabel: 'اصل وزٹرز',
     mCopiesLabel: 'کوڈ کاپی کی تعداد',
@@ -195,7 +211,7 @@ const I18N = {
     s1t: 'ایک کوڈ کاپی کریں',
     s1d: 'بڑا بٹن استعمال کریں یا نیچے کسی بھی کوڈ پر ٹیپ کریں۔',
     s2t: 'نسک ایپ میں کھولیں',
-    s2d: 'پہلے نسک ایپ میں چیلنج شروع کریں، پھر یہاں ٹیپ کریں — کوڈ پہلے سے بھرا ہونا چاہیے۔ اگر نہیں، تو بس پیسٹ کریں۔ نسک ایپ بیک گراؤنڈ میں کھلی رکھیں تاکہ کوڈ سیدھا وہاں جائے۔',
+    s2d: 'پہلے نسک ایپ میں چیلنج شروع کریں، پھر یہاں ٹیپ کریں — کوڈ پہلے سے بھرا ہونا چاہیے۔ اگر نہیں، تو بس پیسٹ کریں۔ نسک ایپ بیک گراؤنڈ میں کھلی رکھیں تاکہ کوڈ سیدھا وہاں جائے۔ جب مبارکباد کا صفحہ ظاہر ہو تو وہیں رہیں — ایپ بند نہ کریں اور واپس نہ جائیں۔',
     s3t: 'قبول نہیں ہوا؟ اگلا۔',
     s3d: 'اسے نشان زد کریں اور ہم اسے دوبارہ کبھی نہیں دکھائیں گے۔',
     search: 'کوڈز تلاش کریں…',
@@ -247,6 +263,10 @@ const I18N = {
   id: {
     dir: 'ltr',
     guestWarnText: 'Anda menjelajah tanpa kunci Nusuk — masukkan kunci Anda agar kode yang sudah dipakai dan tersisa tetap tersimpan di semua perangkat.',
+    inappText: 'Anda melihat halaman ini di dalam aplikasi lain. Tombol "Open in Nusuk" mungkin tidak berfungsi di sini — buka halaman ini di browser Anda.',
+    inappOpenChrome: 'Buka di Chrome',
+    inappCopyLink: 'Salin tautan untuk dibuka di Safari',
+    inappCopied: 'Tautan disalin — tempel di Safari untuk membuka halaman ini.',
     guestWarnBtn: 'Masukkan Kunci Saya →',
     mVisitorsLabel: 'Pengunjung Asli',
     mCopiesLabel: 'Jumlah Salinan Kode',
@@ -265,7 +285,7 @@ const I18N = {
     s1t: 'Salin sebuah kode',
     s1d: 'Gunakan tombol besar atau ketuk kode apa pun di bawah.',
     s2t: 'Buka di aplikasi Nusuk',
-    s2d: 'Mulai tantangan di aplikasi Nusuk dulu, lalu ketuk di sini — kodenya seharusnya sudah terisi. Jika belum, tempel saja. Biarkan aplikasi Nusuk tetap terbuka di latar belakang agar kode langsung masuk ke sana.',
+    s2d: 'Mulai tantangan di aplikasi Nusuk dulu, lalu ketuk di sini — kodenya seharusnya sudah terisi. Jika belum, tempel saja. Biarkan aplikasi Nusuk tetap terbuka di latar belakang agar kode langsung masuk ke sana. Saat halaman Selamat muncul, tetap di sana — jangan tutup aplikasi atau kembali.',
     s3t: 'Tidak diterima? Berikutnya.',
     s3d: 'Tandai, dan kami tidak akan pernah menampilkannya lagi.',
     search: 'Cari kode…',
@@ -317,6 +337,10 @@ const I18N = {
   tr: {
     dir: 'ltr',
     guestWarnText: 'Nusuk anahtarınız olmadan geziniyorsunuz — kullandığınız ve kalan kodların tüm cihazlarda kayıtlı kalması için anahtarınızı girin.',
+    inappText: 'Bu sayfayı başka bir uygulamanın içinde görüntülüyorsunuz. "Open in Nusuk" düğmesi burada çalışmayabilir — sayfayı tarayıcınızda açın.',
+    inappOpenChrome: 'Chrome\'da aç',
+    inappCopyLink: 'Safari\'de açmak için bağlantıyı kopyala',
+    inappCopied: 'Bağlantı kopyalandı — bu sayfayı açmak için Safari\'ye yapıştırın.',
     guestWarnBtn: 'Anahtarımı Gir →',
     mVisitorsLabel: 'Gerçek Ziyaretçiler',
     mCopiesLabel: 'Kod Kopyalama Sayısı',
@@ -335,7 +359,7 @@ const I18N = {
     s1t: 'Bir kod kopyalayın',
     s1d: 'Büyük düğmeyi kullanın veya aşağıdaki herhangi bir koda dokunun.',
     s2t: 'Nusuk uygulamasında açın',
-    s2d: 'Önce Nusuk uygulamasında meydan okumayı başlatın, sonra buraya dokunun — kod zaten doldurulmuş olmalı. Değilse, yapıştırın. Kodun doğrudan gitmesi için Nusuk uygulamasını arka planda açık tutun.',
+    s2d: 'Önce Nusuk uygulamasında meydan okumayı başlatın, sonra buraya dokunun — kod zaten doldurulmuş olmalı. Değilse, yapıştırın. Kodun doğrudan gitmesi için Nusuk uygulamasını arka planda açık tutun. Tebrikler sayfası göründüğünde orada kalın — uygulamayı kapatmayın veya geri dönmeyin.',
     s3t: 'Kabul edilmedi mi? Sonraki.',
     s3d: 'İşaretleyin, bir daha asla göstermeyelim.',
     search: 'Kod arayın…',
@@ -387,6 +411,10 @@ const I18N = {
   hi: {
     dir: 'ltr',
     guestWarnText: 'आप अपनी नुसुक कुंजी के बिना ब्राउज़ कर रहे हैं — अपनी कुंजी दर्ज करें ताकि आपके उपयोग किए गए और शेष कोड सभी उपकरणों पर सहेजे रहें।',
+    inappText: 'आप यह पेज किसी अन्य ऐप के अंदर देख रहे हैं। यहाँ "Open in Nusuk" बटन काम नहीं कर सकता — इस पेज को अपने ब्राउज़र में खोलें।',
+    inappOpenChrome: 'Chrome में खोलें',
+    inappCopyLink: 'Safari में खोलने के लिए लिंक कॉपी करें',
+    inappCopied: 'लिंक कॉपी हो गया — यह पेज खोलने के लिए इसे Safari में पेस्ट करें।',
     guestWarnBtn: 'मेरी कुंजी दर्ज करें →',
     mVisitorsLabel: 'वास्तविक आगंतुक',
     mCopiesLabel: 'कोड कॉपी की संख्या',
@@ -405,7 +433,7 @@ const I18N = {
     s1t: 'एक कोड कॉपी करें',
     s1d: 'बड़े बटन का उपयोग करें या नीचे किसी भी कोड पर टैप करें।',
     s2t: 'नुसुक ऐप में खोलें',
-    s2d: 'पहले नुसुक ऐप में चुनौती शुरू करें, फिर यहाँ टैप करें — कोड पहले से भरा होना चाहिए। यदि नहीं, तो बस पेस्ट करें। नुसुक ऐप को बैकग्राउंड में खुला रखें ताकि कोड सीधे वहाँ जाए।',
+    s2d: 'पहले नुसुक ऐप में चुनौती शुरू करें, फिर यहाँ टैप करें — कोड पहले से भरा होना चाहिए। यदि नहीं, तो बस पेस्ट करें। नुसुक ऐप को बैकग्राउंड में खुला रखें ताकि कोड सीधे वहाँ जाए। जब बधाई पेज दिखे, वहीं रहें — ऐप बंद न करें या वापस न जाएँ।',
     s3t: 'स्वीकार नहीं हुआ? अगला।',
     s3d: 'इसे चिह्नित करें और हम इसे फिर कभी नहीं दिखाएंगे।',
     search: 'कोड खोजें…',
@@ -793,7 +821,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v19').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v20').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1122,6 +1150,41 @@ const IS_ANDROID = /Android/i.test(UA);
 const IS_INTENT_CAPABLE = IS_ANDROID
   && /Chrome/i.test(UA)
   && !/Firefox|FxiOS|FBAN|FBAV|WhatsApp|Instagram|Telegram|\bwv\b/i.test(UA);
+// In-app browsers (WhatsApp, Facebook, Instagram, Telegram, TikTok,
+// Line, WeChat) cannot fire a deep link to another app — the tap does
+// nothing or errors. This is a common reason the "Open in Nusuk" link
+// seems broken: the visitor opened the site from inside another app.
+// Detect it and show a banner with an escape hatch: on Android, open
+// this page in Chrome via an explicit intent; on iOS, copy the link so
+// the visitor can paste it in Safari. (Pattern from the Nusuk Key
+// Exchange Apps Script site, which shows the same banner + modal.)
+function isInAppBrowser() {
+  return /FBAN|FBAV|Instagram|Messenger|Line|MicroMessenger|WhatsApp|TikTok|Snapchat|Telegram/i.test(UA) || /\bwv\b/i.test(UA);
+}
+function showInAppBanner() {
+  if (!isInAppBrowser()) return;
+  const b = $('inapp-banner');
+  if (!b) return;
+  b.classList.remove('hidden');
+  const btn = $('inapp-open');
+  if (btn) {
+    if (IS_ANDROID) {
+      btn.textContent = t('inappOpenChrome');
+      btn.addEventListener('click', () => {
+        const clean = location.href.replace(/^https?:\/\//, '');
+        location.href = 'intent://' + clean + '#Intent;scheme=https;package=com.android.chrome;end';
+      });
+    } else {
+      btn.textContent = t('inappCopyLink');
+      btn.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(location.href); } catch {}
+        toast(t('inappCopied'));
+      });
+    }
+  }
+  const close = $('inapp-close');
+  if (close) close.addEventListener('click', () => b.classList.add('hidden'));
+}
 const NUSUK_DEEP_LINK = (code) => IS_INTENT_CAPABLE ? NUSUK_INTENT_LINK(code) : NUSUK_WEB_LINK(code);
 
 // The code the visitor copied most recently in this tab: the
@@ -1596,6 +1659,7 @@ function bind() {
 
 async function boot() {
   bind();
+  showInAppBanner();
   buildShareLinks();
   applyLang(state.lang);
   const saved = readCookie() || localStorage.getItem('mk_key');

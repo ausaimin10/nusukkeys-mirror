@@ -59,6 +59,22 @@ body {
   cursor: pointer; white-space: nowrap; transition: filter var(--ease), transform var(--ease);
 }
 .guest-alert-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+/* In-app browser warning — same bar style as the guest alert, shown
+   only when the page is opened inside another app (WhatsApp, Facebook,
+   Instagram, Telegram, TikTok), where the Nusuk deep link cannot fire. */
+.inapp-banner {
+  position: sticky; top: 0; z-index: 41;
+  background: linear-gradient(90deg, #4a2c02 0%, #2e1c02 50%, #4a2c02 100%);
+  color: #fbe6b8; border-bottom: 1px solid rgba(242, 184, 75, 0.55);
+  padding: var(--sp-2) 0; font-size: 0.8rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+}
+.inapp-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; }
+.inapp-text { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; line-height: 1.4; flex: 1; min-width: 0; }
+.inapp-close {
+  flex-shrink: 0; border: none; background: transparent; color: #fbe6b8;
+  font-size: 1.2rem; line-height: 1; cursor: pointer; padding: 4px 8px;
+}
 /* Backdrop — artwork kept exactly as in the original */
 .sacred-backdrop { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .bg-ornament-top { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; min-width: 1200px; height: 295px; }
