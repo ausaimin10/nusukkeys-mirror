@@ -393,6 +393,19 @@
       <p data-i18n="heroSub">Tap once to copy, paste it in the Nusuk app. We remember what you've used, so you never see the same code twice.</p>
     </section>
 
+    <!-- How to use — 4 steps (from umrahcodes.click / nusukkey.xyz):
+         open Nusuk first and keep it in the background, then tap Open.
+         Compact on mobile so the Copy button stays on the first screen. -->
+    <details class="how-banner" id="how-banner" aria-label="How to use" open>
+      <summary><span data-i18n="howTitle">How to use a code</span></summary>
+      <ol>
+        <li><b>1</b><span data-i18n="how1">Open the Nusuk app first and leave it open in the background.</span></li>
+        <li><b>2</b><span data-i18n="how2">Copy a code here, then tap &ldquo;Open in Nusuk&rdquo;.</span></li>
+        <li><b>3</b><span data-i18n="how3">In Nusuk, check the code. If it is not filled in, paste it.</span></li>
+        <li><b>4</b><span data-i18n="how4">If it does not work, come back and try the next code.</span></li>
+      </ol>
+    </details>
+
     <!-- Real Live Platform Metrics Strip (Visitors, Code Copy Times, Newly Added Codes) -->
     <section class="metrics-bar" aria-label="Live platform statistics">
       <div class="metric-card">
@@ -538,6 +551,9 @@
       <li class="step-action" data-step="skip" tabindex="0" role="button"><b>3</b><div><strong data-i18n="s3t">Not accepted? Next.</strong><span data-i18n="s3d">Mark it and we'll never show it again.</span></div></li>
     </ol>
 
+    <!-- Last tried + next code (umrahcodes shows the same strip). -->
+    <p class="tried-strip hidden" id="tried-strip"><span data-i18n="triedLast">Last tried</span>: <code id="tried-last"></code> &middot; <span data-i18n="triedNext">Next</span>: <code id="tried-next"></code></p>
+
     <!-- Browser -->
     <section class="browser" aria-label="All codes">
       <div class="controls">
@@ -558,11 +574,23 @@
     <details class="add">
       <summary data-i18n="addTitle">Have another code to share?</summary>
       <form id="share-form" class="add-form" novalidate>
-        <input id="share-input" placeholder="Paste NG- code or invite message" autocomplete="off" spellcheck="false" />
+        <textarea id="share-input" rows="2" placeholder="Paste NG- code or invite message" autocomplete="off" spellcheck="false"></textarea>
         <button type="submit" class="btn-dark" data-i18n="shareBtn">Share</button>
       </form>
+      <p class="share-hint" data-i18n="shareHint">Share up to 10 codes at once &mdash; one per line, or separated by spaces or commas. Each code is checked before it is added.</p>
+      <div class="share-review hidden" id="share-review" role="status"></div>
       <p class="err hidden" id="share-err" role="alert"></p>
     </details>
+
+    <!-- FAQ + short guides (from umrahcodes.click / nusukkey.xyz).
+         Questions and answers are rendered by app.js from FAQ_I18N
+         (English, Bengali and Arabic; other languages show English). -->
+    <section class="faq" id="faq" aria-label="Frequently asked questions">
+      <h2 data-i18n="faqTitle">Questions, answered</h2>
+      <div id="faq-list"></div>
+      <h3 data-i18n="guidesTitle">Short guides</h3>
+      <ul class="guides" id="guides-list"></ul>
+    </section>
 
     <!-- Sponsor hosting -->
     <section class="sponsor" aria-label="Sponsor hosting">
@@ -579,6 +607,7 @@
     <p class="copyright">© Hasan Mahmud. All rights reserved.</p>
     <p class="expiry">This page will remain active until December 20, 2026 (unless Nusuk changes the date of its Umrah campaign).</p>
     <p class="mirrors">Backup mirrors: <a href="https://nusukkeys-mirror.pages.dev/" target="_blank" rel="noopener">Mirror</a> · <a href="https://nusukkeys-backup.pages.dev/" target="_blank" rel="noopener">Backup</a></p>
+    <p class="sources"><span data-i18n="srcCredit">Codes shared by the community. Sources include</span> <a href="https://umrahcodes.click/" target="_blank" rel="noopener">umrahcodes.click</a> &middot; <a href="https://www.nusukkey.xyz/" target="_blank" rel="noopener">nusukkey.xyz</a> &mdash; <span data-i18n="srcCredit2">codes are community-submitted, not checked by Nusuk.</span></p>
   </footer>
 
   <!-- First-load gate: ask for the user's own key -->

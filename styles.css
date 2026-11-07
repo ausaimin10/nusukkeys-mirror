@@ -472,3 +472,76 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* --- nk-v21: 4-step how-to banner (umrahcodes) --- */
+.how-banner {
+  background: linear-gradient(90deg, rgba(242, 184, 75, 0.16), rgba(242, 184, 75, 0.07));
+  border: 1px solid var(--line-gold); border-radius: 14px;
+  padding: 10px 14px; margin: 0 0 var(--sp-4);
+}
+.how-banner summary { font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-bottom: 6px; }
+.how-banner:not([open]) summary { margin-bottom: 0; }
+.how-banner ol { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.how-banner li { display: flex; gap: 7px; align-items: flex-start; font-size: 0.78rem; line-height: 1.4; color: var(--ink-2); }
+.how-banner li b {
+  flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--gold); color: #231500; font-size: 0.72rem;
+}
+/* --- nk-v21: last-tried strip --- */
+.tried-strip {
+  font-size: 0.82rem; color: var(--ink-2); background: var(--surface);
+  border: 1px solid var(--line-gold); border-radius: 10px;
+  padding: 6px 12px; margin: 0 0 var(--sp-3);
+}
+.tried-strip code { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); }
+/* --- nk-v21: multi-code share --- */
+.add-form textarea {
+  flex: 1; min-height: 44px; resize: vertical; font: inherit; font-size: 0.88rem;
+  padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff;
+}
+.share-hint { font-size: 0.78rem; color: var(--ink-2); margin-top: 6px; }
+.share-review { margin-top: 8px; font-size: 0.84rem; }
+.share-review .review-codes { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.share-review .review-codes code {
+  font-family: var(--mono); font-size: 0.78rem; background: rgba(242, 184, 75, 0.16);
+  border: 1px solid var(--line-gold); border-radius: 6px; padding: 2px 7px;
+}
+.share-review .review-codes code.bad { background: rgba(214, 64, 79, 0.1); border-color: rgba(214, 64, 79, 0.35); text-decoration: line-through; }
+.share-review .btn-dark, .share-review .btn-soft { margin-right: 8px; }
+/* --- nk-v21: FAQ + guides --- */
+.faq { margin: var(--sp-4) 0; }
+.faq h2 { font-size: 1.05rem; margin-bottom: 10px; }
+.faq h3 { font-size: 0.95rem; margin: 16px 0 8px; }
+.faq details {
+  background: var(--surface); border: 1px solid var(--line-gold); border-radius: 12px;
+  padding: 10px 14px; margin-bottom: 8px;
+}
+.faq summary { cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+.faq details p { font-size: 0.86rem; color: var(--ink-2); margin-top: 6px; }
+.guides { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.guides li {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 12px; font-size: 0.82rem; color: var(--ink-2);
+}
+.guides li b { color: var(--ink); display: block; font-size: 0.84rem; }
+/* --- nk-v21: per-row "Open in browser" globe --- */
+.chip-wrap { position: relative; }
+.chip-wrap .chip { width: 100%; padding-right: 34px; }
+.chip-globe {
+  position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
+  width: 24px; height: 24px; display: grid; place-items: center;
+  border-radius: 50%; color: var(--ink-3); text-decoration: none; font-size: 0.85rem;
+}
+.chip-globe:hover { background: rgba(185, 137, 40, 0.14); color: var(--ink); }
+/* --- nk-v21: footer source credit --- */
+.sources { font-size: 0.8rem; color: var(--ink-2); margin-top: 6px; }
+.sources a { color: var(--gold-deep); }
+@media (max-width: 720px) {
+  .how-banner ol { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+  .how-banner { padding: 8px 10px; }
+  .how-banner summary { font-size: 0.86rem; margin-bottom: 5px; }
+  .how-banner:not([open]) summary { margin-bottom: 0; }
+  .how-banner li { font-size: 0.72rem; }
+  .guides { grid-template-columns: 1fr; }
+  .faq details { padding: 8px 12px; }
+}
