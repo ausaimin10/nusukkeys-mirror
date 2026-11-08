@@ -1041,8 +1041,9 @@ function renderCredit() {
   if (!el) return;
   const d = CREDIT_DUA[state.lang] || CREDIT_DUA.en;
   const i = d.text.indexOf(d.name);
-  if (i < 0) { el.textContent = d.text; return; }
+  if (i < 0) { el.textContent = d.text; flashDuaOnce(); return; }
   el.innerHTML = `${esc(d.text.slice(0, i))}<a href="https://www.facebook.com/hasan.m1a" target="_blank" rel="noopener">${esc(d.name)}</a>${esc(d.text.slice(i + d.name.length))}`;
+  flashDuaOnce();
 }
 function randStr(n, alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789') {
   let s = '';
@@ -1216,6 +1217,35 @@ function renderAll() {
 function renderGuestWarning() {
   const showWarn = !state.key || !!state.me.anon;
   $('guest-alert').classList.toggle('hidden', !showWarn);
+  syncDuaStickTop();
+}
+// Sticky Dua card: keep it just below any sticky bar at the very top
+// (guest alert / in-app banner) so it never overlaps them. The CSS
+// uses --dua-stick-top as the sticky top offset. Called whenever those
+// bars show/hide, on resize, and at boot.
+function syncDuaStickTop() {
+  try {
+    let top = 0;
+    const ga = document.getElementById('guest-alert');
+    if (ga && !ga.classList.contains('hidden')) top += ga.getBoundingClientRect().height || 0;
+    const ib = document.getElementById('inapp-banner');
+    if (ib && !ib.classList.contains('hidden')) top += ib.getBoundingClientRect().height || 0;
+    document.documentElement.style.setProperty('--dua-stick-top', Math.round(top) + 'px');
+  } catch {}
+}
+// First-visit flash: once per browser, briefly highlight the Dua card
+// with an elegant golden glow pulse (box-shadow only — the text is
+// never faded, covered, or moved). Runs after the dua text is rendered.
+function flashDuaOnce() {
+  try {
+    if (localStorage.getItem('mk_dua_seen_v1')) return;
+    localStorage.setItem('mk_dua_seen_v1', '1');
+    const el = document.getElementById('credit-dua');
+    if (!el) return;
+    el.classList.add('dua-flash');
+    el.addEventListener('animationend', () => el.classList.remove('dua-flash'), { once: true });
+    setTimeout(() => el.classList.remove('dua-flash'), 2600);
+  } catch {}
 }
 
 function renderMetrics() {
@@ -1454,7 +1484,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v37').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v38').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1927,6 +1957,7 @@ function showInAppBanner() {
   const b = $('inapp-banner');
   if (!b) return;
   b.classList.remove('hidden');
+  syncDuaStickTop();
   const btn = $('inapp-open');
   if (btn) {
     if (IS_ANDROID) {
@@ -2430,6 +2461,10 @@ async function boot() {
   showInAppBanner();
   buildShareLinks();
   applyLang(state.lang);
+  // Sticky Dua card: keep its top offset in step with any sticky bar
+  // above it (guest alert / in-app banner) when the viewport changes.
+  syncDuaStickTop();
+  window.addEventListener('resize', syncDuaStickTop);
   // nk-v22: on phones the 4-step banner starts collapsed (tap its
   // title to open it) so the Copy button stays on the first screen.
   const hb = $('how-banner');
