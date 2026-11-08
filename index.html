@@ -21,7 +21,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;800&family=Hind+Siliguri:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;800&family=Hind+Siliguri:wght@400;600&family=Noto+Sans+Bengali:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Amiri:wght@400;700&family=Playfair+Display:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -106,11 +106,13 @@
       <a href="#fix" data-i18n="navFix">Fix</a>
       <a href="#find-code" data-i18n="navFind">Find your code</a>
       <a href="#competition" data-i18n="navComp">Competition 2026</a>
-      <a href="#share" class="nav-share" data-i18n="navShare">Share a code</a>
     </div>
   </nav>
 
-  <p class="credit wrap">Created by <a href="https://www.facebook.com/hasan.m1a" target="_blank" rel="noopener">Hasan Mahmud</a></p>
+  <!-- Dua in place of the creator credit: the text is rendered by
+       app.js (renderCredit) in the visitor's language, with only
+       the name "Hasan Mahmud" linking to the existing Facebook page. -->
+  <p class="credit wrap" id="credit-dua"></p>
 
   <main class="wrap">
     <!-- Failover banner: shown only if this host cannot load any code list -->
@@ -180,8 +182,8 @@
           <div class="metric-val"><strong id="m-total-copies">0</strong><small data-i18n="mTotalCopiesSub">copied by everyone</small></div>
         </div>
       </div>
+      <p class="metrics-note" data-i18n="metricsNote">We never give you the same code twice from our collection of nearly 100,000 codes. However, if a code listed here has already been used elsewhere before you copy it from this website, it may no longer work.</p>
     </section>
-    <p class="history-note" id="history-note"></p>
 
     <!-- Share the site — desktop only (on mobile the header share
          icon opens the same links in a popup instead) -->
@@ -227,22 +229,9 @@
     </section>
 
     <ol class="steps">
-      <li class="step-action" data-step="copy" tabindex="0" role="button"><b>1</b><div><strong data-i18n="s1t">Copy a code</strong><span data-i18n="s1d">Use the big button or tap any code below.</span></div></li>
-      <li class="step-action" id="nusuk-step"><a id="nusuk-link" href="#" target="_blank" rel="noopener"><b>2</b><div><strong data-i18n="s2t">Open in Nusuk app</strong><span data-i18n="s2d">Opens the challenge with this code.</span></div></a></li>
-      <li class="step-action" data-step="skip" tabindex="0" role="button"><b>3</b><div><strong data-i18n="s3t">Not accepted? Next.</strong><span data-i18n="s3d">Mark it and we'll never show it again.</span></div></li>
+      <li class="step-action" id="nusuk-step"><a id="nusuk-link" href="#" target="_blank" rel="noopener"><b>1</b><div><strong data-i18n="s2t">Open in Nusuk app</strong><span data-i18n="s2d">Opens the challenge with this code.</span></div></a></li>
+      <li class="step-action" data-step="skip" tabindex="0" role="button"><b>2</b><div><strong data-i18n="s3t">Not accepted? Next.</strong><span data-i18n="s3d">Mark it and we'll never show it again.</span></div></li>
     </ol>
-
-    <!-- App-screen mockup (drawn in CSS, not a screenshot): what the
-         Keys screen in the Nusuk app looks like after a code is used. -->
-    <div class="phone-mockup" aria-hidden="true">
-      <div class="phone-screen">
-        <b data-i18n="mockKeys">Your keys</b>
-        <span class="mock-count">12</span>
-        <div class="mock-field"><span data-i18n="mockAdd">Add code to get new key</span><code>NG-XXXXXXXX</code></div>
-        <span class="mock-btn" data-i18n="mockCheck">Check the code</span>
-        <span class="mock-ok" data-i18n="mockCongrats">Congratulations! +1 key</span>
-      </div>
-    </div>
 
     <!-- Last tried + next code strip. -->
     <p class="tried-strip hidden" id="tried-strip"><span data-i18n="triedLast">Last tried</span>: <code id="tried-last"></code> &middot; <span data-i18n="triedNext">Next</span>: <code id="tried-next"></code></p>
@@ -258,38 +247,18 @@
           <button type="button" data-f="all" data-i18n="fAll">All</button>
         </div>
       </div>
-      <p class="count" id="count"></p>
-      <div class="grid" id="grid" aria-live="polite"></div>
-      <div class="more"><button type="button" class="btn-soft hidden" id="btn-more" data-i18n="more">Load more</button></div>
+      <details class="code-list" id="code-list">
+        <summary><span data-i18n="viewCodeList">View Code List</span></summary>
+        <p class="count" id="count"></p>
+        <div class="grid" id="grid" aria-live="polite"></div>
+        <div class="more"><button type="button" class="btn-soft hidden" id="btn-more" data-i18n="more">Load more</button></div>
+      </details>
     </section>
     <p class="codes-explainer" data-i18n="codesExplainer">Every code gets a fair turn: new codes are added all day, so come back daily. Codes that stop working are reported and removed — tap Problem in your copied codes if one does not work.</p>
 
     <details class="my-codes" id="my-codes">
       <summary data-i18n="myCodesTitle">My copied codes</summary>
       <div id="my-codes-list"></div>
-    </details>
-
-    <!-- Add another code -->
-    <details class="add" id="share">
-      <summary data-i18n="addTitle">Have another code to share?</summary>
-      <form id="share-form" class="add-form" novalidate>
-        <textarea id="share-input" rows="2" placeholder="Paste NG- code or invite message" autocomplete="off" spellcheck="false"></textarea>
-        <input id="share-name" type="text" maxlength="40" autocomplete="off" spellcheck="false" data-i18n-ph="shareNamePh" placeholder="Your name (optional)" />
-        <button type="submit" class="btn-dark" data-i18n="shareBtn">Share</button>
-      </form>
-      <p class="share-hint" data-i18n="shareHint">Share up to 10 codes at once &mdash; one per line, or separated by spaces or commas. Each code is checked before it is added.</p>
-      <details class="share-how">
-        <summary data-i18n="shareHowTitle">How do I get my code?</summary>
-        <ol>
-          <li data-i18n="shareHow1">Open the Nusuk app, tap "Start the challenge".</li>
-          <li data-i18n="shareHow2">Tap Share in the bottom menu — your code is inside the invite message.</li>
-          <li data-i18n="shareHow3">Copy the whole message and paste it here — no need to find the code yourself.</li>
-        </ol>
-      </details>
-      <button type="button" class="btn-soft" id="share-resend" data-i18n="shareResend">Share my saved codes again</button>
-      <p class="helped-line hidden" id="helped-line"></p>
-      <div class="share-review hidden" id="share-review" role="status"></div>
-      <p class="err hidden" id="share-err" role="alert"></p>
     </details>
 
     <!-- FAQ + short guides. Questions and answers are rendered by
@@ -307,17 +276,20 @@
       </details>
     </section>
 
-    <!-- Fix: troubleshooting, 10 items rendered by app.js. -->
-    <section class="fix-section" id="fix" aria-label="Fix a problem">
-      <h2 data-i18n="fixTitle">Fix — code not working?</h2>
+    <!-- Fix: troubleshooting, 10 items rendered by app.js. The
+         heading is the expandable button; the section starts closed. -->
+    <details class="fix-section" id="fix" aria-label="Fix a problem">
+      <summary><span data-i18n="fixTitle">Fix — code not working?</span></summary>
       <p data-i18n="fixIntro">Try these in order. Most problems are one of these ten.</p>
       <div id="fix-list"></div>
-    </section>
+    </details>
 
-    <!-- Competition 2026: the emerald featured section (rendered). -->
-    <section class="feature-emerald" id="competition" aria-label="The Umrah competition 2026">
+    <!-- Competition 2026: the emerald featured section (rendered).
+         The title is the expandable button; the section starts closed. -->
+    <details class="feature-emerald" id="competition" aria-label="The Umrah competition 2026">
+      <summary class="feature-summary"><span data-i18n="compSummary">New Free Umrah Competition 2026</span></summary>
       <div class="feature-body" id="sec-competition"></div>
-    </section>
+    </details>
 
     <!-- Find your code: full guide + the two tools. -->
     <details class="guide-section" id="find-code" aria-label="Find your code">
@@ -342,10 +314,12 @@
       </div>
     </details>
 
-    <!-- Umrah step by step: the taupe counterpart section (rendered). -->
-    <section class="feature-taupe" id="umrah" aria-label="Umrah step by step">
+    <!-- Umrah step by step: the taupe counterpart section (rendered).
+         The heading is the expandable button; the section starts closed. -->
+    <details class="feature-taupe" id="umrah" aria-label="Umrah step by step">
+      <summary class="feature-summary"><span id="umrah-summary-title">Umrah step by step</span></summary>
       <div class="feature-body" id="sec-umrah"></div>
-    </section>
+    </details>
 
     <!-- Umrah packing checklist (interactive, saved on this device). -->
     <details class="guide-section" id="checklist">
@@ -374,6 +348,10 @@
   </main>
 
   <footer class="foot wrap">
+    <!-- The whole footer card is one expandable section; it starts
+         closed, and the legal details stay collapsible inside it. -->
+    <details class="foot-details" id="foot-details">
+      <summary><span data-i18n="footSummary">Independent Community Tool</span></summary>
     <p data-i18n="foot">Independent community tool. Not affiliated with Nusuk or the Ministry of Hajj and Umrah. We never ask for your login.</p>
     <p class="copyright">© Hasan Mahmud. All rights reserved.</p>
     <p class="expiry">This page will remain active until December 20, 2026 (unless Nusuk changes the date of its Umrah campaign).</p>
@@ -382,7 +360,6 @@
       <div class="foot-col">
         <b data-i18n="navCodes">Codes</b>
         <a href="#codes" data-i18n="navCodes">Codes</a>
-        <a href="#share" data-i18n="navShare">Share a code</a>
         <a href="#top" data-i18n="navHome">Home</a>
       </div>
       <div class="foot-col">
@@ -415,6 +392,7 @@
     <details class="legal" id="legal-developers">
       <summary data-i18n="legalDevelopers">Developers — open data</summary>
       <div id="sec-developers"></div>
+    </details>
     </details>
   </footer>
 

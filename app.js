@@ -16,15 +16,17 @@ const I18N = {
     mAddedLabel: 'Newly Added Codes',
     mTotalCopiesLabel: 'Total Copies',
     mTotalCopiesSub: 'copied by everyone',
+    metricsNote: 'We never give you the same code twice from our collection of nearly 100,000 codes. However, if a code listed here has already been used elsewhere before you copy it from this website, it may no longer work.',
+    viewCodeList: 'View Code List',
+    compSummary: 'New Free Umrah Competition 2026',
+    footSummary: 'Independent Community Tool',
     heroTitle: 'referral codes. Copy one, get a key.',
     heroSub: "Tap once to copy, paste it in the Nusuk app. We remember what you've used, so you never see the same code twice.",
     nextCode: 'Your next code', copyNext: 'Copy & show next', skip: 'Skip',
     copied: 'Copied', alreadyUsed: 'Already used', invalid: "Doesn't work", undo: 'Undo',
-    s1t: 'Copy a code', s1d: 'Use the big button or tap any code below.',
     s2t: 'Open in Nusuk app', s2d: 'Start the challenge in the Nusuk app first, then tap here — the code should already be filled in. If not, just paste it. Keep the Nusuk app open in the background so the code goes straight to it. When the Congratulations page shows, stay on it — don\'t close the app or go back.',
     s3t: 'Not accepted? Next.', s3d: "Mark it and we'll never show it again.",
     search: 'Search codes…', fRemaining: 'Remaining', fNew: 'Newly Added', fUsed: 'Used', fAll: 'All', more: 'Load more',
-    addTitle: 'Have another code to share?', shareBtn: 'Share',
     shareMsg: 'Please share this for the benefit of the Ummah.',
     shareTitle: 'Share NusukKeys',
     shareClose: 'Close',
@@ -49,8 +51,6 @@ const I18N = {
     activeNow: (n) => `${n} active now`,
     copiedToday: (n) => `${n} copied today`,
     addedSub: (today, latest) => (latest ? `Latest: ${latest} (+${today} today)` : `${today} added today`),
-    historyNote: (hv, hc, nv, nc, lh) => `Includes ${hv} visitors and about ${hc} copies from our previous website. New since the rebuild: ${nv} ${nv === '1' ? 'visitor' : 'visitors'} (${lh} in the last hour) and ${nc} ${nc === '1' ? 'copy' : 'copies'}.`,
-    helped: (n) => `People you helped: ${n}`,
     copy: 'Copy',
     navHome: 'Home',
     navCodes: 'Codes',
@@ -58,7 +58,6 @@ const I18N = {
     navFix: 'Fix',
     navFind: 'Find your code',
     navComp: 'Competition 2026',
-    navShare: 'Share a code',
     hadithText: 'Whoever guides to good gets the same reward as the one who does it.',
     hadithRef: 'Sahih Muslim 1893',
     badgeNoAccount: 'No account needed',
@@ -80,31 +79,19 @@ const I18N = {
     checklistTitle: 'Umrah packing checklist',
     checklistClear: 'Clear marks',
     checklistPrint: 'Print list',
-    shareHowTitle: 'How do I get my code?',
-    shareHow1: 'Open the Nusuk app, tap "Start the challenge".',
-    shareHow2: 'Tap Share in the bottom menu — your code is inside the invite message.',
-    shareHow3: 'Copy the whole message and paste it here — no need to find the code yourself.',
-    shareNamePh: 'Your name (optional)',
-    shareResend: 'Share my saved codes again',
     footNote1: 'If the link does not open, copy the referral code and type it in Nusuk yourself, or open the link in a browser instead of the app.',
     footNote2: 'Codes are ordered newest first.',
     footNote3: '60 codes per page; the count includes all codes.',
     legalPrivacy: 'Privacy policy',
     legalTerms: 'Terms of use',
     legalDevelopers: 'Developers — open data',
-    mockKeys: 'Your keys',
-    mockAdd: 'Add code to get new key',
-    mockCheck: 'Check the code',
-    mockCongrats: 'Congratulations! +1 key',
     toolFindNone: 'No code found in that text. Paste your full Nusuk invite link or message.',
-    toolFindAdd: 'Add to list',
     toolCheckNotLoaded: 'The code list has not loaded yet. Please wait a moment and try again.',
     toolCheckOn: 'On the list',
     toolCheckOff: 'Not yet listed',
     toolCheckNote: 'Being on the list does not mean the code works in Nusuk — it only means it was shared here. New codes are added after review.',
     myCodesEmpty: 'No codes copied yet. Codes you copy will show up here.',
     myCodesProblem: 'Problem',
-    shareResendNone: 'No saved codes on this device yet.',
     checklistProgress: (d, t) => `${d} / ${t} ready`,
     stats: (c, r, mine) =>
       `You copied <b>${c}</b> · Remaining <b>${r}</b>` +
@@ -116,9 +103,7 @@ const I18N = {
     toastNoted: 'Noted. Next one!', toastBad: 'Thanks, reported', toastUndo: 'Undone',
     toastShared: 'Your code is in the pool', toastWelcome: 'Welcome back',
     err: {
-      empty: 'Please paste a code first.', invalid_code: 'That does not look like a Nusuk key. It is NG- followed by 8 characters.',
-      duplicate: 'That code is already shared.', device_limit: 'You have reached the sharing limit.',
-      name_link: 'Names cannot contain links.', name_number: 'Names cannot contain phone numbers.', server: 'Something went wrong. Try again.'
+      empty: 'Please paste a code first.', invalid_code: 'That does not look like a Nusuk key. It is NG- followed by 8 characters.', server: 'Something went wrong. Try again.'
     }
   },
   bn: {
@@ -127,7 +112,7 @@ const I18N = {
     inappText: 'আপনি অন্য একটি অ্যাপের ভেতরে দেখছেন। এখানে "Open in Nusuk" বোতাম কাজ নাও করতে পারে — পেজটি আপনার ব্রাউজারে খুলুন।',
     inappOpenChrome: 'Chrome-এ খুলুন',
     inappCopyLink: 'Safari-তে খুলতে লিংক কপি করুন',
-    inappCopied: 'লিংক কপি হয়েছে — পেজটি খুলতে Safari-তে পেস্ট করুন।',
+    inappCopied: 'লিংক কপি হয়েছে — পেজটি খুলতে Safari-তে পেস্ট করুন।',
     guestWarnBtn: 'আমার কী দিন →',
     mVisitorsLabel: 'মোট ভিজিটর',
     mCopiesLabel: 'কোড কপি সংখ্যা',
@@ -135,40 +120,36 @@ const I18N = {
     mTotalCopiesLabel: 'মোট কপি',
     mTotalCopiesSub: 'সবাই কপি করেছে',
     heroTitle: 'টি রেফারেল কোড। কপি করুন, কী পান।',
-    heroSub: 'একবার ট্যাপ করে কপি করুন, নুসুক অ্যাপে পেস্ট করুন। কোনটা ব্যবহার করেছেন আমরা মনে রাখি, তাই একই কোড দ্বিতীয়বার দেখবেন না।',
+    heroSub: 'একবার ট্যাপ করে কপি করুন, নুসুক অ্যাপে পেস্ট করুন। কোনটা ব্যবহার করেছেন আমরা মনে রাখি, তাই একই কোড দ্বিতীয়বার দেখবেন না।',
     nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
-    copied: 'কপি হয়েছে', alreadyUsed: 'আগে ব্যবহৃত', invalid: 'কাজ করছে না', undo: 'আনডু',
-    s1t: 'কোড কপি করুন', s1d: 'বড় বাটন বা নিচের যেকোনো কোডে ট্যাপ করুন।',
-    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন। নুসুক অ্যাপ ব্যাকগ্রাউন্ডে খোলা রাখুন, যাতে কোড সরাসরি সেখানে যায়। Congratulations পেজ দেখা গেলে সেখানেই থাকুন — অ্যাপ বন্ধ করবেন না বা ফিরে যাবেন না।',
+    copied: 'কপি হয়েছে', alreadyUsed: 'আগে ব্যবহৃত', invalid: 'কাজ করছে না', undo: 'আনডু',
+    s2t: 'নুসুক অ্যাপে খুলুন', s2d: 'প্রথমে নুসুক অ্যাপে চ্যালেঞ্জ শুরু করুন, তারপর এখানে চাপ দিন — কোড সাধারণত আগেই পূরণ করা থাকে। না থাকলে শুধু পেস্ট করুন। নুসুক অ্যাপ ব্যাকগ্রাউন্ডে খোলা রাখুন, যাতে কোড সরাসরি সেখানে যায়। Congratulations পেজ দেখা গেলে সেখানেই থাকুন — অ্যাপ বন্ধ করবেন না বা ফিরে যাবেন না।',
     s3t: 'কাজ না করলে পরেরটা', s3d: 'মার্ক করুন, আর কখনো দেখাব না।',
     search: 'কোড খুঁজুন…', fRemaining: 'বাকি', fNew: 'নতুন যুক্ত', fUsed: 'ব্যবহৃত', fAll: 'সব', more: 'আরও দেখুন',
-    addTitle: 'আরেকটি কোড শেয়ার করবেন?', shareBtn: 'শেয়ার',
     shareMsg: 'Please share this for the benefit of the Ummah.',
-    shareTitle: 'NusukKeys শেয়ার করুন',
+    shareTitle: 'NusukKeys শেয়ার করুন',
     shareClose: 'বন্ধ করুন',
     sponsorTitle: 'হোস্টিং স্পনসর করুন',
-    sponsorLine1: 'আপনার অবদান সরাসরি এই ওয়েবসাইটের প্রধান হোস্টিং সার্ভার আপগ্রেডের কাজে যাবে।',
-    sponsorLine2: 'একটি ছোট অবদান, উম্মাহর জন্য স্থায়ী উপকার।',
+    sponsorLine1: 'আপনার অবদান সরাসরি এই ওয়েবসাইটের প্রধান হোস্টিং সার্ভার আপগ্রেডের কাজে যাবে।',
+    sponsorLine2: 'একটি ছোট অবদান, উম্মাহর জন্য স্থায়ী উপকার।',
     sponsorBtn: 'হোস্টিং স্পনসর করুন',
-    sponsorNote: 'এই সাইটটি এখন বিনামূল্যের হোস্টিংয়ে চলে। মূল সার্ভারের জন্য পেইড প্ল্যান মাসে প্রায় $৫ থেকে শুরু হয় এবং সীমা বাড়ায়। প্রতিটি অবদান শুধু সেই আপগ্রেডের কাজেই যাবে।',
+    sponsorNote: 'এই সাইটটি এখন বিনামূল্যের হোস্টিংয়ে চলে। মূল সার্ভারের জন্য পেইড প্ল্যান মাসে প্রায় $৫ থেকে শুরু হয় এবং সীমা বাড়ায়। প্রতিটি অবদান শুধু সেই আপগ্রেডের কাজেই যাবে।',
     sponsorEmail: 'স্পনসর করতে ইমেইল করুন',
     sponsorClose: 'বন্ধ করুন',
-    sponsorHint: 'অবদান সম্পূর্ণ স্বেচ্ছায়। এই সাইটে কোনো পেমেন্ট তথ্য নেওয়া হয় না।',
-    failoverMsg: '\u098f\u0987 \u09b8\u09be\u0987\u099f\u099f\u09bf \u0995\u09cb\u09a1\u09c7\u09b0 \u09a4\u09be\u09b2\u09bf\u0995\u09be \u09b2\u09cb\u09a1 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u09a8\u09bf. \u09ac\u09cd\u09af\u0995\u09be\u09aa \u09ae\u09bf\u09b0\u09b0 \u09ac\u09cd\u09af\u09b9\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u2014 \u09b8\u09c7\u0996\u09be\u09a8\u09c7 \u0995\u09cb\u09a1 \u09b6\u09c1\u09a7\u09c1 \u0993\u0987 \u09ac\u09cd\u09b0\u09be\u0989\u099c\u09be\u09b0\u09c7\u0987 \u09b8\u0982\u09b0\u0995\u09cd\u09b7\u09bf\u09a4 \u09a5\u09be\u0995\u09ac\u09c7.',
-    failoverCount: (n) => `ব্যাকআপ মিররে যাওয়া হচ্ছে ${n} সেকেন্ডের মধ্যে…`,
+    sponsorHint: 'অবদান সম্পূর্ণ স্বেচ্ছায়। এই সাইটে কোনো পেমেন্ট তথ্য নেওয়া হয় না।',
+    failoverMsg: '\u098f\u0987 \u09b8\u09be\u0987\u099f\u099f\u09bf \u0995\u09cb\u09a1\u09c7\u09b0 \u09a4\u09be\u09b2\u09bf\u0995\u09be \u09b2\u09cb\u09a1 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u09a8\u09bf. \u09ac\u09cd\u09af\u09be\u0995\u09be\u09aa \u09ae\u09bf\u09b0\u09b0 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u2014 \u09b8\u09c7\u0996\u09be\u09a8\u09c7 \u0995\u09cb\u09a1 \u09b6\u09c1\u09a7\u09c1 \u0993\u0987 \u09ac\u09cd\u09b0\u09be\u0989\u099c\u09be\u09b0\u09c7\u0987 \u09b8\u0982\u09b0\u0995\u09cd\u09b7\u09bf\u09a4 \u09a5\u09be\u0995\u09ac\u09c7.',
+    failoverCount: (n) => `ব্যাকআপ মিররে যাওয়া হচ্ছে ${n} সেকেন্ডের মধ্যে…`,
     failoverStay: 'এখানেই থাকুন',
     gateShareNote: 'আপনার কোডও পুলে যোগ হবে, যেন অন্যরা ব্যবহার করতে পারে। এটি আর কখনো আপনাকে দেখানো হবে না।',
-    foot: 'স্বাধীন কমিউনিটি টুল। নুসুক বা হজ ও উমরাহ মন্ত্রণালয়ের সাথে সম্পর্কিত নয়। আমরা কখনো লগইন চাই না।',
+    foot: 'স্বাধীন কমিউনিটি টুল। নুসুক বা হজ ও উমরাহ মন্ত্রণালয়ের সাথে সম্পর্কিত নয়। আমরা কখনো লগইন চাই না।',
     gateTitle: 'আপনার নুসুক কী দিন',
-    gateSub: 'এটিই এখানে আপনার ব্যক্তিগত আইডি। কোন কোড আপনি ব্যবহার করেছেন তা যেকোনো ডিভাইসে মনে রাখতে এটি ব্যবহার হয়। কুকিতে সেভ থাকে, তাই একবারই দিতে হবে।',
-    gateGo: 'এগিয়ে যান', gateAnon: 'আমার এখনো কী নেই',
-    gateHint: 'নুসুকে পাবেন: Start the challenge → Share → NG- দিয়ে শুরু কোডটি কপি করুন। পুরো নুসুক শেয়ার লিংকও এখানে পেস্ট করতে পারেন — কোডটি নিজে থেকেই বের করা হবে।',
-    by: (n) => (n ? `শেয়ার করেছেন ${n}` : ''),
-    activeNow: (n) => `${n} জন এখন সক্রিয়`,
+    gateSub: 'এটিই এখানে আপনার ব্যক্তিগত আইডি। কোন কোড আপনি ব্যবহার করেছেন তা যেকোনো ডিভাইসে মনে রাখতে এটি ব্যবহার হয়। কুকিতে সেভ থাকে, তাই একবারই দিতে হবে।',
+    gateGo: 'এগিয়ে যান', gateAnon: 'আমার এখনো কী নেই',
+    gateHint: 'নুসুকে পাবেন: Start the challenge → Share → NG- দিয়ে শুরু কোডটি কপি করুন। পুরো নুসুক শেয়ার লিংকও এখানে পেস্ট করতে পারেন — কোডটি নিজে থেকেই বের করা হবে।',
+    by: (n) => (n ? `শেয়ার করেছেন ${n}` : ''),
+    activeNow: (n) => `${n} জন এখন সক্রিয়`,
     copiedToday: (n) => `আজ ${n} বার কপি`,
     addedSub: (today, latest) => (latest ? `সর্বশেষ: ${latest} (আজ +${today})` : `আজ +${today}টি যুক্ত`),
-    historyNote: (hv, hc, nv, nc, lh) => `আগের ওয়েবসাইট থেকে ${hv} জন দর্শক এবং প্রায় ${hc} কপি সহ। নতুন করে: ${nv} জন দর্শক (গত এক ঘণ্টায় ${lh}) এবং ${nc} কপি।`,
-    helped: (n) => `আপনি যাদের সাহায্য করেছেন: ${n}`,
     copy: 'কপি',
     navHome: 'হোম',
     navCodes: 'কোড',
@@ -176,67 +157,52 @@ const I18N = {
     navFix: 'সমাধান',
     navFind: 'আপনার কোড খুঁজুন',
     navComp: 'প্রতিযোগিতা ২০২৬',
-    navShare: 'কোড শেয়ার করুন',
-    hadithText: 'যে ভালো কাজের পথ দেখায়, সে সেই কাজ করা ব্যক্তির সমান সওয়াব পায়।',
+    hadithText: 'যে ভালো কাজের পথ দেখায়, সে সেই কাজ করা ব্যক্তির সমান সওয়াব পায়।',
     hadithRef: 'সহীহ মুসলিম ১৮৯৩',
     badgeNoAccount: 'অ্যাকাউন্ট লাগবে না',
     badgeNoLogin: 'লগইন লাগবে না',
     badgeNoSub: 'সাবস্ক্রিপশন লাগবে না',
     duaTitle: 'একটি অনুরোধ',
-    duaText: 'আপনি জিতলে দোয়ায় আমাদেরও মনে রাখবেন। আল্লাহ আমাদের ও আপনাদের আমল কবুল করুন এবং প্রত্যাশী সবাইকে তা দান করুন।',
+    duaText: 'আপনি জিতলে দোয়ায় আমাদেরও মনে রাখবেন। আল্লাহ আমাদের ও আপনাদের আমল কবুল করুন এবং প্রত্যাশী সবাইকে তা দান করুন।',
     fixTitle: 'সমাধান — কোড কাজ করছে না?',
     fixIntro: 'এগুলো ক্রমানুসারে চেষ্টা করুন। বেশিরভাগ সমস্যা এই দশটির একটি।',
     toolsTitle: 'টুলস',
     findToolTitle: 'আপনার কোড খুঁজুন',
-    findToolHint: 'আপনার নুসুক ইনভাইট লিংক বা বার্তা পেস্ট করুন — কোডটি নিজে থেকে বের হয়ে আসবে।',
+    findToolHint: 'আপনার নুসুক ইনভাইট লিংক বা বার্তা পেস্ট করুন — কোডটি নিজে থেকে বের হয়ে আসবে।',
     findToolBtn: 'আমার কোড নিন',
-    checkToolTitle: 'আমার কোড কি তালিকায় আছে?',
-    checkToolHint: 'একটি কোড, পুরো ইনভাইট লিংক বা শেয়ার করা বার্তা পেস্ট করুন — একবারে সর্বোচ্চ ১০টি।',
+    checkToolTitle: 'আমার কোড কি তালিকায় আছে?',
+    checkToolHint: 'একটি কোড, পুরো ইনভাইট লিংক বা শেয়ার করা বার্তা পেস্ট করুন — একবারে সর্বোচ্চ ১০টি।',
     checkToolBtn: 'যাচাই করুন',
     myCodesTitle: 'আমার কপি করা কোড',
-    codesExplainer: 'প্রতিটি কোড ন্যায্য সুযোগ পায়: সারাদিন নতুন কোড যোগ হয়, তাই প্রতিদিন ফিরে আসুন। যে কোড কাজ করে না তা জানানো ও সরানো হয় — কোনো কোড কাজ না করলে আপনার কপি করা কোডে Problem-এ ট্যাপ করুন।',
+    codesExplainer: 'প্রতিটি কোড ন্যায্য সুযোগ পায়: সারাদিন নতুন কোড যোগ হয়, তাই প্রতিদিন ফিরে আসুন। যে কোড কাজ করে না তা জানানো ও সরানো হয় — কোনো কোড কাজ না করলে আপনার কপি করা কোডে Problem-এ ট্যাপ করুন।',
     checklistTitle: 'উমরাহ প্যাকিং চেকলিস্ট',
     checklistClear: 'চিহ্ন মুছুন',
     checklistPrint: 'তালিকা প্রিন্ট করুন',
-    shareHowTitle: 'আমার কোড কীভাবে পাব?',
-    shareHow1: 'নুসুক অ্যাপ খুলে "Start the challenge"-এ ট্যাপ করুন।',
-    shareHow2: 'নিচের মেনুতে Share-এ ট্যাপ করুন — আপনার কোডটি ইনভাইট বার্তার ভেতরে আছে।',
-    shareHow3: 'পুরো বার্তাটি কপি করে এখানে পেস্ট করুন — নিজে কোড খোঁজার দরকার নেই।',
-    shareNamePh: 'আপনার নাম (ঐচ্ছিক)',
-    shareResend: 'আমার সংরক্ষিত কোড আবার শেয়ার করুন',
     footNote1: 'লিংক না খুললে রেফারেল কোড কপি করে নুসুকে নিজে লিখুন, অথবা অ্যাপের বদলে ব্রাউজারে লিংকটি খুলুন।',
     footNote2: 'কোডের ক্রম নতুন থেকে পুরোনো।',
-    footNote3: 'প্রতি পাতায় ৬০টি কোড; গণনায় সব কোড অন্তর্ভুক্ত।',
-    legalPrivacy: 'গোপনীয়তা নীতি',
+    footNote3: 'প্রতি পাতায় ৬০টি কোড; গণনায় সব কোড অন্তর্ভুক্ত।',
+    legalPrivacy: 'গোপনীয়তা নীতি',
     legalTerms: 'ব্যবহারের শর্তাবলি',
     legalDevelopers: 'ডেভেলপারদের জন্য — উন্মুক্ত তথ্য',
-    mockKeys: 'আপনার কী',
-    mockAdd: 'নতুন কী পেতে কোড যোগ করুন',
-    mockCheck: 'কোড যাচাই করুন',
-    mockCongrats: 'অভিনন্দন! +১ কী',
-    toolFindNone: 'এই লেখায় কোনো কোড পাওয়া যায়নি। আপনার পুরো নুসুক ইনভাইট লিংক বা বার্তা পেস্ট করুন।',
-    toolFindAdd: 'তালিকায় যোগ করুন',
-    toolCheckNotLoaded: 'কোডের তালিকা এখনো লোড হয়নি। একটু অপেক্ষা করে আবার চেষ্টা করুন।',
-    toolCheckOn: 'তালিকায় আছে',
-    toolCheckOff: 'এখনো তালিকায় নেই',
-    toolCheckNote: 'তালিকায় থাকার মানে এই নয় যে কোডটি নুসুকে কাজ করবে — এর মানে শুধু এটি এখানে শেয়ার করা হয়েছে। নতুন কোড পর্যালোচনার পর যোগ করা হয়।',
-    myCodesEmpty: 'এখনো কোনো কোড কপি করা হয়নি। আপনি যে কোড কপি করবেন তা এখানে দেখাবে।',
+    toolFindNone: 'এই লেখায় কোনো কোড পাওয়া যায়নি। আপনার পুরো নুসুক ইনভাইট লিংক বা বার্তা পেস্ট করুন।',
+    toolCheckNotLoaded: 'কোডের তালিকা এখনো লোড হয়নি। একটু অপেক্ষা করে আবার চেষ্টা করুন।',
+    toolCheckOn: 'তালিকায় আছে',
+    toolCheckOff: 'এখনো তালিকায় নেই',
+    toolCheckNote: 'তালিকায় থাকার মানে এই নয় যে কোডটি নুসুকে কাজ করবে — এর মানে শুধু এটি এখানে শেয়ার করা হয়েছে। নতুন কোড পর্যালোচনার পর যোগ করা হয়।',
+    myCodesEmpty: 'এখনো কোনো কোড কপি করা হয়নি। আপনি যে কোড কপি করবেন তা এখানে দেখাবে।',
     myCodesProblem: 'সমস্যা',
-    shareResendNone: 'এই ডিভাইসে এখনো সংরক্ষিত কোড নেই।',
     checklistProgress: (d, t) => `${d} / ${t} প্রস্তুত`,
     stats: (c, r, mine) =>
       `কপি করেছেন <b>${c}</b> · বাকি <b>${r}</b>` +
-      (mine ? ` · আপনার কোড (${mine.code}) কপি হয়েছে <b>${mine.copies} বার</b>` : ''),
+      (mine ? ` · আপনার কোড (${mine.code}) কপি হয়েছে <b>${mine.copies} বার</b>` : ''),
     shown: (n) => `${n}${n >= 60 ? '+' : ''}টি দেখানো হচ্ছে`,
-    none: 'এখানে কিছু নেই।', allDone: 'সব কোড ব্যবহার হয়ে গেছে। পরে আবার দেখুন!',
-    toastCopied: (c) => `${c} কপি হয়েছে। নুসুকে পেস্ট করুন`,
-    toastNusuk: (c) => `নুসুক অ্যাপ খুলছে — ${c} কপি হয়েছে, প্রয়োজনে সেখানে পেস্ট করুন`,
-    toastNoted: 'ঠিক আছে, পরেরটা!', toastBad: 'ধন্যবাদ, রিপোর্ট হয়েছে', toastUndo: 'আনডু হয়েছে',
-    toastShared: 'আপনার কোড পুলে যোগ হয়েছে', toastWelcome: 'স্বাগতম',
+    none: 'এখানে কিছু নেই।', allDone: 'সব কোড ব্যবহার হয়ে গেছে। পরে আবার দেখুন!',
+    toastCopied: (c) => `${c} কপি হয়েছে। নুসুকে পেস্ট করুন`,
+    toastNusuk: (c) => `নুসুক অ্যাপ খুলছে — ${c} কপি হয়েছে, প্রয়োজনে সেখানে পেস্ট করুন`,
+    toastNoted: 'ঠিক আছে, পরেরটা!', toastBad: 'ধন্যবাদ, রিপোর্ট হয়েছে', toastUndo: 'আনডু হয়েছে',
+    toastShared: 'আপনার কোড পুলে যোগ হয়েছে', toastWelcome: 'স্বাগতম',
     err: {
-      empty: 'আগে একটি কোড পেস্ট করুন।', invalid_code: 'এটি নুসুক কী মনে হচ্ছে না। NG- এর পরে ৮টি অক্ষর থাকতে হবে।',
-      duplicate: 'এই কোড আগেই শেয়ার হয়েছে।', device_limit: 'শেয়ারের সীমা শেষ।',
-      name_link: 'নামে লিংক দেওয়া যাবে না।', name_number: 'নামে ফোন নম্বর দেওয়া যাবে না।', server: 'সমস্যা হয়েছে, আবার চেষ্টা করুন।'
+      empty: 'আগে একটি কোড পেস্ট করুন।', invalid_code: 'এটি নুসুক কী মনে হচ্ছে না। NG- এর পরে ৮টি অক্ষর থাকতে হবে।', server: 'সমস্যা হয়েছে, আবার চেষ্টা করুন।'
     }
   },
   ar: {
@@ -256,11 +222,9 @@ const I18N = {
     heroSub: 'اضغط مرة واحدة للنسخ ثم الصقه في تطبيق نسك. نتذكر ما استخدمته فلا يظهر لك الكود نفسه مرتين.',
     nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
     copied: 'تم النسخ', alreadyUsed: 'مستخدم سابقًا', invalid: 'لا يعمل', undo: 'تراجع',
-    s1t: 'انسخ كودًا', s1d: 'استخدم الزر الكبير أو اضغط أي كود بالأسفل.',
     s2t: 'افتح في تطبيق نسك', s2d: 'ابدأ التحدي في تطبيق نسك أولاً، ثم اضغط هنا — من المفترض أن يكون الكود مملوءًا بالفعل. إن لم يكن، الصقه فقط. أبقِ تطبيق نسك مفتوحًا في الخلفية ليصل الكود إليه مباشرة. عند ظهور صفحة التهنئة، ابقَ عليها — لا تغلق التطبيق ولا ترجع.',
     s3t: 'لم يُقبل؟ التالي.', s3d: 'علّمه ولن نعرضه لك مجددًا.',
     search: 'ابحث عن كود…', fRemaining: 'المتبقي', fNew: 'المضاف حديثًا', fUsed: 'المستخدم', fAll: 'الكل', more: 'عرض المزيد',
-    addTitle: 'لديك كود آخر للمشاركة؟', shareBtn: 'مشاركة',
     shareMsg: 'Please share this for the benefit of the Ummah.',
     shareTitle: 'شارك NusukKeys',
     shareClose: 'إغلاق',
@@ -285,8 +249,6 @@ const I18N = {
     activeNow: (n) => `${n} متصل الآن`,
     copiedToday: (n) => `${n} نُسخ اليوم`,
     addedSub: (today, latest) => (latest ? `الأحدث: ${latest} (+${today} اليوم)` : `+${today} أُضيف اليوم`),
-    historyNote: (hv, hc, nv, nc, lh) => `يشمل ${hv} زائرًا وحوالي ${hc} نسخة من موقعنا السابق. الجديد منذ إعادة البناء: ${nv} زائرًا (${lh} في الساعة الأخيرة) و${nc} نسخة.`,
-    helped: (n) => `الأشخاص الذين ساعدتهم: ${n}`,
     copy: 'نسخ',
     navHome: 'الرئيسية',
     navCodes: 'الأكواد',
@@ -294,7 +256,6 @@ const I18N = {
     navFix: 'إصلاح',
     navFind: 'اعثر على كودك',
     navComp: 'مسابقة 2026',
-    navShare: 'شارك كودًا',
     hadithText: 'من دلّ على خير فله مثل أجر فاعله.',
     hadithRef: 'صحيح مسلم 1893',
     badgeNoAccount: 'لا حاجة إلى حساب',
@@ -316,31 +277,19 @@ const I18N = {
     checklistTitle: 'قائمة تجهيز العمرة',
     checklistClear: 'مسح العلامات',
     checklistPrint: 'اطبع القائمة',
-    shareHowTitle: 'كيف أحصل على كودي؟',
-    shareHow1: 'افتح تطبيق نسك واضغط "Start the challenge".',
-    shareHow2: 'اضغط "مشاركة" في القائمة السفلية — كودك داخل رسالة الدعوة.',
-    shareHow3: 'انسخ الرسالة كاملة والصقها هنا — لا حاجة للبحث عن الكود بنفسك.',
-    shareNamePh: 'اسمك (اختياري)',
-    shareResend: 'شارك أكوادي المحفوظة مجددًا',
     footNote1: 'إذا لم يُفتح الرابط، انسخ كود الإحالة واكتبه في نسك بنفسك، أو افتح الرابط في المتصفح بدل التطبيق.',
     footNote2: 'الأكواد مرتبة من الأحدث إلى الأقدم.',
     footNote3: '60 كودًا في كل صفحة؛ والعدد يشمل كل الأكواد.',
     legalPrivacy: 'سياسة الخصوصية',
     legalTerms: 'شروط الاستخدام',
     legalDevelopers: 'للمطورين — بيانات مفتوحة',
-    mockKeys: 'مفاتيحك',
-    mockAdd: 'أضف كودًا للحصول على مفتاح جديد',
-    mockCheck: 'تحقق من الكود',
-    mockCongrats: 'تهانينا! +1 مفتاح',
     toolFindNone: 'لم يُعثر على كود في هذا النص. الصق رابط دعوة نسك الكامل أو الرسالة.',
-    toolFindAdd: 'أضف إلى القائمة',
     toolCheckNotLoaded: 'لم تُحمَّل قائمة الأكواد بعد. انتظر لحظة وحاول مجددًا.',
     toolCheckOn: 'في القائمة',
     toolCheckOff: 'ليس في القائمة بعد',
     toolCheckNote: 'وجود الكود في القائمة لا يعني أنه يعمل في نسك — بل يعني فقط أنه شُارك هنا. وتُضاف الأكواد الجديدة بعد المراجعة.',
     myCodesEmpty: 'لم تنسخ أي أكواد بعد. الأكواد التي تنسخها ستظهر هنا.',
     myCodesProblem: 'مشكلة',
-    shareResendNone: 'لا توجد أكواد محفوظة على هذا الجهاز بعد.',
     checklistProgress: (d, t) => `${d} / ${t} جاهز`,
     stats: (c, r, mine) =>
       `نسخت <b>${c}</b> · المتبقي <b>${r}</b>` +
@@ -352,9 +301,7 @@ const I18N = {
     toastNoted: 'تم. التالي!', toastBad: 'شكرًا، تم الإبلاغ', toastUndo: 'تم التراجع',
     toastShared: 'تمت إضافة كودك', toastWelcome: 'أهلًا بعودتك',
     err: {
-      empty: 'الصق كودًا أولًا.', invalid_code: 'لا يبدو مفتاح نسك. هو NG- يليه 8 أحرف.',
-      duplicate: 'هذا الكود مُشارك بالفعل.', device_limit: 'وصلت إلى حد المشاركة.',
-      name_link: 'لا يمكن أن يحتوي الاسم على روابط.', name_number: 'لا يمكن أن يحتوي الاسم على أرقام هواتف.', server: 'حدث خطأ، حاول مرة أخرى.'
+      empty: 'الصق كودًا أولًا.', invalid_code: 'لا يبدو مفتاح نسك. هو NG- يليه 8 أحرف.', server: 'حدث خطأ، حاول مرة أخرى.'
     }
   },
   ur: {
@@ -379,8 +326,6 @@ const I18N = {
     alreadyUsed: 'پہلے سے استعمال شدہ',
     invalid: 'کام نہیں کرتا',
     undo: 'واپس کریں',
-    s1t: 'ایک کوڈ کاپی کریں',
-    s1d: 'بڑا بٹن استعمال کریں یا نیچے کسی بھی کوڈ پر ٹیپ کریں۔',
     s2t: 'نسک ایپ میں کھولیں',
     s2d: 'پہلے نسک ایپ میں چیلنج شروع کریں، پھر یہاں ٹیپ کریں — کوڈ پہلے سے بھرا ہونا چاہیے۔ اگر نہیں، تو بس پیسٹ کریں۔ نسک ایپ بیک گراؤنڈ میں کھلی رکھیں تاکہ کوڈ سیدھا وہاں جائے۔ جب مبارکباد کا صفحہ ظاہر ہو تو وہیں رہیں — ایپ بند نہ کریں اور واپس نہ جائیں۔',
     s3t: 'قبول نہیں ہوا؟ اگلا۔',
@@ -391,8 +336,6 @@ const I18N = {
     fUsed: 'استعمال شدہ',
     fAll: 'سب',
     more: 'مزید لوڈ کریں',
-    addTitle: 'کوئی اور کوڈ شیئر کرنا ہے؟',
-    shareBtn: 'شیئر کریں',
     shareMsg: 'براہ کرم امت کے فائدے کے لیے اسے شیئر کریں۔',
     shareTitle: 'نسک کیز شیئر کریں',
     shareClose: 'بند کریں',
@@ -418,8 +361,6 @@ const I18N = {
     activeNow: (n) => `${n} ابھی فعال`,
     copiedToday: (n) => `آج ${n} کاپی کیے گئے`,
     addedSub: (today, latest) => (latest ? `تازہ ترین: ${latest} (+آج ${today})` : `آج ${today} شامل کیے گئے`),
-    historyNote: (hv, hc, nv, nc, lh) => `پچھلی ویب سائٹ سے ${hv} زائرین اور تقریباً ${hc} کاپیاں شامل ہیں۔ دوبارہ تعمیر کے بعد نئے: ${nv} زائرین (پچھلے ایک گھنٹے میں ${lh}) اور ${nc} کاپیاں۔`,
-    helped: (n) => `جن کی آپ نے مدد کی: ${n}`,
     stats: (c, r, mine) => `آپ نے <b>${c}</b> کاپی کیے · باقی <b>${r}</b>` + (mine ? ` · آپ کی کی (${mine.code}) <b>${mine.copies}×</b> کاپی کی گئی` : ''),
     shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} دکھائے گئے`,
     none: 'یہاں ابھی کچھ نہیں ہے۔',
@@ -431,7 +372,7 @@ const I18N = {
     toastUndo: 'واپس کر دیا گیا',
     toastShared: 'آپ کا کوڈ پول میں شامل ہے',
     toastWelcome: 'واپس خوش آمدید',
-    err: { empty: 'براہ کرم پہلے ایک کوڈ پیسٹ کریں۔', invalid_code: 'یہ نسک کی جیسی نہیں لگتی۔ یہ NG- کے بعد 8 حروف ہوتی ہے۔', duplicate: 'یہ کوڈ پہلے سے شیئر کیا گیا ہے۔', device_limit: 'آپ شیئر کرنے کی حد تک پہنچ گئے ہیں۔', name_link: 'ناموں میں لنکس نہیں ہو سکتے۔', name_number: 'ناموں میں فون نمبر نہیں ہو سکتے۔', server: 'کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔' },
+    err: { empty: 'براہ کرم پہلے ایک کوڈ پیسٹ کریں۔', invalid_code: 'یہ نسک کی جیسی نہیں لگتی۔ یہ NG- کے بعد 8 حروف ہوتی ہے۔', server: 'کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔' },
   },
   id: {
     dir: 'ltr',
@@ -455,8 +396,6 @@ const I18N = {
     alreadyUsed: 'Sudah dipakai',
     invalid: 'Tidak berfungsi',
     undo: 'Urungkan',
-    s1t: 'Salin sebuah kode',
-    s1d: 'Gunakan tombol besar atau ketuk kode apa pun di bawah.',
     s2t: 'Buka di aplikasi Nusuk',
     s2d: 'Mulai tantangan di aplikasi Nusuk dulu, lalu ketuk di sini — kodenya seharusnya sudah terisi. Jika belum, tempel saja. Biarkan aplikasi Nusuk tetap terbuka di latar belakang agar kode langsung masuk ke sana. Saat halaman Selamat muncul, tetap di sana — jangan tutup aplikasi atau kembali.',
     s3t: 'Tidak diterima? Berikutnya.',
@@ -467,8 +406,6 @@ const I18N = {
     fUsed: 'Dipakai',
     fAll: 'Semua',
     more: 'Muat lebih banyak',
-    addTitle: 'Punya kode lain untuk dibagikan?',
-    shareBtn: 'Bagikan',
     shareMsg: 'Mohon bagikan ini untuk kebaikan umat.',
     shareTitle: 'Bagikan NusukKeys',
     shareClose: 'Tutup',
@@ -494,8 +431,6 @@ const I18N = {
     activeNow: (n) => `${n} aktif sekarang`,
     copiedToday: (n) => `${n} disalin hari ini`,
     addedSub: (today, latest) => (latest ? `Terbaru: ${latest} (+${today} hari ini)` : `${today} ditambahkan hari ini`),
-    historyNote: (hv, hc, nv, nc, lh) => `Termasuk ${hv} pengunjung dan sekitar ${hc} salinan dari situs web kami sebelumnya. Baru sejak dibangun ulang: ${nv} pengunjung (${lh} dalam satu jam terakhir) dan ${nc} salinan.`,
-    helped: (n) => `Orang yang Anda bantu: ${n}`,
     stats: (c, r, mine) => `Anda menyalin <b>${c}</b> · Tersisa <b>${r}</b>` + (mine ? ` · Kunci Anda (${mine.code}) disalin <b>${mine.copies}×</b>` : ''),
     shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} ditampilkan`,
     none: 'Belum ada apa pun di sini.',
@@ -507,7 +442,7 @@ const I18N = {
     toastUndo: 'Dibatalkan',
     toastShared: 'Kode Anda ada di kumpulan',
     toastWelcome: 'Selamat datang kembali',
-    err: { empty: 'Tempel sebuah kode dulu.', invalid_code: 'Itu tidak tampak seperti kunci Nusuk. Formatnya NG- diikuti 8 karakter.', duplicate: 'Kode itu sudah dibagikan.', device_limit: 'Anda telah mencapai batas berbagi.', name_link: 'Nama tidak boleh berisi tautan.', name_number: 'Nama tidak boleh berisi nomor telepon.', server: 'Terjadi kesalahan. Coba lagi.' },
+    err: { empty: 'Tempel sebuah kode dulu.', invalid_code: 'Itu tidak tampak seperti kunci Nusuk. Formatnya NG- diikuti 8 karakter.', server: 'Terjadi kesalahan. Coba lagi.' },
   },
   tr: {
     dir: 'ltr',
@@ -531,8 +466,6 @@ const I18N = {
     alreadyUsed: 'Zaten kullanılmış',
     invalid: 'Çalışmıyor',
     undo: 'Geri al',
-    s1t: 'Bir kod kopyalayın',
-    s1d: 'Büyük düğmeyi kullanın veya aşağıdaki herhangi bir koda dokunun.',
     s2t: 'Nusuk uygulamasında açın',
     s2d: 'Önce Nusuk uygulamasında meydan okumayı başlatın, sonra buraya dokunun — kod zaten doldurulmuş olmalı. Değilse, yapıştırın. Kodun doğrudan gitmesi için Nusuk uygulamasını arka planda açık tutun. Tebrikler sayfası göründüğünde orada kalın — uygulamayı kapatmayın veya geri dönmeyin.',
     s3t: 'Kabul edilmedi mi? Sonraki.',
@@ -543,8 +476,6 @@ const I18N = {
     fUsed: 'Kullanılan',
     fAll: 'Tümü',
     more: 'Daha fazla yükle',
-    addTitle: 'Paylaşacak başka kodunuz var mı?',
-    shareBtn: 'Paylaş',
     shareMsg: 'Lütfen ümmetin yararı için bunu paylaşın.',
     shareTitle: 'NusukKeys\'i Paylaş',
     shareClose: 'Kapat',
@@ -570,8 +501,6 @@ const I18N = {
     activeNow: (n) => `${n} şu an aktif`,
     copiedToday: (n) => `bugün ${n} kopyalandı`,
     addedSub: (today, latest) => (latest ? `En son: ${latest} (+bugün ${today})` : `bugün ${today} eklendi`),
-    historyNote: (hv, hc, nv, nc, lh) => `Önceki web sitemizden ${hv} ziyaretçi ve yaklaşık ${hc} kopya dahildir. Yeniden yapılandırmadan bu yana yeni: ${nv} ziyaretçi (son bir saatte ${lh}) ve ${nc} kopya.`,
-    helped: (n) => `Yardım ettiğiniz kişi sayısı: ${n}`,
     stats: (c, r, mine) => `<b>${c}</b> kopyaladınız · Kalan <b>${r}</b>` + (mine ? ` · Anahtarınız (${mine.code}) <b>${mine.copies}×</b> kopyalandı` : ''),
     shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} gösteriliyor`,
     none: 'Burada henüz hiçbir şey yok.',
@@ -583,7 +512,7 @@ const I18N = {
     toastUndo: 'Geri alındı',
     toastShared: 'Kodunuz havuzda',
     toastWelcome: 'Tekrar hoş geldiniz',
-    err: { empty: 'Önce bir kod yapıştırın.', invalid_code: 'Bu bir Nusuk anahtarına benzemiyor. NG- ve ardından 8 karakter olmalı.', duplicate: 'Bu kod zaten paylaşılmış.', device_limit: 'Paylaşım sınırına ulaştınız.', name_link: 'Adlar bağlantı içeremez.', name_number: 'Adlar telefon numarası içeremez.', server: 'Bir şeyler yanlış gitti. Tekrar deneyin.' },
+    err: { empty: 'Önce bir kod yapıştırın.', invalid_code: 'Bu bir Nusuk anahtarına benzemiyor. NG- ve ardından 8 karakter olmalı.', server: 'Bir şeyler yanlış gitti. Tekrar deneyin.' },
   },
   hi: {
     dir: 'ltr',
@@ -607,8 +536,6 @@ const I18N = {
     alreadyUsed: 'पहले से उपयोग किया गया',
     invalid: 'काम नहीं करता',
     undo: 'वापस लें',
-    s1t: 'एक कोड कॉपी करें',
-    s1d: 'बड़े बटन का उपयोग करें या नीचे किसी भी कोड पर टैप करें।',
     s2t: 'नुसुक ऐप में खोलें',
     s2d: 'पहले नुसुक ऐप में चुनौती शुरू करें, फिर यहाँ टैप करें — कोड पहले से भरा होना चाहिए। यदि नहीं, तो बस पेस्ट करें। नुसुक ऐप को बैकग्राउंड में खुला रखें ताकि कोड सीधे वहाँ जाए। जब बधाई पेज दिखे, वहीं रहें — ऐप बंद न करें या वापस न जाएँ।',
     s3t: 'स्वीकार नहीं हुआ? अगला।',
@@ -619,8 +546,6 @@ const I18N = {
     fUsed: 'उपयोग किए गए',
     fAll: 'सभी',
     more: 'और लोड करें',
-    addTitle: 'साझा करने के लिए कोई और कोड है?',
-    shareBtn: 'साझा करें',
     shareMsg: 'कृपया उम्मत के लाभ के लिए इसे साझा करें।',
     shareTitle: 'नुसुककीज़ साझा करें',
     shareClose: 'बंद करें',
@@ -646,8 +571,6 @@ const I18N = {
     activeNow: (n) => `${n} अभी सक्रिय`,
     copiedToday: (n) => `आज ${n} कॉपी किए गए`,
     addedSub: (today, latest) => (latest ? `नवीनतम: ${latest} (+आज ${today})` : `आज ${today} जोड़े गए`),
-    historyNote: (hv, hc, nv, nc, lh) => `पिछली वेबसाइट से ${hv} आगंतुक और लगभग ${hc} प्रतियाँ शामिल हैं। पुनर्निर्माण के बाद नए: ${nv} आगंतुक (पिछले एक घंटे में ${lh}) और ${nc} प्रतियाँ।`,
-    helped: (n) => `जिनकी आपने मदद की: ${n}`,
     stats: (c, r, mine) => `आपने <b>${c}</b> कॉपी किए · शेष <b>${r}</b>` + (mine ? ` · आपकी कुंजी (${mine.code}) <b>${mine.copies}×</b> कॉपी की गई` : ''),
     shown: (n, f) => `${n}${n >= 60 ? '+' : ''} ${f} दिखाए गए`,
     none: 'यहाँ अभी कुछ नहीं है।',
@@ -659,7 +582,7 @@ const I18N = {
     toastUndo: 'वापस ले लिया गया',
     toastShared: 'आपका कोड पूल में है',
     toastWelcome: 'वापस स्वागत है',
-    err: { empty: 'कृपया पहले एक कोड पेस्ट करें।', invalid_code: 'यह नुसुक कुंजी जैसी नहीं लगती। यह NG- के बाद 8 वर्ण होती है।', duplicate: 'वह कोड पहले से साझा किया गया है।', device_limit: 'आप साझा करने की सीमा तक पहुँच गए हैं।', name_link: 'नामों में लिंक नहीं हो सकते।', name_number: 'नामों में फ़ोन नंबर नहीं हो सकते।', server: 'कुछ गलत हो गया। पुनः प्रयास करें।' },
+    err: { empty: 'कृपया पहले एक कोड पेस्ट करें।', invalid_code: 'यह नुसुक कुंजी जैसी नहीं लगती। यह NG- के बाद 8 वर्ण होती है।', server: 'कुछ गलत हो गया। पुनः प्रयास करें।' },
   },
 
 };
@@ -677,31 +600,17 @@ const NEW_I18N = {
     how4: 'If it does not work, come back and try the next code.',
     triedLast: 'Last tried', triedNext: 'Next',
     openBrowser: 'Open in browser',
-    shareHint: 'Share up to 10 codes at once \u2014 one per line, or separated by spaces or commas. Each code is checked before it is added.',
-    shareTooMany: 'Share up to 10 codes at a time.',
-    shareAdded: (n) => `${n} code${n === 1 ? '' : 's'} added`,
-    shareReviewTitle: (n) => `Share these ${n} codes?`,
-    shareInvalid: (n) => `${n} invalid \u2014 skipped`,
-    shareConfirm: 'Confirm share', shareCancel: 'Cancel',
-    shareDup: (n) => `${n} already shared`,
     faqTitle: 'Questions, answered', guidesTitle: 'Short guides',
   },
   bn: {
     howTitle: '\u0995\u09cb\u09a1 \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09ac\u09c7\u09a8',
-    how1: '\u09aa\u09cd\u09b0\u09a5\u09ae\u09c7 \u09a8\u09c1\u09b8\u09c1\u0995 \u0985\u09cd\u09af\u09be\u09aa \u0996\u09c1\u09b2\u09c1\u09a8 \u098f\u09ac\u0982 \u09ac\u09cd\u09af\u09be\u0995\u0997\u09cd\u09b0\u09be\u0989\u09cd\u09a1\u09c7 \u0996\u09cb\u09b2\u09be \u09b0\u09be\u0996\u09c1\u09a8\u0964',
+    how1: '\u09aa\u09cd\u09b0\u09a5\u09ae\u09c7 \u09a8\u09c1\u09b8\u09c1\u0995 \u0985\u09cd\u09af\u09be\u09aa \u0996\u09c1\u09b2\u09c1\u09a8 \u098f\u09ac\u0982 \u09ac\u09cd\u09af\u09be\u0995\u0997\u09cd\u09b0\u09be\u0989\u09a8\u09cd\u09a1\u09c7 \u0996\u09cb\u09b2\u09be \u09b0\u09be\u0996\u09c1\u09a8\u0964',
     how2: '\u098f\u0996\u09be\u09a8 \u09a5\u09c7\u0995\u09c7 \u098f\u0995\u099f\u09bf \u0995\u09cb\u09a1 \u0995\u09aa\u09bf \u0995\u09b0\u09c1\u09a8, \u09a4\u09be\u09b0\u09aa\u09b0 \u201cOpen in Nusuk\u201d-\u098f \u099a\u09be\u09aa \u09a6\u09bf\u09a8\u0964',
     how3: '\u09a8\u09c1\u09b8\u09c1\u0995\u09c7 \u0995\u09cb\u09a1\u099f\u09bf \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c1\u09a8\u0964 \u09aa\u09c2\u09b0\u09a3 \u0995\u09b0\u09be \u09a8\u09be \u09a5\u09be\u0995\u09b2\u09c7 \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09c1\u09a8\u0964',
     how4: '\u0995\u09be\u099c \u09a8\u09be \u0995\u09b0\u09b2\u09c7 \u09ab\u09bf\u09b0\u09c7 \u098f\u09b8\u09c7 \u09aa\u09b0\u09c7\u09b0 \u0995\u09cb\u09a1\u099f\u09bf \u099a\u09c7\u09b7\u09cd\u099f\u09be \u0995\u09b0\u09c1\u09a8\u0964',
     triedLast: '\u09b6\u09c7\u09b7 \u099a\u09c7\u09b7\u09cd\u099f\u09be', triedNext: '\u09aa\u09b0\u09c7\u09b0\u099f\u09be',
-    openBrowser: '\u09ac\u09cd\u09b0\u09be\u099c\u099c\u09be\u09b0\u09c7 \u0996\u09c1\u09b2\u09c1\u09a8',
-    shareHint: '\u098f\u0995\u09b8\u09be\u09a5\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cd\u099a\u09cd\u099a \u09e7\u09e6\u099f\u09bf \u0995\u09cb\u09a1 \u09b6\u09c7\u09af\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u2014 \u09aa\u09cd\u09b0\u09a4\u09bf \u09b2\u09be\u0987\u09a8\u09c7 \u098f\u0995\u099f\u09bf, \u0985\u09a5\u09ac\u09be \u09b8\u09cd\u09aa\u09c7\u09b8 \u0985\u09a5\u09ac\u09be \u0995\u09ae\u09be \u09a6\u09bf\u09af\u09c7 \u0986\u09b2\u09be\u09a6\u09be \u0995\u09b0\u09c1\u09a8\u0964 \u09af\u09cb\u0997 \u0995\u09b0\u09be\u09b0 \u0986\u0997\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u0995\u09bf \u0995\u09cb\u09a1 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09be \u09b9\u09df\u0964',
-    shareTooMany: '\u098f\u0995\u09ac\u09be\u09b0\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cd\u099a\u09cd\u099a \u09e7\u09e6\u099f\u09bf \u0995\u09cb\u09a1 \u09b6\u09c7\u09af\u09be\u09b0 \u0995\u09b0\u09c1\u09a8\u0964',
-    shareAdded: (n) => `${n}\u099f\u09bf \u0995\u09cb\u09a1 \u09af\u09cb\u0997 \u09b9\u09df\u09c7\u099b\u09c7`,
-    shareReviewTitle: (n) => `\u098f\u0987 ${n}\u099f\u09bf \u0995\u09cb\u09a1 \u09b6\u09c7\u09af\u09be\u09b0 \u0995\u09b0\u09ac\u09c7\u09a8?`,
-    shareInvalid: (n) => `${n}\u099f\u09bf \u09ad\u09c1\u09b2 \u2014 \u09ac\u09be\u09a6 \u0995\u09b0\u09be \u09b9\u09df\u09c7\u099b\u09c7`,
-    shareConfirm: '\u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09b0\u09c1\u09a8', shareCancel: '\u09ac\u09be\u09a4\u09bf\u09b2 \u0995\u09b0\u09c1\u09a8',
-    shareDup: (n) => `${n}\u099f\u09bf \u0986\u0997\u09c7\u0987 \u09b6\u09c7\u09af\u09be\u09b0 \u0995\u09b0\u09be \u09b9\u09df\u09c7\u099b\u09c7`,
-    faqTitle: '\u09aa\u09cd\u09b0\u09cd\u09a8\u09c7\u09b0 \u0989\u09a4\u09cd\u09a4\u09b0', guidesTitle: '\u099b\u09cb\u099f \u09a8\u09bf\u09b0\u09cd\u09a6\u09c7\u09b6\u09bf\u0995\u09be',
+    openBrowser: '\u09ac\u09cd\u09b0\u09be\u0989\u099c\u09be\u09b0\u09c7 \u0996\u09c1\u09b2\u09c1\u09a8',
+    faqTitle: '\u09aa\u09cd\u09b0\u09b6\u09cd\u09a8\u09c7\u09b0 \u0989\u09a4\u09cd\u09a4\u09b0', guidesTitle: '\u099b\u09cb\u099f \u09a8\u09bf\u09b0\u09cd\u09a6\u09c7\u09b6\u09bf\u0995\u09be',
   },
   ar: {
     howTitle: '\u0643\u064a\u0641 \u062a\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0643\u0648\u062f',
@@ -711,13 +620,6 @@ const NEW_I18N = {
     how4: '\u0625\u0630\u0627 \u0644\u0645 \u064a\u0639\u0645\u0644\u060c \u0639\u064f\u062f \u0648\u062c\u0631\u0651\u0628 \u0627\u0644\u0643\u0648\u062f \u0627\u0644\u062a\u0627\u0644\u064a.',
     triedLast: '\u0622\u062e\u0631 \u0645\u0627 \u062c\u0631\u0651\u0628\u062a', triedNext: '\u0627\u0644\u062a\u0627\u0644\u064a',
     openBrowser: '\u0627\u0641\u062a\u062d \u0641\u064a \u0627\u0644\u0645\u062a\u0635\u0641\u062d',
-    shareHint: '\u0634\u0627\u0631\u0643 \u062d\u062a\u0649 10 \u0623\u0643\u0648\u0627\u062f \u062f\u0641\u0639\u0629 \u0648\u0627\u062d\u062f\u0629 \u2014 \u0643\u0648\u062f \u0641\u064a \u0643\u0644 \u0633\u0637\u0631\u060c \u0623\u0648 \u0645\u0641\u0635\u0648\u0644\u0629 \u0628\u0645\u0633\u0627\u0641\u0627\u062a \u0623\u0648 \u0641\u0648\u0627\u0635\u0644. \u064a\u062a\u0645 \u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u0643\u0644 \u0643\u0648\u062f \u0642\u0628\u0644 \u0625\u0636\u0627\u0641\u062a\u0647.',
-    shareTooMany: '\u0634\u0627\u0631\u0643 \u062d\u062a\u0649 10 \u0623\u0643\u0648\u0627\u062f \u0641\u064a \u0627\u0644\u0645\u0631\u0629 \u0627\u0644\u0648\u0627\u062d\u062f\u0629.',
-    shareAdded: (n) => `\u062a\u0645\u062a \u0625\u0636\u0627\u0641\u0629 ${n} \u0643\u0648\u062f`,
-    shareReviewTitle: (n) => `\u0647\u0644 \u062a\u0634\u0627\u0631\u0643 \u0647\u0630\u0647 \u0627\u0644\u0623\u0643\u0648\u0627\u062f \u0627\u0644\u0640${n} \u061f`,
-    shareInvalid: (n) => `${n} \u063a\u064a\u0631 \u0635\u0627\u0644\u062d \u2014 \u062a\u0645 \u062a\u062c\u0627\u0647\u0644\u0647`,
-    shareConfirm: '\u062a\u0623\u0643\u064a\u062f \u0627\u0644\u0645\u0634\u0627\u0631\u0643\u0629', shareCancel: '\u0625\u0644\u063a\u0627\u0621',
-    shareDup: (n) => `${n} \u0645\u0634\u0627\u0631\u0643 \u0628\u0627\u0644\u0641\u0627\u064b`,
     faqTitle: '\u0623\u0633\u0626\u0644\u0629 \u0648\u0623\u062c\u0648\u0628\u0629', guidesTitle: '\u0623\u062f\u0644\u0629 \u0642\u0635\u064a\u0631\u0629',
   },
   ur: {
@@ -728,13 +630,6 @@ const NEW_I18N = {
     how4: '\u0627\u06af\u0631 \u06a9\u0627\u0645 \u0646\u06c1 \u06a9\u0631\u06d2 \u062a\u0648 \u0648\u0627\u067e\u0633 \u0622\u06a9\u0631 \u0627\u06af\u0644\u0627 \u06a9\u0648\u0688 \u0622\u0632\u0645\u0627\u0626\u06cc\u06ba\u06d4',
     triedLast: '\u0622\u062e\u0631\u06cc \u0622\u0632\u0645\u0627\u06cc\u0627 \u06af\u06cc\u0627', triedNext: '\u0627\u06af\u0644\u0627',
     openBrowser: '\u0628\u0631\u0627\u0624\u0632\u0631 \u0645\u06cc\u06ba \u06a9\u06be\u0648\u0644\u06cc\u06ba',
-    shareHint: '\u0627\u06cc\u06a9 \u0633\u0627\u062a\u06be 10 \u062a\u06a9 \u06a9\u0648\u0688 \u0634\u06cc\u0626\u0631 \u06a9\u0631\u06cc\u06ba \u2014 \u06c1\u0631 \u0644\u0627\u0626\u0646 \u0645\u06cc\u06ba \u0627\u06cc\u06a9\u060c \u06cc\u0627 \u0627\u0633\u067e\u06cc\u0633 \u06cc\u0627 \u06a9\u0648\u0645\u0627 \u0633\u06d2 \u0627\u0644\u06af \u06a9\u0631\u06cc\u06ba\u06d4 \u0634\u0627\u0645\u0644 \u06a9\u0631\u0646\u06d2 \u0633\u06d2 \u067e\u06c1\u0644\u06d2 \u06c1\u0631 \u06a9\u0648\u0688 \u0686\u06cc\u06a9 \u06a9\u06cc\u0627 \u062c\u0627\u062a\u0627 \u06c1\u06d2\u06d4',
-    shareTooMany: '\u0627\u06cc\u06a9 \u0628\u0627\u0631 \u0645\u06cc\u06ba 10 \u062a\u06a9 \u06a9\u0648\u0688 \u0634\u06cc\u0626\u0631 \u06a9\u0631\u06cc\u06ba\u06d4',
-    shareAdded: (n) => `${n} \u06a9\u0648\u0688 \u0634\u0627\u0645\u0644 \u06c1\u0648 \u06af\u0626\u06d2`,
-    shareReviewTitle: (n) => `\u06a9\u06cc\u0627 \u06cc\u06c1 ${n} \u06a9\u0648\u0688 \u0634\u06cc\u0626\u0631 \u06a9\u0631\u06cc\u06ba \u0686\u0627\u06c1\u062a\u06d2 \u06c1\u06cc\u06ba\u061f`,
-    shareInvalid: (n) => `${n} \u063a\u0644\u0637 \u2014 \u0686\u0648\u0691 \u062f\u06cc\u0627 \u06af\u06cc\u0627`,
-    shareConfirm: '\u0634\u06cc\u0626\u0631 \u06a9\u06cc \u062a\u0635\u062f\u06cc\u0642 \u06a9\u0631\u06cc\u06ba', shareCancel: '\u0645\u0646\u0633\u0648\u062e \u06a9\u0631\u06cc\u06ba',
-    shareDup: (n) => `${n} \u067e\u06c1\u0644\u06d2 \u0633\u06d2 \u0634\u06cc\u0626\u0631 \u06c1\u0648 \u0686\u06a9\u06d2 \u06c1\u06cc\u06ba`,
     faqTitle: '\u0633\u0648\u0627\u0644\u0627\u062a \u06a9\u06d2 \u062c\u0648\u0627\u0628\u0627\u062a', guidesTitle: '\u0645\u062e\u062a\u0635\u0631 \u0631\u06c1\u0646\u0645\u0627',
   },
   id: {
@@ -745,13 +640,6 @@ const NEW_I18N = {
     how4: 'Jika tidak berhasil, kembali dan coba kode berikutnya.',
     triedLast: 'Terakhir dicoba', triedNext: 'Berikutnya',
     openBrowser: 'Buka di browser',
-    shareHint: 'Bagikan hingga 10 kode sekaligus \u2014 satu per baris, atau dipisah spasi atau koma. Setiap kode diperiksa sebelum ditambahkan.',
-    shareTooMany: 'Bagikan hingga 10 kode sekali waktu.',
-    shareAdded: (n) => `${n} kode ditambahkan`,
-    shareReviewTitle: (n) => `Bagikan ${n} kode ini?`,
-    shareInvalid: (n) => `${n} tidak valid \u2014 dilewati`,
-    shareConfirm: 'Konfirmasi bagikan', shareCancel: 'Batal',
-    shareDup: (n) => `${n} sudah dibagikan`,
     faqTitle: 'Pertanyaan, dijawab', guidesTitle: 'Panduan singkat',
   },
   tr: {
@@ -762,13 +650,6 @@ const NEW_I18N = {
     how4: '\u00c7al\u0131\u015fmazsa geri d\u00f6n\u00fcn ve sonraki kodu deneyin.',
     triedLast: 'Son denenen', triedNext: 'Sonraki',
     openBrowser: 'Taray\u0131c\u0131da a\u00e7',
-    shareHint: "Bir seferde 10'a kadar kod payla\u015f\u0131n \u2014 sat\u0131r ba\u015f\u0131na bir kod, veya bo\u015fluk ya da virg\u00fclle ay\u0131r\u0131n. Her kod eklenmeden \u00f6nce kontrol edilir.",
-    shareTooMany: 'Bir seferde en fazla 10 kod payla\u015f\u0131n.',
-    shareAdded: (n) => `${n} kod eklendi`,
-    shareReviewTitle: (n) => `Bu ${n} kodu payla\u015fmak istiyor musunuz?`,
-    shareInvalid: (n) => `${n} ge\u00e7ersiz \u2014 atland\u0131`,
-    shareConfirm: 'Payla\u015fmay\u0131 onayla', shareCancel: '\u0130ptal',
-    shareDup: (n) => `${n} zaten payla\u015f\u0131lm\u0131\u015f`,
     faqTitle: 'Sorular, cevapland\u0131', guidesTitle: 'K\u0131sa k\u0131lavuzlar',
   },
   hi: {
@@ -779,13 +660,6 @@ const NEW_I18N = {
     how4: '\u092f\u0926\u093f \u092f\u0939 \u0915\u093e\u092e \u0928 \u0915\u0930\u0947, \u0924\u094b \u0935\u093e\u092a\u0938 \u0906\u0915\u0930 \u0905\u0917\u0932\u093e \u0915\u094b\u0921 \u0906\u091c\u093c\u092e\u093e\u090f\u0901\u0964',
     triedLast: '\u0905\u0902\u0924\u093f\u092e \u0906\u091c\u093c\u092e\u093e\u092f\u093e \u0917\u092f\u093e', triedNext: '\u0905\u0917\u0932\u093e',
     openBrowser: '\u092c\u094d\u0930\u093e\u0909\u091c\u093c\u0930 \u092e\u0947\u0902 \u0916\u094b\u0932\u0947\u0902',
-    shareHint: '\u090f\u0915 \u0938\u093e\u0925 10 \u0924\u0915 \u0915\u094b\u0921 \u0938\u093e\u091d\u093e \u0915\u0930\u0947\u0902 \u2014 \u092a\u094d\u0930\u0924\u093f \u092a\u0902\u0915\u094d\u0924\u093f \u090f\u0915, \u092f\u093e \u0938\u094d\u092a\u0947\u0938 \u092f\u093e \u0915\u0949\u092e\u093e \u0938\u0947 \u0905\u0932\u0917 \u0915\u0930\u0947\u0902\u0964 \u091c\u094b\u0921\u093c\u0947 \u091c\u093e\u0928\u0947 \u0938\u0947 \u092a\u0939\u0932\u0947 \u092a\u094d\u0930\u0924\u094d\u092f\u0947\u0915 \u0915\u094b\u0921 \u091c\u093e\u0901\u091a\u093e \u091c\u093e\u0924\u093e \u0939\u0948\u0964',
-    shareTooMany: '\u090f\u0915 \u092c\u093e\u0930 \u092e\u0947\u0902 10 \u0924\u0915 \u0915\u094b\u0921 \u0938\u093e\u091d\u093e \u0915\u0930\u0947\u0902\u0964',
-    shareAdded: (n) => `${n} \u0915\u094b\u0921 \u091c\u094b\u0921\u0947 \u0917\u090f`,
-    shareReviewTitle: (n) => `\u0915\u094d\u092f\u093e \u0906\u092a \u0907\u0928 ${n} \u0915\u094b\u0921 \u0915\u094b \u0938\u093e\u091d\u093e \u0915\u0930\u0928\u093e \u091a\u093e\u0939\u0924\u0947 \u0939\u0948\u0902?`,
-    shareInvalid: (n) => `${n} \u0905\u092e\u093e\u0928\u094d\u092f \u2014 \u091b\u094b\u0921\u093c \u0926\u093f\u092f\u093e \u0917\u092f\u093e`,
-    shareConfirm: '\u0938\u093e\u091d\u093e \u0915\u0930\u0928\u0947 \u0915\u0940 \u092a\u0941\u0937\u094d\u091f\u093f \u0915\u0930\u0947\u0902', shareCancel: '\u0930\u0926\u094d\u0926 \u0915\u0930\u0947\u0902',
-    shareDup: (n) => `${n} \u092a\u0939\u0932\u0947 \u0938\u0947 \u0938\u093e\u091d\u093e \u0915\u093f\u092f\u093e \u0917\u092f\u093e \u0939\u0948`,
     faqTitle: '\u092a\u094d\u0930\u0936\u094d\u0928\u094b\u0902 \u0915\u0947 \u0909\u0924\u094d\u0924\u0930', guidesTitle: '\u0938\u0902\u0915\u094d\u0937\u093f\u092a\u094d\u0924 \u092e\u093e\u0930\u094d\u0917\u0926\u0930\u094d\u0936\u093f\u0915\u093e\u090f\u0901',
   },
 };
@@ -817,12 +691,12 @@ const FAQ_I18N = {
     ['\u0995\u09cb\u09a1 \u201calready used\u201d \u0995\u09c7\u09a8 \u09ac\u09b2\u09c7?', '\u09a6\u09c1\u099c\u09a8 \u09ae\u09be\u09a8\u09c1\u09b7\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u098f\u0995\u09ac\u09be\u09b0\u0987 \u09ac\u09bf\u09a8\u09bf\u09ae\u09df \u09b9\u09df\u0964 \u09b8\u09c7\u0987 \u09ac\u09cd\u09af\u0995\u09cd\u09a4\u09bf\u09b0 \u0995\u09cb\u09a1 \u0986\u0997\u09c7 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c7 \u09a5\u09be\u0995\u09b2\u09c7 \u09aa\u09b0\u09c7\u09b0 \u0995\u09cb\u09a1\u099f\u09bf \u09a8\u09bf\u09a8\u0964'],
     ['\u09a8\u09c1\u09b8\u09c1\u0995\u09c7 \u0995\u09cb\u09a1 \u0995\u09cb\u09a5\u09be\u09df \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09ac?', '\u09a8\u09c1\u09b8\u09c1\u0995 \u0996\u09c1\u09b2\u09c7 Start the challenge-\u098f \u099a\u09be\u09aa \u09a6\u09bf\u09a8, Keys \u099f\u09cd\u09af\u09be\u09ac \u0996\u09c1\u09b2\u09c1\u09a8, \u201cAdd code to get new key\u201d \u0998\u09b0\u09c7 \u0995\u09cb\u09a1 \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09c7 Check the code-\u098f \u099a\u09be\u09aa \u09a6\u09bf\u09a8\u0964'],
     ['\u0986\u09b0\u09cb \u0995\u09c0 \u09aa\u09be\u09ac \u0995\u09c0\u09ad\u09be\u09ac\u09c7?', '\u09b8\u09ac\u09be\u0987 \u09a6\u09bf\u09a8\u09c7 \u098f\u0995\u099f\u09bf \u09ab\u09cd\u09b0\u09bf \u0995\u09c0 \u09aa\u09be\u09df\u0964 \u0985\u09a8\u09cd\u09af\u09c7\u09b0 \u0995\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09b2\u09c7 \u098f\u09ac\u0982 \u0986\u09aa\u09a8\u09be\u09b0 \u0995\u09cb\u09a1 \u0995\u09c7\u0989 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09b2\u09c7 \u09aa\u09cd\u09b0\u09a4\u09bf\u09ac\u09be\u09b0 \u098f\u0995\u099f\u09bf \u0995\u09b0\u09c7 \u0985\u09a4\u09bf\u09b0\u09bf\u0995\u09cd\u09a4 \u0995\u09c0 \u09aa\u09be\u09ac\u09c7\u09a8\u0964'],
-    ['\u0986\u09ae\u09be\u09b0 \u0995\u09cb\u09a1 \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09ac?', '\u201cHave another code to share?\u201d \u0998\u09b0\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cd\u099a\u09cd\u099a \u09e7\u09e6\u099f\u09bf \u0995\u09cb\u09a1 \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09c1\u09a8 \u2014 \u09aa\u09cd\u09b0\u09a4\u09bf \u09b2\u09be\u0987\u09a8\u09c7 \u098f\u0995\u099f\u09bf\u0964 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u0995\u09cb\u09a1 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c7 \u09aa\u09c1\u09b2\u09c7 \u09af\u09cb\u0997 \u0995\u09b0\u09be \u09b9\u09df\u0964'],
+    ['\u0986\u09ae\u09be\u09b0 \u0995\u09cb\u09a1 \u0995\u09c0\u09ad\u09be\u09ac\u09c7 \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09ac?', '\u201cHave another code to share?\u201d \u0998\u09b0\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cb\u099a\u09cd\u099a \u09e7\u09e6\u099f\u09bf \u0995\u09cb\u09a1 \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09c1\u09a8 \u2014 \u09aa\u09cd\u09b0\u09a4\u09bf \u09b2\u09be\u0987\u09a8\u09c7 \u098f\u0995\u099f\u09bf\u0964 \u09aa\u09cd\u09b0\u09a4\u09bf\u099f\u09bf \u0995\u09cb\u09a1 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c7 \u09aa\u09c1\u09b2\u09c7 \u09af\u09cb\u0997 \u0995\u09b0\u09be \u09b9\u09df\u0964'],
     ['\u098f\u0987 \u0995\u09cb\u09a1\u0997\u09c1\u09b2\u09cb \u0995\u09bf \u09a8\u09c1\u09b8\u09c1\u0995 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c7\u099b\u09c7?', '\u09a8\u09be\u0964 \u0995\u09cb\u09a1\u0997\u09c1\u09b2\u09cb \u0995\u09ae\u09bf\u0989\u09a8\u09bf\u099f\u09bf \u09a6\u09bf\u09df\u09c7\u099b\u09c7, \u09a8\u09c1\u09b8\u09c1\u0995 \u09af\u09be\u099a\u09be\u0987 \u0995\u09b0\u09c7\u09a8\u09bf\u0964 \u0995\u09bf\u099b\u09c1 \u0995\u09cb\u09a1 \u0986\u0997\u09c7\u0987 \u09ac\u09cd\u09af\u09ac\u09b9\u09c3\u09a4 \u09b9\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7 \u2014 \u09aa\u09b0\u09c7\u09b0\u099f\u09be \u099a\u09c7\u09b7\u09cd\u099f\u09be \u0995\u09b0\u09c1\u09a8\u0964'],
     ['NusukKeys \u0995\u09bf \u09a8\u09c1\u09b8\u09c1\u0995\u09c7\u09b0 \u0985\u09ab\u09bf\u09b8\u09bf\u09df\u09be\u09b2 \u09b8\u09be\u0987\u099f?', '\u09a8\u09be\u0964 \u098f\u099f\u09bf \u098f\u0995\u099f\u09bf \u09b8\u09cd\u09ac\u09be\u09a7\u09c0\u09a8 \u0995\u09ae\u09bf\u0989\u09a8\u09bf\u099f\u09bf \u099f\u09c1\u09b2, \u09a8\u09c1\u09b8\u09c1\u0995\u09c7\u09b0 \u09b8\u09be\u09a5\u09c7 \u09b8\u09ae\u09cd\u09aa\u09b0\u09cd\u0995\u09bf\u09a4 \u09a8\u09df\u0964 \u098f\u099f\u09bf \u0995\u0996\u09a8\u09cb \u0986\u09aa\u09a8\u09be\u09b0 \u09b2\u0997\u09bf\u09a8 \u099a\u09be\u09df \u09a8\u09be\u0964'],
-    ['NusukKeys \u0995\u09bf \u09ab\u09cd\u09b0\u09bf?', '\u09b9\u09cd\u09af\u09be\u0981\u0964 \u0995\u09cb\u09a1 \u0995\u09aa\u09bf \u0995\u09b0\u09be \u0993 \u09b6\u09c7\u09af\u09bc\u09be\u09b0 \u0995\u09b0\u09be \u09b8\u09ae\u09cd\u09aa\u09c2\u09b0\u09cd\u09a3 \u09ab\u09cd\u09b0\u09bf, \u0995\u09cb\u09a8\u09cb \u09b8\u09be\u0987\u09a8 \u0986\u09aa \u09b2\u09be\u0997\u09c7 \u09a8\u09be\u0964'],
-    ['\u0995\u09c0 \u0995\u09cb\u09a1 \u0986\u09b0 \u09b0\u09c7\u09ab\u09be\u09b0\u09c7\u09b2 \u0995\u09cb\u09a1 \u0995\u09bf \u098f\u0995\u0987?', '\u09a8\u09be\u0964 \u09b0\u09c7\u09ab\u09be\u09b0\u09c7\u09b2 \u0995\u09cb\u09a1 NG- \u09a6\u09bf\u09af\u09bc\u09c7 \u09b6\u09c1\u09b0\u09c1 \u09b9\u09af\u09bc \u098f\u09ac\u0982 \u098f\u0995\u099f\u09bf \u0985\u09cd\u09af\u09be\u0995\u09be\u0989\u09a8\u09cd\u099f\u09c7\u09b0\u0964 \u0995\u09c0 \u09b9\u09b2\u09cb \u0985\u09cd\u09af\u09be\u09aa\u09c7 \u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c\u09c7 \u0997\u09cb\u09a8\u09be \u099c\u09bf\u09a8\u09bf\u09b8 \u2014 \u098f\u0995\u099f\u09bf \u0995\u09c0 \u09a6\u09bf\u09af\u09bc\u09c7 \u098f\u0995\u099f\u09bf \u09aa\u09cd\u09b0\u09b6\u09cd\u09a8\u09c7\u09b0 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09c7\u0993\u09af\u09bc\u09be \u09af\u09be\u09af\u09bc\u0964 \u098f\u0995\u099f\u09bf \u0995\u09cb\u09a1 \u0995\u09c0 \u09a6\u09c7\u09ac\u09c7 \u09a4\u09be \u09a8\u09c1\u09b8\u09c1\u0995\u09c7\u09b0 \u09a8\u09bf\u099c\u09c7\u09b0 \u09a8\u09bf\u09af\u09bc\u09ae\u09c7 \u09a0\u09bf\u0995 \u09b9\u09af\u09bc\u0964 \u0986\u09ae\u09b0\u09be \u0995\u0996\u09a8\u09cb \u098f\u09ae\u09a8 \u0995\u09cb\u09a1 \u09a6\u09bf\u0987 \u09a8\u09be \u09af\u09be \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09c0 \u09a6\u09c7\u0993\u09af\u09bc\u09be\u09b0 \u09aa\u09cd\u09b0\u09a4\u09bf\u09b6\u09cd\u09b0\u09c1\u09a4\u09bf \u09a6\u09c7\u09af\u09bc, \u0986\u09b0 \u0995\u09c7\u0989 \u0986\u09aa\u09a8\u09be\u0995\u09c7 \u0995\u09c0 \u09ac\u09bf\u0995\u09cd\u09b0\u09bf \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7 \u09a8\u09be\u0964'],
-    ['\u09a8\u09c1\u09b8\u09c1\u0995 \u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c\u09c7 \u0995\u09c0 \u09aa\u09c1\u09b0\u09b8\u09cd\u0995\u09be\u09b0 \u0986\u099b\u09c7?', '\u09e7\u09e6\u09e6\u099f\u09bf \u09ab\u09cd\u09b0\u09bf \u0989\u09ae\u09b0\u09be\u09b9 \u09b8\u09ab\u09b0 (\u09eb\u09e6 \u099c\u09a8 \u09ac\u09bf\u099c\u09af\u09bc\u09c0, \u09aa\u09cd\u09b0\u09a4\u09cd\u09af\u09c7\u0995\u09c7\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u098f\u0995\u099c\u09a8 \u09b8\u0999\u09cd\u0997\u09c0) \u098f\u09ac\u0982 \u09e7\u09e6,\u09e6\u09e6\u09e6 \u0995\u09be\u09b0\u09cd\u099f\u09a8 \u099c\u09ae\u099c\u09ae \u09aa\u09be\u09a8\u09bf\u0964 \u09e7 \u09a8\u09ad\u09c7\u09ae\u09cd\u09ac\u09b0 \u09a5\u09c7\u0995\u09c7 \u09e8\u09e6 \u09a1\u09bf\u09b8\u09c7\u09ae\u09cd\u09ac\u09b0 \u09e8\u09e6\u09e8\u09ec \u09aa\u09b0\u09cd\u09af\u09a8\u09cd\u09a4 \u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8 \u09a1\u09cd\u09b0 \u09b9\u09af\u09bc\u0964 \u0995\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09b2\u09c7\u0987 \u099c\u09c7\u09a4\u09be \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u09a8\u09af\u09bc\u0964'],
+    ['NusukKeys \u0995\u09bf \u09ab\u09cd\u09b0\u09bf?', '\u09b9\u09cd\u09af\u09be\u0981\u0964 \u0995\u09cb\u09a1 \u0995\u09aa\u09bf \u0995\u09b0\u09be \u0993 \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09be \u09b8\u09ae\u09cd\u09aa\u09c2\u09b0\u09cd\u09a3 \u09ab\u09cd\u09b0\u09bf, \u0995\u09cb\u09a8\u09cb \u09b8\u09be\u0987\u09a8 \u0986\u09aa \u09b2\u09be\u0997\u09c7 \u09a8\u09be\u0964'],
+    ['\u0995\u09c0 \u0995\u09cb\u09a1 \u0986\u09b0 \u09b0\u09c7\u09ab\u09be\u09b0\u09c7\u09b2 \u0995\u09cb\u09a1 \u0995\u09bf \u098f\u0995\u0987?', '\u09a8\u09be\u0964 \u09b0\u09c7\u09ab\u09be\u09b0\u09c7\u09b2 \u0995\u09cb\u09a1 NG- \u09a6\u09bf\u09df\u09c7 \u09b6\u09c1\u09b0\u09c1 \u09b9\u09df \u098f\u09ac\u0982 \u098f\u0995\u099f\u09bf \u0985\u09cd\u09af\u09be\u0995\u09be\u0989\u09a8\u09cd\u099f\u09c7\u09b0\u0964 \u0995\u09c0 \u09b9\u09b2\u09cb \u0985\u09cd\u09af\u09be\u09aa\u09c7 \u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c\u09c7 \u0997\u09cb\u09a8\u09be \u099c\u09bf\u09a8\u09bf\u09b8 \u2014 \u098f\u0995\u099f\u09bf \u0995\u09c0 \u09a6\u09bf\u09df\u09c7 \u098f\u0995\u099f\u09bf \u09aa\u09cd\u09b0\u09b6\u09cd\u09a8\u09c7\u09b0 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09c7\u0993\u09df\u09be \u09af\u09be\u09df\u0964 \u098f\u0995\u099f\u09bf \u0995\u09cb\u09a1 \u0995\u09c0 \u09a6\u09c7\u09ac\u09c7 \u09a4\u09be \u09a8\u09c1\u09b8\u09c1\u0995\u09c7\u09b0 \u09a8\u09bf\u099c\u09c7\u09b0 \u09a8\u09bf\u09df\u09ae\u09c7 \u09a0\u09bf\u0995 \u09b9\u09df\u0964 \u0986\u09ae\u09b0\u09be \u0995\u0996\u09a8\u09cb \u098f\u09ae\u09a8 \u0995\u09cb\u09a1 \u09a6\u09bf\u0987 \u09a8\u09be \u09af\u09be \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u0995\u09c0 \u09a6\u09c7\u0993\u09df\u09be\u09b0 \u09aa\u09cd\u09b0\u09a4\u09bf\u09b6\u09cd\u09b0\u09c1\u09a4\u09bf \u09a6\u09c7\u09df, \u0986\u09b0 \u0995\u09c7\u0989 \u0986\u09aa\u09a8\u09be\u0995\u09c7 \u0995\u09c0 \u09ac\u09bf\u0995\u09cd\u09b0\u09bf \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7 \u09a8\u09be\u0964'],
+    ['\u09a8\u09c1\u09b8\u09c1\u0995 \u099a\u09cd\u09af\u09be\u09b2\u09c7\u099e\u09cd\u099c\u09c7 \u0995\u09c0 \u09aa\u09c1\u09b0\u09b8\u09cd\u0995\u09be\u09b0 \u0986\u099b\u09c7?', '\u09e7\u09e6\u09e6\u099f\u09bf \u09ab\u09cd\u09b0\u09bf \u0989\u09ae\u09b0\u09be\u09b9 \u09b8\u09ab\u09b0 (\u09eb\u09e6 \u099c\u09a8 \u09ac\u09bf\u099c\u09df\u09c0, \u09aa\u09cd\u09b0\u09a4\u09cd\u09af\u09c7\u0995\u09c7\u09b0 \u09b8\u0999\u09cd\u0997\u09c7 \u098f\u0995\u099c\u09a8 \u09b8\u0999\u09cd\u0997\u09c0) \u098f\u09ac\u0982 \u09e7\u09e6,\u09e6\u09e6\u09e6 \u0995\u09be\u09b0\u09cd\u099f\u09a8 \u099c\u09ae\u099c\u09ae \u09aa\u09be\u09a8\u09bf\u0964 \u09e7 \u09a8\u09ad\u09c7\u09ae\u09cd\u09ac\u09b0 \u09a5\u09c7\u0995\u09c7 \u09e8\u09e6 \u09a1\u09bf\u09b8\u09c7\u09ae\u09cd\u09ac\u09b0 \u09e8\u09e6\u09e8\u09ec \u09aa\u09b0\u09cd\u09af\u09a8\u09cd\u09a4 \u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8 \u09a1\u09cd\u09b0 \u09b9\u09df\u0964 \u0995\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09b2\u09c7\u0987 \u099c\u09c7\u09a4\u09be \u09a8\u09bf\u09b6\u09cd\u099a\u09bf\u09a4 \u09a8\u09df\u0964'],
   ],
   ar: [
     ['\u0645\u0627 \u0647\u0648 \u0643\u0648\u062f \u0646\u0633\u0643\u061f', '\u0627\u0644\u0643\u0648\u062f \u064a\u062a\u064a\u062d \u0644\u0643 \u0627\u0644\u0625\u062c\u0627\u0628\u0629 \u0639\u0646 \u0633\u0624\u0627\u0644 \u0648\u0627\u062d\u062f \u0641\u064a \u062a\u062d\u062f\u064a \u0627\u0644\u0639\u0645\u0631\u0629 \u0627\u0644\u0645\u062c\u0627\u0646\u064a. \u0627\u0644\u0625\u062c\u0627\u0628\u0629 \u0627\u0644\u0635\u062d\u064a\u062d\u0629 \u062a\u062f\u062e\u0644\u0643 \u0641\u064a \u0627\u0644\u0633\u062d\u0628 \u0627\u0644\u064a\u0648\u0645\u064a \u0639\u0644\u0649 \u0631\u062d\u0644\u0629 \u0639\u0645\u0631\u0629 \u0645\u062c\u0627\u0646\u064a\u0629.'],
@@ -852,7 +726,7 @@ const GUIDES_I18N = {
     ['\u0986\u09aa\u09a8\u09be\u09b0 \u0995\u09cb\u09a1 \u0996\u09c1\u0981\u099c\u09c1\u09a8', '\u09a8\u09c1\u09b8\u09c1\u0995\u09c7: Start the challenge \u2192 Share \u2192 NG- \u09a6\u09bf\u09df\u09c7 \u09b6\u09c1\u09b0\u09c1 \u0995\u09cb\u09a1\u099f\u09bf \u0995\u09aa\u09bf \u0995\u09b0\u09c1\u09a8\u0964'],
     ['\u0995\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c1\u09a8', '\u09aa\u09cd\u09b0\u09a5\u09ae\u09c7 \u09a8\u09c1\u09b8\u09c1\u0995 \u0996\u09c1\u09b2\u09c7 \u0996\u09cb\u09b2\u09be \u09b0\u09be\u0996\u09c1\u09a8, \u09a4\u09be\u09b0\u09aa\u09b0 \u098f\u0996\u09be\u09a8 \u09a5\u09c7\u0995\u09c7 \u0995\u09cb\u09a1 \u0995\u09aa\u09bf \u0995\u09b0\u09c7 \u0996\u09c1\u09b2\u09c1\u09a8\u0964'],
     ['\u0995\u09cb\u09a1 \u0995\u09be\u099c \u09a8\u09be \u0995\u09b0\u09b2\u09c7', '\u09ab\u09bf\u09b0\u09c7 \u098f\u09b8\u09c7 \u09aa\u09b0\u09c7\u09b0 \u0995\u09cb\u09a1 \u099a\u09c7\u09b7\u09cd\u099f\u09be \u0995\u09b0\u09c1\u09a8 \u2014 \u09a6\u09c1\u099c\u09a8\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u098f\u0995\u09ac\u09be\u09b0\u0987 \u09ac\u09bf\u09a8\u09bf\u09ae\u09df \u09b9\u09df\u0964'],
-    ['\u0995\u09cb\u09a1 \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09c1\u09a8', '\u09b6\u09c7\u09df\u09be\u09b0 \u09ac\u09be\u0995\u09cd\u09b8\u09c7 \u098f\u0995\u09b8\u09be\u09a5\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cd\u099a \u09e7\u09e6\u099f\u09bf \u0995\u09cb\u09a1 \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09c1\u09a8\u0964'],
+    ['\u0995\u09cb\u09a1 \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09c1\u09a8', '\u09b6\u09c7\u09df\u09be\u09b0 \u09ac\u09be\u0995\u09cd\u09b8\u09c7 \u098f\u0995\u09b8\u09be\u09a5\u09c7 \u09b8\u09b0\u09cd\u09ac\u09cb\u099a\u09cd\u099a \u09e7\u09e6\u099f\u09bf \u0995\u09cb\u09a1 \u09aa\u09c7\u09b8\u09cd\u099f \u0995\u09b0\u09c1\u09a8\u0964'],
     ['\u0986\u09b0\u09cb \u0995\u09c0 \u09aa\u09be\u09a8', '\u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8 \u098f\u0995\u099f\u09bf \u0995\u09cb\u09a1 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c1\u09a8, \u0986\u09b0 \u0986\u09aa\u09a8\u09be\u09b0 \u0995\u09cb\u09a1 \u0985\u09a8\u09cd\u09af\u09a6\u09c7\u09b0 \u09b8\u09be\u09a5\u09c7 \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09c1\u09a8\u0964'],
     ['\u0989\u09ae\u09b0\u09be\u09b9 \u09aa\u09cd\u09b0\u09a4\u09bf\u09af\u09cb\u0997\u09bf\u09a4\u09be', '\u09aa\u09cd\u09b0\u09a4\u09bf \u0995\u09c0 \u09a6\u09bf\u09df\u09c7 \u098f\u0995\u099f\u09bf \u09aa\u09cd\u09b0\u09b6\u09cd\u09a8\u09c7\u09b0 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09bf\u09a8; \u09b8\u09a0\u09bf\u0995 \u0989\u09a4\u09cd\u09a4\u09b0 \u09aa\u09cd\u09b0\u09a4\u09bf\u09a6\u09bf\u09a8\u09c7\u09b0 \u09a1\u09cd\u09b0\u09df\u09c7 \u09af\u09be\u09df\u0964'],
     ['\u09a8\u09bf\u09b0\u09be\u09aa\u09a6 \u09a5\u09be\u0995\u09c1\u09a8', '\u0986\u09aa\u09a8\u09be\u09b0 \u09a8\u09c1\u09b8\u09c1\u0995 \u09b2\u0997\u09bf\u09a8 \u0995\u0996\u09a8\u09cb \u09b6\u09c7\u09df\u09be\u09b0 \u0995\u09b0\u09ac\u09c7\u09a8 \u09a8\u09be\u0964 \u098f\u0987 \u09b8\u09be\u0987\u099f \u0995\u0996\u09a8\u09cb \u09a4\u09be \u099a\u09be\u09df \u09a8\u09be\u0964'],
@@ -883,16 +757,16 @@ const FIXES_I18N = {
     ['Is it safe to use codes from here?', 'Yes. An invite code only gives keys and cannot access anyone’s account. Only paste codes inside the official Nusuk app — never share your password or OTP with anyone.'],
   ],
   bn: [
-    ['কোডটি "already used" বলছে', 'আপনি আর সেই ব্যক্তি একবার কী বিনিময় করেছেন — দুজনের মধ্যে একবারই বিনিময় হয়। পরের কোডটি নিন। এই সাইটে "Already used"-এ ট্যাপ করুন, তাহলে আর দেখাবে না।'],
-    ['কোডটি সঠিক নয় বলছে', 'NG- সহ পুরো কোডটি কপি করুন — কোনো স্পেস বা বাড়তি অক্ষর নয় — আর টাইপ না করে পেস্ট করুন। বড়-ছোট অক্ষর গুরুত্বপূর্ণ। "Doesn’t work"-এ ট্যাপ করুন; দুজন জানালে কোডটি সরিয়ে দেওয়া হয়।'],
-    ['কোড পেস্ট করলাম, তবু বাড়তি কী পেলাম না', 'দেখুন কোডটি Keys ট্যাবে "Add code to get new key" বাক্সে গেছে কি না এবং Check the code-এ ট্যাপ করেছেন কি না। অ্যাপ বন্ধ করে আবার খুলে চেষ্টা করুন। মনে রাখবেন: এক জোড়ায় একটিই কী।'],
-    ['বাড়তি কীতে কি দৈনিক সীমা আছে?', 'নুসুক আনুষ্ঠানিক কোনো সীমা জানায়নি, তবে কিছু গাইডে দৈনিক সীমার কথা আছে। একদিনে অনেক কোড কাজ না করলে দৈনিক রিসেটের পর আবার চেষ্টা করুন।'],
-    ['আমার ফ্রি দৈনিক কী কখন রিসেট হয়?', 'সৌদি সময়ে প্রতিদিনের শুরুতে একটি ফ্রি কী। অব্যবহৃত কী দিনের শেষে মেয়াদ শেষ হয়।'],
-    ['OTP (যাচাইকরণ কোড) আসছে না', 'আবার চাওয়ার আগে এক মিনিট অপেক্ষা করুন। ইমেইলে সাইন আপ করলে স্প্যাম বা জাঙ্ক ফোল্ডার দেখুন, আর ইমেইল বা ফোন নম্বর ঠিক আছে কি না দেখুন। সৌদি আরবের বাইরের দর্শনার্থীরা সাধারণত ইমেইলে সাইন আপ করেন। বড় ক্যাম্পেইনের সময় সার্ভিস ব্যস্ত থাকতে পারে।'],
-    ['বলছে অ্যাকাউন্ট আগেই আছে', 'আপনি সম্ভবত আগেই সাইন আপ করেছেন — উমরাহ বুকিং বা আগের প্রতিযোগিতার জন্য। সাইন ইন বেছে নিন, প্রয়োজনে Forgot password ব্যবহার করুন। দ্বিতীয় অ্যাকাউন্টের দরকার নেই।'],
+    ['কোডটি "already used" বলছে', 'আপনি আর সেই ব্যক্তি একবার কী বিনিময় করেছেন — দুজনের মধ্যে একবারই বিনিময় হয়। পরের কোডটি নিন। এই সাইটে "Already used"-এ ট্যাপ করুন, তাহলে আর দেখাবে না।'],
+    ['কোডটি সঠিক নয় বলছে', 'NG- সহ পুরো কোডটি কপি করুন — কোনো স্পেস বা বাড়তি অক্ষর নয় — আর টাইপ না করে পেস্ট করুন। বড়-ছোট অক্ষর গুরুত্বপূর্ণ। "Doesn’t work"-এ ট্যাপ করুন; দুজন জানালে কোডটি সরিয়ে দেওয়া হয়।'],
+    ['কোড পেস্ট করলাম, তবু বাড়তি কী পেলাম না', 'দেখুন কোডটি Keys ট্যাবে "Add code to get new key" বাক্সে গেছে কি না এবং Check the code-এ ট্যাপ করেছেন কি না। অ্যাপ বন্ধ করে আবার খুলে চেষ্টা করুন। মনে রাখবেন: এক জোড়ায় একটিই কী।'],
+    ['বাড়তি কীতে কি দৈনিক সীমা আছে?', 'নুসুক আনুষ্ঠানিক কোনো সীমা জানায়নি, তবে কিছু গাইডে দৈনিক সীমার কথা আছে। একদিনে অনেক কোড কাজ না করলে দৈনিক রিসেটের পর আবার চেষ্টা করুন।'],
+    ['আমার ফ্রি দৈনিক কী কখন রিসেট হয়?', 'সৌদি সময়ে প্রতিদিনের শুরুতে একটি ফ্রি কী। অব্যবহৃত কী দিনের শেষে মেয়াদ শেষ হয়।'],
+    ['OTP (যাচাইকরণ কোড) আসছে না', 'আবার চাওয়ার আগে এক মিনিট অপেক্ষা করুন। ইমেইলে সাইন আপ করলে স্প্যাম বা জাঙ্ক ফোল্ডার দেখুন, আর ইমেইল বা ফোন নম্বর ঠিক আছে কি না দেখুন। সৌদি আরবের বাইরের দর্শনার্থীরা সাধারণত ইমেইলে সাইন আপ করেন। বড় ক্যাম্পেইনের সময় সার্ভিস ব্যস্ত থাকতে পারে।'],
+    ['বলছে অ্যাকাউন্ট আগেই আছে', 'আপনি সম্ভবত আগেই সাইন আপ করেছেন — উমরাহ বুকিং বা আগের প্রতিযোগিতার জন্য। সাইন ইন বেছে নিন, প্রয়োজনে Forgot password ব্যবহার করুন। দ্বিতীয় অ্যাকাউন্টের দরকার নেই।'],
     ['অ্যাপে প্রতিযোগিতা খুঁজে পাচ্ছি না', 'নুসুক অ্যাপ আপডেট করে আবার খুলুন, ১০০-উমরাহ-সফর ব্যানার খুঁজে "Start the challenge"-এ ট্যাপ করুন, অথবা Games Center খুলুন।'],
-    ['অ্যাপের সমস্যায় কার সঙ্গে যোগাযোগ করব?', 'নুসুক টেকনিক্যাল সাপোর্ট: 920002814। NusukKeys নুসুক অ্যাকাউন্টের সমস্যা ঠিক করতে পারে না।'],
-    ['এখানকার কোড ব্যবহার কি নিরাপদ?', 'হ্যাঁ। একটি ইনভাইট কোড শুধু কী দেয়, কারো অ্যাকাউন্টে ঢুকতে পারে না। কোড শুধু অফিসিয়াল নুসুক অ্যাপের ভেতরে পেস্ট করুন — আপনার পাসওয়ার্ড বা OTP কাউকে দেবেন না।'],
+    ['অ্যাপের সমস্যায় কার সঙ্গে যোগাযোগ করব?', 'নুসুক টেকনিক্যাল সাপোর্ট: 920002814। NusukKeys নুসুক অ্যাকাউন্টের সমস্যা ঠিক করতে পারে না।'],
+    ['এখানকার কোড ব্যবহার কি নিরাপদ?', 'হ্যাঁ। একটি ইনভাইট কোড শুধু কী দেয়, কারো অ্যাকাউন্টে ঢুকতে পারে না। কোড শুধু অফিসিয়াল নুসুক অ্যাপের ভেতরে পেস্ট করুন — আপনার পাসওয়ার্ড বা OTP কাউকে দেবেন না।'],
   ],
   ar: [
     ['يقول الكود "مُستخدم من قبل"', 'أنت وذلك الشخص تبادلتما المفاتيح مرة واحدة — ولا يمكن لكل شخصين التبادل إلا مرة واحدة. انسخ الكود التالي بدلًا منه. واضغط "Already used" هنا حتى لا يظهر لك مرة أخرى.'],
@@ -914,36 +788,36 @@ const FIXES_I18N = {
 const SECTIONS_I18N = {
   findCode: {
     en: { title: 'Find your code', html: `<p>Get your own code in 3 steps:</p><ol><li>Open the Nusuk app and tap "Start the challenge".</li><li>Tap Share in the bottom menu — your code is inside the invite message.</li><li>Copy the whole message and paste it here — no need to find the code yourself. We pick out the NG- code for you.</li></ol><p><strong>What does a code look like?</strong> It starts with NG- followed by 8 letters and numbers, for example NG-Ab12Cd34. Capital and small letters can matter, so always copy and paste — never type it.</p><p><strong>Where should you share it?</strong> Here, and in family WhatsApp and Facebook groups. Share only the code — never your password.</p><p><strong>Can I share more than one code?</strong> Each account has its own code; family members can share theirs. You get one extra key each time a new person uses your code.</p>` },
-    bn: { title: 'আপনার কোড খুঁজুন', html: `<p>৩ ধাপে আপনার নিজের কোড পান:</p><ol><li>নুসুক অ্যাপ খুলে "Start the challenge"-এ ট্যাপ করুন।</li><li>নিচের মেনুতে Share-এ ট্যাপ করুন — আপনার কোডটি ইনভাইট বার্তার ভেতরে আছে।</li><li>পুরো বার্তাটি কপি করে এখানে পেস্ট করুন — নিজে কোড খোঁজার দরকার নেই। আমরা NG- কোডটি বের করে নেব।</li></ol><p><strong>কোড দেখতে কেমন?</strong> NG- দিয়ে শুরু হয়, তারপর ৮টি অক্ষর ও সংখ্যা, যেমন NG-Ab12Cd34। বড়-ছোট অক্ষর গুরুত্বপূর্ণ হতে পারে, তাই সবসময় কপি-পেস্ট করুন — টাইপ করবেন না।</p><p><strong>কোথায় শেয়ার করবেন?</strong> এখানে, আর পরিবারের WhatsApp ও Facebook গ্রুপে। শুধু কোডটি শেয়ার করুন — পাসওয়ার্ড কখনো নয়।</p><p><strong>একাধিক কোড শেয়ার করা যাবে?</strong> প্রতিটি অ্যাকাউন্টের নিজের কোড আছে; পরিবারের সদস্যরা নিজেদের কোড শেয়ার করতে পারেন। নতুন কেউ আপনার কোড ব্যবহার করলে আপনি একটি বাড়তি কী পাবেন।</p>` },
+    bn: { title: 'আপনার কোড খুঁজুন', html: `<p>৩ ধাপে আপনার নিজের কোড পান:</p><ol><li>নুসুক অ্যাপ খুলে "Start the challenge"-এ ট্যাপ করুন।</li><li>নিচের মেনুতে Share-এ ট্যাপ করুন — আপনার কোডটি ইনভাইট বার্তার ভেতরে আছে।</li><li>পুরো বার্তাটি কপি করে এখানে পেস্ট করুন — নিজে কোড খোঁজার দরকার নেই। আমরা NG- কোডটি বের করে নেব।</li></ol><p><strong>কোড দেখতে কেমন?</strong> NG- দিয়ে শুরু হয়, তারপর ৮টি অক্ষর ও সংখ্যা, যেমন NG-Ab12Cd34। বড়-ছোট অক্ষর গুরুত্বপূর্ণ হতে পারে, তাই সবসময় কপি-পেস্ট করুন — টাইপ করবেন না।</p><p><strong>কোথায় শেয়ার করবেন?</strong> এখানে, আর পরিবারের WhatsApp ও Facebook গ্রুপে। শুধু কোডটি শেয়ার করুন — পাসওয়ার্ড কখনো নয়।</p><p><strong>একাধিক কোড শেয়ার করা যাবে?</strong> প্রতিটি অ্যাকাউন্টের নিজের কোড আছে; পরিবারের সদস্যরা নিজেদের কোড শেয়ার করতে পারেন। নতুন কেউ আপনার কোড ব্যবহার করলে আপনি একটি বাড়তি কী পাবেন।</p>` },
     ar: { title: 'اعثر على كودك', html: `<p>احصل على كودك في 3 خطوات:</p><ol><li>افتح تطبيق نسك واضغط "Start the challenge".</li><li>اضغط "مشاركة" في القائمة السفلية — كودك موجود داخل رسالة الدعوة.</li><li>انسخ الرسالة كاملة والصقها هنا — لا حاجة للبحث عن الكود بنفسك. نستخرج كود NG- من أجلك.</li></ol><p><strong>كيف يبدو الكود؟</strong> يبدأ بـ NG- متبوعًا بـ 8 أحرف وأرقام، مثل NG-Ab12Cd34. وقد تهم الأحرف الكبيرة والصغيرة، لذا انسخ والصق دائمًا — ولا تكتبه. </p><p><strong>أين تشاركه؟</strong> هنا، وفي مجموعات واتساب وفيسبوك العائلية. شارك الكود فقط — ولا تشارك كلمة مرورك أبدًا.</p><p><strong>هل يمكنني مشاركة أكثر من كود؟</strong> لكل حساب كوده الخاص؛ ويمكن لأفراد العائلة مشاركة أكوادهم. تحصل على مفتاح إضافي في كل مرة يستخدم فيها شخص جديد كودك.</p>` },
   },
   competition: {
     en: { title: 'The Nusuk Free Umrah Competition 2026', html: `<p>The competition runs in the official Nusuk app from <strong>1 November to 20 December 2026</strong> — 50 days, with a draw every day.</p><h3>Prizes</h3><ul><li><strong>100 free Umrah trips:</strong> 50 winners, each with a companion.</li><li><strong>10,000 cartons of Zamzam water:</strong> 20 cartons per Zamzam winner.</li><li>Each Umrah prize includes the visa, travel tickets, 10 nights' accommodation in Makkah and Madinah, transport and guidance. It cannot be transferred, exchanged or paid out in cash.</li><li>Zamzam delivery is only inside Saudi Arabia.</li></ul><h3>How to take part</h3><ol><li>Download the Nusuk app and sign in (visitors outside Saudi Arabia usually sign in with email).</li><li>Tap "Start the challenge" on the 100-Umrah-trips banner, or find it in the Games Center.</li><li>Choose a door — the Quran, the Prophet's Seerah, Makkah, or Madinah — and answer the question.</li><li>One free key a day; a correct answer enters that day's draw. An answer after that day's draw goes into the next one automatically.</li><li>Get extra keys with invite codes: each pair can swap only once, so use many different codes.</li></ol><h3>Winners</h3><p>One winner is drawn daily for a free Umrah trip. Winners are announced every day on Nusuk's official accounts and on the Winners page inside the game, and contacted by email — use a valid email. If a winner cannot be reached within 30 days, they lose the prize. Anyone 18 or older, of any nationality, can take part; each person can win only once.</p><p><strong>Stay safe:</strong> it is free. Ignore any message asking you to pay a fee, share your password or OTP, or send passport details to claim a prize. For app problems, Nusuk technical support is on <strong>920002814</strong>.</p>` },
-    bn: { title: 'নুসুক ফ্রি উমরাহ প্রতিযোগিতা ২০২৬', html: `<p>প্রতিযোগিতা চলে অফিসিয়াল নুসুক অ্যাপে <strong>১ নভেম্বর থেকে ২০ ডিসেম্বর ২০২৬</strong> পর্যন্ত — ৫০ দিন, প্রতিদিন ড্র।</p><h3>পুরস্কার</h3><ul><li><strong>১০০টি ফ্রি উমরাহ সফর:</strong> ৫০ জন বিজয়ী, প্রত্যেকের সঙ্গে একজন সঙ্গী।</li><li><strong>১০,০০০ কার্টন জমজম পানি:</strong> প্রত্যেক জমজম বিজয়ী পাবেন ২০ কার্টন।</li><li>প্রতিটি উমরাহ পুরস্কারে আছে ভিসা, যাতায়াতের টিকিট, মক্কা ও মদিনায় ১০ রাতের থাকা, পরিবহন ও গাইড। এটি হস্তান্তর বা নগদে বিনিময় করা যায় না।</li><li>জমজম ডেলিভারি শুধু সৌদি আরবের ভেতরে।</li></ul><h3>কীভাবে অংশ নেবেন</h3><ol><li>নুসুক অ্যাপ ডাউনলোড করে সাইন ইন করুন (সৌদি আরবের বাইরের দর্শনার্থীরা সাধারণত ইমেইলে সাইন ইন করেন)।</li><li>১০০-উমরাহ-সফর ব্যানারে "Start the challenge"-এ ট্যাপ করুন, অথবা Games Center-এ খুঁজুন।</li><li>একটি দরজা বেছে নিন — কুরআন, নবীজির সিরাহ, মক্কা, অথবা মদিনা — আর প্রশ্নের উত্তর দিন।</li><li>প্রতিদিন একটি ফ্রি কী; সঠিক উত্তর সেই দিনের ড্রয়ে যায়। দিনের ড্রয়ের পর উত্তর দিলে তা পরের দিনের ড্রয়ে যায়।</li><li>ইনভাইট কোড দিয়ে বাড়তি কী পান: এক জোড়ায় একবারই বিনিময় হয়, তাই অনেক ভিন্ন কোড ব্যবহার করুন।</li></ol><h3>বিজয়ীরা</h3><p>প্রতিদিন একজন বিজয়ীকে ফ্রি উমরাহ সফরের জন্য ড্র করা হয়। বিজয়ীদের নাম প্রতিদিন নুসুকের অফিসিয়াল অ্যাকাউন্টে এবং গেমের ভেতরে Winners পাতায় ঘোষণা করা হয়, আর ইমেইলে যোগাযোগ করা হয় — সঠিক ইমেইল ব্যবহার করুন। ৩০ দিনের মধ্যে যোগাযোগ করা না গেলে বিজয়ী পুরস্কার হারাবেন। ১৮ বছর বা তার বেশি যে কেউ, যেকোনো জাতীয়তার, অংশ নিতে পারেন; প্রত্যেকে একবারই জিততে পারেন।</p><p><strong>নিরাপদ থাকুন:</strong> এটি ফ্রি। পুরস্কার পেতে ফি দিতে, পাসওয়ার্ড বা OTP শেয়ার করতে, অথবা পাসপোর্টের তথ্য পাঠাতে বলা কোনো বার্তা উপেক্ষা করুন। অ্যাপের সমস্যায় নুসুক টেকনিক্যাল সাপোর্ট: <strong>920002814</strong>।</p>` },
+    bn: { title: 'নুসুক ফ্রি উমরাহ প্রতিযোগিতা ২০২৬', html: `<p>প্রতিযোগিতা চলে অফিসিয়াল নুসুক অ্যাপে <strong>১ নভেম্বর থেকে ২০ ডিসেম্বর ২০২৬</strong> পর্যন্ত — ৫০ দিন, প্রতিদিন ড্র।</p><h3>পুরস্কার</h3><ul><li><strong>১০০টি ফ্রি উমরাহ সফর:</strong> ৫০ জন বিজয়ী, প্রত্যেকের সঙ্গে একজন সঙ্গী।</li><li><strong>১০,০০০ কার্টন জমজম পানি:</strong> প্রত্যেক জমজম বিজয়ী পাবেন ২০ কার্টন।</li><li>প্রতিটি উমরাহ পুরস্কারে আছে ভিসা, যাতায়াতের টিকিট, মক্কা ও মদিনায় ১০ রাতের থাকা, পরিবহন ও গাইড। এটি হস্তান্তর বা নগদে বিনিময় করা যায় না।</li><li>জমজম ডেলিভারি শুধু সৌদি আরবের ভেতরে।</li></ul><h3>কীভাবে অংশ নেবেন</h3><ol><li>নুসুক অ্যাপ ডাউনলোড করে সাইন ইন করুন (সৌদি আরবের বাইরের দর্শনার্থীরা সাধারণত ইমেইলে সাইন ইন করেন)।</li><li>১০০-উমরাহ-সফর ব্যানারে "Start the challenge"-এ ট্যাপ করুন, অথবা Games Center-এ খুঁজুন।</li><li>একটি দরজা বেছে নিন — কুরআন, নবীজির সিরাহ, মক্কা, অথবা মদিনা — আর প্রশ্নের উত্তর দিন।</li><li>প্রতিদিন একটি ফ্রি কী; সঠিক উত্তর সেই দিনের ড্রয়ে যায়। দিনের ড্রয়ের পর উত্তর দিলে তা পরের দিনের ড্রয়ে যায়।</li><li>ইনভাইট কোড দিয়ে বাড়তি কী পান: এক জোড়ায় একবারই বিনিময় হয়, তাই অনেক ভিন্ন কোড ব্যবহার করুন।</li></ol><h3>বিজয়ীরা</h3><p>প্রতিদিন একজন বিজয়ীকে ফ্রি উমরাহ সফরের জন্য ড্র করা হয়। বিজয়ীদের নাম প্রতিদিন নুসুকের অফিসিয়াল অ্যাকাউন্টে এবং গেমের ভেতরে Winners পাতায় ঘোষণা করা হয়, আর ইমেইলে যোগাযোগ করা হয় — সঠিক ইমেইল ব্যবহার করুন। ৩০ দিনের মধ্যে যোগাযোগ করা না গেলে বিজয়ী পুরস্কার হারাবেন। ১৮ বছর বা তার বেশি যে কেউ, যেকোনো জাতীয়তার, অংশ নিতে পারেন; প্রত্যেকে একবারই জিততে পারেন।</p><p><strong>নিরাপদ থাকুন:</strong> এটি ফ্রি। পুরস্কার পেতে ফি দিতে, পাসওয়ার্ড বা OTP শেয়ার করতে, অথবা পাসপোর্টের তথ্য পাঠাতে বলা কোনো বার্তা উপেক্ষা করুন। অ্যাপের সমস্যায় নুসুক টেকনিক্যাল সাপোর্ট: <strong>920002814</strong>।</p>` },
     ar: { title: 'مسابقة نسك للعمرة المجانية 2026', html: `<p>تجري المسابقة في تطبيق نسك الرسمي من <strong>1 نوفمبر إلى 20 ديسمبر 2026</strong> — 50 يومًا، مع سحب كل يوم.</p><h3>الجوائز</h3><ul><li><strong>100 رحلة عمرة مجانية:</strong> 50 فائزًا، كل فائز مع مرافق.</li><li><strong>10,000 كرتون من ماء زمزم:</strong> 20 كرتونًا لكل فائز بماء زمزم.</li><li>تشمل كل جائزة عمرة التأشيرة وتذاكر السفر و10 ليالٍ من الإقامة في مكة والمدينة والنقل والإرشاد. ولا يمكن تحويلها أو استبدالها أو صرفها نقدًا.</li><li>توصيل زمزم داخل السعودية فقط.</li></ul><h3>كيف تشارك</h3><ol><li>نزّل تطبيق نسك وسجّل الدخول (الزوار من خارج السعودية يسجلون عادة بالبريد الإلكتروني).</li><li>اضغط "Start the challenge" على لافتة 100 رحلة عمرة، أو ابحث عنها في مركز الألعاب.</li><li>اختر بابًا — القرآن، أو سيرة النبي، أو مكة، أو المدينة — وأجب عن السؤال.</li><li>مفتاح مجاني واحد كل يوم؛ والإجابة الصحيحة تدخلك سحب ذلك اليوم. والإجابة بعد سحب اليوم تدخل سحب اليوم التالي تلقائيًا.</li><li>احصل على مفاتيح إضافية بأكواد الدعوة: لا يمكن لكل شخصين التبادل إلا مرة واحدة، لذا استخدم أكوادًا مختلفة كثيرة.</li></ol><h3>الفائزون</h3><p>يُسحب فائز واحد يوميًا لرحلة عمرة مجانية. ويُعلن عن الفائزين كل يوم على حسابات نسك الرسمية وعلى صفحة الفائزين داخل اللعبة، ويُتواصل معهم بالبريد الإلكتروني — استخدم بريدًا صحيحًا. وإذا تعذر الوصول إلى فائز خلال 30 يومًا، يفقد الجائزة. ويمكن لأي شخص عمره 18 عامًا أو أكثر، من أي جنسية، المشاركة؛ ويمكن لكل شخص الفوز مرة واحدة فقط.</p><p><strong>كن آمنًا:</strong> المسابقة مجانية. تجاهل أي رسالة تطلب دفع رسوم أو مشاركة كلمة مرورك أو رمز التحقق أو إرسال تفاصيل جواز السفر لاستلام جائزة. ولمشاكل التطبيق، الدعم الفني لنسك على الرقم <strong>920002814</strong>.</p>` },
   },
   umrah: {
     en: { title: 'Umrah step by step', html: `<p>Umrah has four main acts: <strong>Ihram, Tawaf</strong> around the Kaaba (7 circuits), <strong>Sa'i</strong> between Safa and Marwa (7 circuits), then shaving the head or shortening the hair (<strong>Halq or Qasr</strong>).</p><h3>1. Ihram</h3><p>Enter Ihram from the Miqat — bathe, apply perfume before Ihram, and make the intention: "Labbayka Allahumma Umratan". Men wear two white cloths (Izar and Rida). Then keep reciting the Talbiyah on the way: "Labbayka Allahumma labbayk, labbayka la sharika laka labbayk, innal-hamda wan-ni'mata laka wal-mulk, la sharika lak."</p><h3>Miqat — where to enter Ihram</h3><p>It depends on your route, not only your country. Those inside the Miqat boundary enter Ihram from their own place; Makkah residents enter from a Hill area like Tan'im.</p><ul><li><strong>Dhul-Hulayfah</strong> (Abyar Ali) — for Madinah</li><li><strong>Juhfah</strong> (Rabigh) — for Egypt, Sham and the Maghreb</li><li><strong>Qarn al-Manazil</strong> (As-Sayl al-Kabir) — for Najd and Taif</li><li><strong>Yalamlam</strong> (As-Sa'diyah) — for Yemen</li><li><strong>Dhat Irq</strong> (Ad-Dariba) — for Iraq</li></ul><p>By plane: make the intention in the air when passing the Miqat (the crew usually announces it). Men should wear Ihram clothes before flying.</p><h3>Ihram prohibitions</h3><p>From the intention until Halq/Qasr: no cutting hair or nails; no perfume on body or clothes after Ihram; no head covering for men; no sewn clothes for men (shirt, trousers); no hunting land animals; no marriage or sexual relations. Women may wear any modest clothes except niqab and gloves.</p><h3>2. Tawaf</h3><p>Start at the Black Stone, with the Kaaba on your left, and complete 7 circuits. Stop the Talbiyah once Tawaf starts. Touch the Black Stone if easy; otherwise gesture towards it and say "Allahu Akbar" without pushing. Go outside Hateem (Hijr Ismail) — it is part of the Kaaba, and a circuit through it does not count. Most scholars require purity, so do wudu first. Then pray 2 rak'ahs behind Maqam Ibrahim if possible, otherwise anywhere in the mosque, and drink Zamzam.</p><h3>3. Sa'i</h3><p>Start at Safa and end at Marwa — 7 circuits (Safa to Marwa is one circuit). At Safa recite: "Innas-Safa wal-Marwata min sha'a'irillah". Climb, face the Kaaba, say Takbir and make dua. Men walk fast between the two green markers. If unsure of the count, take the lower number.</p><h3>4. Halq / Qasr</h3><p>Men shave (Halq, better) or shorten (Qasr) their hair. Women cut a fingertip's length from the end of the hair — they do not shave.</p><h3>Women's Umrah</h3><p>Ordinary modest clothes, no specific colour required; no Raml or Idtiba; shorten the hair instead of shaving. A menstruating or postpartum woman enters Ihram from the Miqat and does everything except Tawaf until she is pure, then completes her Umrah.</p><h3>Common mistakes</h3><ul><li>Crossing the Miqat without Ihram.</li><li>Keeping the right shoulder uncovered for the whole Ihram — Idtiba is only a sunnah during Tawaf.</li><li>Doing Tawaf through Hateem.</li><li>Pushing at the Black Stone.</li><li>Clinging to a dua book for each circuit — no fixed dua per circuit is established; make any dua.</li></ul><p>How long does Umrah take? Usually 2–4 hours depending on crowds; late night and early morning are usually less crowded.</p><p><strong>For fiqh detail, ask a trusted scholar.</strong> This guide summarises the majority consensus.</p>` },
-    bn: { title: 'ধাপে ধাপে উমরাহ', html: `<p>উমরাহর চারটি মূল কাজ: <strong>ইহরাম, তাওয়াফ</strong> কাবার চারপাশে (৭ চক্কর), <strong>সাঈ</strong> সাফা ও মারওয়ার মধ্যে (৭ চক্কর), তারপর মাথা মুণ্ডন বা চুল ছোট করা (<strong>হালক বা কসর</strong>)।</p><h3>১. ইহরাম</h3><p>মিকাত থেকে ইহরাম বাঁধুন — গোসল করুন, ইহরামের আগে সুগন্ধি লাগান, আর নিয়ত করুন: "লাব্বাইকা আল্লাহুম্মা উমরাতান"। পুরুষরা দুটি সাদা কাপড় (ইজার ও রিদা) পরবেন। তারপর পথে তালবিয়াহ পড়তে থাকুন: "লাব্বাইকা আল্লাহুম্মা লাব্বাইক, লাব্বাইকা লা শারীকা লাকা লাব্বাইক, ইন্নাল হামদা ওয়ান-নি'মাতা লাকা ওয়াল মুলক, লা শারীকা লাক।"</p><h3>মিকাত — কোথা থেকে ইহরাম বাঁধবেন</h3><p>এটি আপনার রুটের ওপর নির্ভর করে, শুধু দেশের ওপর নয়। মিকাতের সীমানার ভেতরে যারা আছেন তারা নিজের জায়গা থেকে ইহরাম বাঁধবেন; মক্কার বাসিন্দারা তান'ইমের মতো হিল এলাকা থেকে বাঁধবেন।</p><ul><li><strong>জুল-হুলায়ফা</strong> (আবইয়ার আলি) — মদিনার জন্য</li><li><strong>জুহফা</strong> (রাবিগ) — মিশর, শাম ও মাগরিবের জন্য</li><li><strong>কারন আল-মানাজিল</strong> (আস-সায়ল আল-কাবির) — নজদ ও তায়েফের জন্য</li><li><strong>ইয়ালামলাম</strong> (আস-সা'দিয়াহ) — ইয়েমেনের জন্য</li><li><strong>জাত ইরক</strong> (আদ-দারিবা) — ইরাকের জন্য</li></ul><p>বিমানে: মিকাত পার হওয়ার সময় আকাশে নিয়ত করুন (ক্রু সাধারণত ঘোষণা দেন)। পুরুষরা উড়ানের আগেই ইহরামের পোশাক পরে নেবেন।</p><h3>ইহরামের নিষেধাজ্ঞা</h3><p>নিয়ত থেকে হালক/কসর পর্যন্ত: চুল বা নখ কাটা যাবে না; ইহরামের পর শরীরে বা কাপড়ে সুগন্ধি নয়; পুরুষদের মাথা ঢাকা যাবে না; পুরুষদের সেলাই করা পোশাক (শার্ট, প্যান্ট) নয়; স্থলের প্রাণী শিকার নয়; বিয়ে বা সহবাস নয়। নারীরা নিকাব ও দস্তানা ছাড়া যেকোনো শালীন পোশাক পরতে পারেন।</p><h3>২. তাওয়াফ</h3><p>হাজরে আসওয়াদ থেকে শুরু করুন, কাবা আপনার বামে রেখে, ৭ চক্কর পূর্ণ করুন। তাওয়াফ শুরু হলে তালবিয়াহ বন্ধ করুন। সহজ হলে হাজরে আসওয়াদ স্পর্শ করুন; না হলে তার দিকে ইশারা করে "আল্লাহু আকবার" বলুন, ধাক্কা না দিয়ে। হাতীমের (হিজর ইসমাঈল) বাইরে দিয়ে যান — এটি কাবার অংশ, এর ভেতর দিয়ে চক্কর গণ্য হয় না। অধিকাংশ আলেম পবিত্রতা শর্ত করেন, তাই আগে ওজু করুন। তারপর সম্ভব হলে মাকামে ইবরাহীমের পেছনে ২ রাকাত নামাজ পড়ুন, না হলে মসজিদের যেকোনো জায়গায়, আর জমজম পান করুন।</p><h3>৩. সাঈ</h3><p>সাফা থেকে শুরু করে মারওয়ায় শেষ করুন — ৭ চক্কর (সাফা থেকে মারওয়া এক চক্কর)। সাফায় পড়ুন: "ইন্নাস-সাফা ওয়াল-মারওয়াতা মিন শা'আইরিল্লাহ"। উঠুন, কাবার দিকে মুখ করুন, তাকবির বলুন ও দুআ করুন। পুরুষরা দুটি সবুজ চিহ্নের মাঝে দ্রুত হাঁটবেন। গণনায় সন্দেহ হলে কম সংখ্যাটি ধরুন।</p><h3>৪. হালক / কসর</h3><p>পুরুষরা মাথা মুণ্ডন (হালক, উত্তম) বা চুল ছোট (কসর) করবেন। নারীরা চুলের আগা থেকে আঙুলের এক গিঁট পরিমাণ কাটবেন — মুণ্ডন করবেন না।</p><h3>নারীদের উমরাহ</h3><p>সাধারণ শালীন পোশাক, কোনো নির্দিষ্ট রং দরকার নেই; রমল বা ইদতিবা নেই; মুণ্ডনের বদলে চুল ছোট করবেন। ঋতুমতী বা প্রসূতি নারী মিকাত থেকে ইহরাম বাঁধবেন এবং পবিত্র না হওয়া পর্যন্ত তাওয়াফ ছাড়া সবকিছু করবেন, তারপর উমরাহ পূর্ণ করবেন।</p><h3>সাধারণ ভুল</h3><ul><li>ইহরাম ছাড়া মিকাত পার হওয়া।</li><li>পুরো ইহরাম জুড়ে ডান কাঁধ খোলা রাখা — ইদতিবা শুধু তাওয়াফের সময় সুন্নত।</li><li>হাতীমের ভেতর দিয়ে তাওয়াফ করা।</li><li>হাজরে আসওয়াদে ধাক্কা দেওয়া।</li><li>প্রতি চক্করের জন্য দুআর বই ধরে থাকা — প্রতি চক্করে নির্দিষ্ট দুআ প্রমাণিত নয়; যেকোনো দুআ করুন।</li></ul><p>উমরাহ করতে কতক্ষণ লাগে? সাধারণত ২–৪ ঘণ্টা, ভিড়ের ওপর নির্ভর করে; গভীর রাত ও ভোরে সাধারণত ভিড় কম থাকে।</p><p><strong>ফিকহি বিস্তারিত জানতে বিশ্বস্ত আলেমের কাছে জিজ্ঞেস করুন।</strong> এই গাইড সংখ্যাগরিষ্ঠ মতের সারাংশ।</p>` },
+    bn: { title: 'ধাপে ধাপে উমরাহ', html: `<p>উমরাহর চারটি মূল কাজ: <strong>ইহরাম, তাওয়াফ</strong> কাবার চারপাশে (৭ চক্কর), <strong>সাঈ</strong> সাফা ও মারওয়ার মধ্যে (৭ চক্কর), তারপর মাথা মুণ্ডন বা চুল ছোট করা (<strong>হালক বা কসর</strong>)।</p><h3>১. ইহরাম</h3><p>মিকাত থেকে ইহরাম বাঁধুন — গোসল করুন, ইহরামের আগে সুগন্ধি লাগান, আর নিয়ত করুন: "লাব্বাইকা আল্লাহুম্মা উমরাতান"। পুরুষরা দুটি সাদা কাপড় (ইজার ও রিদা) পরবেন। তারপর পথে তালবিয়াহ পড়তে থাকুন: "লাব্বাইকা আল্লাহুম্মা লাব্বাইক, লাব্বাইকা লা শারীকা লাকা লাব্বাইক, ইন্নাল হামদা ওয়ান-নি'মাতা লাকা ওয়াল মুলক, লা শারীকা লাক।"</p><h3>মিকাত — কোথা থেকে ইহরাম বাঁধবেন</h3><p>এটি আপনার রুটের ওপর নির্ভর করে, শুধু দেশের ওপর নয়। মিকাতের সীমানার ভেতরে যারা আছেন তারা নিজের জায়গা থেকে ইহরাম বাঁধবেন; মক্কার বাসিন্দারা তান'ইমের মতো হিল এলাকা থেকে বাঁধবেন।</p><ul><li><strong>জুল-হুলায়ফা</strong> (আবইয়ার আলি) — মদিনার জন্য</li><li><strong>জুহফা</strong> (রাবিগ) — মিশর, শাম ও মাগরিবের জন্য</li><li><strong>কারন আল-মানাজিল</strong> (আস-সায়ল আল-কাবির) — নজদ ও তায়েফের জন্য</li><li><strong>ইয়ালামলাম</strong> (আস-সা'দিয়াহ) — ইয়েমেনের জন্য</li><li><strong>জাত ইরক</strong> (আদ-দারিবা) — ইরাকের জন্য</li></ul><p>বিমানে: মিকাত পার হওয়ার সময় আকাশে নিয়ত করুন (ক্রু সাধারণত ঘোষণা দেন)। পুরুষরা উড়ানের আগেই ইহরামের পোশাক পরে নেবেন।</p><h3>ইহরামের নিষেধাজ্ঞা</h3><p>নিয়ত থেকে হালক/কসর পর্যন্ত: চুল বা নখ কাটা যাবে না; ইহরামের পর শরীরে বা কাপড়ে সুগন্ধি নয়; পুরুষদের মাথা ঢাকা যাবে না; পুরুষদের সেলাই করা পোশাক (শার্ট, প্যান্ট) নয়; স্থলের প্রাণী শিকার নয়; বিয়ে বা সহবাস নয়। নারীরা নিকাব ও দস্তানা ছাড়া যেকোনো শালীন পোশাক পরতে পারেন।</p><h3>২. তাওয়াফ</h3><p>হাজরে আসওয়াদ থেকে শুরু করুন, কাবা আপনার বামে রেখে, ৭ চক্কর পূর্ণ করুন। তাওয়াফ শুরু হলে তালবিয়াহ বন্ধ করুন। সহজ হলে হাজরে আসওয়াদ স্পর্শ করুন; না হলে তার দিকে ইশারা করে "আল্লাহু আকবার" বলুন, ধাক্কা না দিয়ে। হাতীমের (হিজর ইসমাঈল) বাইরে দিয়ে যান — এটি কাবার অংশ, এর ভেতর দিয়ে চক্কর গণ্য হয় না। অধিকাংশ আলেম পবিত্রতা শর্ত করেন, তাই আগে ওজু করুন। তারপর সম্ভব হলে মাকামে ইবরাহীমের পেছনে ২ রাকাত নামাজ পড়ুন, না হলে মসজিদের যেকোনো জায়গায়, আর জমজম পান করুন।</p><h3>৩. সাঈ</h3><p>সাফা থেকে শুরু করে মারওয়ায় শেষ করুন — ৭ চক্কর (সাফা থেকে মারওয়া এক চক্কর)। সাফায় পড়ুন: "ইন্নাস-সাফা ওয়াল-মারওয়াতা মিন শা'আইরিল্লাহ"। উঠুন, কাবার দিকে মুখ করুন, তাকবির বলুন ও দুআ করুন। পুরুষরা দুটি সবুজ চিহ্নের মাঝে দ্রুত হাঁটবেন। গণনায় সন্দেহ হলে কম সংখ্যাটি ধরুন।</p><h3>৪. হালক / কসর</h3><p>পুরুষরা মাথা মুণ্ডন (হালক, উত্তম) বা চুল ছোট (কসর) করবেন। নারীরা চুলের আগা থেকে আঙুলের এক গিঁট পরিমাণ কাটবেন — মুণ্ডন করবেন না।</p><h3>নারীদের উমরাহ</h3><p>সাধারণ শালীন পোশাক, কোনো নির্দিষ্ট রং দরকার নেই; রমল বা ইদতিবা নেই; মুণ্ডনের বদলে চুল ছোট করবেন। ঋতুমতী বা প্রসূতি নারী মিকাত থেকে ইহরাম বাঁধবেন এবং পবিত্র না হওয়া পর্যন্ত তাওয়াফ ছাড়া সবকিছু করবেন, তারপর উমরাহ পূর্ণ করবেন।</p><h3>সাধারণ ভুল</h3><ul><li>ইহরাম ছাড়া মিকাত পার হওয়া।</li><li>পুরো ইহরাম জুড়ে ডান কাঁধ খোলা রাখা — ইদতিবা শুধু তাওয়াফের সময় সুন্নত।</li><li>হাতীমের ভেতর দিয়ে তাওয়াফ করা।</li><li>হাজরে আসওয়াদে ধাক্কা দেওয়া।</li><li>প্রতি চক্করের জন্য দুআর বই ধরে থাকা — প্রতি চক্করে নির্দিষ্ট দুআ প্রমাণিত নয়; যেকোনো দুআ করুন।</li></ul><p>উমরাহ করতে কতক্ষণ লাগে? সাধারণত ২–৪ ঘণ্টা, ভিড়ের ওপর নির্ভর করে; গভীর রাত ও ভোরে সাধারণত ভিড় কম থাকে।</p><p><strong>ফিকহি বিস্তারিত জানতে বিশ্বস্ত আলেমের কাছে জিজ্ঞেস করুন।</strong> এই গাইড সংখ্যাগরিষ্ঠ মতের সারাংশ।</p>` },
     ar: { title: 'العمرة خطوة بخطوة', html: `<p>للعمرة أربعة أعمال رئيسية: <strong>الإحرام، والطواف</strong> حول الكعبة (7 أشواط)، <strong>والسعي</strong> بين الصفا والمروة (7 أشواط)، ثم حلق الرأس أو تقصير الشعر (<strong>الحلق أو القصر</strong>).</p><h3>1. الإحرام</h3><p>أحرم من الميقات — اغتسل، وتطيّب قبل الإحرام، وانْوِ: "لبيك اللهم عمرة". ويلبس الرجال ثوبين أبيضين (الإزار والرداء). ثم واصل التلبية في الطريق: "لبيك اللهم لبيك، لبيك لا شريك لك لبيك، إن الحمد والنعمة لك والملك، لا شريك لك".</p><h3>المواقيت — من أين تُحرم</h3><p>يعتمد ذلك على طريقك، لا على بلدك فقط. ومن كان داخل حدود الميقات يُحرم من مكانه؛ وأهل مكة يُحرمون من منطقة الحل مثل التنعيم.</p><ul><li><strong>ذو الحليفة</strong> (أبيار علي) — لأهل المدينة</li><li><strong>الجحفة</strong> (رابغ) — لأهل مصر والشام والمغرب</li><li><strong>قرن المنازل</strong> (السيل الكبير) — لأهل نجد والطائف</li><li><strong>يلملم</strong> (السعدية) — لأهل اليمن</li><li><strong>ذات عرق</strong> (الضريبة) — لأهل العراق</li></ul><p>بالطائرة: انْوِ في الجو عند محاذاة الميقات (وعادة ما يعلن الطاقم ذلك). وعلى الرجال لبس ملابس الإحرام قبل الطيران.</p><h3>محظورات الإحرام</h3><p>من النية حتى الحلق/القصر: لا قص للشعر أو الأظافر؛ ولا طيب على الجسم أو الثياب بعد الإحرام؛ ولا تغطية للرأس للرجال؛ ولا لبس مخيط للرجال (قميص، بنطال)؛ ولا صيد لحيوانات البر؛ ولا نكاح أو جماع. ويجوز للمرأة لبس أي ثياب ساترة إلا النقاب والقفازين.</p><h3>2. الطواف</h3><p>ابدأ من الحجر الأسود، والكعبة على يسارك، وأكمل 7 أشواط. وتوقف عن التلبية عند بدء الطواف. والمس الحجر الأسود إن تيسر؛ وإلا فأشر إليه وقل "الله أكبر" دون مزاحمة. وامشِ خارج الحطيم (حجر إسماعيل) — فهو جزء من الكعبة، والشوط من خلاله لا يُحتسب. ويشترط أكثر العلماء الطهارة، فتوضأ أولًا. ثم صلِّ ركعتين خلف مقام إبراهيم إن تيسر، وإلا في أي مكان في المسجد، واشرب من زمزم.</p><h3>3. السعي</h3><p>ابدأ من الصفا وانتهِ بالمروة — 7 أشواط (من الصفا إلى المروة شوط واحد). وعند الصفا اقرأ: "إن الصفا والمروة من شعائر الله". واصعد، واستقبل الكعبة، وكبّر وادعُ. ويمشي الرجال بسرعة بين العلمين الأخضرين. وإن شككت في العدد فخذ الأقل.</p><h3>4. الحلق / القصر</h3><p>يحلق الرجال (الحلق أفضل) أو يقصّرون شعرهم. وتقص المرأة من طرف شعرها مقدار أنملة — ولا تحلق.</p><h3>عمرة المرأة</h3><p>ثياب عادية ساترة، دون لون معين؛ ولا رمل ولا اضطباع؛ وتقصّر شعرها بدل الحلق. والحائض أو النفساء تُحرم من الميقات وتفعل كل شيء إلا الطواف حتى تطهر، ثم تكمل عمرتها.</p><h3>أخطاء شائعة</h3><ul><li>تجاوز الميقات دون إحرام.</li><li>كشف الكتف الأيمن طوال الإحرام — الاضطباع سنة أثناء الطواف فقط.</li><li>الطواف من خلال الحطيم.</li><li>المزاحمة عند الحجر الأسود.</li><li>التعلق بكتاب أدعية لكل شوط — لم يثبت دعاء معين لكل شوط؛ ادعُ بما شئت.</li></ul><p>كم تستغرق العمرة؟ عادة من ساعتين إلى 4 ساعات حسب الزحام؛ وآخر الليل وأول الصباح أقل ازدحامًا عادة.</p><p><strong>للتفاصيل الفقهية، اسأل عالمًا موثوقًا.</strong> هذا الدليل ملخص لرأي الجمهور.</p>` },
   },
   privacy: {
     en: { title: 'Privacy policy', html: `<p><strong>Who runs this site:</strong> an independent community tool for sharing Nusuk referral codes. No account is needed, and we never ask for your name or email to view codes.</p><p><strong>What is processed:</strong> the codes you submit, the time they were submitted, and whether they were reported as not working. A keyed hash of the submitter's network address is used only to prevent duplicate submissions — the real address is not kept in the code record. Cloudflare processes connection technical data to serve the site.</p><p><strong>What your browser stores:</strong> which codes you have tried, your own key, and your language choice — on your device only.</p><p><strong>Ads and cookies:</strong> this site shows no ads and sets no tracking cookies. The key cookie (mk_key) only remembers your own Nusuk key so you are not asked twice.</p>` },
-    bn: { title: 'গোপনীয়তা নীতি', html: `<p><strong>এই সাইট কে চালায়:</strong> নুসুক রেফারেল কোড শেয়ার করার একটি স্বাধীন কমিউনিটি টুল। কোনো অ্যাকাউন্ট দরকার নেই, আর কোড দেখতে আমরা কখনো আপনার নাম বা ইমেইল চাই না।</p><p><strong>কী প্রক্রিয়া করা হয়:</strong> আপনি যে কোড জমা দেন, জমা দেওয়ার সময়, এবং তা কাজ না করছে বলে জানানো হয়েছে কি না। ডুপ্লিকেট জমা ঠেকাতে জমাদানকারীর নেটওয়ার্ক ঠিকানার একটি হ্যাশ ব্যবহার করা হয় — আসল ঠিকানা কোডের রেকর্ডে রাখা হয় না। Cloudflare সাইট পরিবেশনের জন্য সংযোগের প্রযুক্তিগত তথ্য প্রক্রিয়া করে।</p><p><strong>আপনার ব্রাউজার কী সংরক্ষণ করে:</strong> কোন কোড চেষ্টা করেছেন, আপনার নিজের কী, আর ভাষার পছন্দ — শুধু আপনার ডিভাইসে।</p><p><strong>বিজ্ঞাপন ও কুকি:</strong> এই সাইটে কোনো বিজ্ঞাপন নেই, কোনো ট্র্যাকিং কুকি নেই। কী কুকি (mk_key) শুধু আপনার নিজের নুসুক কী মনে রাখে, যাতে দুবার জিজ্ঞেস না করতে হয়।</p>` },
+    bn: { title: 'গোপনীয়তা নীতি', html: `<p><strong>এই সাইট কে চালায়:</strong> নুসুক রেফারেল কোড শেয়ার করার একটি স্বাধীন কমিউনিটি টুল। কোনো অ্যাকাউন্ট দরকার নেই, আর কোড দেখতে আমরা কখনো আপনার নাম বা ইমেইল চাই না।</p><p><strong>কী প্রক্রিয়া করা হয়:</strong> আপনি যে কোড জমা দেন, জমা দেওয়ার সময়, এবং তা কাজ না করছে বলে জানানো হয়েছে কি না। ডুপ্লিকেট জমা ঠেকাতে জমাদানকারীর নেটওয়ার্ক ঠিকানার একটি হ্যাশ ব্যবহার করা হয় — আসল ঠিকানা কোডের রেকর্ডে রাখা হয় না। Cloudflare সাইট পরিবেশনের জন্য সংযোগের প্রযুক্তিগত তথ্য প্রক্রিয়া করে।</p><p><strong>আপনার ব্রাউজার কী সংরক্ষণ করে:</strong> কোন কোড চেষ্টা করেছেন, আপনার নিজের কী, আর ভাষার পছন্দ — শুধু আপনার ডিভাইসে।</p><p><strong>বিজ্ঞাপন ও কুকি:</strong> এই সাইটে কোনো বিজ্ঞাপন নেই, কোনো ট্র্যাকিং কুকি নেই। কী কুকি (mk_key) শুধু আপনার নিজের নুসুক কী মনে রাখে, যাতে দুবার জিজ্ঞেস না করতে হয়।</p>` },
     ar: { title: 'سياسة الخصوصية', html: `<p><strong>من يدير هذا الموقع:</strong> أداة مجتمع مستقلة لمشاركة أكواد إحالة نسك. لا حاجة إلى حساب، ولا نطلب اسمك أو بريدك لعرض الأكواد.</p><p><strong>ما الذي يُعالج:</strong> الأكواد التي ترسلها، ووقت إرسالها، وما إذا أُبلغ عنها بأنها لا تعمل. ويُستخدم تجزئة مفتاحية لعنوان الشبكة الخاص بالمرسل لمنع الإرسال المكرر فقط — ولا يُحفظ العنوان الحقيقي في سجل الكود. وتعالج Cloudflare بيانات الاتصال التقنية لتقديم الموقع.</p><p><strong>ما الذي يخزنه متصفحك:</strong> الأكواد التي جربتها، ومفتاحك الخاص، واختيار لغتك — على جهازك فقط.</p><p><strong>الإعلانات وملفات تعريف الارتباط:</strong> لا يعرض هذا الموقع إعلانات ولا يضع ملفات تعريف ارتباط للتتبع. وملف تعريف الارتباط الخاص بالمفتاح (mk_key) يتذكر مفتاح نسك الخاص بك فقط حتى لا يُطلب منك مرتين.</p>` },
   },
   terms: {
     en: { title: 'Terms of use', html: `<p>Using this site means you agree to these terms. It is an independent community page for viewing, copying, opening and sharing Nusuk referral codes. It is not affiliated with or endorsed by Nusuk, the Ministry of Hajj and Umrah, or any government body.</p><p><strong>No guarantee:</strong> there is no guarantee that any code is valid, active or accepted by the Nusuk app, nor that any prize will be won. Codes are shared by users.</p><p>Submit only codes you have the right to share. Do not put personal or secret information in the form. Submissions may be reviewed, rejected or removed; publication is not guaranteed. Do not submit fake or misleading codes, do not disrupt the service, and do not bypass the submission limits.</p><p>Links on this site may open the Nusuk app; the app is under its own terms. These terms may be updated; the current version is the one shown here.</p>` },
-    bn: { title: 'ব্যবহারের শর্তাবলি', html: `<p>এই সাইট ব্যবহার করলে আপনি এই শর্তাবলিতে সম্মত হচ্ছেন। এটি নুসুক রেফারেল কোড দেখা, কপি করা, খোলা ও শেয়ার করার একটি স্বাধীন কমিউনিটি পাতা। এটি নুসুক, হজ ও উমরাহ মন্ত্রণালয়, বা কোনো সরকারি সংস্থার সঙ্গে সম্পর্কিত বা তাদের অনুমোদিত নয়।</p><p><strong>কোনো নিশ্চয়তা নেই:</strong> কোনো কোড বৈধ, সক্রিয়, বা নুসুক অ্যাপে গৃহীত হবে, অথবা কোনো পুরস্কার জেতা যাবে — এর কোনো নিশ্চয়তা নেই। কোডগুলো ব্যবহারকারীদের শেয়ার করা।</p><p>শুধু সেই কোড জমা দিন যা শেয়ার করার অধিকার আপনার আছে। ফর্মে ব্যক্তিগত বা গোপন তথ্য দেবেন না। জমা পর্যালোচনা, প্রত্যাখ্যান বা সরানো হতে পারে; প্রকাশের নিশ্চয়তা নেই। ভুয়া বা বিভ্রান্তিকর কোড দেবেন না, সার্ভিসে ব্যাঘাত ঘটাবেন না, জমার সীমা এড়াবেন না।</p><p>এই সাইটের লিংক নুসুক অ্যাপ খুলতে পারে; অ্যাপ তার নিজের শর্তে চলে। এই শর্তাবলি আপডেট হতে পারে; এখানে দেখানো সংস্করণই বর্তমান।</p>` },
+    bn: { title: 'ব্যবহারের শর্তাবলি', html: `<p>এই সাইট ব্যবহার করলে আপনি এই শর্তাবলিতে সম্মত হচ্ছেন। এটি নুসুক রেফারেল কোড দেখা, কপি করা, খোলা ও শেয়ার করার একটি স্বাধীন কমিউনিটি পাতা। এটি নুসুক, হজ ও উমরাহ মন্ত্রণালয়, বা কোনো সরকারি সংস্থার সঙ্গে সম্পর্কিত বা তাদের অনুমোদিত নয়।</p><p><strong>কোনো নিশ্চয়তা নেই:</strong> কোনো কোড বৈধ, সক্রিয়, বা নুসুক অ্যাপে গৃহীত হবে, অথবা কোনো পুরস্কার জেতা যাবে — এর কোনো নিশ্চয়তা নেই। কোডগুলো ব্যবহারকারীদের শেয়ার করা।</p><p>শুধু সেই কোড জমা দিন যা শেয়ার করার অধিকার আপনার আছে। ফর্মে ব্যক্তিগত বা গোপন তথ্য দেবেন না। জমা পর্যালোচনা, প্রত্যাখ্যান বা সরানো হতে পারে; প্রকাশের নিশ্চয়তা নেই। ভুয়া বা বিভ্রান্তিকর কোড দেবেন না, সার্ভিসে ব্যাঘাত ঘটাবেন না, জমার সীমা এড়াবেন না।</p><p>এই সাইটের লিংক নুসুক অ্যাপ খুলতে পারে; অ্যাপ তার নিজের শর্তে চলে। এই শর্তাবলি আপডেট হতে পারে; এখানে দেখানো সংস্করণই বর্তমান।</p>` },
     ar: { title: 'شروط الاستخدام', html: `<p>استخدامك هذا الموقع يعني موافقتك على هذه الشروط. وهو صفحة مجتمع مستقلة لعرض أكواد إحالة نسك ونسخها وفتحها ومشاركتها. وهو غير تابع لنسك أو وزارة الحج والعمرة أو أي جهة حكومية، وغير معتمد منها.</p><p><strong>لا ضمان:</strong> لا ضمان بأن أي كود صالح أو نشط أو مقبول في تطبيق نسك، ولا بأن تُربح أي جائزة. الأكواد يشاركها المستخدمون.</p><p>أرسل فقط الأكواد التي يحق لك مشاركتها. ولا تضع معلومات شخصية أو سرية في النموذج. وقد تُراجع الإرسالات أو تُرفض أو تُزال؛ والنشر غير مضمون. ولا ترسل أكوادًا مزيفة أو مضللة، ولا تعطل الخدمة، ولا تتجاوز حدود الإرسال.</p><p>قد تفتح روابط هذا الموقع تطبيق نسك؛ والتطبيق يخضع لشروطه الخاصة. وقد تُحدَّث هذه الشروط؛ والنسخة المعروضة هنا هي الحالية.</p>` },
   },
   developers: {
     en: { title: 'Developers — open data', html: `<p>Our code list is open data for any website or community. No registration or key is needed.</p><ul><li><code>codes.json</code> — all codes (code, id, rid), newest first.</li><li><code>codes-head.json</code> — the first 400 codes, a small file for a quick start.</li></ul><p>Example (JavaScript):</p><pre>const res = await fetch('https://nusukkeys-cu9.pages.dev/codes.json');
 const data = await res.json();
 console.log(data.codes.length, data.codes[0]);</pre><p><strong>Fair use:</strong> fetch each file at most once every 15 minutes and cache it. Codes are added by users — there is no guarantee of validity in Nusuk.</p>` },
-    bn: { title: 'ডেভেলপারদের জন্য — উন্মুক্ত তথ্য', html: `<p>আমাদের কোডের তালিকা যেকোনো ওয়েবসাইট বা কমিউনিটির জন্য উন্মুক্ত তথ্য। কোনো রেজিস্ট্রেশন বা কী দরকার নেই।</p><ul><li><code>codes.json</code> — সব কোড (code, id, rid), নতুন আগে।</li><li><code>codes-head.json</code> — প্রথম ৪০০ কোড, দ্রুত শুরু করার জন্য ছোট ফাইল।</li></ul><p>উদাহরণ (JavaScript):</p><pre>const res = await fetch('https://nusukkeys-cu9.pages.dev/codes.json');
+    bn: { title: 'ডেভেলপারদের জন্য — উন্মুক্ত তথ্য', html: `<p>আমাদের কোডের তালিকা যেকোনো ওয়েবসাইট বা কমিউনিটির জন্য উন্মুক্ত তথ্য। কোনো রেজিস্ট্রেশন বা কী দরকার নেই।</p><ul><li><code>codes.json</code> — সব কোড (code, id, rid), নতুন আগে।</li><li><code>codes-head.json</code> — প্রথম ৪০০ কোড, দ্রুত শুরু করার জন্য ছোট ফাইল।</li></ul><p>উদাহরণ (JavaScript):</p><pre>const res = await fetch('https://nusukkeys-cu9.pages.dev/codes.json');
 const data = await res.json();
-console.log(data.codes.length, data.codes[0]);</pre><p><strong>ন্যায্য ব্যবহার:</strong> প্রতিটি ফাইল ১৫ মিনিটে সর্বোচ্চ একবার নিন আর ক্যাশ করুন। কোডগুলো ব্যবহারকারীদের দেওয়া — নুসুকে বৈধতার কোনো নিশ্চয়তা নেই।</p>` },
+console.log(data.codes.length, data.codes[0]);</pre><p><strong>ন্যায্য ব্যবহার:</strong> প্রতিটি ফাইল ১৫ মিনিটে সর্বোচ্চ একবার নিন আর ক্যাশ করুন। কোডগুলো ব্যবহারকারীদের দেওয়া — নুসুকে বৈধতার কোনো নিশ্চয়তা নেই।</p>` },
     ar: { title: 'للمطورين — بيانات مفتوحة', html: `<p>قائمة الأكواد لدينا بيانات مفتوحة لأي موقع أو مجتمع. لا حاجة إلى تسجيل أو مفتاح.</p><ul><li><code>codes.json</code> — كل الأكواد (code, id, rid)، الأحدث أولًا.</li><li><code>codes-head.json</code> — أول 400 كود، ملف صغير لبداية سريعة.</li></ul><p>مثال (JavaScript):</p><pre>const res = await fetch('https://nusukkeys-cu9.pages.dev/codes.json');
 const data = await res.json();
 console.log(data.codes.length, data.codes[0]);</pre><p><strong>الاستخدام العادل:</strong> اجلب كل ملف مرة واحدة كل 15 دقيقة على الأكثر وخزّنه. الأكواد يضيفها المستخدمون — ولا ضمان لصحتها في نسك.</p>` },
@@ -965,6 +839,11 @@ function renderSections() {
     const sec = (SECTIONS_I18N[key] || {})[state.lang] || SECTIONS_I18N[key].en;
     el.innerHTML = `<h2>${esc(sec.title)}</h2>${sec.html}`;
   }
+  // The Umrah heading is also the expandable button (the section's
+  // <summary>), so it shows the section title in the visitor's
+  // language too.
+  const umrahTitle = $('umrah-summary-title');
+  if (umrahTitle) umrahTitle.textContent = ((SECTIONS_I18N.umrah || {})[state.lang] || SECTIONS_I18N.umrah.en).title;
 }
 
 // Umrah packing checklist — categories + items, English, Bengali,
@@ -980,11 +859,11 @@ const CHECKLIST_I18N = {
   ],
   bn: [
     ['কাগজপত্র ও অ্যাপ', ['বৈধ পাসপোর্ট + উমরাহ উপযোগী ভিসা', 'নুসুক অ্যাপ থেকে উমরাহ পারমিট, ফোনে সেভ করা', 'ফ্লাইট ও থাকার বুকিং, প্রিন্ট বা ছবি হিসেবে', 'ব্যাংক কার্ড + কিছু নগদ টাকা', 'ভ্রমণের আগে নুসুক অ্যাপ আপডেট করে লগইন করুন']],
-    ['ইহরামের পোশাক', ['পুরুষ: দুটি সাদা কাপড় — ইজার ও রিদা (এক সেট বাড়তি ভালো)', 'ইজারের জন্য বেল্ট, অথবা টাকা ও কাগজপত্রের থলি', 'আরামদায়ক খোলা স্যান্ডেল', 'নারী: ঢিলেঢালা, শালীন, আরামদায়ক পোশাক', 'টিপস: বাড়িতে আগে ইজার ও রিদা পরার অভ্যাস করুন; ঘাম শোষে এমন সুতি কাপড় নিন — মক্কা বছরের বেশিরভাগ সময় গরম থাকে']],
-    ['স্বাস্থ্য ও আরাম', ['নিয়মিত ওষুধ + প্রেসক্রিপশন', 'সুগন্ধিমুক্ত অ্যান্টি-চ্যাফিং ক্রিম — ইহরামের পর সুগন্ধি নিষিদ্ধ', 'রিফিল করার মতো পানির বোতল', 'মাস্ক ও হ্যান্ড স্যানিটাইজার', 'পাওয়ার ব্যাংক']],
-    ['ফোনে', ['নুসুক অ্যাপ + উমরাহ পারমিট', 'মসজিদ আল-হারামের অফলাইন মানচিত্র', 'থাকার জায়গা ও সঙ্গীদের ফোন নম্বর', 'উমরাহ ধাপের গাইড ও আপনার প্রিয় দুআ']],
-    ['বয়স্ক / যত্ন প্রয়োজন এমনদের জন্য', ['প্রয়োজনে লাঠি বা ভাঁজ করা হুইলচেয়ার', 'ওষুধের লিখিত সময়সূচি', 'পকেটে একটি কার্ড — নাম ও সঙ্গীর ফোন নম্বরসহ', 'কম ভিড়ের সময়ে তাওয়াফ ও সাঈ করার পরিকল্পনা']],
-    ['ভ্রমণের আগে', ['উমরাহর ধাপগুলো দেখে নিন', 'তালবিয়াহ মুখস্থ করুন', 'কোন মিকাত পার হবেন জেনে নিন', 'বিমানযাত্রীরা মিকাত পার হওয়ার সময় ইহরাম বাঁধেন, তাই পুরুষরা উড়ানের আগেই ইহরামের পোশাক পরবেন']],
+    ['ইহরামের পোশাক', ['পুরুষ: দুটি সাদা কাপড় — ইজার ও রিদা (এক সেট বাড়তি ভালো)', 'ইজারের জন্য বেল্ট, অথবা টাকা ও কাগজপত্রের থলি', 'আরামদায়ক খোলা স্যান্ডেল', 'নারী: ঢিলেঢালা, শালীন, আরামদায়ক পোশাক', 'টিপস: বাড়িতে আগে ইজার ও রিদা পরার অভ্যাস করুন; ঘাম শোষে এমন সুতি কাপড় নিন — মক্কা বছরের বেশিরভাগ সময় গরম থাকে']],
+    ['স্বাস্থ্য ও আরাম', ['নিয়মিত ওষুধ + প্রেসক্রিপশন', 'সুগন্ধিমুক্ত অ্যান্টি-চ্যাফিং ক্রিম — ইহরামের পর সুগন্ধি নিষিদ্ধ', 'রিফিল করার মতো পানির বোতল', 'মাস্ক ও হ্যান্ড স্যানিটাইজার', 'পাওয়ার ব্যাংক']],
+    ['ফোনে', ['নুসুক অ্যাপ + উমরাহ পারমিট', 'মসজিদ আল-হারামের অফলাইন মানচিত্র', 'থাকার জায়গা ও সঙ্গীদের ফোন নম্বর', 'উমরাহ ধাপের গাইড ও আপনার প্রিয় দুআ']],
+    ['বয়স্ক / যত্ন প্রয়োজন এমনদের জন্য', ['প্রয়োজনে লাঠি বা ভাঁজ করা হুইলচেয়ার', 'ওষুধের লিখিত সময়সূচি', 'পকেটে একটি কার্ড — নাম ও সঙ্গীর ফোন নম্বরসহ', 'কম ভিড়ের সময়ে তাওয়াফ ও সাঈ করার পরিকল্পনা']],
+    ['ভ্রমণের আগে', ['উমরাহর ধাপগুলো দেখে নিন', 'তালবিয়াহ মুখস্থ করুন', 'কোন মিকাত পার হবেন জেনে নিন', 'বিমানযাত্রীরা মিকাত পার হওয়ার সময় ইহরাম বাঁধেন, তাই পুরুষরা উড়ানের আগেই ইহরামের পোশাক পরবেন']],
   ],
   ar: [
     ['الوثائق والتطبيقات', ['جواز سفر سارٍ + تأشيرة مناسبة للعمرة', 'تصريح العمرة من تطبيق نسك، محفوظ على الهاتف', 'حجوزات الطيران والإقامة، مطبوعة أو كصور', 'بطاقة بنكية + بعض النقود', 'حدّث تطبيق نسك وسجّل الدخول قبل السفر']],
@@ -997,7 +876,7 @@ const CHECKLIST_I18N = {
 };
 const CHECKLIST_FAQ_I18N = {
   en: 'Questions: Can a muhrim wear a watch, belt or glasses? Yes, most scholars say it is allowed. Moisturiser or soap? Allowed if fragrance-free; avoid scented products after the intention of Ihram. Vaccines before Umrah? Check the vaccine requirements announced by Saudi Arabia and your country’s health authority at the time of travel — they change by season.',
-  bn: 'প্রশ্ন: মুহরিম কি ঘড়ি, বেল্ট বা চশমা পরতে পারেন? হ্যাঁ, অধিকাংশ আলেম বলেন জায়েজ। ময়েশ্চারাইজার বা সাবান? সুগন্ধিমুক্ত হলে জায়েজ; ইহরামের নিয়তের পর সুগন্ধিযুক্ত পণ্য এড়িয়ে চলুন। উমরাহর আগে টিকা? ভ্রমণের সময় সৌদি আরব ও আপনার দেশের স্বাস্থ্য কর্তৃপক্ষের ঘোষিত টিকার প্রয়োজনীয়তা দেখুন — মৌসুম অনুযায়ী বদলায়।',
+  bn: 'প্রশ্ন: মুহরিম কি ঘড়ি, বেল্ট বা চশমা পরতে পারেন? হ্যাঁ, অধিকাংশ আলেম বলেন জায়েজ। ময়েশ্চারাইজার বা সাবান? সুগন্ধিমুক্ত হলে জায়েজ; ইহরামের নিয়তের পর সুগন্ধিযুক্ত পণ্য এড়িয়ে চলুন। উমরাহর আগে টিকা? ভ্রমণের সময় সৌদি আরব ও আপনার দেশের স্বাস্থ্য কর্তৃপক্ষের ঘোষিত টিকার প্রয়োজনীয়তা দেখুন — মৌসুম অনুযায়ী বদলায়।',
   ar: 'أسئلة: هل يجوز للمحرم لبس الساعة أو الحزام أو النظارة؟ نعم، يقول أكثر العلماء إنه جائز. والمرطب أو الصابون؟ جائز إن كان بلا رائحة؛ وتجنب المنتجات المعطرة بعد نية الإحرام. واللقاحات قبل العمرة؟ تحقق من متطلبات اللقاحات التي تعلنها السعودية والجهة الصحية في بلدك وقت السفر — فهي تتغير حسب الموسم.',
 };
 
@@ -1043,15 +922,9 @@ function bindTools() {
     const code = normalizeKey(raw);
     const res = $('tool-find-result');
     if (!code) { res.textContent = t('toolFindNone'); res.classList.remove('hidden'); return; }
-    res.innerHTML = `<code>${esc(code)}</code> <button type="button" class="btn-soft" id="tool-find-copy">${esc(t('copy'))}</button> <button type="button" class="btn-soft" id="tool-find-add">${esc(t('toolFindAdd'))}</button>`;
+    res.innerHTML = `<code>${esc(code)}</code> <button type="button" class="btn-soft" id="tool-find-copy">${esc(t('copy'))}</button>`;
     res.classList.remove('hidden');
     $('tool-find-copy').addEventListener('click', () => { copyText(code); toast(t('toastCopied')(code)); });
-    $('tool-find-add').addEventListener('click', () => {
-      $('share-input').value = code;
-      const box = $('share-box');
-      if (box) { box.open = true; box.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-      $('share-input').focus();
-    });
   });
   const checkBtn = $('tool-check-btn');
   if (checkBtn) checkBtn.addEventListener('click', () => {
@@ -1135,10 +1008,36 @@ const fmt = (n) => Number(n || 0).toLocaleString('en');
 // Historical baseline from the PREVIOUS NusukKeys website (lost
 // 2026-11-06; this site is its rebuild). Same numbers as the
 // backend constants: 55,000 visitors and about 100,000 copies from
-// the old site. The live counts are kept separate and added on top,
-// and the history note under the metrics bar labels the two parts.
+// the old site. The live counts are added on top, so the totals
+// count the old site's visitors and copies together with the new
+// ones; the totals are shown as plain numbers.
 const HISTORICAL_VISITORS = 55000;
 const HISTORICAL_COPIES = 100000;
+
+// ---------- Dua in place of the creator credit ----------
+// The dua, in all 7 languages, with the creator's name inside it.
+// Only the name links to the existing Facebook page; the rest of
+// the text (including any case suffix or particle after the name,
+// such as the Bengali কে or the Turkish ’a) is plain text. The
+// name is found by its first occurrence in the text.
+const CREDIT_DUA = {
+  en: { name: 'Hasan Mahmud', text: 'O Allah, grant me, Hasan Mahmud, and every longing heart the joy of saying “Labbayk” at Your House and offering salām at Your Prophet’s Rawdah.' },
+  bn: { name: 'হাসান মাহমুদ', text: 'হে আল্লাহ! আমাকে, হাসান মাহমুদকে এবং প্রতিটি আকুল হৃদয়কে তোমার ঘরে লাব্বাইক বলার এবং নবীর রওজায় সালাম পেশ করার সৌভাগ্য দাও।' },
+  ar: { name: 'حسن محمود', text: 'اللهم ارزقني ولحسن محمود ولكل مشتاق لبيك عند بيتك وسلامًا في روضة نبيك ﷺ' },
+  ur: { name: 'حسن محمود', text: 'اے اللہ! مجھے، حسن محمود کو اور ہر مشتاق دل کو اپنے گھر میں لبیک کہنے اور اپنے نبی ﷺ کے روضے پر سلام پیش کرنے کی سعادت عطا فرما۔' },
+  id: { name: 'Hasan Mahmud', text: 'Ya Allah, karuniakanlah kepadaku, Hasan Mahmud, dan setiap hati yang merindukan kesempatan untuk mengucapkan “Labbaik” di Rumah-Mu dan menyampaikan salam di Raudhah Nabi-Mu ﷺ.' },
+  tr: { name: 'Hasan Mahmud', text: 'Allah’ım! Bana, Hasan Mahmud’a ve özlemle bekleyen her gönle Beyt’inde “Lebbeyk” deme ve Peygamberinin Ravza’sında selam verme nasip eyle.' },
+  hi: { name: 'हसन महमूद', text: 'ऐ अल्लाह! मुझे, हसन महमूद को और हर तड़पते दिल को अपने घर में “लब्बैक” कहने और अपने नबी ﷺ के रौज़े पर सलाम पेश करने की सौभाग्यपूर्ण घड़ी अता फ़रमा।' },
+};
+
+function renderCredit() {
+  const el = $('credit-dua');
+  if (!el) return;
+  const d = CREDIT_DUA[state.lang] || CREDIT_DUA.en;
+  const i = d.text.indexOf(d.name);
+  if (i < 0) { el.textContent = d.text; return; }
+  el.innerHTML = `${esc(d.text.slice(0, i))}<a href="https://www.facebook.com/hasan.m1a" target="_blank" rel="noopener">${esc(d.name)}</a>${esc(d.text.slice(i + d.name.length))}`;
+}
 function randStr(n, alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789') {
   let s = '';
   for (let i = 0; i < n; i++) s += alphabet[Math.floor(Math.random() * alphabet.length)];
@@ -1289,6 +1188,7 @@ function applyLang(lang) {
   renderFixes();
   renderSections();
   renderChecklist();
+  renderCredit();
   renderAll();
 }
 
@@ -1299,7 +1199,6 @@ function renderAll() {
   renderDispenser();
   renderGrid();
   updateNusukLink();
-  renderHelped();
   renderMyCodes();
   $('hero-total').textContent = fmt(state.stats.codes || state.me.total);
   if (state.key) {
@@ -1308,54 +1207,19 @@ function renderAll() {
   }
 }
 
-// "People you helped": how many people copied YOUR key (the pool
-// counts every copy of it). Only shown when the user has a key in
-// the pool; guests have no key to be helped by.
-function renderHelped() {
-  const el = $('helped-line');
-  if (!el) return;
-  const mine = state.me && state.me.mine;
-  if (!mine) { el.classList.add('hidden'); return; }
-  el.textContent = t('helped')(fmt(mine.copies || 0));
-  el.classList.remove('hidden');
-}
-
 function renderGuestWarning() {
   const showWarn = !state.key || !!state.me.anon;
   $('guest-alert').classList.toggle('hidden', !showWarn);
 }
 
-// Split the stats into the historical baseline and the live counts.
-// The server sends the breakdown fields; when they are absent (pure
-// local mode, no server answer yet) the constants + the local numbers
-// are used instead, so the totals are never shown as a brand-new site.
-function historySplit(s) {
-  const has = typeof s.visitors_historical === 'number' && typeof s.used_historical === 'number';
-  const histV = has ? s.visitors_historical : HISTORICAL_VISITORS;
-  const histC = has ? s.used_historical : HISTORICAL_COPIES;
-  const newV = has ? (s.visitors_new || 0) : Math.max(1, (s.visitors_total || 1) - HISTORICAL_VISITORS);
-  const newC = has ? (s.used_new || 0) : Math.max(0, (s.used_total || 0) - HISTORICAL_COPIES);
-  return {
-    histV, histC, newV, newC,
-    totalV: histV + newV,
-    totalC: histC + newC,
-    lastHour: s.visitors_last_hour ?? s.visitors_online ?? 0,
-  };
-}
-
 function renderMetrics() {
   const s = state.stats || {};
-  const h = historySplit(s);
   // Show the true counts (no minimum fudge: a real 0 is honest, and
   // the backend now counts every visitor even while D1 reads are
   // exhausted, so these are accurate, not placeholders). The totals
-  // include the historical baseline; the note below says so plainly.
-  $('m-visitors-total').textContent = fmt(h.totalV);
+  // are the server's combined numbers.
+  $('m-visitors-total').textContent = fmt(s.visitors_total || 0);
   $('m-visitors-online').textContent = t('activeNow')(fmt(s.visitors_online || 0));
-  // History note: the baseline is labelled as history, and the live
-  // numbers since the rebuild are shown next to it.
-  const hn = $('history-note');
-  if (hn) hn.textContent = t('historyNote')(fmt(h.histV), fmt(h.histC), fmt(h.newV), fmt(h.newC), fmt(h.lastHour));
 
   // CODE COPY TIMES is personal: big = this user's total copied codes,
   // small = how many this user copied today. Never any global total.
@@ -1370,9 +1234,8 @@ function renderMetrics() {
 
   // TOTAL COPIES is global and honest: every copy by every user, all
   // time. It is the public popularity number, kept separate from the
-  // personal CODE COPY TIMES above. The total includes the historical
-  // baseline (see historySplit above); the note says so plainly.
-  $('m-total-copies').textContent = fmt(h.totalC);
+  // personal CODE COPY TIMES above.
+  $('m-total-copies').textContent = fmt(s.used_total || 0);
 }
 
 function renderDispenser() {
@@ -1537,7 +1400,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v25').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v27').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -2351,87 +2214,15 @@ function bind() {
     if (!b) return;
     document.querySelectorAll('#filters button').forEach((x) => x.classList.toggle('active', x === b));
     state.list.filter = b.dataset.f;
+    const cl = $('code-list'); if (cl) cl.open = true;
     loadList(true);
   });
 
   let timer;
   $('q').addEventListener('input', (e) => {
+    const cl = $('code-list'); if (cl) cl.open = true;
     clearTimeout(timer);
     timer = setTimeout(() => { state.list.q = e.target.value.trim(); loadList(true); }, 250);
-  });
-
-  // nk-v21: share 1-10 codes at once (umrahcodes batch share).
-  // First submit parses + shows a review; Confirm sends each code
-  // through the existing single-code share endpoint, one at a time
-  // (the server limit is 10 shares/day per device, so a batch of 10
-  // fits exactly). Invalid entries are skipped, never submitted.
-  let pendingShare = null;
-  $('share-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const err = $('share-err');
-    const review = $('share-review');
-    err.classList.add('hidden');
-    review.classList.add('hidden');
-    review.innerHTML = '';
-    const raw = $('share-input').value || '';
-    const found = [...new Set((raw.match(/NG-[A-Za-z0-9]{8}/gi) || []).map((c) => 'NG-' + c.slice(3)))];
-    const invalid = raw.trim() && found.length === 0;
-    if (invalid || found.length === 0) {
-      err.textContent = raw.trim() ? t('err').invalid_code : t('err').empty;
-      err.classList.remove('hidden');
-      return;
-    }
-    if (found.length > 10) {
-      err.textContent = t('shareTooMany');
-      err.classList.remove('hidden');
-      return;
-    }
-    const inPool = found.filter((c) => state.codes.all.some((x) => x.code === c));
-    pendingShare = found;
-    review.innerHTML = `<div>${esc(t('shareReviewTitle')(found.length))}</div>` +
-      `<div class="review-codes">${found.map((c) => `<code class="${inPool.includes(c) ? 'bad' : ''}">${esc(c)}</code>`).join('')}</div>` +
-      (inPool.length ? `<div>${esc(t('shareDup')(inPool.length))}</div>` : '') +
-      `<button type="button" class="btn-dark" id="share-confirm">${esc(t('shareConfirm'))}</button>` +
-      `<button type="button" class="btn-soft" id="share-cancel">${esc(t('shareCancel'))}</button>`;
-    review.classList.remove('hidden');
-    $('share-confirm').addEventListener('click', async () => {
-      review.classList.add('hidden');
-      let added = 0, dup = 0;
-      for (const code of pendingShare) {
-        const shareName = ($('share-name') || {}).value || '';
-        const d = await api('share', { code, name: shareName });
-        if (!d.ok) { if (d.error === 'duplicate') dup++; continue; }
-        added++;
-        if (d.code && state.codes.loaded && !state.codes.byId.has(d.code.id)) {
-          const c = { id: d.code.id, code: d.code.code, rid: d.code.rid,
-            device_id: d.code.device_id || 'community-import',
-            name: d.code.name || '', copies: 0, used: 0 };
-          state.codes.all.push(c);
-          state.codes.byId.set(c.id, c);
-          state.codes.all.sort((x, y) => x.rid - y.rid);
-        }
-      }
-      pendingShare = null;
-      $('share-input').value = '';
-      if (added) {
-        // Remember the codes this device shared, so the "share my
-        // saved codes again" button can fill them back in later.
-        try {
-          const prev = JSON.parse(localStorage.getItem('mk_shared_v1') || '[]') || [];
-          const next = [...new Set([...prev, ...found])].slice(-10);
-          localStorage.setItem('mk_shared_v1', JSON.stringify(next));
-        } catch {}
-      }
-      refreshQueue();
-      toast(added ? t('shareAdded')(added) + (dup ? ` \u00b7 ${t('shareDup')(dup)}` : '') : t('err').duplicate);
-      await loadStats();
-      if (state.list.filter === 'new') loadList(true);
-    });
-    $('share-cancel').addEventListener('click', () => {
-      pendingShare = null;
-      review.classList.add('hidden');
-      review.innerHTML = '';
-    });
   });
 
   bindTools();
@@ -2442,6 +2233,9 @@ function bind() {
       const target = document.querySelector(a.getAttribute('href'));
       if (!target) return;
       if (target.tagName === 'DETAILS') { target.open = true; return; }
+      // The target may sit inside a closed <details> — open that first.
+      const d = target.closest('details');
+      if (d) d.open = true;
       if (target.id === 'guide') {
         ['faq-section', 'guides-section'].forEach((id) => { const d = $(id); if (d) d.open = true; });
       }
@@ -2460,14 +2254,6 @@ function bind() {
   if (clClear) clClear.addEventListener('click', () => { saveChecklist({}); renderChecklist(); });
   const clPrint = $('checklist-print');
   if (clPrint) clPrint.addEventListener('click', () => window.print());
-  const resend = $('share-resend');
-  if (resend) resend.addEventListener('click', () => {
-    let saved = [];
-    try { saved = JSON.parse(localStorage.getItem('mk_shared_v1') || '[]') || []; } catch {}
-    if (!saved.length) { toast(t('shareResendNone')); return; }
-    $('share-input').value = saved.slice(0, 10).join('\n');
-    $('share-input').focus();
-  });
   $('acct').addEventListener('click', () => {
     $('gate-input').value = state.me.anon ? '' : (state.key || '');
     showGate();
@@ -2516,7 +2302,7 @@ async function boot() {
   // mode. Previously the 60s refresh was only set up after a saved
   // key existed, so a first-time guest was touched once at session
   // time and never again, and dropped out of "active now" after
-  // 2 minutes even while still on the page.
+  // 5 minutes even while still on the page.
   ensurePresenceLoop();
   const saved = readCookie() || localStorage.getItem('mk_key');
   if (!saved) return showGate();
@@ -2526,7 +2312,7 @@ async function boot() {
   // Refresh live stats immediately when the tab comes back into
   // view (the 60s loop in ensurePresenceLoop handles the periodic
   // refresh; 60s halves the recurring Function calls — the free tier
-  // allows 100k/day — and the 'active now' window is 2 minutes, so
+  // allows 100k/day — and the 'active now' window is 5 minutes, so
   // the number stays current).
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState !== 'visible') return;
