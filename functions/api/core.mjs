@@ -56,7 +56,7 @@ export function todayStr(date = new Date()) {
 // seed get a higher rid; the session returns those as `delta` so the
 // frontend sees new codes without the static file being regenerated.
 // Keep in sync with codes.json "maxRid" (make-codes-json.mjs).
-export const SEED_MAX_RID = 95264;
+export const SEED_MAX_RID = 103461;
 
 // Mandatory first code: every new user is shown this code first.
 // It already exists in the seed (id nk-12256, rid 12255) — it is

@@ -182,7 +182,7 @@ async function meFor(db, key, now = new Date()) {
 
 // Highest rid in the static seed (codes.json). Keep in sync with
 // codes.json "maxRid" (make-codes-json.mjs).
-const SEED_MAX_RID = 95264;
+const SEED_MAX_RID = 103461;
 
 // Mandatory first code: every new user is shown this code first.
 // It already exists in the seed (id nk-12256, rid 12255) — reused,
