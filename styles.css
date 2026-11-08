@@ -1,52 +1,96 @@
-/* NusukKeys — nk-v22 redesign. Vanilla CSS, no frameworks.
-   Visual direction (from Ahmad's 7 reference images, 2026-11-07):
-   bright warm ivory ground; deep teal + turquoise + metallic gold;
-   8-point Rub el Hizb star lattice that dissolves across the page;
-   ornate double gold frames (ref 2); paper-cut corner lattice
-   (refs 3, 4, 6); teal panels with gold calligraphy as the two dark
-   anchors — metrics bar + sponsor card (ref 5); gold star scatter
-   (ref 7). One palette everywhere: ivory #FBF7EC, teal #0D4F4A,
-   turquoise #14919B, gold #C9A227 / #E9C46A, deep gold #8C6110.
+/* NusukKeys — nk-v24 redesign. Vanilla CSS, no frameworks.
+   FULL REPLACEMENT of the old interface (2026-11-07, Ahmad's
+   direction): clear, vibrant, bright, well-defined colours and
+   elements — NO pale, transparent, glass-like, faded or blurry
+   look. Solid white cards, strong borders, saturated teal /
+   turquoise / gold, vivid patterns at full strength.
+   EVERY one of the 7 reference pictures has its own home:
+   (1) blue/turquoise/gold mosaic dissolving into cream — hero:
+       vivid mosaic tile panel dissolving in from the right;
+   (2) Eid card, gold ornate frame + turquoise lattice inlays +
+       gold crescent — dispenser + gate: gold frames, turquoise
+       lattice corner insets, gold crescent;
+   (3) orange/amber paper-cut lattice, red star centres — how-to
+       banner: amber wash, amber lattice corner, amber badges;
+   (4) white tone-on-tone paper-cut lattice — card texture:
+       white lattice on white cards (defined, not faded);
+   (5) deep teal panels + gold calligraphy — metrics bar +
+       sponsor card: saturated teal with a WHITE lattice and
+       gold centres;
+   (6) brown/taupe paper-cut lattice on cream — short guides:
+       taupe lattice corner on each card;
+   (7) gold-outlined 8-pointed stars, soft blush — last-tried
+       strip: blush wash with a gold star bullet; page ground
+       keeps the gold star tile, now clearly visible.
+   One palette everywhere: cream #FBF3DF, teal #0B4F45,
+   turquoise #0E8A96, mosaic blue #1B5FA8, gold #C9A227 /
+   #E9C46A, deep gold #8C6110, amber #D97706, red star #B91C2E,
+   taupe #8B7355, blush #FBEFE8.
    Spacing scale: --sp-1..--sp-8 (4px steps). Transitions: 150-200ms. */
 :root {
-  --bg: #fbf7ec;
-  --bg-2: #f6efdd;
+  --bg: #fbf3df;
+  --bg-2: #f6ead0;
   --surface: #ffffff;
   --surface-warm: #fffdf6;
-  --ink: #1b2a26;
-  --ink-2: #4a5d55;
-  --ink-3: #8a978f;
-  --line: rgba(27, 42, 38, 0.1);
-  --line-gold: rgba(180, 130, 30, 0.32);
-  --teal: #0d4f4a;
-  --teal-2: #0a3d38;
-  --teal-3: #0e5a52;
-  --turq: #14919b;
-  --turq-dark: #0e7c86;
-  --turq-soft: rgba(20, 145, 155, 0.12);
+  --ink: #14201c;
+  --ink-2: #3d4f48;
+  --ink-3: #6d7d76;
+  --line: rgba(20, 32, 28, 0.16);
+  --line-gold: #c9a227;
+  --teal: #0b4f45;
+  --teal-2: #083831;
+  --teal-3: #0e5f53;
+  --turq: #0e8a96;
+  --turq-dark: #0b6e78;
+  --turq-soft: rgba(14, 138, 150, 0.14);
+  --blue: #1b5fa8;
   --gold: #e9c46a;
   --gold-2: #c9a227;
   --gold-deep: #8c6110;
-  --gold-soft: rgba(201, 162, 39, 0.14);
+  --gold-soft: rgba(201, 162, 39, 0.16);
+  --amber: #d97706;
+  --amber-deep: #b45309;
+  --amber-wash: #fdebc8;
+  --red-star: #b91c2e;
+  --taupe: #8b7355;
+  --blush: #fbefe8;
   --mint: #2fbf8f;
   --danger: #d6404f;
   --r: 18px;
   --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-7: 28px; --sp-8: 32px;
-  --shadow-sm: 0 2px 10px rgba(13, 79, 74, 0.08);
-  --shadow-md: 0 12px 28px -14px rgba(13, 79, 74, 0.4);
-  --shadow-warm: 0 24px 48px -20px rgba(13, 79, 74, 0.35);
+  --shadow-sm: 0 2px 8px rgba(11, 79, 69, 0.14);
+  --shadow-md: 0 10px 24px -8px rgba(11, 79, 69, 0.35);
+  --shadow-warm: 0 20px 40px -16px rgba(11, 79, 69, 0.35);
   --ease: 0.18s ease;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
   /* 8-point Rub el Hizb star tile — gold lattice, turquoise centre.
-     Faint version for the page ground, full version for ornaments. */
-  --tile-faint: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1' stroke-opacity='0.22'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%2314919B' stroke-width='1' stroke-opacity='0.25'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%2314919B' fill-opacity='0.22'/%3E%3C/svg%3E");
-  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%2314919B' stroke-width='1'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%2314919B'/%3E%3Ccircle cx='0' cy='0' r='2' fill='%23C9A227'/%3E%3Ccircle cx='96' cy='0' r='2' fill='%23C9A227'/%3E%3Ccircle cx='0' cy='96' r='2' fill='%23C9A227'/%3E%3Ccircle cx='96' cy='96' r='2' fill='%23C9A227'/%3E%3C/svg%3E");
-  /* Mosaic band — gold / turquoise / teal, from the dissolving tile
-     pattern in ref 1. Used as the top frieze of the dispenser and
-     the dialog cards. */
-  --mosaic: repeating-linear-gradient(90deg, rgba(201, 162, 39, 0.9) 0 16px, rgba(20, 145, 155, 0.85) 16px 22px, rgba(13, 79, 74, 0.9) 22px 26px);
+     Clearly visible on the cream ground (not faint). */
+  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.2' stroke-opacity='0.42'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%2314919B' stroke-width='1.2' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%2314919B' fill-opacity='0.5'/%3E%3C/svg%3E");
+  /* Full-strength star lattice for ornaments and corners. */
+  --tile-bold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.4'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%2314919B' stroke-width='1.4'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%2314919B'/%3E%3C/svg%3E");
+  /* Vivid mosaic tile (ref 1) — turquoise star, gold centre,
+     blue corner diamonds, on cream. Full strength. */
+  --mosaic-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%23FBF3DF'/%3E%3Cg fill='%230E8A96'%3E%3Crect x='36' y='36' width='24' height='24'/%3E%3Crect x='36' y='36' width='24' height='24' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Cg fill='%23C9A227'%3E%3Crect x='42' y='42' width='12' height='12'/%3E%3Crect x='42' y='42' width='12' height='12' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Cg fill='%231B5FA8'%3E%3Crect x='-7' y='-7' width='14' height='14' transform='rotate(45 0 0)'/%3E%3Crect x='89' y='-7' width='14' height='14' transform='rotate(45 96 0)'/%3E%3Crect x='-7' y='89' width='14' height='14' transform='rotate(45 0 96)'/%3E%3Crect x='89' y='89' width='14' height='14' transform='rotate(45 96 96)'/%3E%3C/g%3E%3C/svg%3E");
+  /* White lattice with gold centres (ref 5) — laid over the
+     deep teal panels. */
+  --tile-teal-white: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='1.1' stroke-opacity='0.4'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%23FFFFFF' stroke-width='1' stroke-opacity='0.4'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%23E9C46A'/%3E%3C/svg%3E");
+  /* Amber lattice with a deep-red 8-point star centre (ref 3). */
+  --tile-amber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23D97706' stroke-width='1.4' stroke-opacity='0.9'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%23D97706' stroke-width='1.2'/%3E%3Cg fill='%23B91C2E'%3E%3Crect x='43' y='43' width='10' height='10'/%3E%3Crect x='43' y='43' width='10' height='10' transform='rotate(45 48 48)'/%3E%3C/g%3E%3C/svg%3E");
+  /* Taupe lattice (ref 6) — warm brown-grey, clearly defined. */
+  --tile-taupe: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%238B7355' stroke-width='1.3' stroke-opacity='0.75'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='3' fill='%238B7355' fill-opacity='0.7'/%3E%3C/svg%3E");
+  /* Turquoise lattice inlay (ref 2) — dense, vivid. */
+  --tile-turq: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%230E8A96' stroke-width='1.3' stroke-opacity='0.95'%3E%3Crect x='20' y='20' width='32' height='32'/%3E%3Crect x='20' y='20' width='32' height='32' transform='rotate(45 36 36)'/%3E%3C/g%3E%3Ccircle cx='36' cy='36' r='7' fill='none' stroke='%230E8A96' stroke-width='1.1'/%3E%3Ccircle cx='36' cy='36' r='2.5' fill='%23C9A227'/%3E%3C/svg%3E");
+  /* Single gold 8-point star (ref 7) — bullet for the tried strip. */
+  --star-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.6'%3E%3Crect x='6' y='6' width='12' height='12'/%3E%3Crect x='6' y='6' width='12' height='12' transform='rotate(45 12 12)'/%3E%3C/g%3E%3C/svg%3E");
+  /* Gold crescent moon (ref 2) — outer disc minus an offset
+     inner disc (evenodd), so the shape is a true crescent. */
+  --crescent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill-rule='evenodd' fill='%23C9A227' d='M24 5 A19 19 0 1 0 24 43 A19 19 0 1 0 24 5 Z M31 4 A16 16 0 1 0 31 36 A16 16 0 1 0 31 4 Z'/%3E%3C/svg%3E");
+  /* Mosaic band — SOLID gold / turquoise / teal (ref 1). Used as
+     the top frieze of the dispenser, the gate card and the
+     sponsor card. */
+  --mosaic: repeating-linear-gradient(90deg, #c9a227 0 16px, #0e8a96 16px 22px, #0b4f45 22px 26px);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 .hidden { display: none !important; }
@@ -54,12 +98,8 @@
 body {
   font-family: var(--sans);
   background-color: var(--bg);
-  background-image:
-    var(--tile-faint),
-    radial-gradient(circle at 50% 12%, rgba(233, 196, 106, 0.28), transparent 55%),
-    radial-gradient(circle at 8% 40%, rgba(20, 145, 155, 0.09), transparent 42%),
-    radial-gradient(circle at 92% 40%, rgba(201, 162, 39, 0.1), transparent 42%);
-  background-size: 96px 96px, auto, auto, auto;
+  background-image: var(--tile);
+  background-size: 96px 96px;
   color: var(--ink);
   line-height: 1.55;
   min-height: 100vh;
@@ -67,48 +107,46 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-/* Guest warning bar — light amber, bright and readable */
+/* Guest warning bar — solid warm amber, strong border and text */
 .guest-alert {
   position: sticky; top: 0; z-index: 40;
-  background: linear-gradient(90deg, #fff6db 0%, #fdefc3 50%, #fff6db 100%);
-  color: #6b4a00; border-bottom: 1px solid rgba(201, 162, 39, 0.5);
+  background: #fdebc8; color: #5c3d00; border-bottom: 2px solid #c9a227;
   padding: var(--sp-2) 0; font-size: 0.8rem;
-  box-shadow: 0 4px 16px rgba(140, 97, 16, 0.12);
+  box-shadow: 0 4px 14px rgba(140, 97, 16, 0.18);
 }
 .guest-alert-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; }
-.guest-alert-text { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; line-height: 1.4; }
+.guest-alert-text { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; line-height: 1.4; }
 .warn-dot { font-size: 0.85rem; flex-shrink: 0; }
 .guest-alert-btn {
-  flex-shrink: 0; border: 1px solid rgba(201, 162, 39, 0.65); background: var(--gold); color: #231500;
+  flex-shrink: 0; border: 2px solid #8c6110; background: var(--gold); color: #231500;
   font: inherit; font-size: 0.74rem; font-weight: 800; padding: 5px 12px; border-radius: 999px;
   cursor: pointer; white-space: nowrap; transition: filter var(--ease), transform var(--ease);
 }
 .guest-alert-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
-/* In-app browser warning — same light bar style as the guest alert,
+/* In-app browser warning — same solid bar style as the guest alert,
    shown only when the page is opened inside another app (WhatsApp,
    Facebook, Instagram, Telegram, TikTok), where the Nusuk deep link
    cannot fire. */
 .inapp-banner {
   position: sticky; top: 0; z-index: 41;
-  background: linear-gradient(90deg, #fff3cf 0%, #fcebb0 50%, #fff3cf 100%);
-  color: #6b4a00; border-bottom: 1px solid rgba(201, 162, 39, 0.55);
+  background: #fdebc8; color: #5c3d00; border-bottom: 2px solid #c9a227;
   padding: var(--sp-2) 0; font-size: 0.8rem;
-  box-shadow: 0 4px 16px rgba(140, 97, 16, 0.12);
+  box-shadow: 0 4px 14px rgba(140, 97, 16, 0.18);
 }
 .inapp-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; }
-.inapp-text { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; line-height: 1.4; flex: 1; min-width: 0; }
+.inapp-text { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; line-height: 1.4; flex: 1; min-width: 0; }
 .inapp-close {
-  flex-shrink: 0; border: none; background: transparent; color: #6b4a00;
+  flex-shrink: 0; border: none; background: transparent; color: #5c3d00;
   font-size: 1.2rem; line-height: 1; cursor: pointer; padding: 4px 8px;
 }
-/* Backdrop — artwork kept exactly as in the original, pulled back a
-   little so the brighter page shows through */
+/* Backdrop — artwork kept exactly as in the original, now crisp
+   and clearly visible instead of washed out */
 .sacred-backdrop { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .bg-ornament-top { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; min-width: 1200px; height: 295px; }
 .bg-kaaba-scene {
   position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
-  width: min(1160px, 135vw); height: auto; opacity: 0.6;
-  filter: drop-shadow(0 18px 38px rgba(13, 79, 74, 0.08));
+  width: min(1160px, 135vw); height: auto; opacity: 0.85;
+  filter: drop-shadow(0 18px 38px rgba(11, 79, 69, 0.12));
 }
 .wrap { width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 var(--sp-6); position: relative; z-index: 1; }
 /* Header */
@@ -117,13 +155,13 @@ body {
 .logo { display: inline-flex; align-items: center; gap: var(--sp-3); color: var(--teal); text-decoration: none; font-weight: 800; letter-spacing: -0.02em; font-size: 1.08rem; }
 .logo-mark {
   width: 40px; height: 40px; border-radius: 12px; background: var(--teal); color: var(--gold);
-  border: 1px solid rgba(201, 162, 39, 0.55); box-shadow: 0 6px 16px rgba(13, 79, 74, 0.25);
+  border: 2px solid #c9a227; box-shadow: 0 6px 16px rgba(11, 79, 69, 0.3);
   display: inline-grid; place-items: center; flex: none; transition: transform var(--ease), box-shadow var(--ease);
 }
-.logo:hover .logo-mark { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(13, 79, 74, 0.3); }
+.logo:hover .logo-mark { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(11, 79, 69, 0.35); }
 .logo-mark svg, .gate-badge svg { display: block; }
 .top-actions { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
-.seg { display: inline-flex; background: #fff; border: 1px solid var(--line-gold); border-radius: 999px; padding: 3px; gap: 2px; box-shadow: var(--shadow-sm); }
+.seg { display: inline-flex; background: #fff; border: 2px solid #c9a227; border-radius: 999px; padding: 3px; gap: 2px; box-shadow: var(--shadow-sm); }
 .seg button {
   border: 0; background: transparent; font: inherit; font-size: 0.78rem; font-weight: 700; color: var(--ink-2);
   padding: 6px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; transition: background var(--ease), color var(--ease), transform var(--ease);
@@ -134,7 +172,7 @@ body {
    seven-language segmented control is shown instead. */
 .lang-drop { display: none; position: relative; }
 .lang-btn {
-  display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line-gold); background: #fff;
+  display: inline-flex; align-items: center; gap: 5px; border: 2px solid #c9a227; background: #fff;
   font: inherit; font-size: 0.78rem; font-weight: 700; color: var(--ink);
   padding: 7px 11px; border-radius: 999px; cursor: pointer; box-shadow: var(--shadow-sm); white-space: nowrap;
   transition: transform var(--ease), box-shadow var(--ease);
@@ -142,7 +180,7 @@ body {
 .lang-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .lang-menu {
   position: absolute; top: calc(100% + 8px); right: 0; min-width: 168px; z-index: 50;
-  background: #fff; border: 1px solid var(--line-gold); border-radius: 14px; box-shadow: var(--shadow-md);
+  background: #fff; border: 2px solid #c9a227; border-radius: 14px; box-shadow: var(--shadow-md);
   padding: 6px; display: flex; flex-direction: column; gap: 2px;
 }
 .lang-menu button {
@@ -152,7 +190,7 @@ body {
 .lang-menu button:hover { background: var(--turq-soft); color: var(--teal); }
 .lang-menu button.active { background: var(--gold-soft); color: var(--teal); }
 .acct {
-  display: inline-flex; align-items: center; gap: var(--sp-2); border: 1px solid var(--line-gold); background: #fff;
+  display: inline-flex; align-items: center; gap: var(--sp-2); border: 2px solid #c9a227; background: #fff;
   font: inherit; font-family: var(--mono); font-size: 0.76rem; font-weight: 700; color: var(--teal);
   padding: 7px 13px; border-radius: 999px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform var(--ease), box-shadow var(--ease);
 }
@@ -164,7 +202,7 @@ body {
   /* Mobile only: desktop keeps the share bar below the statistics. */
   display: none;
   flex: none; width: 38px; height: 38px; border-radius: 999px; place-items: center;
-  background: #fff; border: 1px solid var(--line-gold); color: var(--ink-2); cursor: pointer;
+  background: #fff; border: 2px solid #c9a227; color: var(--ink-2); cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: transform var(--ease), box-shadow var(--ease);
 }
@@ -178,14 +216,14 @@ body {
    look-alike of the Bulagria font Ahmad showed: Bulagria's free
    download is "personal use only" (commercial licence is paid), so
    the site uses Playfair Display (SIL Open Font Licence) instead. */
-.credit a { font-family: 'Playfair Display', 'Bodoni Moda', Georgia, serif; font-size: 1.28rem; font-weight: 500; line-height: 1.4; color: var(--teal); letter-spacing: 0.01em; text-decoration: none; border-bottom: 1px solid rgba(13, 79, 74, 0.45); background: rgba(233, 196, 106, 0.45); padding: 0.05em 0.35em; border-radius: 0.35em; border: 1px solid rgba(201, 162, 39, 0.6); }
+.credit a { font-family: 'Playfair Display', 'Bodoni Moda', Georgia, serif; font-size: 1.28rem; font-weight: 500; line-height: 1.4; color: var(--teal); letter-spacing: 0.01em; text-decoration: none; border-bottom: 1px solid rgba(11, 79, 69, 0.45); background: rgba(233, 196, 106, 0.5); padding: 0.05em 0.35em; border-radius: 0.35em; border: 1px solid rgba(201, 162, 39, 0.65); }
 .credit a:hover { color: var(--teal-2); border-bottom-color: var(--teal-2); }
 /* Share buttons — desktop share bar (hidden on mobile, where the
    header share icon opens the same links in a dialog instead) */
-.share-bar { text-align: center; margin: 0 0 var(--sp-4); padding: var(--sp-3) var(--sp-4); background: var(--surface); border: 1px solid var(--line-gold); border-radius: 14px; box-shadow: var(--shadow-sm); }
-.share-msg { font-size: 0.88rem; color: var(--ink-2); font-weight: 600; margin-bottom: var(--sp-2); }
+.share-bar { text-align: center; margin: 0 0 var(--sp-4); padding: var(--sp-3) var(--sp-4); background: var(--surface); border: 2px solid #c9a227; border-radius: 14px; box-shadow: var(--shadow-sm); }
+.share-msg { font-size: 0.88rem; color: var(--ink-2); font-weight: 700; margin-bottom: var(--sp-2); }
 .share-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.share-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; font-weight: 700; color: var(--ink); text-decoration: none; background: #fff; border: 1px solid var(--line-gold); border-radius: 999px; padding: 6px 12px; transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
+.share-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; font-weight: 700; color: var(--ink); text-decoration: none; background: #fff; border: 2px solid #c9a227; border-radius: 999px; padding: 6px 12px; transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
 .share-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); border-color: var(--turq); }
 .share-btn .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
 .dot.fb { background: #1877f2; } .dot.wa { background: #25d366; } .dot.tg { background: #229ed9; } .dot.x { background: #111; } .dot.in { background: #0a66c2; }
@@ -195,61 +233,70 @@ body {
 .mirrors { font-size: 0.72rem !important; color: var(--ink-3); margin-top: var(--sp-1); }
 .mirrors a { color: var(--ink-3); text-decoration: underline; }
 /* Failover banner — shown only when this host loads no code list */
-.failover { background: #fff3d6; border: 1px solid #d49b2a; color: #5c3d00; border-radius: 10px; padding: 10px 14px; margin: 0 0 14px; font-size: 0.85rem; text-align: center; }
+.failover { background: #fff3d6; border: 2px solid #d49b2a; color: #5c3d00; border-radius: 10px; padding: 10px 14px; margin: 0 0 14px; font-size: 0.85rem; text-align: center; }
 .failover a { color: #7a5200; font-weight: 700; text-decoration: underline; margin-left: 8px; }
 .failover-count { display: block; margin-top: 6px; font-weight: 700; }
 .failover-stay { margin: 6px 0 0 8px; background: none; border: 1px solid #7a5200; color: #7a5200; border-radius: 999px; padding: 2px 10px; font-size: 0.8rem; cursor: pointer; }
 /* Gate note (replaces the old share checkbox — adding your code to
    the pool is now automatic, not optional) */
 .gate-note { font-size: 0.82rem; color: var(--ink-2); margin: var(--sp-2) 0 0; }
-/* Hero — bright ivory card with the ornate double gold frame (ref 2)
-   and the star lattice dissolving in from the right (ref 1).
+/* Hero — solid white card, bold gold frame with a turquoise inlay
+   ring (ref 2), the vivid mosaic tile dissolving in from the
+   right (ref 1) and a gold crescent top-right (ref 2).
    The ::before pattern sits behind the text (children are raised). */
 .hero {
   position: relative; overflow: hidden;
   padding: var(--sp-5) var(--sp-5) 22px; margin: var(--sp-1) 0 var(--sp-4);
-  background: linear-gradient(180deg, #fffdf7 0%, #fbf3de 100%);
-  border: 1px solid rgba(201, 162, 39, 0.55); border-radius: 20px;
-  box-shadow: var(--shadow-warm), inset 0 0 0 4px #fffdf7, inset 0 0 0 5px rgba(201, 162, 39, 0.45);
+  background: #ffffff;
+  border: 2px solid #c9a227; border-radius: 20px;
+  box-shadow: var(--shadow-warm), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227, inset 0 0 0 7px rgba(14, 138, 150, 0.55);
 }
 .hero::before {
   content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 46%;
-  background-image: var(--tile); background-size: 120px 120px; background-position: right center;
-  opacity: 0.5; pointer-events: none;
-  -webkit-mask-image: linear-gradient(to left, #000 25%, transparent 85%);
-  mask-image: linear-gradient(to left, #000 25%, transparent 85%);
+  background-image: var(--mosaic-tile); background-size: 96px 96px; background-position: right center;
+  opacity: 1; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to left, #000 30%, transparent 88%);
+  mask-image: linear-gradient(to left, #000 30%, transparent 88%);
+}
+.hero::after {
+  content: ''; position: absolute; top: 12px; right: 16px; width: 40px; height: 40px;
+  background-image: var(--crescent); background-size: contain; background-repeat: no-repeat;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 2px rgba(11, 79, 69, 0.25));
+  pointer-events: none; z-index: 1;
 }
 .hero > * { position: relative; z-index: 1; }
 .hero-ornament { display: inline-flex; align-items: center; gap: 10px; margin-bottom: var(--sp-2); color: #b58524; font-size: 0.85rem; }
-.hero-ornament span { width: 36px; height: 1px; background: linear-gradient(90deg, transparent, rgba(181, 133, 36, 0.55), transparent); }
+.hero-ornament span { width: 36px; height: 1px; background: linear-gradient(90deg, transparent, rgba(181, 133, 36, 0.6), transparent); }
 .hero-ornament i { font-style: normal; }
 .hero h1 { font-size: clamp(1.85rem, 4.2vw, 2.8rem); line-height: 1.12; letter-spacing: -0.025em; font-weight: 800; max-width: 760px; color: var(--teal); }
 .hero h1 #hero-total { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold-deep); font-size: 1.14em; }
 .hero p { color: var(--ink-2); margin-top: 10px; max-width: 560px; font-size: 0.98rem; }
 /* Metrics bar — the deep teal panel with gold numbers (ref 5):
-   the one dark anchor on a bright page. Equal, aligned cards. */
+   saturated teal with a WHITE lattice and gold centres, the one
+   dark anchor on a bright page. Equal, aligned cards. */
 .metrics-bar {
   display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-4);
-  background: linear-gradient(135deg, #0e5a52 0%, #0a3d38 100%);
-  border: 1px solid rgba(233, 196, 106, 0.55); border-radius: 16px;
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(233, 196, 106, 0.3); overflow: hidden;
+  background-image: var(--tile-teal-white), linear-gradient(135deg, #0e5f53 0%, #083831 100%);
+  background-size: 96px 96px, auto;
+  border: 2px solid #e9c46a; border-radius: 16px;
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(233, 196, 106, 0.35); overflow: hidden;
 }
 .metric-card { display: flex; align-items: center; gap: var(--sp-3); padding: 12px 16px; min-width: 0; min-height: 64px; }
-.metric-card + .metric-card { border-inline-start: 1px solid rgba(233, 196, 106, 0.22); }
+.metric-card + .metric-card { border-inline-start: 1px solid rgba(233, 196, 106, 0.35); }
 .metric-ico {
   flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
-  background: rgba(233, 196, 106, 0.15); border: 1px solid rgba(233, 196, 106, 0.5); color: var(--gold);
+  background: rgba(233, 196, 106, 0.2); border: 1px solid rgba(233, 196, 106, 0.6); color: var(--gold);
 }
 .metric-ico.live { position: relative; }
 .metric-ico.live::after {
   content: ''; position: absolute; top: -1px; inset-inline-end: -1px; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--mint); box-shadow: 0 0 0 3px rgba(47, 191, 143, 0.28);
+  background: var(--mint); box-shadow: 0 0 0 3px rgba(47, 191, 143, 0.3);
 }
 .metric-body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.metric-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(244, 239, 227, 0.72); line-height: 1.3; }
+.metric-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(244, 239, 227, 0.85); line-height: 1.3; }
 .metric-val { display: flex; align-items: baseline; gap: var(--sp-2); min-width: 0; }
-.metric-val strong { font-family: var(--mono); font-size: 1.32rem; font-weight: 800; color: var(--gold); line-height: 1.1; text-shadow: 0 0 14px rgba(233, 196, 106, 0.4); }
-.metric-val small { font-size: 0.72rem; font-weight: 600; color: rgba(244, 239, 227, 0.85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric-val strong { font-family: var(--mono); font-size: 1.32rem; font-weight: 800; color: var(--gold); line-height: 1.1; }
+.metric-val small { font-size: 0.72rem; font-weight: 600; color: rgba(244, 239, 227, 0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* Language typography */
 html[lang='bn'] body, html[lang='bn'] button, html[lang='bn'] input { font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif; }
 html[lang='ar'] body, html[lang='ar'] button, html[lang='ar'] input { font-family: 'Noto Naskh Arabic', 'Amiri', serif; line-height: 1.7; }
@@ -258,68 +305,75 @@ html[lang='ar'] .metric-head, html[lang='bn'] .metric-head, html[lang='ar'] .dis
 html[lang='ar'] .metric-head { font-size: 0.8rem; }
 html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; line-height: 1.3; }
 .disp-code, .chip, #gate-input, .metric-val strong { direction: ltr; }
-/* Dispenser — now a bright ivory card with the ornate double gold
-   frame (ref 2) and a paper-cut star lattice in the bottom corner
-   (refs 3, 4, 6). The Kaaba art stays as a soft watermark. */
+/* Dispenser — solid white card with the ornate gold frame and a
+   turquoise inlay ring (ref 2), a turquoise lattice inset in the
+   top-right corner (ref 2) and the gold star lattice in the
+   bottom-left corner (ref 4). The Kaaba art stays, crisp. */
 .dispenser {
   position: relative; overflow: hidden;
-  background: linear-gradient(180deg, #fffdf7 0%, #fbf3de 100%);
-  color: var(--ink); border-radius: 24px; border: 1px solid rgba(201, 162, 39, 0.55);
+  background: #ffffff;
+  color: var(--ink); border-radius: 24px; border: 2px solid #c9a227;
   padding: var(--sp-8) var(--sp-8) 26px;
-  box-shadow: var(--shadow-warm), inset 0 0 0 4px #fffdf7, inset 0 0 0 5px rgba(201, 162, 39, 0.45);
+  box-shadow: var(--shadow-warm), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227, inset 0 0 0 7px rgba(14, 138, 150, 0.55);
 }
 .dispenser::before {
   content: ''; position: absolute; left: -12px; bottom: -12px; width: 260px; height: 260px;
-  background-image: var(--tile); background-size: 96px 96px; opacity: 0.35; pointer-events: none;
+  background-image: var(--tile-bold); background-size: 96px 96px; opacity: 0.55; pointer-events: none;
   -webkit-mask-image: radial-gradient(circle at 0% 100%, #000 15%, transparent 68%);
   mask-image: radial-gradient(circle at 0% 100%, #000 15%, transparent 68%);
 }
+.dispenser::after {
+  content: ''; position: absolute; right: -10px; top: -10px; width: 190px; height: 190px;
+  background-image: var(--tile-turq); background-size: 72px 72px; opacity: 0.85; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 70%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 70%);
+}
 .kiswah-frieze {
-  position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  position: absolute; top: 0; left: 0; right: 0; height: 6px;
   background: var(--mosaic);
 }
-.disp-kaaba-art { position: absolute; right: 10px; top: 6px; width: 300px; height: 262px; pointer-events: none; opacity: 0.5; }
+.disp-kaaba-art { position: absolute; right: 10px; top: 6px; width: 300px; height: 262px; pointer-events: none; opacity: 0.85; }
 [dir='rtl'] .disp-kaaba-art { right: auto; left: 10px; transform: scaleX(-1); }
 .disp-top { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); font-size: 0.8rem; position: relative; flex-wrap: wrap; }
 .disp-label { text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: var(--gold-deep); }
 .disp-by { color: var(--ink-2); display: inline-flex; align-items: center; gap: var(--sp-2); font-size: 0.78rem; flex-wrap: wrap; }
 .disp-pill {
-  background: var(--turq-soft); border: 1px solid rgba(20, 145, 155, 0.4); color: var(--turq-dark);
+  background: var(--turq-soft); border: 1px solid rgba(14, 138, 150, 0.5); color: var(--turq-dark);
   font-family: var(--mono); font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;
 }
 .disp-code {
   font-family: var(--mono); font-weight: 700; font-size: clamp(1.85rem, 6vw, 3.2rem); letter-spacing: 0.01em;
   margin: 14px 0 16px; padding-inline-end: 120px; padding-bottom: 14px;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+  border-bottom: 2px solid rgba(201, 162, 39, 0.5);
   user-select: all; position: relative; transition: transform var(--ease);
   color: var(--teal);
 }
 .disp-code.pop { transform: scale(1.02); }
-.disp-code .pre { color: rgba(13, 79, 74, 0.45); font-weight: 500; }
-.progress { height: 6px; border-radius: 99px; background: rgba(13, 79, 74, 0.12); overflow: hidden; position: relative; }
+.disp-code .pre { color: rgba(11, 79, 69, 0.5); font-weight: 500; }
+.progress { height: 6px; border-radius: 99px; background: rgba(11, 79, 69, 0.14); overflow: hidden; position: relative; }
 .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--turq), var(--gold-2)); border-radius: 99px; transition: width 0.35s ease; }
 .disp-stats { margin-top: 10px; font-size: 0.82rem; color: var(--ink-2); position: relative; }
 .disp-stats b { color: var(--teal); }
 .disp-actions { display: flex; gap: 10px; margin-top: 20px; position: relative; }
 .btn-cta {
   flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; cursor: pointer;
-  background: linear-gradient(180deg, #f7c762 0%, #e5a832 100%); color: #231600; font: inherit; font-weight: 800;
-  font-size: 1.02rem; padding: 15px 22px; border-radius: 14px; box-shadow: 0 10px 24px -6px rgba(201, 162, 39, 0.5);
+  background: linear-gradient(180deg, #f6c453 0%, #e8a91f 100%); color: #231600; font: inherit; font-weight: 800;
+  font-size: 1.02rem; padding: 15px 22px; border-radius: 14px; box-shadow: 0 10px 24px -6px rgba(201, 162, 39, 0.6);
   transition: filter var(--ease), transform var(--ease), box-shadow var(--ease);
 }
-.btn-cta:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 14px 28px -6px rgba(201, 162, 39, 0.55); }
+.btn-cta:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 14px 28px -6px rgba(201, 162, 39, 0.65); }
 .btn-cta:active { transform: scale(0.99); }
 .btn-cta:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 .btn-cta.full { width: 100%; flex: none; }
-.btn-cta kbd { font-family: var(--mono); font-size: 0.68rem; background: rgba(42, 28, 0, 0.14); border-radius: 6px; padding: 2px 6px; }
+.btn-cta kbd { font-family: var(--mono); font-size: 0.68rem; background: rgba(42, 28, 0, 0.16); border-radius: 6px; padding: 2px 6px; }
 .btn-ghost {
-  border: 1.5px solid var(--teal); background: #fff; color: var(--teal); font: inherit; font-weight: 700;
+  border: 2px solid var(--teal); background: #fff; color: var(--teal); font: inherit; font-weight: 700;
   padding: 0 22px; border-radius: 14px; cursor: pointer; transition: background var(--ease), transform var(--ease);
 }
 .btn-ghost:hover { background: var(--turq-soft); transform: translateY(-1px); }
 .strip {
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4);
-  padding-top: 14px; border-top: 1px solid rgba(201, 162, 39, 0.35); font-size: 0.82rem; position: relative;
+  padding-top: 14px; border-top: 2px solid rgba(201, 162, 39, 0.5); font-size: 0.82rem; position: relative;
 }
 .strip code { font-family: var(--mono); font-weight: 700; color: var(--teal); }
 .strip-links { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -329,7 +383,7 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 /* Steps */
 .steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); margin: var(--sp-4) 0 34px; }
 .steps li {
-  display: flex; gap: var(--sp-3); background: var(--surface); border: 1px solid var(--line-gold);
+  display: flex; gap: var(--sp-3); background: var(--surface); border: 2px solid #c9a227;
   border-radius: 16px; padding: var(--sp-4); box-shadow: var(--shadow-sm); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
 }
 .steps li:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); border-color: var(--turq); }
@@ -350,12 +404,12 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .controls input {
   flex: 1 1 220px; min-width: 0; font: inherit; font-family: var(--mono); font-size: 0.9rem; padding: 13px 16px;
-  border-radius: 14px; border: 1px solid var(--line-gold); background: #fff; color: var(--ink); box-shadow: var(--shadow-sm);
+  border-radius: 14px; border: 2px solid #c9a227; background: #fff; color: var(--ink); box-shadow: var(--shadow-sm);
   transition: border-color var(--ease), box-shadow var(--ease);
 }
 .controls input:focus, .add-form input:focus, .add-form textarea:focus, #gate-input:focus { outline: 2px solid var(--teal-2); outline-offset: 1px; }
 .btn-soft {
-  border: 1px solid var(--line-gold); background: #fff; color: var(--ink); font: inherit; font-weight: 700; font-size: 0.84rem;
+  border: 2px solid #c9a227; background: #fff; color: var(--ink); font: inherit; font-weight: 700; font-size: 0.84rem;
   padding: 11px 16px; border-radius: 14px; cursor: pointer; transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
 }
 .btn-soft:hover { border-color: var(--turq); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
@@ -364,23 +418,23 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .chip {
   display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; text-align: left;
   font-family: var(--mono); font-weight: 700; font-size: 0.82rem; padding: 12px 13px; border-radius: 12px;
-  border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer;
+  border: 2px solid rgba(20, 32, 28, 0.2); background: #fff; color: var(--ink); cursor: pointer;
   box-shadow: var(--shadow-sm); transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
 }
-.chip:hover { border-color: var(--turq); box-shadow: 0 4px 12px rgba(20, 145, 155, 0.16); transform: translateY(-1px); }
+.chip:hover { border-color: var(--turq); box-shadow: 0 4px 12px rgba(14, 138, 150, 0.2); transform: translateY(-1px); }
 .chip:active { transform: scale(0.98); }
 .chip .pre { color: var(--ink-3); font-weight: 500; }
 .chip-right { display: inline-flex; align-items: center; gap: 5px; flex: none; }
 .chip-meta { font-size: 0.66rem; font-weight: 700; padding: 1px 5px; border-radius: 6px; background: var(--gold-soft); color: var(--gold-deep); }
 .chip-meta.new { background: var(--turq-soft); color: var(--turq-dark); }
 .chip svg { flex: none; color: var(--ink-3); }
-.chip.used { background: rgba(20, 145, 155, 0.08); border-color: rgba(20, 145, 155, 0.35); }
+.chip.used { background: rgba(14, 138, 150, 0.1); border-color: rgba(14, 138, 150, 0.45); }
 .chip.used svg { color: var(--turq-dark); }
 .chip.flash { background: var(--gold); border-color: var(--gold-2); }
 .empty { grid-column: 1 / -1; text-align: center; color: var(--ink-3); padding: 34px 10px; font-size: 0.9rem; }
 .more { text-align: center; margin: 18px 0 8px; }
 /* Share box */
-.add { margin: 30px 0 10px; background: var(--surface); border: 1px solid var(--line-gold); border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
+.add { margin: 30px 0 10px; background: var(--surface); border: 2px solid #c9a227; border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
 .add summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; }
 .add-form { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
 .add-form input { flex: 1; min-width: 0; font: inherit; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
@@ -388,7 +442,7 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .btn-dark:hover { filter: brightness(1.12); transform: translateY(-1px); }
 .err { color: var(--danger); font-size: 0.82rem; margin-top: var(--sp-2); }
 /* Footer — extra bottom room so nothing is clipped at the fold */
-.foot { padding: 36px 20px 56px; text-align: center; color: var(--ink-3); font-size: 0.76rem; border-top: 1px solid rgba(201, 162, 39, 0.35); }
+.foot { padding: 36px 20px 56px; text-align: center; color: var(--ink-3); font-size: 0.76rem; border-top: 2px solid rgba(201, 162, 39, 0.5); }
 .foot p { max-width: 640px; margin: 0 auto; }
 @media (min-width: 900px) {
   /* Desktop: the full disclaimer fits on one line; the width here is
@@ -396,34 +450,51 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .foot p[data-i18n="foot"] { max-width: none; white-space: nowrap; }
 }
 .copyright { margin-top: var(--sp-2); font-size: 0.74rem; color: var(--ink-3); letter-spacing: 0.01em; }
-/* Gate dialog */
-.gate { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(10, 61, 56, 0.55); backdrop-filter: blur(10px); }
+/* Gate dialog — solid dark-teal overlay, NO blur. The card is the
+   Eid card (ref 2): solid white, bold gold frame, turquoise
+   lattice corner insets, gold crescent. */
+.gate { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(8, 56, 49, 0.82); }
 .gate-card {
   position: relative; overflow: hidden;
-  width: 100%; max-width: 440px; background: var(--surface-warm); border: 1.5px solid rgba(201, 162, 39, 0.55);
+  width: 100%; max-width: 440px; background: #ffffff; border: 2px solid #c9a227;
   border-radius: 24px; padding: var(--sp-8) 30px 26px;
-  display: flex; flex-direction: column; gap: var(--sp-4); box-shadow: 0 30px 80px rgba(10, 61, 56, 0.4), inset 0 0 0 4px #fffdf6, inset 0 0 0 5px rgba(201, 162, 39, 0.4);
+  display: flex; flex-direction: column; gap: var(--sp-4); box-shadow: 0 30px 80px rgba(8, 56, 49, 0.5), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227;
 }
-.gate-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--mosaic); }
+.gate-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--mosaic); }
+.gate-card::after {
+  content: ''; position: absolute; right: -8px; top: 22px; width: 120px; height: 120px;
+  background-image: var(--tile-turq); background-size: 72px 72px; opacity: 0.7; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 72%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 72%);
+}
 .gate-badge {
   width: 60px; height: 60px; border-radius: 16px; background: var(--teal);
-  border: 1px solid rgba(201, 162, 39, 0.55); display: grid; place-items: center;
-  box-shadow: 0 10px 24px rgba(13, 79, 74, 0.3);
+  border: 2px solid #c9a227; display: grid; place-items: center;
+  box-shadow: 0 10px 24px rgba(11, 79, 69, 0.35);
 }
 .gate-card h2 { font-size: 1.55rem; letter-spacing: -0.02em; color: var(--teal); }
 .gate-card p { color: var(--ink-2); font-size: 0.9rem; }
 #gate-input {
   font-family: var(--mono); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em; padding: 14px 16px;
-  border-radius: 14px; border: 1.5px solid var(--line-gold); background: #fff; color: var(--ink); width: 100%;
+  border-radius: 14px; border: 2px solid #c9a227; background: #fff; color: var(--ink); width: 100%;
 }
 .check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; color: var(--ink-2); cursor: pointer; }
 .check input { margin-top: 3px; accent-color: var(--teal-2); }
 .link { border: 0; background: none; color: var(--teal); font: inherit; font-size: 0.84rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; align-self: center; }
 .hint { color: var(--ink-3); font-size: 0.74rem; text-align: center; }
 /* Sponsor hosting card — the second deep teal anchor (ref 5),
-   gold heading, mosaic frieze on top */
-.sponsor { position: relative; overflow: hidden; margin: 34px 0 10px; background: linear-gradient(135deg, #0e5a52 0%, #08332f 100%); border: 1.5px solid rgba(233, 196, 106, 0.55); border-radius: 24px; padding: 30px 28px 28px; text-align: center; color: #f4efe3; box-shadow: 0 18px 40px rgba(13, 79, 74, 0.3); }
-.sponsor::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--mosaic); }
+   saturated teal with the WHITE lattice, gold heading, mosaic
+   frieze on top and a gold lattice band along the bottom */
+.sponsor { position: relative; overflow: hidden; margin: 34px 0 10px; background-image: var(--tile-teal-white), linear-gradient(135deg, #0e5f53 0%, #08332f 100%); background-size: 96px 96px, auto; border: 2px solid #e9c46a; border-radius: 24px; padding: 30px 28px 28px; text-align: center; color: #f4efe3; box-shadow: 0 18px 40px rgba(11, 79, 69, 0.35); }
+.sponsor::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--mosaic); }
+.sponsor::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 54px;
+  background-image: var(--tile-bold); background-size: 96px 96px; background-position: center bottom;
+  opacity: 0.3; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 90%);
+  mask-image: linear-gradient(to top, #000 30%, transparent 90%);
+}
+.sponsor > * { position: relative; z-index: 1; }
 .sponsor-icon { display: grid; place-items: center; }
 .sponsor h2 { color: var(--gold); font-size: 1.5rem; letter-spacing: -0.01em; margin: 10px 0 8px; }
 .sponsor p { color: #e9e0cb; font-size: 0.95rem; max-width: 560px; margin: 0 auto 6px; }
@@ -432,28 +503,44 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .sponsor-mail { text-decoration: none; }
 /* Toasts */
 .toasts { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; flex-direction: column; gap: var(--sp-2); z-index: 80; max-width: calc(100vw - 32px); }
-.toast { background: var(--teal); color: #f4efe3; border: 1px solid rgba(233, 196, 106, 0.45); padding: 10px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(10, 61, 56, 0.35); }
+.toast { background: var(--teal); color: #f4efe3; border: 2px solid rgba(233, 196, 106, 0.6); padding: 10px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(8, 56, 49, 0.4); }
 [dir='rtl'] .chip { text-align: right; }
 /* --- nk-v22 features, restyled for the new design --- */
-/* 4-step how-to banner (from umrahcodes.click / nusukkey.xyz) */
+/* 4-step how-to banner (from umrahcodes.click / nusukkey.xyz) —
+   now the amber picture (ref 3): vivid amber wash, amber lattice
+   corner with red star centres, amber badges. */
 .how-banner {
-  background: linear-gradient(90deg, rgba(233, 196, 106, 0.2), rgba(233, 196, 106, 0.06));
-  border: 1px solid var(--line-gold); border-radius: 14px;
+  position: relative; overflow: hidden;
+  background: var(--amber-wash);
+  border: 2px solid var(--amber); border-radius: 14px;
   padding: 10px 14px; margin: 0 0 var(--sp-4); box-shadow: var(--shadow-sm);
 }
-.how-banner summary { font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-bottom: 6px; color: var(--teal); }
+.how-banner::before {
+  content: ''; position: absolute; top: -4px; right: -4px; width: 190px; height: 190px;
+  background-image: var(--tile-amber); background-size: 96px 96px; opacity: 0.9; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 30%, transparent 82%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 30%, transparent 82%);
+}
+.how-banner > * { position: relative; z-index: 1; }
+.how-banner summary { font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-bottom: 6px; color: var(--amber-deep); }
 .how-banner:not([open]) summary { margin-bottom: 0; }
 .how-banner ol { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.how-banner li { display: flex; gap: 7px; align-items: flex-start; font-size: 0.78rem; line-height: 1.4; color: var(--ink-2); }
+.how-banner li { display: flex; gap: 7px; align-items: flex-start; font-size: 0.78rem; line-height: 1.4; color: #5c3d00; }
 .how-banner li b {
   flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
-  background: var(--gold); color: var(--teal); font-size: 0.72rem;
+  background: var(--amber-deep); color: #fff; font-size: 0.72rem;
 }
-/* Last-tried strip (umrahcodes shows the same strip) */
+/* Last-tried strip (umrahcodes shows the same strip) — now the
+   blush picture (ref 7): soft blush wash, gold star bullet. */
 .tried-strip {
-  font-size: 0.82rem; color: var(--ink-2); background: #fff;
-  border: 1px solid var(--line-gold); border-radius: 10px;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-size: 0.82rem; color: var(--ink-2); background: var(--blush);
+  border: 2px solid #c9a227; border-radius: 10px;
   padding: 6px 12px; margin: 0 0 var(--sp-3); box-shadow: var(--shadow-sm);
+}
+.tried-strip::before {
+  content: ''; flex: none; width: 18px; height: 18px;
+  background-image: var(--star-gold); background-size: contain; background-repeat: no-repeat;
 }
 .tried-strip code { font-family: var(--mono); font-size: 0.8rem; color: var(--teal); }
 /* Multi-code share (up to 10 codes at once) */
@@ -468,26 +555,35 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   font-family: var(--mono); font-size: 0.78rem; background: var(--gold-soft);
   border: 1px solid var(--line-gold); border-radius: 6px; padding: 2px 7px;
 }
-.share-review .review-codes code.bad { background: rgba(214, 64, 79, 0.1); border-color: rgba(214, 64, 79, 0.35); text-decoration: line-through; }
+.share-review .review-codes code.bad { background: rgba(214, 64, 79, 0.12); border-color: rgba(214, 64, 79, 0.4); text-decoration: line-through; }
 .share-review .btn-dark, .share-review .btn-soft { margin-right: 8px; }
 /* FAQ + short guides */
 .faq { margin: var(--sp-4) 0; }
 .faq h2 { font-size: 1.05rem; margin-bottom: 10px; color: var(--teal); }
 .faq h3 { font-size: 0.95rem; margin: 16px 0 8px; color: var(--teal); }
 .faq details {
-  background: #fff; border: 1px solid var(--line-gold); border-radius: 12px;
+  background: #fff; border: 2px solid #c9a227; border-radius: 12px;
   padding: 10px 14px; margin-bottom: 8px; box-shadow: var(--shadow-sm);
 }
 .faq summary { cursor: pointer; font-weight: 700; font-size: 0.9rem; }
 .faq details p { font-size: 0.86rem; color: var(--ink-2); margin-top: 6px; }
+/* Short guides — now the taupe picture (ref 6): a taupe lattice
+   corner on each card. */
 .guides { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .guides li {
-  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  position: relative; overflow: hidden;
+  background: #fff; border: 2px solid rgba(20, 32, 28, 0.2); border-radius: 10px;
   padding: 8px 12px; font-size: 0.82rem; color: var(--ink-2); box-shadow: var(--shadow-sm);
   transition: border-color var(--ease);
 }
+.guides li::after {
+  content: ''; position: absolute; top: -6px; right: -6px; width: 84px; height: 84px;
+  background-image: var(--tile-taupe); background-size: 72px 72px; opacity: 0.65; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 25%, transparent 72%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 25%, transparent 72%);
+}
 .guides li:hover { border-color: var(--turq); }
-.guides li b { color: var(--ink); display: block; font-size: 0.84rem; }
+.guides li b { color: var(--ink); display: block; font-size: 0.84rem; position: relative; z-index: 1; }
 /* Per-row "Open in browser" globe beside each code chip */
 .chip-wrap { position: relative; }
 .chip-wrap .chip { width: 100%; padding-right: 34px; }
@@ -518,7 +614,8 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .seg.lang { display: none; }
   .lang-drop { display: inline-block; }
   .hero { padding: 18px 18px 20px; }
-  .hero::before { width: 60%; opacity: 0.35; }
+  .hero::before { width: 60%; opacity: 1; }
+  .hero::after { width: 26px; height: 26px; top: 10px; right: 12px; }
   /* Mobile only: the desktop share bar is replaced by the header
      share icon, which opens the same links in a popup. */
   .share-bar { display: none; }
@@ -526,7 +623,7 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   /* Mobile first screen: metrics stay in one compact 4-column row */
   .metrics-bar { grid-template-columns: repeat(4, 1fr); }
   .metric-card { flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 12px; min-height: 0; }
-  .metric-card + .metric-card { border-inline-start: 1px solid rgba(233, 196, 106, 0.22); }
+  .metric-card + .metric-card { border-inline-start: 1px solid rgba(233, 196, 106, 0.35); }
   .metric-ico { display: none; }
   .metric-head { font-size: 0.6rem; }
   .metric-val { flex-direction: column; align-items: flex-start; gap: 0; }
@@ -540,13 +637,15 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .steps strong { font-size: 0.8rem; line-height: 1.25; }
   .steps b { width: 24px; height: 24px; font-size: 0.72rem; }
   .dispenser { padding: 24px 22px 22px; border-radius: 22px; }
-  .disp-kaaba-art { width: 240px; height: 210px; opacity: 0.4; }
+  .dispenser::after { width: 140px; height: 140px; opacity: 0.7; }
+  .disp-kaaba-art { width: 240px; height: 210px; opacity: 0.7; }
   .disp-code { padding-inline-end: 80px; font-size: clamp(1.7rem, 7vw, 2.6rem); }
   .btn-cta kbd { display: none; }
   .seg button { padding: 6px 10px; }
   .guest-alert-in { flex-direction: column; align-items: flex-start; gap: 6px; }
   .how-banner ol { grid-template-columns: repeat(2, 1fr); gap: 7px; }
   .how-banner { padding: 8px 10px; }
+  .how-banner::before { width: 110px; height: 110px; opacity: 0.7; }
   .how-banner summary { font-size: 0.86rem; margin-bottom: 5px; }
   .how-banner:not([open]) summary { margin-bottom: 0; }
   .how-banner li { font-size: 0.72rem; }
@@ -564,14 +663,16 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .acct { padding: 6px 9px; font-size: 0.72rem; max-width: 128px; }
   #acct-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .hero { padding: 12px 16px; margin-bottom: 10px; }
+  .hero::after { display: none; }
   .hero-ornament { margin-bottom: 4px; }
   .hero h1 { font-size: 1.45rem; }
   .hero p { display: none; }
   .credit { font-size: 0.8rem; }
   .metric-card { padding: 8px; }
   .dispenser { padding: 18px 16px 16px; }
-  .disp-kaaba-art { width: 130px; height: 114px; opacity: 0.3; right: 0; top: 0; }
-  .dispenser::before { width: 180px; height: 180px; opacity: 0.25; }
+  .disp-kaaba-art { width: 130px; height: 114px; opacity: 0.6; right: 0; top: 0; }
+  .dispenser::before { width: 180px; height: 180px; opacity: 0.45; }
+  .dispenser::after { width: 110px; height: 110px; opacity: 0.6; }
   .disp-code { padding-inline-end: 0; font-size: clamp(1.55rem, 8.5vw, 2.1rem); }
   /* Copy + Skip stay side by side so the card stays short */
   .disp-actions { flex-direction: row; margin-top: 14px; }
