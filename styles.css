@@ -1,40 +1,47 @@
-/* NusukKeys — nk-v24 redesign. Vanilla CSS, no frameworks.
-   FULL REPLACEMENT of the old interface (2026-11-07, Ahmad's
-   direction): clear, vibrant, bright, well-defined colours and
-   elements — NO pale, transparent, glass-like, faded or blurry
-   look. Solid white cards, strong borders, saturated teal /
-   turquoise / gold, vivid patterns at full strength.
-   EVERY one of the 7 reference pictures has its own home:
-   (1) blue/turquoise/gold mosaic dissolving into cream — hero:
-       vivid mosaic tile panel dissolving in from the right;
-   (2) Eid card, gold ornate frame + turquoise lattice inlays +
-       gold crescent — dispenser + gate: gold frames, turquoise
-       lattice corner insets, gold crescent;
-   (3) orange/amber paper-cut lattice, red star centres — how-to
-       banner: amber wash, amber lattice corner, amber badges;
-   (4) white tone-on-tone paper-cut lattice — card texture:
-       white lattice on white cards (defined, not faded);
-   (5) deep teal panels + gold calligraphy — metrics bar +
-       sponsor card: saturated teal with a WHITE lattice and
-       gold centres;
-   (6) brown/taupe paper-cut lattice on cream — short guides:
-       taupe lattice corner on each card;
-   (7) gold-outlined 8-pointed stars, soft blush — last-tried
-       strip: blush wash with a gold star bullet; page ground
-       keeps the gold star tile, now clearly visible.
-   One palette everywhere: cream #FBF3DF, teal #0B4F45,
-   turquoise #0E8A96, mosaic blue #1B5FA8, gold #C9A227 /
-   #E9C46A, deep gold #8C6110, amber #D97706, red star #B91C2E,
-   taupe #8B7355, blush #FBEFE8.
+/* NusukKeys — nk-v25 premium redesign. Vanilla CSS, no frameworks.
+   FULL redesign of the whole site from Ahmad's six reference
+   designs (described by what they look like, not by number):
+   - The symmetrical turquoise-and-gold architectural frame with
+     white lattice edges and a gold crescent → the hero.
+   - Warm beige with orange / amber / burgundy floral ornaments
+     in the upper-left corner → corner treatment for the how-to
+     banner and the Fix section (upper-left only, never stretched
+     across the screen).
+   - Ivory-beige with raised white diagonal geometric patterns
+     → spacious backgrounds for the FAQ, Guides, Find-your-code
+     and Checklist sections.
+   - Pale-blue with a large dark-emerald mosaic and golden Arabic
+     calligraphy → the Competition 2026 featured section:
+     emerald mosaic strong on the LEFT, gold headings and content
+     on the right.
+   - Taupe with large dark-brown interlocking ornaments on the
+     RIGHT → the Umrah step-by-step section, the emerald
+     section's counterpart.
+   - Cream-white with golden / orange eight-pointed stars →
+     feature-card corners, the dua block and the footer.
+   The page ground is a rich, solid, FIXED deep emerald teal
+   (the old lantern/Kaaba backdrop is gone — the background is
+   built only from the reference designs). Every panel is a solid
+   colour: NO glass, NO frosted or translucent panels, NO blur,
+   NO faded text. Depth comes from solid surfaces, refined
+   borders and controlled shadows only. The reference pictures
+   contain stock watermarks — none are used as images; every
+   pattern is recreated clean in CSS/SVG.
+   One palette everywhere: deep emerald #072e28 / #083831,
+   teal #0B4F45, turquoise #0E8A96, mosaic blue #1B5FA8,
+   cream #FBF3DF, ivory #ECE0C4, taupe #D9C7A7, brown #4A3421,
+   gold #C9A227 / #E9C46A, deep gold #8C6110, amber #D97706,
+   red star #B91C2E, blush #FBEFE8.
    Spacing scale: --sp-1..--sp-8 (4px steps). Transitions: 150-200ms. */
 :root {
-  --bg: #fbf3df;
-  --bg-2: #f6ead0;
+  --bg: #072e28;
+  --bg-2: #0b4f45;
   --surface: #ffffff;
   --surface-warm: #fffdf6;
   --ink: #14201c;
   --ink-2: #3d4f48;
   --ink-3: #6d7d76;
+  --cream: #f4efe3;
   --line: rgba(20, 32, 28, 0.16);
   --line-gold: #c9a227;
   --teal: #0b4f45;
@@ -53,7 +60,10 @@
   --amber-wash: #fdebc8;
   --red-star: #b91c2e;
   --taupe: #8b7355;
+  --taupe-ground: #d9c7a7;
+  --brown: #4a3421;
   --blush: #fbefe8;
+  --ivory: #ece0c4;
   --mint: #2fbf8f;
   --danger: #d6404f;
   --r: 18px;
@@ -61,52 +71,67 @@
   --shadow-sm: 0 2px 8px rgba(11, 79, 69, 0.14);
   --shadow-md: 0 10px 24px -8px rgba(11, 79, 69, 0.35);
   --shadow-warm: 0 20px 40px -16px rgba(11, 79, 69, 0.35);
+  --shadow-dark: 0 14px 34px -10px rgba(0, 0, 0, 0.5);
   --ease: 0.18s ease;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --serif: 'Instrument Serif', Georgia, serif;
   --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  /* White star lattice on the dark ground — quiet, fixed, solid. */
+  --tile-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='1.1' stroke-opacity='0.13'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%23FFFFFF' stroke-width='1' stroke-opacity='0.13'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%23E9C46A' fill-opacity='0.35'/%3E%3C/svg%3E");
   /* 8-point Rub el Hizb star tile — gold lattice, turquoise centre.
-     Clearly visible on the cream ground (not faint). */
+     Used on light grounds (page cards, footer corners). */
   --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.2' stroke-opacity='0.42'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%2314919B' stroke-width='1.2' stroke-opacity='0.5'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%2314919B' fill-opacity='0.5'/%3E%3C/svg%3E");
   /* Full-strength star lattice for ornaments and corners. */
   --tile-bold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.4'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%2314919B' stroke-width='1.4'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%2314919B'/%3E%3C/svg%3E");
-  /* Vivid mosaic tile (ref 1) — turquoise star, gold centre,
-     blue corner diamonds, on cream. Full strength. */
+  /* Vivid mosaic tile — turquoise star, gold centre, blue corner
+     diamonds, on cream. Full strength (hero, right side). */
   --mosaic-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' fill='%23FBF3DF'/%3E%3Cg fill='%230E8A96'%3E%3Crect x='36' y='36' width='24' height='24'/%3E%3Crect x='36' y='36' width='24' height='24' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Cg fill='%23C9A227'%3E%3Crect x='42' y='42' width='12' height='12'/%3E%3Crect x='42' y='42' width='12' height='12' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Cg fill='%231B5FA8'%3E%3Crect x='-7' y='-7' width='14' height='14' transform='rotate(45 0 0)'/%3E%3Crect x='89' y='-7' width='14' height='14' transform='rotate(45 96 0)'/%3E%3Crect x='-7' y='89' width='14' height='14' transform='rotate(45 0 96)'/%3E%3Crect x='89' y='89' width='14' height='14' transform='rotate(45 96 96)'/%3E%3C/g%3E%3C/svg%3E");
-  /* White lattice with gold centres (ref 5) — laid over the
-     deep teal panels. */
+  /* White lattice with gold centres — laid over the deep teal
+     panels (metrics bar, sponsor card). */
   --tile-teal-white: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='1.1' stroke-opacity='0.4'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%23FFFFFF' stroke-width='1' stroke-opacity='0.4'/%3E%3Ccircle cx='48' cy='48' r='3' fill='%23E9C46A'/%3E%3C/svg%3E");
-  /* Amber lattice with a deep-red 8-point star centre (ref 3). */
+  /* Amber lattice with a deep-red 8-point star centre — the warm
+     beige / orange / amber / burgundy corner ornament. */
   --tile-amber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23D97706' stroke-width='1.4' stroke-opacity='0.9'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='9' fill='none' stroke='%23D97706' stroke-width='1.2'/%3E%3Cg fill='%23B91C2E'%3E%3Crect x='43' y='43' width='10' height='10'/%3E%3Crect x='43' y='43' width='10' height='10' transform='rotate(45 48 48)'/%3E%3C/g%3E%3C/svg%3E");
-  /* Taupe lattice (ref 6) — warm brown-grey, clearly defined. */
+  /* Taupe lattice — warm brown-grey, clearly defined. */
   --tile-taupe: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%238B7355' stroke-width='1.3' stroke-opacity='0.75'%3E%3Crect x='28' y='28' width='40' height='40'/%3E%3Crect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/%3E%3C/g%3E%3Ccircle cx='48' cy='48' r='3' fill='%238B7355' fill-opacity='0.7'/%3E%3C/svg%3E");
-  /* Turquoise lattice inlay (ref 2) — dense, vivid. */
+  /* Turquoise lattice inlay — dense, vivid. */
   --tile-turq: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%230E8A96' stroke-width='1.3' stroke-opacity='0.95'%3E%3Crect x='20' y='20' width='32' height='32'/%3E%3Crect x='20' y='20' width='32' height='32' transform='rotate(45 36 36)'/%3E%3C/g%3E%3Ccircle cx='36' cy='36' r='7' fill='none' stroke='%230E8A96' stroke-width='1.1'/%3E%3Ccircle cx='36' cy='36' r='2.5' fill='%23C9A227'/%3E%3C/svg%3E");
-  /* Single gold 8-point star (ref 7) — bullet for the tried strip. */
+  /* Single gold 8-point star — bullet for the tried strip. */
   --star-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23C9A227' stroke-width='1.6'%3E%3Crect x='6' y='6' width='12' height='12'/%3E%3Crect x='6' y='6' width='12' height='12' transform='rotate(45 12 12)'/%3E%3C/g%3E%3C/svg%3E");
-  /* Gold crescent moon (ref 2) — outer disc minus an offset
-     inner disc (evenodd), so the shape is a true crescent. */
+  /* Gold crescent moon — outer disc minus an offset inner disc
+     (evenodd), so the shape is a true crescent. */
   --crescent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill-rule='evenodd' fill='%23C9A227' d='M24 5 A19 19 0 1 0 24 43 A19 19 0 1 0 24 5 Z M31 4 A16 16 0 1 0 31 36 A16 16 0 1 0 31 4 Z'/%3E%3C/svg%3E");
-  /* Mosaic band — SOLID gold / turquoise / teal (ref 1). Used as
-     the top frieze of the dispenser, the gate card and the
-     sponsor card. */
+  /* Mosaic band — SOLID gold / turquoise / teal. Used as the top
+     frieze of the dispenser, the gate card and the sponsor card. */
   --mosaic: repeating-linear-gradient(90deg, #c9a227 0 16px, #0e8a96 16px 22px, #0b4f45 22px 26px);
+  /* Raised white diagonal lattice — the ivory-beige embossed
+     pattern: white diagonals with a soft darker offset line,
+     so the geometry reads as raised, not printed. */
+  --tile-ivory: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%23B8A888' stroke-width='2' stroke-opacity='0.28'%3E%3Cpath d='M2 142 L142 2'/%3E%3Cpath d='M-2 2 L142 142'/%3E%3C/g%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-opacity='0.55'%3E%3Cpath d='M0 140 L140 0'/%3E%3Cpath d='M0 0 L140 140'/%3E%3C/g%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='1.4' stroke-opacity='0.5'%3E%3Crect x='50' y='50' width='40' height='40'/%3E%3Crect x='50' y='50' width='40' height='40' transform='rotate(45 70 70)'/%3E%3C/g%3E%3Ccircle cx='70' cy='70' r='4' fill='%23FFFFFF' fill-opacity='0.5'/%3E%3C/svg%3E");
+  /* Dark-brown interlocking geometry — the taupe section's
+     right-side ornament (large, clearly defined). */
+  --tile-brown: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%234A3421' stroke-width='1.6' stroke-opacity='0.7'%3E%3Crect x='34' y='34' width='52' height='52'/%3E%3Crect x='34' y='34' width='52' height='52' transform='rotate(45 60 60)'/%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='11' fill='none' stroke='%234A3421' stroke-width='1.4' stroke-opacity='0.7'/%3E%3Ccircle cx='60' cy='60' r='4' fill='%234A3421' fill-opacity='0.7'/%3E%3C/svg%3E");
+  /* Dark-emerald mosaic with gold centres — the competition
+     section's left-side ornament (strong, solid, never faded). */
+  --tile-emerald: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%230E5F53'%3E%3Crect x='42' y='42' width='36' height='36'/%3E%3Crect x='42' y='42' width='36' height='36' transform='rotate(45 60 60)'/%3E%3C/g%3E%3Cg fill='%23C9A227'%3E%3Crect x='52' y='52' width='16' height='16'/%3E%3Crect x='52' y='52' width='16' height='16' transform='rotate(45 60 60)'/%3E%3C/g%3E%3Cg fill='%231B5FA8' fill-opacity='0.85'%3E%3Crect x='-6' y='-6' width='12' height='12' transform='rotate(45 0 0)'/%3E%3Crect x='114' y='-6' width='12' height='12' transform='rotate(45 120 0)'/%3E%3Crect x='-6' y='114' width='12' height='12' transform='rotate(45 0 120)'/%3E%3Crect x='114' y='114' width='12' height='12' transform='rotate(45 120 120)'/%3E%3C/g%3E%3C/svg%3E");
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 .hidden { display: none !important; }
-:focus-visible { outline: 2px solid var(--teal-2); outline-offset: 2px; border-radius: 6px; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 6px; }
 body {
   font-family: var(--sans);
   background-color: var(--bg);
-  background-image: var(--tile);
+  background-image: var(--tile-dark);
   background-size: 96px 96px;
-  color: var(--ink);
+  background-attachment: fixed;
+  color: var(--cream);
   line-height: 1.55;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+.wrap { width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 var(--sp-6); position: relative; z-index: 1; }
 /* Guest warning bar — solid warm amber, strong border and text */
 .guest-alert {
   position: sticky; top: 0; z-index: 40;
@@ -139,26 +164,16 @@ body {
   flex-shrink: 0; border: none; background: transparent; color: #5c3d00;
   font-size: 1.2rem; line-height: 1; cursor: pointer; padding: 4px 8px;
 }
-/* Backdrop — artwork kept exactly as in the original, now crisp
-   and clearly visible instead of washed out */
-.sacred-backdrop { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.bg-ornament-top { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; min-width: 1200px; height: 295px; }
-.bg-kaaba-scene {
-  position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
-  width: min(1160px, 135vw); height: auto; opacity: 0.85;
-  filter: drop-shadow(0 18px 38px rgba(11, 79, 69, 0.12));
-}
-.wrap { width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 var(--sp-6); position: relative; z-index: 1; }
-/* Header */
+/* Header — solid rich dark teal on the dark ground */
 .top { padding: var(--sp-5) 0 var(--sp-3); position: relative; z-index: 2; }
 .top-in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; }
-.logo { display: inline-flex; align-items: center; gap: var(--sp-3); color: var(--teal); text-decoration: none; font-weight: 800; letter-spacing: -0.02em; font-size: 1.08rem; }
+.logo { display: inline-flex; align-items: center; gap: var(--sp-3); color: var(--cream); text-decoration: none; font-weight: 800; letter-spacing: -0.02em; font-size: 1.08rem; }
 .logo-mark {
   width: 40px; height: 40px; border-radius: 12px; background: var(--teal); color: var(--gold);
-  border: 2px solid #c9a227; box-shadow: 0 6px 16px rgba(11, 79, 69, 0.3);
+  border: 2px solid #c9a227; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
   display: inline-grid; place-items: center; flex: none; transition: transform var(--ease), box-shadow var(--ease);
 }
-.logo:hover .logo-mark { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(11, 79, 69, 0.35); }
+.logo:hover .logo-mark { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45); }
 .logo-mark svg, .gate-badge svg { display: block; }
 .top-actions { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
 .seg { display: inline-flex; background: #fff; border: 2px solid #c9a227; border-radius: 999px; padding: 3px; gap: 2px; box-shadow: var(--shadow-sm); }
@@ -207,10 +222,22 @@ body {
   transition: transform var(--ease), box-shadow var(--ease);
 }
 .share-ico:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); color: var(--teal); }
+/* Top navigation — solid rich teal bar with gold edges and clear
+   cream labels. The Share link is a solid gold pill. */
+.topnav { background: #0b4f45; border-top: 2px solid #c9a227; border-bottom: 2px solid #c9a227; position: relative; z-index: 2; }
+.topnav-in { display: flex; flex-wrap: wrap; gap: 2px; align-items: center; padding: 6px 0; }
+.topnav a {
+  color: #f4efe3; text-decoration: none; font-size: 0.85rem; font-weight: 700;
+  padding: 8px 12px; border-radius: 9px; white-space: nowrap;
+  transition: background var(--ease), color var(--ease);
+}
+.topnav a:hover { background: #14604f; color: var(--gold); }
+.topnav a.nav-share { background: var(--gold); color: #231600; margin-left: auto; }
+.topnav a.nav-share:hover { filter: brightness(1.06); color: #231600; background: var(--gold); }
 /* Creator credit — centred, just under the header. The name is a
    touch larger and in a deeper gold so it is clearly visible, while
    staying elegant and quiet next to the header. */
-.credit { text-align: center; font-size: 0.88rem; color: var(--ink-2); margin: var(--sp-1) auto 0; }
+.credit { text-align: center; font-size: 0.88rem; color: #e9e0cb; margin: var(--sp-3) auto 0; }
 /* Creator name — Playfair Display (upright high-contrast serif, never
    italic), 1.28rem, deep teal on a soft gold pill. It is the free
    look-alike of the Bulagria font Ahmad showed: Bulagria's free
@@ -218,9 +245,10 @@ body {
    the site uses Playfair Display (SIL Open Font Licence) instead. */
 .credit a { font-family: 'Playfair Display', 'Bodoni Moda', Georgia, serif; font-size: 1.28rem; font-weight: 500; line-height: 1.4; color: var(--teal); letter-spacing: 0.01em; text-decoration: none; border-bottom: 1px solid rgba(11, 79, 69, 0.45); background: rgba(233, 196, 106, 0.5); padding: 0.05em 0.35em; border-radius: 0.35em; border: 1px solid rgba(201, 162, 39, 0.65); }
 .credit a:hover { color: var(--teal-2); border-bottom-color: var(--teal-2); }
+
 /* Share buttons — desktop share bar (hidden on mobile, where the
    header share icon opens the same links in a dialog instead) */
-.share-bar { text-align: center; margin: 0 0 var(--sp-4); padding: var(--sp-3) var(--sp-4); background: var(--surface); border: 2px solid #c9a227; border-radius: 14px; box-shadow: var(--shadow-sm); }
+.share-bar { text-align: center; margin: var(--sp-4) 0; padding: var(--sp-3) var(--sp-4); background: var(--surface); border: 2px solid #c9a227; border-radius: 14px; box-shadow: var(--shadow-dark); }
 .share-msg { font-size: 0.88rem; color: var(--ink-2); font-weight: 700; margin-bottom: var(--sp-2); }
 .share-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .share-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem; font-weight: 700; color: var(--ink); text-decoration: none; background: #fff; border: 2px solid #c9a227; border-radius: 999px; padding: 6px 12px; transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); }
@@ -228,10 +256,10 @@ body {
 .share-btn .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
 .dot.fb { background: #1877f2; } .dot.wa { background: #25d366; } .dot.tg { background: #229ed9; } .dot.x { background: #111; } .dot.in { background: #0a66c2; }
 /* Footer expiry notice — small, quiet, under the copyright */
-.expiry { font-size: 0.72rem !important; color: var(--ink-3); margin-top: var(--sp-1); }
+.expiry { font-size: 0.72rem !important; color: rgba(233, 224, 203, 0.85); margin-top: var(--sp-1); }
 /* Backup-mirror links in the footer — small, quiet */
-.mirrors { font-size: 0.72rem !important; color: var(--ink-3); margin-top: var(--sp-1); }
-.mirrors a { color: var(--ink-3); text-decoration: underline; }
+.mirrors { font-size: 0.72rem !important; color: rgba(233, 224, 203, 0.85); margin-top: var(--sp-1); }
+.mirrors a { color: var(--gold); text-decoration: underline; }
 /* Failover banner — shown only when this host loads no code list */
 .failover { background: #fff3d6; border: 2px solid #d49b2a; color: #5c3d00; border-radius: 10px; padding: 10px 14px; margin: 0 0 14px; font-size: 0.85rem; text-align: center; }
 .failover a { color: #7a5200; font-weight: 700; text-decoration: underline; margin-left: 8px; }
@@ -240,23 +268,24 @@ body {
 /* Gate note (replaces the old share checkbox — adding your code to
    the pool is now automatic, not optional) */
 .gate-note { font-size: 0.82rem; color: var(--ink-2); margin: var(--sp-2) 0 0; }
-/* Hero — solid white card, bold gold frame with a turquoise inlay
-   ring (ref 2), the vivid mosaic tile dissolving in from the
-   right (ref 1) and a gold crescent top-right (ref 2).
-   The ::before pattern sits behind the text (children are raised). */
+/* Hero — the turquoise-and-gold architectural frame: a solid
+   white card, bold gold frame with a turquoise inlay ring, the
+   vivid mosaic tile dissolving in from the right and a gold
+   crescent top-right. The ::before pattern sits behind the text
+   (children are raised). */
 .hero {
   position: relative; overflow: hidden;
   padding: var(--sp-5) var(--sp-5) 22px; margin: var(--sp-1) 0 var(--sp-4);
   background: #ffffff;
   border: 2px solid #c9a227; border-radius: 20px;
-  box-shadow: var(--shadow-warm), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227, inset 0 0 0 7px rgba(14, 138, 150, 0.55);
+  box-shadow: var(--shadow-dark), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227, inset 0 0 0 7px rgba(14, 138, 150, 0.55);
 }
 .hero::before {
-  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 46%;
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 40%;
   background-image: var(--mosaic-tile); background-size: 96px 96px; background-position: right center;
   opacity: 1; pointer-events: none;
-  -webkit-mask-image: linear-gradient(to left, #000 30%, transparent 88%);
-  mask-image: linear-gradient(to left, #000 30%, transparent 88%);
+  -webkit-mask-image: linear-gradient(to left, #000 20%, transparent 60%);
+  mask-image: linear-gradient(to left, #000 20%, transparent 60%);
 }
 .hero::after {
   content: ''; position: absolute; top: 12px; right: 16px; width: 40px; height: 40px;
@@ -269,17 +298,41 @@ body {
 .hero-ornament span { width: 36px; height: 1px; background: linear-gradient(90deg, transparent, rgba(181, 133, 36, 0.6), transparent); }
 .hero-ornament i { font-style: normal; }
 .hero h1 { font-size: clamp(1.85rem, 4.2vw, 2.8rem); line-height: 1.12; letter-spacing: -0.025em; font-weight: 800; max-width: 760px; color: var(--teal); }
-.hero h1 #hero-total { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold-deep); font-size: 1.14em; }
+/* The hero number — a premium headline statistic: bold, upright,
+   modern typeface (Plus Jakarta Sans 900, never italic), gold
+   gradient letters on a soft gold pill with a gold border and a
+   warm glow. */
+.hero h1 #hero-total {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-style: normal; font-weight: 900; font-size: 1.08em;
+  background-image: linear-gradient(180deg, #f6c453 0%, #e9c46a 40%, #c9a227 70%, #8c6110 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  box-shadow: inset 0 0 0 999px rgba(233, 196, 106, 0.22), 0 0 0 1px #c9a227, 0 6px 22px rgba(201, 162, 39, 0.4);
+  border-radius: 0.3em; padding: 0.02em 0.3em; white-space: nowrap;
+  filter: drop-shadow(0 2px 8px rgba(201, 162, 39, 0.35));
+}
 .hero p { color: var(--ink-2); margin-top: 10px; max-width: 560px; font-size: 0.98rem; }
-/* Metrics bar — the deep teal panel with gold numbers (ref 5):
-   saturated teal with a WHITE lattice and gold centres, the one
-   dark anchor on a bright page. Equal, aligned cards. */
+/* Hadith quote inside the hero — solid cream panel, gold frame,
+   centred, no link. */
+.hadith {
+  margin: 14px 0 0; padding: 12px 16px; max-width: 640px;
+  background: #fbf3df; border: 2px solid #c9a227; border-radius: 12px;
+  color: var(--teal); font-size: 0.92rem; font-weight: 600; text-align: center;
+}
+.hadith cite { display: block; margin-top: 4px; font-style: normal; font-size: 0.78rem; color: var(--gold-deep); font-weight: 700; }
+/* Trust badges — three solid deep-teal pills on the white hero. */
+.trust-badges { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.trust-badges li { background: #0b4f45; color: #f4efe3; font-size: 0.76rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; border: 1px solid #c9a227; }
+/* Metrics bar — the deep teal panel with gold numbers: saturated
+   teal with a WHITE lattice and gold centres, the dark anchor of
+   the page. Equal, aligned cards. */
 .metrics-bar {
-  display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-4);
+  display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: var(--sp-3);
   background-image: var(--tile-teal-white), linear-gradient(135deg, #0e5f53 0%, #083831 100%);
   background-size: 96px 96px, auto;
   border: 2px solid #e9c46a; border-radius: 16px;
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(233, 196, 106, 0.35); overflow: hidden;
+  box-shadow: var(--shadow-dark), inset 0 1px 0 rgba(233, 196, 106, 0.35); overflow: hidden;
 }
 .metric-card { display: flex; align-items: center; gap: var(--sp-3); padding: 12px 16px; min-width: 0; min-height: 64px; }
 .metric-card + .metric-card { border-inline-start: 1px solid rgba(233, 196, 106, 0.35); }
@@ -295,8 +348,12 @@ body {
 .metric-body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .metric-head { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(244, 239, 227, 0.85); line-height: 1.3; }
 .metric-val { display: flex; align-items: baseline; gap: var(--sp-2); min-width: 0; }
-.metric-val strong { font-family: var(--mono); font-size: 1.32rem; font-weight: 800; color: var(--gold); line-height: 1.1; }
-.metric-val small { font-size: 0.72rem; font-weight: 600; color: rgba(244, 239, 227, 0.9); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric-val strong { font-family: var(--mono); font-size: 1.25rem; font-weight: 800; color: var(--gold); line-height: 1.1; }
+.metric-val small { font-size: 0.72rem; font-weight: 600; color: rgba(244, 239, 227, 0.9); line-height: 1.25; }
+/* History footnote — the labelled carry-forward from the previous
+   website: cream text on the dark ground, under the metrics bar. */
+.history-note { text-align: center; font-size: 0.8rem; color: #e9e0cb; margin: 0 0 var(--sp-4); line-height: 1.5; }
+.history-note b { color: var(--gold); }
 /* Language typography */
 html[lang='bn'] body, html[lang='bn'] button, html[lang='bn'] input { font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif; }
 html[lang='ar'] body, html[lang='ar'] button, html[lang='ar'] input { font-family: 'Noto Naskh Arabic', 'Amiri', serif; line-height: 1.7; }
@@ -306,15 +363,15 @@ html[lang='ar'] .metric-head { font-size: 0.8rem; }
 html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; line-height: 1.3; }
 .disp-code, .chip, #gate-input, .metric-val strong { direction: ltr; }
 /* Dispenser — solid white card with the ornate gold frame and a
-   turquoise inlay ring (ref 2), a turquoise lattice inset in the
-   top-right corner (ref 2) and the gold star lattice in the
-   bottom-left corner (ref 4). The Kaaba art stays, crisp. */
+   turquoise inlay ring, a turquoise lattice inset in the
+   top-right corner and the gold star lattice in the
+   bottom-left corner. */
 .dispenser {
   position: relative; overflow: hidden;
   background: #ffffff;
   color: var(--ink); border-radius: 24px; border: 2px solid #c9a227;
   padding: var(--sp-8) var(--sp-8) 26px;
-  box-shadow: var(--shadow-warm), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227, inset 0 0 0 7px rgba(14, 138, 150, 0.55);
+  box-shadow: var(--shadow-dark), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227, inset 0 0 0 7px rgba(14, 138, 150, 0.55);
 }
 .dispenser::before {
   content: ''; position: absolute; left: -12px; bottom: -12px; width: 260px; height: 260px;
@@ -332,8 +389,6 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   position: absolute; top: 0; left: 0; right: 0; height: 6px;
   background: var(--mosaic);
 }
-.disp-kaaba-art { position: absolute; right: 10px; top: 6px; width: 300px; height: 262px; pointer-events: none; opacity: 0.85; }
-[dir='rtl'] .disp-kaaba-art { right: auto; left: 10px; transform: scaleX(-1); }
 .disp-top { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); font-size: 0.8rem; position: relative; flex-wrap: wrap; }
 .disp-label { text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: var(--gold-deep); }
 .disp-by { color: var(--ink-2); display: inline-flex; align-items: center; gap: var(--sp-2); font-size: 0.78rem; flex-wrap: wrap; }
@@ -349,7 +404,9 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   color: var(--teal);
 }
 .disp-code.pop { transform: scale(1.02); }
-.disp-code .pre { color: rgba(11, 79, 69, 0.5); font-weight: 500; }
+/* Referral contrast fix: the "NG -" prefix is solid dark teal at
+   full strength — never light text on white. */
+.disp-code .pre { color: #0b4f45; font-weight: 700; }
 .progress { height: 6px; border-radius: 99px; background: rgba(11, 79, 69, 0.14); overflow: hidden; position: relative; }
 .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--turq), var(--gold-2)); border-radius: 99px; transition: width 0.35s ease; }
 .disp-stats { margin-top: 10px; font-size: 0.82rem; color: var(--ink-2); position: relative; }
@@ -380,11 +437,18 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .strip-links button { border: 0; background: none; color: var(--ink-2); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .strip-links button.danger:hover { color: #e06570; }
 .strip-links button:hover { color: var(--teal); }
-/* Steps */
+/* Steps — solid white cards with a gold-star corner (the
+   cream-white star design, used selectively). */
 .steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); margin: var(--sp-4) 0 34px; }
 .steps li {
+  position: relative; overflow: hidden;
   display: flex; gap: var(--sp-3); background: var(--surface); border: 2px solid #c9a227;
-  border-radius: 16px; padding: var(--sp-4); box-shadow: var(--shadow-sm); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+  border-radius: 16px; padding: var(--sp-4); box-shadow: var(--shadow-dark); transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+.steps li::after {
+  content: ''; position: absolute; top: 6px; right: 6px; width: 24px; height: 24px;
+  background-image: var(--star-gold); background-size: contain; background-repeat: no-repeat;
+  opacity: 0.75; pointer-events: none;
 }
 .steps li:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); border-color: var(--turq); }
 .steps li.step-action { cursor: pointer; }
@@ -398,22 +462,52 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 #nusuk-link { display: flex; gap: var(--sp-3); flex: 1; padding: var(--sp-4); color: inherit; text-decoration: none; border-radius: 16px; cursor: pointer; }
 #nusuk-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .steps b { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: var(--gold); color: var(--teal); font-size: 0.8rem; }
-.steps strong { display: block; font-size: 0.88rem; }
+.steps strong { display: block; font-size: 0.88rem; color: var(--ink); }
 .steps span { font-size: 0.78rem; color: var(--ink-2); }
+/* Phone mockup — a CSS-drawn picture of the Nusuk app's keys
+   screen (never a fake screenshot): deep-teal frame, gold edge,
+   cream screen, the key count, the add-code field, Check and the
+   congratulations line. */
+.phone-mockup {
+  width: 230px; margin: 18px auto 4px; padding: 12px;
+  background: #fff; border: 3px solid #0b4f45; outline: 2px solid #c9a227; outline-offset: 3px;
+  border-radius: 26px; box-shadow: var(--shadow-dark);
+}
+.phone-screen { background: #fbf3df; border: 1px solid rgba(201, 162, 39, 0.5); border-radius: 16px; padding: 12px; text-align: center; }
+.phone-screen b { display: block; font-size: 0.8rem; font-weight: 800; color: var(--teal); margin-bottom: 6px; }
+.mock-count { display: block; font-family: var(--mono); font-size: 1.6rem; font-weight: 800; color: var(--gold-deep); }
+.mock-field { margin-top: 8px; border: 2px solid #c9a227; border-radius: 10px; background: #fff; padding: 8px; font-size: 0.72rem; color: var(--ink-2); }
+.mock-field code { display: block; font-family: var(--mono); font-weight: 700; color: var(--teal); font-size: 0.85rem; margin-top: 2px; }
+.mock-btn { display: block; margin-top: 8px; background: var(--teal); color: var(--gold); font-size: 0.78rem; font-weight: 700; padding: 7px; border-radius: 999px; }
+.mock-ok { display: block; margin-top: 8px; background: #e6f7ee; color: #14663f; font-size: 0.76rem; font-weight: 700; padding: 6px; border-radius: 8px; border: 1px solid #9ed6b4; }
+
+/* Last-tried strip — the blush picture: soft blush wash, gold
+   star bullet. */
+.tried-strip {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  font-size: 0.82rem; color: var(--ink-2); background: var(--blush);
+  border: 2px solid #c9a227; border-radius: 10px;
+  padding: 6px 12px; margin: 0 0 var(--sp-3); box-shadow: var(--shadow-dark);
+}
+.tried-strip::before {
+  content: ''; flex: none; width: 18px; height: 18px;
+  background-image: var(--star-gold); background-size: contain; background-repeat: no-repeat;
+}
+.tried-strip code { font-family: var(--mono); font-size: 0.8rem; color: var(--teal); }
 /* Code browser */
 .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .controls input {
   flex: 1 1 220px; min-width: 0; font: inherit; font-family: var(--mono); font-size: 0.9rem; padding: 13px 16px;
-  border-radius: 14px; border: 2px solid #c9a227; background: #fff; color: var(--ink); box-shadow: var(--shadow-sm);
+  border-radius: 14px; border: 2px solid #c9a227; background: #fff; color: var(--ink); box-shadow: var(--shadow-dark);
   transition: border-color var(--ease), box-shadow var(--ease);
 }
-.controls input:focus, .add-form input:focus, .add-form textarea:focus, #gate-input:focus { outline: 2px solid var(--teal-2); outline-offset: 1px; }
+.controls input:focus, .add-form input:focus, .add-form textarea:focus, #gate-input:focus, .tool input:focus, .tool textarea:focus { outline: 2px solid var(--teal-2); outline-offset: 1px; }
 .btn-soft {
   border: 2px solid #c9a227; background: #fff; color: var(--ink); font: inherit; font-weight: 700; font-size: 0.84rem;
   padding: 11px 16px; border-radius: 14px; cursor: pointer; transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
 }
 .btn-soft:hover { border-color: var(--turq); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
-.count { font-size: 0.8rem; color: var(--ink-3); margin: var(--sp-3) 2px 10px; min-height: 1.2em; }
+.count { font-size: 0.8rem; color: #e9e0cb; margin: var(--sp-3) 2px 10px; min-height: 1.2em; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
 .chip {
   display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; text-align: left;
@@ -423,7 +517,9 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 }
 .chip:hover { border-color: var(--turq); box-shadow: 0 4px 12px rgba(14, 138, 150, 0.2); transform: translateY(-1px); }
 .chip:active { transform: scale(0.98); }
-.chip .pre { color: var(--ink-3); font-weight: 500; }
+/* Referral contrast fix: the "NG -" prefix inside every code chip
+   is solid dark ink at full strength — never light grey on white. */
+.chip .pre { color: #14201c; font-weight: 700; }
 .chip-right { display: inline-flex; align-items: center; gap: 5px; flex: none; }
 .chip-meta { font-size: 0.66rem; font-weight: 700; padding: 1px 5px; border-radius: 6px; background: var(--gold-soft); color: var(--gold-deep); }
 .chip-meta.new { background: var(--turq-soft); color: var(--turq-dark); }
@@ -431,125 +527,32 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .chip.used { background: rgba(14, 138, 150, 0.1); border-color: rgba(14, 138, 150, 0.45); }
 .chip.used svg { color: var(--turq-dark); }
 .chip.flash { background: var(--gold); border-color: var(--gold-2); }
-.empty { grid-column: 1 / -1; text-align: center; color: var(--ink-3); padding: 34px 10px; font-size: 0.9rem; }
+.empty { grid-column: 1 / -1; text-align: center; color: #e9e0cb; padding: 34px 10px; font-size: 0.9rem; }
 .more { text-align: center; margin: 18px 0 8px; }
+/* Codes explainer — cream text on the dark ground. */
+.codes-explainer { text-align: center; font-size: 0.85rem; color: #e9e0cb; max-width: 640px; margin: 14px auto; line-height: 1.55; }
+/* My copied codes — a solid white details card. */
+.my-codes { margin: 16px 0; background: #fff; border: 2px solid #c9a227; border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow-dark); }
+.my-codes summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--teal); }
+.my-code { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 9px 0; border-top: 1px solid rgba(20, 32, 28, 0.12); margin-top: 8px; }
+.my-code code { font-family: var(--mono); font-weight: 700; color: var(--teal); }
+.my-code .btn-soft { padding: 6px 10px; font-size: 0.78rem; }
+.my-reasons { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; flex-basis: 100%; }
 /* Share box */
-.add { margin: 30px 0 10px; background: var(--surface); border: 2px solid #c9a227; border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
-.add summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; }
+.add { margin: 30px 0 10px; background: var(--surface); border: 2px solid #c9a227; border-radius: 16px; padding: 16px 18px; box-shadow: var(--shadow-dark); }
+.add summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--teal); }
 .add-form { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
 .add-form input { flex: 1; min-width: 0; font: inherit; padding: 11px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
 .btn-dark { border: 0; background: var(--teal); color: var(--gold); font: inherit; font-weight: 700; padding: 0 20px; border-radius: 12px; cursor: pointer; transition: transform var(--ease), filter var(--ease); }
 .btn-dark:hover { filter: brightness(1.12); transform: translateY(-1px); }
 .err { color: var(--danger); font-size: 0.82rem; margin-top: var(--sp-2); }
-/* Footer — extra bottom room so nothing is clipped at the fold */
-.foot { padding: 36px 20px 56px; text-align: center; color: var(--ink-3); font-size: 0.76rem; border-top: 2px solid rgba(201, 162, 39, 0.5); }
-.foot p { max-width: 640px; margin: 0 auto; }
-@media (min-width: 900px) {
-  /* Desktop: the full disclaimer fits on one line; the width here is
-     enough (~660px of text in ~810px+ of space), so no overflow. */
-  .foot p[data-i18n="foot"] { max-width: none; white-space: nowrap; }
-}
-.copyright { margin-top: var(--sp-2); font-size: 0.74rem; color: var(--ink-3); letter-spacing: 0.01em; }
-/* Gate dialog — solid dark-teal overlay, NO blur. The card is the
-   Eid card (ref 2): solid white, bold gold frame, turquoise
-   lattice corner insets, gold crescent. */
-.gate { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(8, 56, 49, 0.82); }
-.gate-card {
-  position: relative; overflow: hidden;
-  width: 100%; max-width: 440px; background: #ffffff; border: 2px solid #c9a227;
-  border-radius: 24px; padding: var(--sp-8) 30px 26px;
-  display: flex; flex-direction: column; gap: var(--sp-4); box-shadow: 0 30px 80px rgba(8, 56, 49, 0.5), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227;
-}
-.gate-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--mosaic); }
-.gate-card::after {
-  content: ''; position: absolute; right: -8px; top: 22px; width: 120px; height: 120px;
-  background-image: var(--tile-turq); background-size: 72px 72px; opacity: 0.7; pointer-events: none;
-  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 72%);
-  mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 72%);
-}
-.gate-badge {
-  width: 60px; height: 60px; border-radius: 16px; background: var(--teal);
-  border: 2px solid #c9a227; display: grid; place-items: center;
-  box-shadow: 0 10px 24px rgba(11, 79, 69, 0.35);
-}
-.gate-card h2 { font-size: 1.55rem; letter-spacing: -0.02em; color: var(--teal); }
-.gate-card p { color: var(--ink-2); font-size: 0.9rem; }
-#gate-input {
-  font-family: var(--mono); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em; padding: 14px 16px;
-  border-radius: 14px; border: 2px solid #c9a227; background: #fff; color: var(--ink); width: 100%;
-}
-.check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; color: var(--ink-2); cursor: pointer; }
-.check input { margin-top: 3px; accent-color: var(--teal-2); }
-.link { border: 0; background: none; color: var(--teal); font: inherit; font-size: 0.84rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; align-self: center; }
-.hint { color: var(--ink-3); font-size: 0.74rem; text-align: center; }
-/* Sponsor hosting card — the second deep teal anchor (ref 5),
-   saturated teal with the WHITE lattice, gold heading, mosaic
-   frieze on top and a gold lattice band along the bottom */
-.sponsor { position: relative; overflow: hidden; margin: 34px 0 10px; background-image: var(--tile-teal-white), linear-gradient(135deg, #0e5f53 0%, #08332f 100%); background-size: 96px 96px, auto; border: 2px solid #e9c46a; border-radius: 24px; padding: 30px 28px 28px; text-align: center; color: #f4efe3; box-shadow: 0 18px 40px rgba(11, 79, 69, 0.35); }
-.sponsor::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--mosaic); }
-.sponsor::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 54px;
-  background-image: var(--tile-bold); background-size: 96px 96px; background-position: center bottom;
-  opacity: 0.3; pointer-events: none;
-  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 90%);
-  mask-image: linear-gradient(to top, #000 30%, transparent 90%);
-}
-.sponsor > * { position: relative; z-index: 1; }
-.sponsor-icon { display: grid; place-items: center; }
-.sponsor h2 { color: var(--gold); font-size: 1.5rem; letter-spacing: -0.01em; margin: 10px 0 8px; }
-.sponsor p { color: #e9e0cb; font-size: 0.95rem; max-width: 560px; margin: 0 auto 6px; }
-.sponsor .sponsor-line2 { color: var(--gold); font-weight: 700; margin-bottom: 18px; }
-.sponsor-btn { min-width: 230px; }
-.sponsor-mail { text-decoration: none; }
-/* Toasts */
-.toasts { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; flex-direction: column; gap: var(--sp-2); z-index: 80; max-width: calc(100vw - 32px); }
-.toast { background: var(--teal); color: #f4efe3; border: 2px solid rgba(233, 196, 106, 0.6); padding: 10px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(8, 56, 49, 0.4); }
-[dir='rtl'] .chip { text-align: right; }
-/* --- nk-v22 features, restyled for the new design --- */
-/* 4-step how-to banner (from umrahcodes.click / nusukkey.xyz) —
-   now the amber picture (ref 3): vivid amber wash, amber lattice
-   corner with red star centres, amber badges. */
-.how-banner {
-  position: relative; overflow: hidden;
-  background: var(--amber-wash);
-  border: 2px solid var(--amber); border-radius: 14px;
-  padding: 10px 14px; margin: 0 0 var(--sp-4); box-shadow: var(--shadow-sm);
-}
-.how-banner::before {
-  content: ''; position: absolute; top: -4px; right: -4px; width: 190px; height: 190px;
-  background-image: var(--tile-amber); background-size: 96px 96px; opacity: 0.9; pointer-events: none;
-  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 30%, transparent 82%);
-  mask-image: radial-gradient(circle at 100% 0%, #000 30%, transparent 82%);
-}
-.how-banner > * { position: relative; z-index: 1; }
-.how-banner summary { font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-bottom: 6px; color: var(--amber-deep); }
-.how-banner:not([open]) summary { margin-bottom: 0; }
-.how-banner ol { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.how-banner li { display: flex; gap: 7px; align-items: flex-start; font-size: 0.78rem; line-height: 1.4; color: #5c3d00; }
-.how-banner li b {
-  flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
-  background: var(--amber-deep); color: #fff; font-size: 0.72rem;
-}
-/* Last-tried strip (umrahcodes shows the same strip) — now the
-   blush picture (ref 7): soft blush wash, gold star bullet. */
-.tried-strip {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
-  font-size: 0.82rem; color: var(--ink-2); background: var(--blush);
-  border: 2px solid #c9a227; border-radius: 10px;
-  padding: 6px 12px; margin: 0 0 var(--sp-3); box-shadow: var(--shadow-sm);
-}
-.tried-strip::before {
-  content: ''; flex: none; width: 18px; height: 18px;
-  background-image: var(--star-gold); background-size: contain; background-repeat: no-repeat;
-}
-.tried-strip code { font-family: var(--mono); font-size: 0.8rem; color: var(--teal); }
 /* Multi-code share (up to 10 codes at once) */
 .add-form textarea {
   flex: 1; min-height: 44px; resize: vertical; font: inherit; font-size: 0.88rem;
   padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink);
 }
 .share-hint { font-size: 0.78rem; color: var(--ink-2); margin-top: 6px; }
-.share-review { margin-top: 8px; font-size: 0.84rem; }
+.share-review { margin-top: 8px; font-size: 0.84rem; color: var(--ink-2); }
 .share-review .review-codes { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
 .share-review .review-codes code {
   font-family: var(--mono); font-size: 0.78rem; background: var(--gold-soft);
@@ -557,19 +560,43 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 }
 .share-review .review-codes code.bad { background: rgba(214, 64, 79, 0.12); border-color: rgba(214, 64, 79, 0.4); text-decoration: line-through; }
 .share-review .btn-dark, .share-review .btn-soft { margin-right: 8px; }
-/* FAQ + short guides */
-.faq { margin: var(--sp-4) 0; }
-.faq h2 { font-size: 1.05rem; margin-bottom: 10px; color: var(--teal); }
-.faq h3 { font-size: 0.95rem; margin: 16px 0 8px; color: var(--teal); }
-.faq details {
+/* Share name field + the three-step how-to-share details + the
+   "People you helped" line + the resend-saved-codes button. */
+#share-name { width: 100%; font: inherit; font-size: 0.88rem; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); margin-top: 8px; }
+.share-how { margin-top: 10px; }
+.share-how summary { cursor: pointer; font-weight: 700; font-size: 0.86rem; color: var(--teal); }
+.share-how ol { margin: 8px 0 0 18px; font-size: 0.84rem; color: var(--ink-2); }
+.share-how li { margin-bottom: 4px; }
+#share-resend { margin-top: 12px; }
+.helped-line { text-align: center; font-weight: 700; color: var(--teal); background: #fdebc8; border: 1px solid #c9a227; border-radius: 999px; padding: 6px 14px; margin-top: 12px; font-size: 0.85rem; }
+/* FAQ + short guides — the ivory-beige embossed design: a warm
+   taupe-beige panel with raised white diagonal geometry, solid
+   and clearly defined, never competing with the text. The two
+   sections are closed by default; the questions inside stay
+   collapsible too (nested details). */
+.faq {
+  margin: var(--sp-4) 0; padding: 18px;
+  background-color: var(--ivory); background-image: var(--tile-ivory); background-size: 140px 140px;
+  border: 2px solid #c9a227; border-radius: 18px;
+  box-shadow: var(--shadow-dark), inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(139, 115, 85, 0.25);
+}
+.faq-section, .guides-section {
+  background: #fff; border: 2px solid #c9a227; border-radius: 14px;
+  padding: 12px 16px; margin-bottom: 10px; box-shadow: var(--shadow-sm);
+}
+.faq-section:last-child, .guides-section:last-child { margin-bottom: 0; }
+.faq-section > summary, .guides-section > summary { cursor: pointer; font-weight: 800; font-size: 1.02rem; color: var(--teal); }
+.faq-section > summary::-webkit-details-marker, .guides-section > summary::-webkit-details-marker { color: var(--gold-deep); }
+#faq-list { margin-top: 10px; }
+#faq-list details {
   background: #fff; border: 2px solid #c9a227; border-radius: 12px;
   padding: 10px 14px; margin-bottom: 8px; box-shadow: var(--shadow-sm);
 }
-.faq summary { cursor: pointer; font-weight: 700; font-size: 0.9rem; }
-.faq details p { font-size: 0.86rem; color: var(--ink-2); margin-top: 6px; }
-/* Short guides — now the taupe picture (ref 6): a taupe lattice
-   corner on each card. */
-.guides { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+#faq-list summary { cursor: pointer; font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+#faq-list details p { font-size: 0.86rem; color: var(--ink-2); margin-top: 6px; }
+/* Short guides — the taupe picture: a taupe lattice corner on
+   each card. */
+.guides { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
 .guides li {
   position: relative; overflow: hidden;
   background: #fff; border: 2px solid rgba(20, 32, 28, 0.2); border-radius: 10px;
@@ -593,16 +620,259 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   border-radius: 50%; color: var(--ink-3); text-decoration: none; font-size: 0.85rem;
 }
 .chip-globe:hover { background: var(--turq-soft); color: var(--teal); }
-/* Footer source credit */
-.sources { font-size: 0.8rem; color: var(--ink-2); margin-top: 6px; }
-.sources a { color: var(--gold-deep); }
+/* Fix section — solid white card with the warm beige / orange /
+   amber / burgundy corner ornament in the UPPER-LEFT only, and
+   the ten troubleshooting items as collapsible rows. */
+.fix-section {
+  position: relative; overflow: hidden;
+  background: #fff; border: 2px solid var(--amber); border-radius: 18px;
+  padding: 18px; margin: var(--sp-4) 0; box-shadow: var(--shadow-dark);
+}
+.fix-section::before {
+  content: ''; position: absolute; top: -40px; left: -40px; width: 180px; height: 180px;
+  background-image: var(--tile-amber); background-size: 96px 96px; opacity: 0.85; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 0% 0%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(circle at 0% 0%, #000 25%, transparent 78%);
+}
+.fix-section > * { position: relative; z-index: 1; }
+.fix-section h2 { font-size: 1.15rem; color: var(--amber-deep); margin-bottom: 4px; }
+.fix-section > p { font-size: 0.86rem; color: var(--ink-2); margin-bottom: 12px; }
+#fix-list details {
+  background: #fff; border: 2px solid #c9a227; border-left: 4px solid var(--amber);
+  border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; box-shadow: var(--shadow-sm);
+}
+#fix-list summary { cursor: pointer; font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+#fix-list details p { font-size: 0.86rem; color: var(--ink-2); margin-top: 6px; }
+/* Competition 2026 — the featured section from the pale-blue
+   design: a large dark-emerald geometric mosaic, strong on the
+   LEFT, with golden headings and cream content on the right.
+   Deep solid background, striking gold typography, never faded. */
+.feature-emerald {
+  position: relative; overflow: hidden;
+  background-color: #06302a; background-image: var(--tile-emerald);
+  background-size: 120px 120px; background-position: left center;
+  border: 2px solid #e9c46a; border-radius: 20px;
+  margin: var(--sp-4) 0; box-shadow: var(--shadow-dark);
+}
+.feature-emerald::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(6, 48, 42, 0) 0%, rgba(6, 48, 42, 0) 26%, #06302a 55%);
+}
+.feature-emerald .feature-body { position: relative; z-index: 1; padding: 26px 28px 26px 34%; }
+.feature-body h2 { font-size: 1.4rem; letter-spacing: -0.01em; margin-bottom: 10px; }
+.feature-emerald .feature-body h2 { color: var(--gold); }
+.feature-emerald .feature-body p, .feature-emerald .feature-body li { color: #f4efe3; font-size: 0.92rem; }
+.feature-emerald .feature-body strong { color: var(--gold); }
+.feature-emerald .feature-body ul, .feature-taupe .feature-body ul { margin: 8px 0 8px 20px; }
+.feature-emerald .feature-body li, .feature-taupe .feature-body li { margin-bottom: 4px; }
+.feature-emerald .feature-body p { margin-bottom: 8px; }
+.feature-emerald .feature-body a { color: var(--gold); }
+/* Umrah step by step — the taupe counterpart: warm taupe ground
+   with large dark-brown interlocking ornaments on the RIGHT, and
+   a spacious negative area on the left for the content. */
+.feature-taupe {
+  position: relative; overflow: hidden;
+  background-color: var(--taupe-ground); background-image: var(--tile-brown);
+  background-size: 120px 120px; background-position: right center;
+  border: 2px solid #8b7355; border-radius: 20px;
+  margin: var(--sp-4) 0; box-shadow: var(--shadow-dark); color: #3d2b1f;
+}
+.feature-taupe::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(270deg, rgba(217, 199, 167, 0) 0%, rgba(217, 199, 167, 0) 26%, #d9c7a7 55%);
+}
+.feature-taupe .feature-body { position: relative; z-index: 1; padding: 26px 34% 26px 28px; }
+.feature-taupe .feature-body h2 { color: #3d2b1f; }
+.feature-taupe .feature-body p, .feature-taupe .feature-body li { color: #4a3421; font-size: 0.92rem; }
+.feature-taupe .feature-body strong { color: #3d2b1f; }
+.feature-taupe .feature-body p { margin-bottom: 8px; }
+/* Find-your-code + checklist — the ivory-beige embossed design
+   again: spacious secondary panels with raised white diagonals. */
+.guide-section {
+  margin: var(--sp-4) 0; padding: 18px;
+  background-color: var(--ivory); background-image: var(--tile-ivory); background-size: 140px 140px;
+  border: 2px solid #c9a227; border-radius: 18px;
+  box-shadow: var(--shadow-dark), inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(139, 115, 85, 0.25);
+}
+.guide-section > summary { cursor: pointer; font-weight: 800; font-size: 1.05rem; color: var(--teal); }
+.guide-section > summary::-webkit-details-marker { color: var(--gold-deep); }
+.guide-body { margin-top: 10px; }
+.guide-body h2 { font-size: 1.15rem; color: var(--gold-deep); margin-bottom: 8px; }
+.guide-body p { font-size: 0.88rem; color: var(--ink-2); margin-bottom: 8px; }
+.guide-body ul, .guide-body ol { margin: 8px 0 8px 20px; font-size: 0.88rem; color: var(--ink-2); }
+.guide-body li { margin-bottom: 4px; }
+.guide-body strong { color: var(--ink); }
+.guide-body code { font-family: var(--mono); font-weight: 700; color: var(--teal); }
+/* Tools — two solid white cards with turquoise frames. */
+.tools { margin-top: 14px; }
+.tools > h3 { font-size: 0.98rem; color: var(--teal); margin-bottom: 10px; }
+.tool { background: #fff; border: 2px solid var(--turq); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.tool h4 { font-size: 0.95rem; color: var(--teal); margin-bottom: 4px; }
+.tool p { font-size: 0.84rem; color: var(--ink-2); margin-bottom: 8px; }
+.tool input, .tool textarea {
+  width: 100%; font: inherit; font-family: var(--mono); font-size: 0.9rem;
+  padding: 11px 12px; border: 2px solid #c9a227; border-radius: 12px; background: #fff; color: var(--ink);
+  margin-bottom: 8px;
+}
+.tool textarea { resize: vertical; min-height: 64px; }
+.tool .btn-dark { padding: 11px 20px; }
+.tool-result { margin-top: 10px; font-size: 0.88rem; color: var(--ink-2); }
+.tool-result code { font-family: var(--mono); font-weight: 700; color: var(--teal); }
+.check-row { display: flex; justify-content: space-between; gap: 8px; padding: 6px 8px; border-bottom: 1px solid rgba(20, 32, 28, 0.1); font-family: var(--mono); font-size: 0.82rem; color: var(--ink); }
+.check-row.on { color: #14663f; font-weight: 700; }
+/* Checklist — white category cards on the ivory panel. */
+.checklist-progress { font-weight: 700; color: var(--teal); font-size: 0.9rem; margin: 10px 0; text-align: center; }
+.check-cat { background: #fff; border: 2px solid #c9a227; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+.check-cat h3 { font-size: 0.92rem; color: var(--teal); margin-bottom: 6px; }
+.check-cat ul { list-style: none; }
+.check-cat li { margin-bottom: 2px; }
+.check-cat label { display: flex; gap: 8px; align-items: flex-start; font-size: 0.86rem; color: var(--ink-2); cursor: pointer; padding: 3px 0; }
+.check-cat input { margin-top: 3px; accent-color: var(--teal-2); flex: none; }
+.checklist-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+/* Dua block — the cream-white star design: a solid cream panel
+   with gold-star corners, centred text. */
+.dua {
+  position: relative; overflow: hidden; text-align: center;
+  background: #fffdf6; border: 2px solid #c9a227; border-radius: 18px;
+  padding: 22px 20px; margin: var(--sp-4) 0; box-shadow: var(--shadow-dark);
+}
+.dua::before, .dua::after {
+  content: ''; position: absolute; width: 110px; height: 110px;
+  background-image: var(--tile-bold); background-size: 96px 96px; opacity: 0.5; pointer-events: none;
+}
+.dua::before { top: -12px; left: -12px; -webkit-mask-image: radial-gradient(circle at 0% 0%, #000 25%, transparent 75%); mask-image: radial-gradient(circle at 0% 0%, #000 25%, transparent 75%); }
+.dua::after { bottom: -12px; right: -12px; -webkit-mask-image: radial-gradient(circle at 100% 100%, #000 25%, transparent 75%); mask-image: radial-gradient(circle at 100% 100%, #000 25%, transparent 75%); }
+.dua > * { position: relative; z-index: 1; }
+.dua h2 { color: var(--teal); font-size: 1.15rem; margin-bottom: 6px; }
+.dua p { color: var(--ink-2); font-size: 0.92rem; max-width: 560px; margin: 0 auto; }
+
+/* Sponsor hosting card — the second deep teal anchor, saturated
+   teal with the WHITE lattice, gold heading, mosaic frieze on
+   top. COMPACT: less padding and height, and the gold lattice
+   band along the bottom is kept short and masked to the edges
+   so it never touches the text or the button. */
+.sponsor { position: relative; overflow: hidden; margin: 24px 0 10px; background-image: var(--tile-teal-white), linear-gradient(135deg, #0e5f53 0%, #08332f 100%); background-size: 96px 96px, auto; border: 2px solid #e9c46a; border-radius: 24px; padding: 20px 22px 18px; text-align: center; color: #f4efe3; box-shadow: var(--shadow-dark); }
+.sponsor::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--mosaic); }
+.sponsor::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 34px;
+  background-image: var(--tile-bold); background-size: 96px 96px; background-position: center bottom;
+  opacity: 0.22; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent 90%);
+  mask-image: linear-gradient(to top, #000 30%, transparent 90%);
+}
+.sponsor > * { position: relative; z-index: 1; }
+.sponsor-icon { display: grid; place-items: center; }
+.sponsor h2 { color: var(--gold); font-size: 1.3rem; letter-spacing: -0.01em; margin: 6px 0 6px; }
+.sponsor p { color: #e9e0cb; font-size: 0.92rem; max-width: 560px; margin: 0 auto 4px; }
+.sponsor .sponsor-line2 { color: var(--gold); font-weight: 700; margin-bottom: 12px; }
+.sponsor-btn { min-width: 230px; }
+.sponsor-mail { text-decoration: none; }
+/* Toasts */
+.toasts { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; flex-direction: column; gap: var(--sp-2); z-index: 80; max-width: calc(100vw - 32px); }
+.toast { background: var(--teal); color: #f4efe3; border: 2px solid rgba(233, 196, 106, 0.6); padding: 10px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(8, 56, 49, 0.4); }
+/* Footer — the cream-white star design as a closing panel: solid
+   deep teal with gold-star corners, cream text, gold links. */
+.foot {
+  position: relative; overflow: hidden;
+  background: #0b4f45; border: 2px solid #e9c46a; border-radius: 20px;
+  padding: 28px 22px 36px; margin: 24px 0 32px; text-align: center; color: #e9e0cb;
+  box-shadow: var(--shadow-dark);
+}
+.foot::before, .foot::after {
+  content: ''; position: absolute; width: 90px; height: 90px;
+  background-image: var(--tile-bold); background-size: 96px 96px; opacity: 0.35; pointer-events: none;
+}
+.foot::before { top: -10px; left: -10px; -webkit-mask-image: radial-gradient(circle at 0% 0%, #000 25%, transparent 75%); mask-image: radial-gradient(circle at 0% 0%, #000 25%, transparent 75%); }
+.foot::after { top: -10px; right: -10px; -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 25%, transparent 75%); mask-image: radial-gradient(circle at 100% 0%, #000 25%, transparent 75%); }
+.foot > * { position: relative; z-index: 1; }
+.foot p { max-width: 640px; margin: 0 auto; color: #e9e0cb; font-size: 0.76rem; }
+@media (min-width: 900px) {
+  /* Desktop: the full disclaimer fits on one line; the width here is
+     enough (~660px of text in ~810px+ of space), so no overflow. */
+  .foot p[data-i18n="foot"] { max-width: none; white-space: nowrap; }
+}
+.copyright { margin-top: var(--sp-2); font-size: 0.74rem; color: rgba(233, 224, 203, 0.85); letter-spacing: 0.01em; }
+/* Footer navigation — three columns of anchor links to the
+   site's own sections (no external links). */
+.foot-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px auto 8px; max-width: 640px; text-align: left; }
+.foot-col b { display: block; color: var(--gold); font-size: 0.85rem; margin-bottom: 6px; }
+.foot-col a { display: block; color: #f4efe3; text-decoration: none; font-size: 0.84rem; padding: 3px 0; }
+.foot-col a:hover { color: var(--gold); text-decoration: underline; }
+.foot-notes { list-style: none; max-width: 640px; margin: 14px auto 0; text-align: left; }
+.foot-notes li { font-size: 0.78rem; color: rgba(233, 224, 203, 0.85); padding-left: 18px; position: relative; margin-bottom: 4px; }
+.foot-notes li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; top: 1px; }
+/* Legal details (Privacy / Terms / Developers) — solid dark
+   cards inside the footer panel. */
+.legal { max-width: 640px; margin: 10px auto 0; text-align: left; background: #083831; border: 1px solid rgba(233, 196, 106, 0.5); border-radius: 12px; padding: 10px 14px; }
+.legal summary { cursor: pointer; font-weight: 700; color: var(--gold); font-size: 0.88rem; }
+.legal div { color: #e9e0cb; font-size: 0.85rem; margin-top: 8px; }
+.legal div h2 { color: var(--gold); font-size: 1.05rem; margin-bottom: 6px; }
+.legal div p { margin-bottom: 6px; }
+.legal div code { font-family: var(--mono); color: var(--gold); font-size: 0.8rem; }
+/* Gate dialog — SOLID dark-teal overlay (no blur, no translucency).
+   The card is the gold-framed Eid card: solid white, bold gold
+   frame, turquoise lattice corner inset, gold crescent. */
+.gate { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: #083831; }
+.gate-card {
+  position: relative; overflow: hidden;
+  width: 100%; max-width: 440px; background: #ffffff; border: 2px solid #c9a227;
+  border-radius: 24px; padding: var(--sp-8) 30px 26px;
+  display: flex; flex-direction: column; gap: var(--sp-4); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 0 0 4px #ffffff, inset 0 0 0 5px #c9a227;
+}
+.gate-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--mosaic); }
+.gate-card::after {
+  content: ''; position: absolute; right: -8px; top: 22px; width: 120px; height: 120px;
+  background-image: var(--tile-turq); background-size: 72px 72px; opacity: 0.7; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 72%);
+  mask-image: radial-gradient(circle at 100% 0%, #000 20%, transparent 72%);
+}
+.gate-badge {
+  width: 60px; height: 60px; border-radius: 16px; background: var(--teal);
+  border: 2px solid #c9a227; display: grid; place-items: center;
+  box-shadow: 0 10px 24px rgba(11, 79, 69, 0.35);
+}
+.gate-card h2 { font-size: 1.55rem; letter-spacing: -0.02em; color: var(--teal); }
+.gate-card p { color: var(--ink-2); font-size: 0.9rem; }
+#gate-input {
+  font-family: var(--mono); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em; padding: 14px 16px;
+  border-radius: 14px; border: 2px solid #c9a227; background: #fff; color: var(--ink); width: 100%;
+}
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; color: var(--ink-2); cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--teal-2); }
+.link { border: 0; background: none; color: var(--teal); font: inherit; font-size: 0.84rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; align-self: center; }
+.hint { color: var(--ink-3); font-size: 0.74rem; text-align: center; }
+[dir='rtl'] .chip { text-align: right; }
+/* 4-step how-to banner — the amber picture: vivid amber wash,
+   amber lattice corner with red star centres (upper-left, never
+   stretched across), amber badges. */
+.how-banner {
+  position: relative; overflow: hidden;
+  background: var(--amber-wash);
+  border: 2px solid var(--amber); border-radius: 14px;
+  padding: 10px 14px; margin: 0 0 var(--sp-4); box-shadow: var(--shadow-dark);
+}
+.how-banner::before {
+  content: ''; position: absolute; top: -4px; left: -4px; width: 150px; height: 150px;
+  background-image: var(--tile-amber); background-size: 96px 96px; opacity: 0.7; pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle at 0% 0%, #000 30%, transparent 82%);
+  mask-image: radial-gradient(circle at 0% 0%, #000 30%, transparent 82%);
+}
+.how-banner > * { position: relative; z-index: 1; }
+.how-banner summary { font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-bottom: 6px; color: var(--amber-deep); }
+.how-banner:not([open]) summary { margin-bottom: 0; }
+.how-banner ol { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.how-banner li { display: flex; gap: 7px; align-items: flex-start; font-size: 0.78rem; line-height: 1.4; color: #5c3d00; }
+.how-banner li b {
+  flex: none; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--amber-deep); color: #fff; font-size: 0.72rem;
+}
 /* Responsive — true narrow viewports, not zoom */
 @media (max-width: 1024px) {
   .wrap { max-width: 960px; }
   .dispenser { padding: 28px 28px 24px; }
-  .disp-kaaba-art { width: 280px; height: 244px; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
-  .bg-kaaba-scene { width: min(1000px, 135vw); }
+  .feature-emerald .feature-body { padding-left: 30%; }
+  .feature-taupe .feature-body { padding-right: 30%; }
 }
 @media (max-width: 720px) {
   .wrap { padding: 0 18px; }
@@ -613,9 +883,14 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .top-actions { flex-wrap: nowrap; gap: 8px; }
   .seg.lang { display: none; }
   .lang-drop { display: inline-block; }
+  /* Mobile nav: one scrollable row, so all seven links stay
+     reachable without wrapping into a tall block. */
+  .topnav-in { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .topnav a { padding: 6px 10px; font-size: 0.82rem; }
   .hero { padding: 18px 18px 20px; }
   .hero::before { width: 60%; opacity: 1; }
   .hero::after { width: 26px; height: 26px; top: 10px; right: 12px; }
+  .hadith { font-size: 0.86rem; padding: 10px 12px; }
   /* Mobile only: the desktop share bar is replaced by the header
      share icon, which opens the same links in a popup. */
   .share-bar { display: none; }
@@ -638,19 +913,29 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .steps b { width: 24px; height: 24px; font-size: 0.72rem; }
   .dispenser { padding: 24px 22px 22px; border-radius: 22px; }
   .dispenser::after { width: 140px; height: 140px; opacity: 0.7; }
-  .disp-kaaba-art { width: 240px; height: 210px; opacity: 0.7; }
   .disp-code { padding-inline-end: 80px; font-size: clamp(1.7rem, 7vw, 2.6rem); }
   .btn-cta kbd { display: none; }
   .seg button { padding: 6px 10px; }
   .guest-alert-in { flex-direction: column; align-items: flex-start; gap: 6px; }
   .how-banner ol { grid-template-columns: repeat(2, 1fr); gap: 7px; }
-  .how-banner { padding: 8px 10px; }
+  .how-banner { padding: 8px 10px; margin-bottom: 10px; }
   .how-banner::before { width: 110px; height: 110px; opacity: 0.7; }
   .how-banner summary { font-size: 0.86rem; margin-bottom: 5px; }
   .how-banner:not([open]) summary { margin-bottom: 0; }
   .how-banner li { font-size: 0.72rem; }
   .guides { grid-template-columns: 1fr; }
-  .faq details { padding: 8px 12px; }
+  .faq details, #faq-list details, #fix-list details { padding: 8px 12px; }
+  /* Featured sections: the mosaic becomes a top band, the
+     content takes the full width below it. */
+  .feature-emerald { background-position: center top; background-size: 120px 120px; }
+  .feature-emerald::before { background: linear-gradient(180deg, rgba(6, 48, 42, 0) 0%, rgba(6, 48, 42, 0) 60px, #06302a 120px); }
+  .feature-emerald .feature-body { padding: 130px 18px 18px; }
+  .feature-taupe { background-position: center top; background-size: 120px 120px; }
+  .feature-taupe::before { background: linear-gradient(180deg, rgba(217, 199, 167, 0) 0%, rgba(217, 199, 167, 0) 60px, #d9c7a7 120px); }
+  .feature-taupe .feature-body { padding: 130px 18px 18px; }
+  .faq, .guide-section, .fix-section { padding: 14px; }
+  .foot-nav { grid-template-columns: 1fr; gap: 12px; }
+  .phone-mockup { width: 210px; }
 }
 @media (max-width: 520px) {
   .wrap { padding: 0 16px; }
@@ -662,20 +947,22 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .top-actions { width: auto; justify-content: flex-end; gap: 6px; }
   .acct { padding: 6px 9px; font-size: 0.72rem; max-width: 128px; }
   #acct-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .hero { padding: 12px 16px; margin-bottom: 10px; }
+  .hero { padding: 10px 14px; margin-bottom: 8px; }
   .hero::after { display: none; }
   .hero-ornament { margin-bottom: 4px; }
   .hero h1 { font-size: 1.45rem; }
   .hero p { display: none; }
-  .credit { font-size: 0.8rem; }
+  .hadith { display: none; }
+  .trust-badges { display: none; }
+  .history-note { font-size: 0.75rem; margin-bottom: 8px; }
+  .credit { font-size: 0.8rem; margin-top: 6px; }
   .metric-card { padding: 8px; }
-  .dispenser { padding: 18px 16px 16px; }
-  .disp-kaaba-art { width: 130px; height: 114px; opacity: 0.6; right: 0; top: 0; }
+  .dispenser { padding: 14px 14px 12px; }
   .dispenser::before { width: 180px; height: 180px; opacity: 0.45; }
   .dispenser::after { width: 110px; height: 110px; opacity: 0.6; }
-  .disp-code { padding-inline-end: 0; font-size: clamp(1.55rem, 8.5vw, 2.1rem); }
+  .disp-code { padding-inline-end: 0; font-size: clamp(1.55rem, 8.5vw, 2.1rem); margin: 10px 0 12px; }
   /* Copy + Skip stay side by side so the card stays short */
-  .disp-actions { flex-direction: row; margin-top: 14px; }
+  .disp-actions { flex-direction: row; margin-top: 10px; }
   .disp-actions .btn-cta { flex: 1; min-width: 0; }
   .btn-ghost { padding: 13px 16px; }
   .steps li { padding: 8px; }
@@ -686,6 +973,13 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   #filters { width: 100%; overflow-x: auto; }
   .gate-card { padding: 26px 22px 22px; }
   .toast { white-space: normal; text-align: center; }
+  .feature-emerald .feature-body, .feature-taupe .feature-body { padding: 120px 16px 16px; }
+  .feature-body h2 { font-size: 1.2rem; }
+  .sponsor { padding: 16px 16px 14px; }
+  .sponsor h2 { font-size: 1.15rem; }
+  .sponsor-btn { min-width: 0; width: 100%; }
+  .foot { padding: 22px 16px 28px; }
+  .phone-mockup { width: 200px; }
 }
 @media (max-width: 380px) {
   .wrap { padding: 0 14px; }
