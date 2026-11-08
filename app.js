@@ -1393,6 +1393,47 @@ const PRIMARY_ORIGIN = 'https://nusukkeys-cu9.pages.dev';
 // D1 write limit and the KV list quota are exhausted. The /presence
 // node holds only a timestamp per visitor key — no personal data.
 const FIREBASE_PRESENCE_URL = 'https://nusukkeys-mirror-default-rtdb.firebaseio.com/presence';
+const FIREBASE_COUNTERS_URL = 'https://nusukkeys-mirror-default-rtdb.firebaseio.com/counters';
+// Realtime totals, read straight from Firebase (no /api call needed):
+// visitors_total = 55,000 + counters.visitors, used_total = 100,000
+// + counters.copies. The counters are seeded from the last reliable
+// server counts (D1: visitors 1,304, copies 14,686) and grow by atomic
+// Firebase increments, so they move in real time even while the
+// Cloudflare Function (405) and the D1 write limit are out.
+async function loadFirebaseCounters() {
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    const res = await fetch(FIREBASE_COUNTERS_URL + '.json', { signal: ctl.signal });
+    clearTimeout(timer);
+    if (!res.ok) return;
+    const data = await res.json().catch(() => null);
+    if (!data || typeof data !== 'object') return;
+    if (!state.stats) state.stats = {};
+    const v = Number(data.visitors) || 0;
+    const c = Number(data.copies) || 0;
+    // Take the max with the backend value, so a working backend can
+    // only raise the totals, never lower them.
+    state.stats.visitors_total = Math.max(Number(state.stats.visitors_total) || 0, HISTORICAL_VISITORS + v);
+    state.stats.used_total = Math.max(Number(state.stats.used_total) || 0, HISTORICAL_COPIES + c);
+    renderMetrics();
+  } catch {}
+}
+// Atomically bump one Firebase counter by 1 (server-side increment,
+// so concurrent visitors cannot lose a count). Fire-and-forget.
+function bumpFirebaseCounter(name) {
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    fetch(FIREBASE_COUNTERS_URL + '/' + name + '.json', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ '.sv': { increment: 1 } }),
+      signal: ctl.signal,
+      keepalive: true,
+    }).catch(() => {}).finally(() => clearTimeout(timer));
+  } catch {}
+}
 async function fetchWithTimeout(url, ms) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), ms);
@@ -1413,7 +1454,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v36').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v37').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1469,7 +1510,19 @@ function applyCodes(data, delta) {
 // ---------- Data ----------
 async function loadStats() {
   const d = await api('stats');
-  if (d.ok) { state.me = d.me; state.stats = d.stats; renderAll(); }
+  if (d.ok) {
+    state.me = d.me;
+    // Preserve the Firebase realtime totals: they are the source of
+    // truth while the Function/D1 is down, and may be HIGHER than the
+    // backend's own numbers (the backend froze when its writes ran
+    // out). Never let a stale backend answer lower the totals.
+    const fbV = state.stats ? Number(state.stats.visitors_total) || 0 : 0;
+    const fbC = state.stats ? Number(state.stats.used_total) || 0 : 0;
+    state.stats = d.stats;
+    if (fbV) state.stats.visitors_total = Math.max(Number(state.stats.visitors_total) || 0, fbV);
+    if (fbC) state.stats.used_total = Math.max(Number(state.stats.used_total) || 0, fbC);
+    renderAll();
+  }
 }
 
 // ---------- Presence ("active now") ----------
@@ -1564,10 +1617,22 @@ function ensurePresenceLoop() {
   if (presenceTimer) return;
   pingPresence();
   loadFirebaseOnline();
+  loadFirebaseCounters();
+  // Count this browser as a new visitor exactly once: the first time
+  // it ever loads the site (localStorage flag). A reload or a return
+  // visit does not count again. This is what makes the Real Visitors
+  // total grow in real time while the Function is down.
+  try {
+    if (!localStorage.getItem('mk_counted_v1')) {
+      localStorage.setItem('mk_counted_v1', '1');
+      bumpFirebaseCounter('visitors');
+    }
+  } catch {}
   presenceTimer = setInterval(() => {
     if (document.visibilityState !== 'visible') return;
     pingPresence();
     loadFirebaseOnline();
+    loadFirebaseCounters();
     if (state.key) loadStats();
   }, 60000);
 }
@@ -1774,6 +1839,10 @@ async function recordCopy(c, toastMsg) {
   state.me.remaining = Math.max(0, state.me.remaining - 1);
   state.stats.used_today = (state.stats.used_today || 0) + 1;
   state.stats.used_total = (state.stats.used_total || 0) + 1;
+  // Count this copy in the realtime total (Firebase), so Total Copies
+  // grows in real time even while the Function is down. Atomic
+  // increment — concurrent copies cannot lose a count.
+  bumpFirebaseCounter('copies');
   markLocal([c.id]);
   renderAll();
 
