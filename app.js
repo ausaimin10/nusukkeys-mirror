@@ -35,7 +35,8 @@ const I18N = {
     sponsorLine2: 'A small contribution, a lasting benefit for the Ummah.',
     sponsorBtn: 'Sponsor Hosting',
     sponsorNote: 'This site runs on free hosting. A paid plan for the main server starts at about $5 a month and raises the limits. Every contribution goes to that upgrade, nothing else.',
-    sponsorEmail: 'Email to sponsor',
+    sponsorConfirm: 'Would you like to help publish this site as a paid service for the benefit of the Ummah, so more people can use it reliably and effectively?',
+    sponsorYes: 'Yes, open the hosting page',
     sponsorClose: 'Close',
     sponsorHint: 'Contributions are voluntary. No payment details are collected on this site.',
     failoverMsg: 'This site could not load its code list. Try a backup mirror \u2014 codes you use there are saved only in that browser.',
@@ -135,7 +136,8 @@ const I18N = {
     sponsorLine2: 'একটি ছোট অবদান, উম্মাহর জন্য স্থায়ী উপকার।',
     sponsorBtn: 'হোস্টিং স্পনসর করুন',
     sponsorNote: 'এই সাইটটি এখন বিনামূল্যের হোস্টিংয়ে চলে। মূল সার্ভারের জন্য পেইড প্ল্যান মাসে প্রায় $৫ থেকে শুরু হয় এবং সীমা বাড়ায়। প্রতিটি অবদান শুধু সেই আপগ্রেডের কাজেই যাবে।',
-    sponsorEmail: 'স্পনসর করতে ইমেইল করুন',
+    sponsorConfirm: 'আপনি কি উম্মাহর উপকারের জন্য এই সাইটটিকে একটি পেইড সার্ভিস হিসেবে প্রকাশ করতে সাহায্য করতে চান, যাতে আরও বেশি মানুষ এটি নির্ভরযোগ্যভাবে ও কার্যকরভাবে ব্যবহার করতে পারে?',
+    sponsorYes: 'হ্যাঁ, হোস্টিং পৃষ্ঠাটি খুলুন',
     sponsorClose: 'বন্ধ করুন',
     sponsorHint: 'অবদান সম্পূর্ণ স্বেচ্ছায়। এই সাইটে কোনো পেমেন্ট তথ্য নেওয়া হয় না।',
     failoverMsg: '\u098f\u0987 \u09b8\u09be\u0987\u099f\u099f\u09bf \u0995\u09cb\u09a1\u09c7\u09b0 \u09a4\u09be\u09b2\u09bf\u0995\u09be \u09b2\u09cb\u09a1 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09c7\u09a8\u09bf. \u09ac\u09cd\u09af\u09be\u0995\u09be\u09aa \u09ae\u09bf\u09b0\u09b0 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c1\u09a8 \u2014 \u09b8\u09c7\u0996\u09be\u09a8\u09c7 \u0995\u09cb\u09a1 \u09b6\u09c1\u09a7\u09c1 \u0993\u0987 \u09ac\u09cd\u09b0\u09be\u0989\u099c\u09be\u09b0\u09c7\u0987 \u09b8\u0982\u09b0\u0995\u09cd\u09b7\u09bf\u09a4 \u09a5\u09be\u0995\u09ac\u09c7.',
@@ -235,7 +237,8 @@ const I18N = {
     sponsorLine2: 'مساهمة صغيرة، وفائدة دائمة للأمة.',
     sponsorBtn: 'ادعم الاستضافة',
     sponsorNote: 'يعمل هذا الموقع حاليًا على استضافة مجانية. تبدأ الخطة المدفوعة للخادم الرئيسي من نحو ٥ دولارات شهريًا وترفع الحدود، وتذهب كل مساهمة إلى تلك الترقية فقط.',
-    sponsorEmail: 'راسلنا للرعاية',
+    sponsorConfirm: 'هل ترغب في المساعدة في نشر هذا الموقع كخدمة مدفوعة لصالح الأمة، حتى يتمكن المزيد من الناس من استخدامه بشكل موثوق وفعّال؟',
+    sponsorYes: 'نعم، افتح صفحة الاستضافة',
     sponsorClose: 'إغلاق',
     sponsorHint: 'المساهمات طوعية. لا يجمع هذا الموقع أي بيانات دفع.',
     failoverMsg: '\u062a\u0639\u0630\u0651\u0631 \u062a\u062d\u0645\u064a\u0644 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0631\u0645\u0648\u0632 \u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639. \u062c\u0631\u0651\u0628 \u0646\u0633\u062e\u0629 \u0627\u062d\u062a\u064a\u0627\u0637\u064a\u0629 \u2014 \u062a\u064f\u062d\u0641\u0638 \u0627\u0644\u0631\u0645\u0648\u0632 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u0629 \u0647\u0646\u0627\u0643 \u0641\u064a \u0630\u0644\u0643 \u0627\u0644\u0645\u062a\u0635\u0641\u062d \u0641\u0642\u0637.',
@@ -347,7 +350,8 @@ const I18N = {
     sponsorLine2: 'ایک چھوٹا تعاون، امت کے لیے دیرپا فائدہ۔',
     sponsorBtn: 'ہوسٹنگ سپانسر کریں',
     sponsorNote: 'یہ سائٹ مفت ہوسٹنگ پر چلتی ہے۔ مرکزی سرور کے لیے ایک ادا شدہ پلان تقریباً $5 ماہانہ سے شروع ہوتا ہے اور حدود بڑھاتا ہے۔ ہر تعاون صرف اس اپ گریڈ کے لیے جاتا ہے، اور کچھ نہیں۔',
-    sponsorEmail: 'سپانسر کرنے کے لیے ای میل کریں',
+    sponsorConfirm: 'کیا آپ امت کے فائدے کے لیے اس سائٹ کو ایک ادا شدہ سروس کے طور پر شائع کرنے میں مدد کرنا چاہیں گے، تاکہ زیادہ لوگ اسے قابل اعتماد اور مؤثر طریقے سے استعمال کر سکیں؟',
+    sponsorYes: 'جی ہاں، ہوسٹنگ صفحہ کھولیں',
     sponsorClose: 'بند کریں',
     sponsorHint: 'تعاون رضاکارانہ ہے۔ اس سائٹ پر ادائیگی کی کوئی تفصیلات جمع نہیں کی جاتیں۔',
     failoverMsg: 'یہ سائٹ اپنی کوڈ لسٹ لوڈ نہیں کر سکی۔ بیک اپ مرر آزمائیں — وہاں استعمال کیے گئے کوڈز صرف اس براؤزر میں محفوظ ہوتے ہیں۔',
@@ -418,7 +422,8 @@ const I18N = {
     sponsorLine2: 'Kontribusi kecil, manfaat abadi untuk umat.',
     sponsorBtn: 'Sponsori Hosting',
     sponsorNote: 'Situs ini berjalan di hosting gratis. Paket berbayar untuk server utama mulai dari sekitar $5 per bulan dan menaikkan batas. Setiap kontribusi hanya untuk peningkatan itu, tidak ada yang lain.',
-    sponsorEmail: 'Email untuk mensponsori',
+    sponsorConfirm: 'Apakah Anda ingin membantu menerbitkan situs ini sebagai layanan berbayar demi kebaikan umat, agar lebih banyak orang dapat menggunakannya dengan andal dan efektif?',
+    sponsorYes: 'Ya, buka halaman hosting',
     sponsorClose: 'Tutup',
     sponsorHint: 'Kontribusi bersifat sukarela. Tidak ada detail pembayaran yang dikumpulkan di situs ini.',
     failoverMsg: 'Situs ini tidak dapat memuat daftar kodenya. Coba mirror cadangan — kode yang Anda pakai di sana hanya tersimpan di browser itu.',
@@ -489,7 +494,8 @@ const I18N = {
     sponsorLine2: 'Küçük bir katkı, ümmet için kalıcı bir fayda.',
     sponsorBtn: 'Barındırmaya Sponsor Olun',
     sponsorNote: 'Bu site ücretsiz barındırmada çalışıyor. Ana sunucu için ücretli plan ayda yaklaşık $5 seviyesinden başlar ve sınırları yükseltir. Her katkı yalnızca bu yükseltmeye gider, başka bir şeye değil.',
-    sponsorEmail: 'Sponsor olmak için e-posta gönderin',
+    sponsorConfirm: 'Ümmetin yararı için bu siteyi ücretli bir hizmet olarak yayınlamaya yardımcı olmak ister misiniz, böylece daha fazla kişi onu güvenilir ve etkili bir şekilde kullanabilir?',
+    sponsorYes: 'Evet, hosting sayfasını aç',
     sponsorClose: 'Kapat',
     sponsorHint: 'Katkılar gönüllüdür. Bu sitede ödeme bilgisi toplanmaz.',
     failoverMsg: 'Bu site kod listesini yükleyemedi. Bir yedek aynayı deneyin — orada kullandığınız kodlar yalnızca o tarayıcıda kaydedilir.',
@@ -560,7 +566,8 @@ const I18N = {
     sponsorLine2: 'एक छोटा योगदान, उम्मत के लिए स्थायी लाभ।',
     sponsorBtn: 'होस्टिंग प्रायोजित करें',
     sponsorNote: 'यह साइट मुफ्त होस्टिंग पर चलती है। मुख्य सर्वर के लिए सशुल्क योजना लगभग $5 प्रति माह से शुरू होती है और सीमाएं बढ़ाती है। हर योगदान केवल उसी अपग्रेड के लिए जाता है, और कुछ नहीं।',
-    sponsorEmail: 'प्रायोजित करने के लिए ईमेल करें',
+    sponsorConfirm: 'क्या आप उम्मत के लाभ के लिए इस साइट को एक सशुल्क सेवा के रूप में प्रकाशित करने में मदद करना चाहेंगे, ताकि अधिक लोग इसे विश्वसनीय और प्रभावी ढंग से उपयोग कर सकें?',
+    sponsorYes: 'हाँ, होस्टिंग पृष्ठ खोलें',
     sponsorClose: 'बंद करें',
     sponsorHint: 'योगदान स्वैच्छिक है। इस साइट पर कोई भुगतान विवरण एकत्र नहीं किया जाता है।',
     failoverMsg: 'यह साइट अपनी कोड सूची लोड नहीं कर सकी। बैकअप मिरर आज़माएं — वहाँ उपयोग किए गए कोड केवल उसी ब्राउज़र में सहेजे जाते हैं।',
@@ -1484,7 +1491,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v38').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v39').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -2347,6 +2354,7 @@ function bind() {
   // Sponsor hosting dialog
   $('btn-sponsor').addEventListener('click', () => $('sponsor-dialog').classList.remove('hidden'));
   $('sponsor-close').addEventListener('click', () => $('sponsor-dialog').classList.add('hidden'));
+  $('sponsor-go').addEventListener('click', () => $('sponsor-dialog').classList.add('hidden'));
   $('sponsor-dialog').addEventListener('click', (e) => { if (e.target === $('sponsor-dialog')) $('sponsor-dialog').classList.add('hidden'); });
   $('btn-share').addEventListener('click', () => { buildShareLinks(); $('share-dialog').classList.remove('hidden'); });
   $('share-close').addEventListener('click', () => $('share-dialog').classList.add('hidden'));
