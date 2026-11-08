@@ -240,15 +240,15 @@
     <section class="browser" id="codes" aria-label="All codes">
       <div class="controls">
         <input id="q" type="search" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Search codes…" data-i18n-ph="search" />
+      </div>
+      <details class="code-list" id="code-list">
+        <summary><span data-i18n="viewCodeList">View Code List</span></summary>
         <div class="seg" role="group" aria-label="Filter" id="filters">
           <button type="button" class="active" data-f="remaining" data-i18n="fRemaining">Remaining</button>
           <button type="button" data-f="new" data-i18n="fNew">Newly Added</button>
           <button type="button" data-f="used" data-i18n="fUsed">Used</button>
           <button type="button" data-f="all" data-i18n="fAll">All</button>
         </div>
-      </div>
-      <details class="code-list" id="code-list">
-        <summary><span data-i18n="viewCodeList">View Code List</span></summary>
         <p class="count" id="count"></p>
         <div class="grid" id="grid" aria-live="polite"></div>
         <div class="more"><button type="button" class="btn-soft hidden" id="btn-more" data-i18n="more">Load more</button></div>
@@ -353,9 +353,6 @@
     <details class="foot-details" id="foot-details">
       <summary><span data-i18n="footSummary">Independent Community Tool</span></summary>
     <p data-i18n="foot">Independent community tool. Not affiliated with Nusuk or the Ministry of Hajj and Umrah. We never ask for your login.</p>
-    <p class="copyright">© Hasan Mahmud. All rights reserved.</p>
-    <p class="expiry">This page will remain active until December 20, 2026 (unless Nusuk changes the date of its Umrah campaign).</p>
-    <p class="mirrors">Backup mirrors: <a href="https://nusukkeys-mirror.pages.dev/" target="_blank" rel="noopener">Mirror</a> · <a href="https://nusukkeys-backup.pages.dev/" target="_blank" rel="noopener">Backup</a></p>
     <nav class="foot-nav" aria-label="Site sections">
       <div class="foot-col">
         <b data-i18n="navCodes">Codes</b>
@@ -376,11 +373,6 @@
         <a href="#checklist" data-i18n="checklistTitle">Umrah packing checklist</a>
       </div>
     </nav>
-    <ul class="foot-notes">
-      <li data-i18n="footNote1">If the link does not open, copy the referral code and type it in Nusuk yourself, or open the link in a browser instead of the app.</li>
-      <li data-i18n="footNote2">Codes are ordered newest first.</li>
-      <li data-i18n="footNote3">60 codes per page; the count includes all codes.</li>
-    </ul>
     <details class="legal" id="legal-privacy">
       <summary data-i18n="legalPrivacy">Privacy policy</summary>
       <div id="sec-privacy"></div>
@@ -393,6 +385,14 @@
       <summary data-i18n="legalDevelopers">Developers — open data</summary>
       <div id="sec-developers"></div>
     </details>
+    <p class="copyright">© Hasan Mahmud. All rights reserved.</p>
+    <p class="expiry">This page will remain active until December 20, 2026 (unless Nusuk changes the date of its Umrah campaign).</p>
+    <p class="mirrors">Backup mirrors: <a href="https://nusukkeys-mirror.pages.dev/" target="_blank" rel="noopener">Mirror</a> · <a href="https://nusukkeys-backup.pages.dev/" target="_blank" rel="noopener">Backup</a></p>
+    <ul class="foot-notes">
+      <li data-i18n="footNote1">If the link does not open, copy the referral code and type it in Nusuk yourself, or open the link in a browser instead of the app.</li>
+      <li data-i18n="footNote2">Codes are ordered newest first.</li>
+      <li data-i18n="footNote3">60 codes per page; the count includes all codes.</li>
+    </ul>
     </details>
   </footer>
 
