@@ -1386,6 +1386,13 @@ const CODES_HOSTS = ['.', 'https://nusukkeys-cu9.pages.dev', 'https://nusukkeys-
 // The primary host holds the only database; static mirrors fetch their
 // live visitor numbers from it (the API allows any origin).
 const PRIMARY_ORIGIN = 'https://nusukkeys-cu9.pages.dev';
+// Firebase Realtime DB presence (project nusukkeys-mirror): the
+// realtime "active now" count. The browser writes its own timestamp
+// here once a minute; the server counts the fresh entries. This is a
+// separate service from Cloudflare, so it keeps working while the
+// D1 write limit and the KV list quota are exhausted. The /presence
+// node holds only a timestamp per visitor key — no personal data.
+const FIREBASE_PRESENCE_URL = 'https://nusukkeys-mirror-default-rtdb.firebaseio.com/presence';
 async function fetchWithTimeout(url, ms) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), ms);
@@ -1406,7 +1413,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v32').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v34').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1490,6 +1497,12 @@ function presenceKey() {
 
 async function pingPresence() {
   const key = presenceKey();
+  // Realtime presence in Firebase (best-effort, never blocks the
+  // /api/ping below): refresh this visitor's timestamp so the
+  // server's "active now" count includes them even while the D1
+  // write limit and the KV list quota are exhausted. A closed tab
+  // simply stops refreshing, and its entry goes stale after 5 min.
+  pingFirebasePresence(key);
   try {
     const d = await api('ping', { key });
     if (d && d.ok) return;
@@ -1497,6 +1510,23 @@ async function pingPresence() {
   // Static mirror (no local API): ping the primary host instead, so
   // mirror visitors count as online too.
   try { await apiPrimary('ping', { key }); } catch {}
+}
+
+// Write this visitor's presence timestamp to Firebase Realtime DB.
+// Fire-and-forget: a 5s timeout, and any failure is silently ignored
+// (the /api/ping above is the fallback; the count just stays lower).
+function pingFirebasePresence(key) {
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    fetch(FIREBASE_PRESENCE_URL + '/' + encodeURIComponent(key) + '.json', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ t: Date.now() }),
+      signal: ctl.signal,
+      keepalive: true,
+    }).catch(() => {}).finally(() => clearTimeout(timer));
+  } catch {}
 }
 
 let presenceTimer = null;
