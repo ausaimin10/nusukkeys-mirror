@@ -16,7 +16,7 @@ const I18N = {
     mAddedLabel: 'Newly Added Codes',
     mTotalCopiesLabel: 'Total Copies',
     mTotalCopiesSub: 'copied by everyone',
-    metricsNote: 'We never give you the same code twice from our collection of nearly 100,000 codes. However, if a code listed here has already been used elsewhere before you copy it from this website, it may no longer work.',
+    metricsNote: 'We never give you the same code twice from our collection of nearly 100,000 codes. However, if you have already used a code elsewhere before copying it from this website, it may not work for you again, as each code can only be used once.',
     viewCodeList: 'View Code List',
     compSummary: 'New Free Umrah Competition 2026',
     footSummary: 'Independent Community Tool',
@@ -119,7 +119,7 @@ const I18N = {
     mAddedLabel: 'নতুন যুক্ত কোড',
     mTotalCopiesLabel: 'মোট কপি',
     mTotalCopiesSub: 'সবাই কপি করেছে',
-    metricsNote: 'আমাদের প্রায় ১,০০,০০০ কোডের সংগ্রহ থেকে আমরা কখনো একই কোড দুইবার দিই না। তবে এখানে তালিকাভুক্ত কোনো কোড এই ওয়েবসাইট থেকে কপি করার আগেই অন্য কোথাও ব্যবহৃত হয়ে থাকলে, তা আর কাজ নাও করতে পারে।',
+    metricsNote: 'আমাদের প্রায় ১,০০,০০০ কোডের সংগ্রহ থেকে আমরা কখনো একই কোড দুইবার দিই না। তবে এই ওয়েবসাইট থেকে কপি করার আগে আপনি যদি অন্য কোথাও কোনো কোড ব্যবহার করে থাকেন, তাহলে সেটি আপনার জন্য আবার কাজ নাও করতে পারে, কারণ প্রতিটি কোড শুধু একবারই ব্যবহার করা যায়।',
     heroTitle: 'টি রেফারেল কোড। কপি করুন, কী পান।',
     heroSub: 'একবার ট্যাপ করে কপি করুন, নুসুক অ্যাপে পেস্ট করুন। কোনটা ব্যবহার করেছেন আমরা মনে রাখি, তাই একই কোড দ্বিতীয়বার দেখবেন না।',
     nextCode: 'আপনার পরের কোড', copyNext: 'কপি করুন ও পরেরটা দেখুন', skip: 'স্কিপ',
@@ -219,7 +219,7 @@ const I18N = {
     mAddedLabel: 'أكواد أُضيفت حديثًا',
     mTotalCopiesLabel: 'إجمالي النسخ',
     mTotalCopiesSub: 'نسخها الجميع',
-    metricsNote: 'لا نمنحك الكود نفسه مرتين أبدًا من مجموعتنا التي تضم ما يقرب من 100,000 كود. ومع ذلك، إذا كان الكود المدرج هنا قد استُخدم في مكان آخر قبل أن تنسخه من هذا الموقع، فقد لا يعمل بعد ذلك.',
+    metricsNote: 'لا نمنحك الكود نفسه مرتين أبدًا من مجموعتنا التي تضم ما يقرب من 100,000 كود. ومع ذلك، إذا كنت قد استخدمت كودًا في مكان آخر قبل نسخه من هذا الموقع، فقد لا يعمل لك مرة أخرى، لأن كل كود يمكن استخدامه مرة واحدة فقط.',
     heroTitle: 'كود إحالة. انسخ كودًا واحصل على مفتاح.',
     heroSub: 'اضغط مرة واحدة للنسخ ثم الصقه في تطبيق نسك. نتذكر ما استخدمته فلا يظهر لك الكود نفسه مرتين.',
     nextCode: 'كودك التالي', copyNext: 'انسخ واعرض التالي', skip: 'تخطي',
@@ -319,7 +319,7 @@ const I18N = {
     mAddedLabel: 'نئے شامل شدہ کوڈز',
     mTotalCopiesLabel: 'کل کاپیاں',
     mTotalCopiesSub: 'سب نے کاپی کیے',
-    metricsNote: 'ہم اپنے تقریباً 100,000 کوڈز کے ذخیرے سے آپ کو کبھی ایک ہی کوڈ دو بار نہیں دیتے۔ تاہم، اگر یہاں درج کوئی کوڈ اس ویب سائٹ سے کاپی کرنے سے پہلے کہیں اور استعمال ہو چکا ہو، تو شاید وہ کام نہ کرے۔',
+    metricsNote: 'ہم اپنے تقریباً 100,000 کوڈز کے ذخیرے سے آپ کو کبھی ایک ہی کوڈ دو بار نہیں دیتے۔ تاہم، اگر آپ نے اس ویب سائٹ سے کاپی کرنے سے پہلے کہیں اور کوئی کوڈ استعمال کر لیا ہو، تو شاید وہ آپ کے لیے دوبارہ کام نہ کرے، کیونکہ ہر کوڈ صرف ایک بار استعمال ہو سکتا ہے۔',
     heroTitle: 'ریفرل کوڈز۔ ایک کاپی کریں، ایک کی حاصل کریں۔',
     heroSub: 'ایک بار ٹیپ کر کے کاپی کریں، نسک ایپ میں پیسٹ کریں۔ ہم یاد رکھتے ہیں کہ آپ نے کیا استعمال کیا، اس لیے آپ کو وہی کوڈ دوبارہ کبھی نہیں دکھایا جائے گا۔',
     nextCode: 'آپ کا اگلا کوڈ',
@@ -390,7 +390,7 @@ const I18N = {
     mAddedLabel: 'Kode Baru Ditambahkan',
     mTotalCopiesLabel: 'Total Salinan',
     mTotalCopiesSub: 'disalin semua orang',
-    metricsNote: 'Kami tidak pernah memberikan kode yang sama dua kali dari koleksi kami yang berisi hampir 100.000 kode. Namun, jika kode yang tercantum di sini sudah pernah digunakan di tempat lain sebelum Anda menyalinnya dari situs web ini, kode tersebut mungkin sudah tidak berfungsi lagi.',
+    metricsNote: 'Kami tidak pernah memberikan kode yang sama dua kali dari koleksi kami yang berisi hampir 100.000 kode. Namun, jika Anda sudah pernah menggunakan kode di tempat lain sebelum menyalinnya dari situs web ini, kode tersebut mungkin tidak berfungsi lagi untuk Anda, karena setiap kode hanya dapat digunakan sekali.',
     heroTitle: 'kode referral. Salin satu, dapatkan satu kunci.',
     heroSub: 'Ketuk sekali untuk menyalin, tempel di aplikasi Nusuk. Kami mengingat yang sudah Anda pakai, jadi Anda tidak akan pernah melihat kode yang sama dua kali.',
     nextCode: 'Kode Anda berikutnya',
@@ -461,7 +461,7 @@ const I18N = {
     mAddedLabel: 'Yeni Eklenen Kodlar',
     mTotalCopiesLabel: 'Toplam Kopya',
     mTotalCopiesSub: 'herkes tarafından kopyalandı',
-    metricsNote: 'Yaklaşık 100.000 kodluk koleksiyonumuzdan size asla aynı kodu iki kez vermeyiz. Ancak, burada listelenen bir kod bu web sitesinden kopyalamadan önce başka bir yerde kullanılmışsa, artık çalışmayabilir.',
+    metricsNote: 'Yaklaşık 100.000 kodluk koleksiyonumuzdan size asla aynı kodu iki kez vermeyiz. Ancak, bu web sitesinden kopyalamadan önce bir kodu başka bir yerde kullandıysanız, her kod yalnızca bir kez kullanılabildiğinden, sizin için tekrar çalışmayabilir.',
     heroTitle: 'yönlendirme kodları. Birini kopyalayın, bir anahtar kazanın.',
     heroSub: 'Kopyalamak için bir kez dokunun, Nusuk uygulamasına yapıştırın. Neyi kullandığınızı hatırlıyoruz, böylece aynı kodu iki kez görmezsiniz.',
     nextCode: 'Sonraki kodunuz',
@@ -532,7 +532,7 @@ const I18N = {
     mAddedLabel: 'नए जोड़े गए कोड',
     mTotalCopiesLabel: 'कुल प्रतियाँ',
     mTotalCopiesSub: 'सभी द्वारा कॉपी किया गया',
-    metricsNote: 'हम अपने लगभग 100,000 कोड के संग्रह से आपको कभी भी एक ही कोड दो बार नहीं देते। हालाँकि, यदि यहाँ सूचीबद्ध कोई कोड इस वेबसाइट से कॉपी करने से पहले कहीं और उपयोग हो चुका है, तो हो सकता है कि वह अब काम न करे।',
+    metricsNote: 'हम अपने लगभग 100,000 कोड के संग्रह से आपको कभी भी एक ही कोड दो बार नहीं देते। हालाँकि, यदि आपने इस वेबसाइट से कॉपी करने से पहले किसी कोड का उपयोग कहीं और कर लिया है, तो हो सकता है कि वह आपके लिए फिर से काम न करे, क्योंकि प्रत्येक कोड केवल एक बार ही उपयोग किया जा सकता है।',
     heroTitle: 'रेफ़रल कोड। एक कॉपी करें, एक कुंजी पाएं।',
     heroSub: 'कॉपी करने के लिए एक बार टैप करें, नुसुक ऐप में पेस्ट करें। हम याद रखते हैं कि आपने क्या उपयोग किया है, इसलिए आप वही कोड दोबारा कभी नहीं देखेंगे।',
     nextCode: 'आपका अगला कोड',
@@ -1406,7 +1406,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v30').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v31').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
