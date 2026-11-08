@@ -1413,7 +1413,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v34').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v35').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1529,13 +1529,45 @@ function pingFirebasePresence(key) {
   } catch {}
 }
 
+// Read the realtime "active now" count straight from Firebase and
+// show it — without going through the site's own /api/stats at all.
+// This is the part that makes the number real even while the
+// Cloudflare Pages Function is not answering (it currently returns
+// 405 for /api/* on every host, so loadStats never updates the
+// count and the card would otherwise stay at the fallback 1). One
+// GET, count the entries fresh within 5 minutes, take the highest
+// of the Firebase count and whatever the backend last reported.
+// Best-effort and silent on failure; runs every 60s with the ping.
+async function loadFirebaseOnline() {
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    const res = await fetch(FIREBASE_PRESENCE_URL + '.json', { signal: ctl.signal });
+    clearTimeout(timer);
+    if (!res.ok) return;
+    const data = await res.json().catch(() => null);
+    if (!data || typeof data !== 'object') return;
+    const cutoff = Date.now() - 5 * 60 * 1000;
+    let n = 0;
+    for (const k of Object.keys(data)) {
+      const e = data[k];
+      if (e && typeof e.t === 'number' && e.t >= cutoff) n++;
+    }
+    if (!state.stats) state.stats = {};
+    state.stats.visitors_online = Math.max(Number(state.stats.visitors_online) || 0, n);
+    renderMetrics();
+  } catch {}
+}
+
 let presenceTimer = null;
 function ensurePresenceLoop() {
   if (presenceTimer) return;
   pingPresence();
+  loadFirebaseOnline();
   presenceTimer = setInterval(() => {
     if (document.visibilityState !== 'visible') return;
     pingPresence();
+    loadFirebaseOnline();
     if (state.key) loadStats();
   }, 60000);
 }
