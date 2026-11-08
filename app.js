@@ -1413,7 +1413,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v35').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v36').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -2129,7 +2129,7 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
       // Remember the key the visitor just entered (or the saved one),
       // so the primary host can use the same identity for live stats.
       if (key) persistKey(key);
-      state.me = { copied: savedUsed.length, copied_today: 0, remaining: Math.max(0, state.codes.all.length - savedUsed.length), total: state.codes.all.length, anon: true, mine: null };
+      state.me = { copied: savedUsed.length, copied_today: 0, remaining: Math.max(0, state.codes.all.length - savedUsed.length), total: state.codes.all.length, anon: !key, mine: key ? { code: key, copies: 0 } : null };
       state.stats = { ...state.stats, codes: first.data.total || state.codes.all.length };
       state.codes.usedIds = new Set(savedUsed);
       state.codes.badIds = new Set(loadLocalBad());
@@ -2372,7 +2372,25 @@ async function boot() {
   // time and never again, and dropped out of "active now" after
   // 5 minutes even while still on the page.
   ensurePresenceLoop();
-  const saved = readCookie() || localStorage.getItem('mk_key');
+  // A full referral link to this site can carry the visitor's key
+  // (?key=NG-xxxxxxxx or ?code=NG-xxxxxxxx, or a full Nusuk share
+  // link in ?key=). Opening such a link must register the key
+  // immediately — the visitor must NOT land on the gate and be told
+  // they are "browsing without a key" when the link already gave it.
+  // The parameter is removed from the address bar once read so it
+  // does not linger or get re-shared by accident.
+  let urlKey = null;
+  try {
+    const p = new URLSearchParams(location.search);
+    const raw = p.get('key') || p.get('code') || '';
+    urlKey = normalizeKey(raw);
+    if (urlKey) {
+      p.delete('key'); p.delete('code');
+      const q = p.toString();
+      history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash);
+    }
+  } catch {}
+  const saved = urlKey || readCookie() || localStorage.getItem('mk_key');
   if (!saved) return showGate();
   state.key = saved;
   const d = await startSession({ key: saved });
