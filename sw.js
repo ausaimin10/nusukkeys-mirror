@@ -20,7 +20,7 @@
 //    serves a small offline page with the mirror links instead of a
 //    browser error page.
 //
-// The cache is explicit and single-version ('nk-v41'); old caches are
+// The cache is explicit and single-version ('nk-v42'); old caches are
 // deleted on activate. Bump this version on EVERY deploy that changes
 // any shell file (index.html, app.js, styles.css, sw.js itself), or
 // returning visitors keep running the old cached files: the worker
@@ -29,7 +29,7 @@
 // visitor's page until the worker itself changes. (Seen live twice:
 // 2026-11-06 the Task-18 app.js ran stale under nk-v1, and the
 // reload fix ran stale under nk-v2 because only app.js changed.)
-const CACHE = 'nk-v41';
+const CACHE = 'nk-v42';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'favicon.svg', 'manifest.webmanifest', 'codes.json', 'codes-head.json'];
 const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',
@@ -42,10 +42,10 @@ const CHAIN = [
 ];
 const OFFLINE_HTML = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NusukKeys — temporarily unavailable</title><style>body{margin:0;background:#0b261f;color:#e8f0e9;font-family:system-ui,sans-serif;text-align:center;padding:48px 20px}a{color:#f2b84b}</style></head><body><h1>NusukKeys</h1><p>This host is not reachable right now. Try a backup copy of the site:</p><p><a href="https://nusukkeys-mirror.pages.dev/">Backup mirror</a> &middot; <a href="https://nusukkeys-backup.pages.dev/">Second backup</a></p><p>Your used codes are saved in this browser, so they are not lost.</p></body></html>';
 
-function fetchWithTimeout(url, ms) {
+function fetchWithTimeout(url, ms, init = {}) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), ms);
-  return fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(timer));
+  return fetch(url, { ...init, signal: ctl.signal }).finally(() => clearTimeout(timer));
 }
 // Liveness probe only: no-cors, so any HTTP answer counts as alive and
 // no CORS headers are needed on the target.
@@ -104,10 +104,15 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // codes.json / codes-head.json: network first (4s), cache fallback.
+  // cache:'reload' bypasses the browser/edge HTTP cache for the code
+  // list: the list is served with a long max-age, so a plain fetch
+  // can return a copy from an older release and the shown total stays
+  // stale for up to a day after an import.
   if (url.pathname.endsWith('/codes.json') || url.pathname.endsWith('/codes-head.json')) {
     event.respondWith((async () => {
       try {
-        const res = await fetchWithTimeout(event.request.url, 4000);
+        const res = await fetchWithTimeout(event.request.url, 4000, { cache: 'reload' });
         putCache(event.request, res);
         return res;
       } catch (e) {

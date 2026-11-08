@@ -1092,7 +1092,14 @@ const state = {
   // is the static list plus the delta (codes shared after the seed).
   // When the static file cannot load, the frontend falls back to the
   // server queue/list endpoints.
-  codes: { loaded: false, from: null, all: [], byId: new Map(), usedIds: new Set(), badIds: new Set(), maxRid: -1 }
+  codes: { loaded: false, from: null, all: [], byId: new Map(), usedIds: new Set(), badIds: new Set(), maxRid: -1 },
+  // Extra unique codes entered by visitors (their own keys), counted
+  // from Firebase /userkeys. Only added to the shown total while the
+  // site is in local/offline mode (the Function is down): when the
+  // backend works, its D1 total already includes those keys, so
+  // adding them again would count them twice.
+  userKeysExtra: 0,
+  offlineMode: false
 };
 
 const t = (k) => (I18N[state.lang] || I18N.en)[k] ?? I18N.en[k];
@@ -1151,6 +1158,10 @@ function persistKey(key) {
   state.key = key;
   try { localStorage.setItem('mk_key', key); } catch {}
   document.cookie = `mk_key=${encodeURIComponent(key)}; path=/; max-age=31536000; SameSite=Lax`;
+  // Entering with your own key saves it to the shared pool (Firebase
+  // /userkeys while the Function is down; the server adds it to D1
+  // when it answers) so it counts in the live total.
+  saveUserKey(key);
 }
 function forgetKey() {
   state.key = null;
@@ -1207,6 +1218,16 @@ function applyLang(lang) {
 }
 
 // ---------- Rendering ----------
+// The live code total: the largest count we actually have (the
+// static list, the session stats, or the loaded list — these can
+// disagree when one file is cached from an older release, so the
+// largest wins), plus visitor-entered keys from Firebase while the
+// site is in local/offline mode.
+function heroTotal() {
+  const base = Math.max(Number(state.stats.codes) || 0, Number(state.me.total) || 0, state.codes.all.length || 0);
+  return base + (state.offlineMode ? (Number(state.userKeysExtra) || 0) : 0);
+}
+
 function renderAll() {
   renderGuestWarning();
   renderMetrics();
@@ -1214,7 +1235,8 @@ function renderAll() {
   renderGrid();
   updateNusukLink();
   renderMyCodes();
-  $('hero-total').textContent = fmt(state.stats.codes || state.me.total);
+  $('hero-total').textContent = fmt(heroTotal());
+  buildShareLinks();
   if (state.key) {
     $('acct-label').textContent = state.me.anon ? 'Guest (No Key)' : state.key;
     $('acct-dot').classList.toggle('warn', !!state.me.anon);
@@ -1431,6 +1453,11 @@ const PRIMARY_ORIGIN = 'https://nusukkeys-cu9.pages.dev';
 // node holds only a timestamp per visitor key — no personal data.
 const FIREBASE_PRESENCE_URL = 'https://nusukkeys-mirror-default-rtdb.firebaseio.com/presence';
 const FIREBASE_COUNTERS_URL = 'https://nusukkeys-mirror-default-rtdb.firebaseio.com/counters';
+// Visitor-entered keys (their own Nusuk key), saved here so they join
+// the shared pool and the live total even while the Cloudflare
+// Function (405) cannot write to D1. One entry per key (a timestamp
+// number); the key itself is the node name. No personal data.
+const FIREBASE_USERKEYS_URL = 'https://nusukkeys-mirror-default-rtdb.firebaseio.com/userkeys';
 // Realtime totals, read straight from Firebase (no /api call needed):
 // visitors_total = 55,000 + counters.visitors, used_total = 100,000
 // + counters.copies. The counters are seeded from the last reliable
@@ -1456,6 +1483,65 @@ async function loadFirebaseCounters() {
     renderMetrics();
   } catch {}
 }
+// Save a visitor's own key to the shared pool, so it is counted in
+// the live total and can be used by others — even while the
+// Cloudflare Function (405) cannot write it to D1. Writes the key to
+// Firebase /userkeys (fire-and-forget) and adds it to this browser's
+// local code list when it is not already there, so the total grows
+// at once and the key is never shown back to its owner (the
+// dispenser excludes the visitor's own code). Safe to call more than
+// once for the same key: the Firebase write overwrites the same node
+// and the local add checks byId first.
+function saveUserKey(key) {
+  const code = normalizeKey(key);
+  if (!code) return;
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    fetch(FIREBASE_USERKEYS_URL + '/' + encodeURIComponent(code) + '.json', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Date.now()),
+      signal: ctl.signal,
+      keepalive: true,
+    }).catch(() => {}).finally(() => clearTimeout(timer));
+  } catch {}
+  try {
+    if (state.codes.loaded && !state.codes.byId.has('nk-user-' + code.slice(3).toLowerCase())) {
+      const entry = { id: 'nk-user-' + code.slice(3).toLowerCase(), code, name: '', country: '🕋', copies: 0, used: 0, device_id: 'user-key', created_at: '', rid: (state.codes.maxRid || 0) + 1 };
+      state.codes.all.push(entry);
+      state.codes.byId.set(entry.id, entry);
+      state.codes.maxRid = entry.rid;
+      state.me.total = state.codes.all.length;
+      state.me.remaining = Math.max(0, state.codes.all.length - state.codes.usedIds.size);
+      renderAll();
+    }
+  } catch {}
+}
+// Count visitor-entered keys in Firebase /userkeys that are not
+// already in this browser's code list, and add them to the shown
+// total (offline mode only — when the backend works, its D1 total
+// already includes them). Runs at boot and with the 60s refresh.
+async function loadFirebaseUserKeys() {
+  if (!state.offlineMode) { state.userKeysExtra = 0; return; }
+  try {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    const res = await fetch(FIREBASE_USERKEYS_URL + '.json', { signal: ctl.signal });
+    clearTimeout(timer);
+    if (!res.ok) return;
+    const data = await res.json().catch(() => null);
+    if (!data || typeof data !== 'object') return;
+    let extra = 0;
+    for (const k of Object.keys(data)) {
+      if (!state.codes.byId.has('nk-user-' + String(k).slice(3).toLowerCase()) && !state.codes.byId.has(String(k))) {
+        const inList = state.codes.all.some((c) => c.code && c.code.toUpperCase() === String(k).toUpperCase());
+        if (!inList) extra += 1;
+      }
+    }
+    if (extra !== state.userKeysExtra) { state.userKeysExtra = extra; renderAll(); }
+  } catch {}
+}
 // Atomically bump one Firebase counter by 1 (server-side increment,
 // so concurrent visitors cannot lose a count). Fire-and-forget.
 function bumpFirebaseCounter(name) {
@@ -1471,15 +1557,19 @@ function bumpFirebaseCounter(name) {
     }).catch(() => {}).finally(() => clearTimeout(timer));
   } catch {}
 }
-async function fetchWithTimeout(url, ms) {
+async function fetchWithTimeout(url, ms, init = {}) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), ms);
-  try { return await fetch(url, { signal: ctl.signal }); }
+  try { return await fetch(url, { ...init, signal: ctl.signal }); }
   finally { clearTimeout(timer); }
 }
 async function tryCodesFile(host, file, ms) {
   try {
-    const res = await fetchWithTimeout(host + '/' + file, ms);
+    // cache:'reload' bypasses the browser/edge HTTP cache for the
+    // code list: the list is served with a long max-age, so a plain
+    // fetch can return a copy from an older release and the shown
+    // total stays stale for up to a day after an import.
+    const res = await fetchWithTimeout(host + '/' + file, ms, { cache: 'reload' });
     if (!res.ok) return null;
     const clone = res.clone();
     const data = await res.json();
@@ -1491,7 +1581,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v41').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v42').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }
@@ -1512,7 +1602,7 @@ async function fetchCodesJson() {
 }
 // Background upgrade: after the head file made the page usable, fetch
 // the full list (same hosts, same order) so the code browser can
-// search all 13,721 codes. Returns the full data or null.
+// search every code. Returns the full data or null.
 async function fetchFullCodesJson() {
   const self = await tryCodesFile('', 'codes.json', 8000);
   if (self) return self;
@@ -1531,6 +1621,16 @@ function applyCodes(data, delta) {
   }
   const all = data.codes.map(fromCompact);
   const byId = new Map(all.map((c) => [c.id, c]));
+  // Preserve visitor-entered keys already in the pool (their own
+  // keys, added by saveUserKey): they are not in the static list yet,
+  // so without this, loading the full list after the head would drop
+  // the user's own key and the live total would fall back.
+  for (const c of state.codes.all) {
+    if (c && c.id && c.id.startsWith('nk-user-') && !byId.has(c.id)) {
+      all.push(c);
+      byId.set(c.id, c);
+    }
+  }
   for (const d of delta || []) {
     const c = fromCompact(d);
     if (!byId.has(c.id)) { all.push(c); byId.set(c.id, c); }
@@ -1538,7 +1638,9 @@ function applyCodes(data, delta) {
   all.sort((a, b) => a.rid - b.rid);
   state.codes.all = all;
   state.codes.byId = byId;
-  state.codes.maxRid = typeof data.maxRid === 'number' ? data.maxRid : -1;
+  // The max rid is the largest in the final list (a preserved
+  // visitor key has a rid above the static file's maxRid).
+  state.codes.maxRid = all.reduce((m, c) => Math.max(m, Number(c.rid) || 0), typeof data.maxRid === 'number' ? data.maxRid : -1);
   state.codes.loaded = true;
   state.codes.from = 'static';
   return true;
@@ -1655,6 +1757,7 @@ function ensurePresenceLoop() {
   pingPresence();
   loadFirebaseOnline();
   loadFirebaseCounters();
+  loadFirebaseUserKeys();
   // Count this browser as a new visitor exactly once: the first time
   // it ever loads the site (localStorage flag). A reload or a return
   // visit does not count again. This is what makes the Real Visitors
@@ -1670,6 +1773,7 @@ function ensurePresenceLoop() {
     pingPresence();
     loadFirebaseOnline();
     loadFirebaseCounters();
+    loadFirebaseUserKeys();
     if (state.key) loadStats();
   }, 60000);
 }
@@ -1836,10 +1940,15 @@ async function copyCode(c, toastMsg) {
 // Share bar: the five platform links share this page's URL with a
 // short text. Facebook opens its sharer page for posting the link;
 // the others use their normal link-sharing pages. Built in JS so the
-// links follow the page's real URL (live, staging, or mirror).
+// links follow the page's real URL (live, staging, or mirror). The
+// text carries the LIVE code total (not a hardcoded number, which
+// went stale at 13,721), and is rebuilt whenever the total changes.
+let lastShareText = '';
 function buildShareLinks() {
   const url = location.href.split('#')[0];
-  const text = 'NusukKeys — 13,721 Nusuk referral codes. Copy one, get a key.';
+  const text = 'NusukKeys — ' + fmt(heroTotal()) + ' Nusuk referral codes. Copy one, get a key.';
+  if (text === lastShareText) return;
+  lastShareText = text;
   const u = encodeURIComponent(url);
   const tx = encodeURIComponent(text + ' ' + url);
   const set = (id, href) => { const el = $(id); if (el) el.href = href; };
@@ -2238,6 +2347,10 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
       if (key) persistKey(key);
       state.me = { copied: savedUsed.length, copied_today: 0, remaining: Math.max(0, state.codes.all.length - savedUsed.length), total: state.codes.all.length, anon: !key, mine: key ? { code: key, copies: 0 } : null };
       state.stats = { ...state.stats, codes: first.data.total || state.codes.all.length };
+      // Local/offline mode: the backend is not answering, so the
+      // live total counts visitor-entered keys from Firebase too.
+      state.offlineMode = true;
+      loadFirebaseUserKeys();
       state.codes.usedIds = new Set(savedUsed);
       state.codes.badIds = new Set(loadLocalBad());
       state.queue = [];
@@ -2257,6 +2370,11 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
           applyCodes(full, []);
           state.me.remaining = Math.max(0, state.codes.all.length - state.codes.usedIds.size);
           state.me.total = state.codes.all.length;
+          // The full list is the ground truth for the total: the
+          // head's total field can be stale when one file is cached
+          // from an older release, so take the full length here.
+          state.stats = { ...state.stats, codes: state.codes.all.length };
+          loadFirebaseUserKeys();
           refreshQueue();
           loadList(true);
           renderAll();
@@ -2272,6 +2390,10 @@ async function startSession({ key, anon = false, share = false, prevKey = null }
   persistKey(d.me.key);
   state.me = d.me;
   state.stats = d.stats;
+  // The backend answered, so its D1 total already includes
+  // visitor-entered keys — do not add the Firebase extra on top.
+  state.offlineMode = false;
+  state.userKeysExtra = 0;
   // Merge the server's used set with this browser's local used set:
   // when the database is unreachable the server cannot know the codes
   // this guest already used, so the local list is the only record and

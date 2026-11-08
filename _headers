@@ -11,8 +11,8 @@
 /
   Cache-Control: no-cache
 /codes.json
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=300
   Access-Control-Allow-Origin: *
 /codes-head.json
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=300
   Access-Control-Allow-Origin: *
