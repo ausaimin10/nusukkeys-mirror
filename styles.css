@@ -561,6 +561,33 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .more { text-align: center; margin: 18px 0 8px; }
 /* Codes explainer — cream text on the dark ground. */
 .codes-explainer { text-align: justify; font-size: 0.85rem; color: #e9e0cb; max-width: 640px; margin: 14px auto; line-height: 1.55; }
+/* Three main background cards that group the sections between the
+   code list and the sponsor card. A card is a plain container, never
+   expandable — only the sections inside it keep their own
+   click-to-expand behaviour. */
+.group-card {
+  background: linear-gradient(135deg, #0b4f45 0%, #083831 100%);
+  border: 2px solid #c9a227; border-radius: 20px;
+  padding: 18px; margin: 24px 0; box-shadow: var(--shadow-dark);
+}
+/* Inside a card the sections share one even gap instead of each
+   carrying its own outer margin, so the spacing stays consistent. */
+.group-card > .my-codes,
+.group-card > .fix-section,
+.group-card > .feature-emerald,
+.group-card > .feature-taupe,
+.group-card > .guide-section,
+.group-card > .faq { margin-top: 0; margin-bottom: 16px; }
+.group-card > *:last-child { margin-bottom: 0; }
+@media (max-width: 720px) {
+  .group-card { padding: 14px; margin: 20px 0; }
+  .group-card > .my-codes,
+  .group-card > .fix-section,
+  .group-card > .feature-emerald,
+  .group-card > .feature-taupe,
+  .group-card > .guide-section,
+  .group-card > .faq { margin-bottom: 12px; }
+}
 /* My copied codes — a solid white details card. */
 .my-codes { margin: 16px 0; background: #fff; border: 2px solid #c9a227; border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow-dark); }
 .my-codes summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--teal); }

@@ -256,39 +256,11 @@
     </section>
     <p class="codes-explainer" data-i18n="codesExplainer">Every code gets a fair turn: new codes are added all day, so come back daily. Codes that stop working are reported and removed — tap Problem in your copied codes if one does not work.</p>
 
+    <!-- Card 1: your codes, finding a code, fixing a problem. -->
+    <section class="group-card" aria-label="Your codes and help">
     <details class="my-codes" id="my-codes">
       <summary data-i18n="myCodesTitle">My copied codes</summary>
       <div id="my-codes-list"></div>
-    </details>
-
-    <!-- FAQ + short guides. Questions and answers are rendered by
-         app.js from FAQ_I18N (English, Bengali and Arabic; other
-         languages show English). Both sections are collapsed by
-         default; inside Questions, each question stays collapsible. -->
-    <section class="faq" id="guide" aria-label="Frequently asked questions">
-      <details class="faq-section" id="faq-section">
-        <summary data-i18n="faqTitle">Questions, answered</summary>
-        <div id="faq-list"></div>
-      </details>
-      <details class="guides-section" id="guides-section">
-        <summary data-i18n="guidesTitle">Short guides</summary>
-        <ul class="guides" id="guides-list"></ul>
-      </details>
-    </section>
-
-    <!-- Fix: troubleshooting, 10 items rendered by app.js. The
-         heading is the expandable button; the section starts closed. -->
-    <details class="fix-section" id="fix" aria-label="Fix a problem">
-      <summary><span data-i18n="fixTitle">Fix — code not working?</span></summary>
-      <p data-i18n="fixIntro">Try these in order. Most problems are one of these ten.</p>
-      <div id="fix-list"></div>
-    </details>
-
-    <!-- Competition 2026: the emerald featured section (rendered).
-         The title is the expandable button; the section starts closed. -->
-    <details class="feature-emerald" id="competition" aria-label="The Umrah competition 2026">
-      <summary class="feature-summary"><span data-i18n="compSummary">New Free Umrah Competition 2026</span></summary>
-      <div class="feature-body" id="sec-competition"></div>
     </details>
 
     <!-- Find your code: full guide + the two tools. -->
@@ -314,6 +286,24 @@
       </div>
     </details>
 
+    <!-- Fix: troubleshooting, 10 items rendered by app.js. The
+         heading is the expandable button; the section starts closed. -->
+    <details class="fix-section" id="fix" aria-label="Fix a problem">
+      <summary><span data-i18n="fixTitle">Fix — code not working?</span></summary>
+      <p data-i18n="fixIntro">Try these in order. Most problems are one of these ten.</p>
+      <div id="fix-list"></div>
+    </details>
+    </section>
+
+    <!-- Card 2: the competition and the Umrah guides. -->
+    <section class="group-card" aria-label="Competition and Umrah guides">
+    <!-- Competition 2026: the emerald featured section (rendered).
+         The title is the expandable button; the section starts closed. -->
+    <details class="feature-emerald" id="competition" aria-label="The Umrah competition 2026">
+      <summary class="feature-summary"><span data-i18n="compSummary">New Free Umrah Competition 2026</span></summary>
+      <div class="feature-body" id="sec-competition"></div>
+    </details>
+
     <!-- Umrah step by step: the taupe counterpart section (rendered).
          The heading is the expandable button; the section starts closed. -->
     <details class="feature-taupe" id="umrah" aria-label="Umrah step by step">
@@ -331,6 +321,26 @@
         <button type="button" class="btn-soft" id="checklist-print" data-i18n="checklistPrint">Print list</button>
       </div>
     </details>
+    </section>
+
+    <!-- Card 3: questions and short guides. -->
+    <section class="group-card" aria-label="Questions and guides">
+    <!-- FAQ + short guides. Questions and answers are rendered by
+         app.js from FAQ_I18N (English, Bengali and Arabic; other
+         languages show English). Both sections are collapsed by
+         default; inside Questions, each question stays collapsible. -->
+    <section class="faq" id="guide" aria-label="Frequently asked questions">
+      <details class="faq-section" id="faq-section">
+        <summary data-i18n="faqTitle">Questions, answered</summary>
+        <div id="faq-list"></div>
+      </details>
+      <details class="guides-section" id="guides-section">
+        <summary data-i18n="guidesTitle">Short guides</summary>
+        <ul class="guides" id="guides-list"></ul>
+      </details>
+    </section>
+    </section>
+
 
     <!-- Sponsor hosting -->
     <section class="sponsor" aria-label="Sponsor hosting">
