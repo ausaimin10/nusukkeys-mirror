@@ -821,7 +821,7 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .foot {
   position: relative; overflow: hidden;
   background: #0b4f45; border: 2px solid #e9c46a; border-radius: 20px;
-  padding: 28px 22px 36px; margin: 24px 0 32px; text-align: center; color: #e9e0cb;
+  padding: 28px 22px 36px; margin: 24px auto 32px; text-align: center; color: #e9e0cb;
   box-shadow: var(--shadow-dark);
 }
 .foot::before, .foot::after {
@@ -851,18 +851,11 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
 .foot-details > summary:active { transform: scale(0.99); background: #0c5245; }
 .foot-details[open] > summary { margin-bottom: 14px; }
 .foot p { max-width: 640px; margin: 0 auto; color: #e9e0cb; font-size: 0.76rem; }
-/* The intro paragraph justifies like the other body text. (It used
-   to be forced onto one line on desktop with white-space: nowrap;
-   that is removed so it can wrap — and justify — in every language,
-   including the longer translations.) */
-.foot p[data-i18n="foot"] { text-align: justify; }
+/* The intro now sits at the very bottom of the footer, first in the
+   centred block with the copyright, expiry and mirrors — so it is
+   centred like them instead of justified. */
+.foot p[data-i18n="foot"] { text-align: center; }
 .copyright { margin-top: var(--sp-2); font-size: 0.74rem; color: rgba(233, 224, 203, 0.85); letter-spacing: 0.01em; }
-/* Footer navigation — three columns of anchor links to the
-   site's own sections (no external links). */
-.foot-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px auto 8px; max-width: 640px; text-align: left; }
-.foot-col b { display: block; color: var(--gold); font-size: 0.85rem; margin-bottom: 6px; }
-.foot-col a { display: block; color: #f4efe3; text-decoration: none; font-size: 0.84rem; padding: 3px 0; }
-.foot-col a:hover { color: var(--gold); text-decoration: underline; }
 .foot-notes { list-style: none; max-width: 640px; margin: 14px auto 0; text-align: left; }
 .foot-notes li { font-size: 0.78rem; color: rgba(233, 224, 203, 0.85); padding-left: 18px; position: relative; margin-bottom: 4px; }
 .foot-notes li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; top: 1px; }
@@ -1013,7 +1006,6 @@ html[lang='bn'] .hero h1, html[lang='bn'] .hero h1 span { letter-spacing: 0; lin
   .feature-taupe::before { background: linear-gradient(180deg, rgba(217, 199, 167, 0) 0%, rgba(217, 199, 167, 0) 60px, #d9c7a7 120px); }
   .feature-taupe .feature-body { padding: 70px 18px 18px; }
   .faq, .guide-section, .fix-section { padding: 14px; }
-  .foot-nav { grid-template-columns: 1fr; gap: 12px; }
 }
 @media (max-width: 520px) {
   .wrap { padding: 0 16px; }
