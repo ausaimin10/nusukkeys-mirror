@@ -1533,10 +1533,16 @@ async function loadFirebaseUserKeys() {
     const data = await res.json().catch(() => null);
     if (!data || typeof data !== 'object') return;
     let extra = 0;
+    // Fast membership check: build one Set of the list's codes
+    // (uppercase) first, then test each key against it in O(1).
+    // Scanning the whole 103k list for every key (.some with
+    // toUpperCase) froze the page for ~8 seconds on every 60s
+    // refresh — that freeze is what made every click feel slow.
+    const codeSet = new Set();
+    for (const c of state.codes.all) { if (c.code) codeSet.add(String(c.code).toUpperCase()); }
     for (const k of Object.keys(data)) {
       if (!state.codes.byId.has('nk-user-' + String(k).slice(3).toLowerCase()) && !state.codes.byId.has(String(k))) {
-        const inList = state.codes.all.some((c) => c.code && c.code.toUpperCase() === String(k).toUpperCase());
-        if (!inList) extra += 1;
+        if (!codeSet.has(String(k).toUpperCase())) extra += 1;
       }
     }
     if (extra !== state.userKeysExtra) { state.userKeysExtra = extra; renderAll(); }
@@ -1581,7 +1587,7 @@ async function tryCodesFile(host, file, ms) {
     // have seen it). The key is relative so it works at a root and
     // under a subpath alike.
     if (host === '.' && 'caches' in window) {
-      caches.open('nk-v43').then((c) => c.put(file, clone)).catch(() => {});
+      caches.open('nk-v44').then((c) => c.put(file, clone)).catch(() => {});
     }
     return data;
   } catch { return null; }

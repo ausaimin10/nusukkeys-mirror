@@ -20,7 +20,7 @@
 //    serves a small offline page with the mirror links instead of a
 //    browser error page.
 //
-// The cache is explicit and single-version ('nk-v43'); old caches are
+// The cache is explicit and single-version ('nk-v44'); old caches are
 // deleted on activate. Bump this version on EVERY deploy that changes
 // any shell file (index.html, app.js, styles.css, sw.js itself), or
 // returning visitors keep running the old cached files: the worker
@@ -29,7 +29,7 @@
 // visitor's page until the worker itself changes. (Seen live twice:
 // 2026-11-06 the Task-18 app.js ran stale under nk-v1, and the
 // reload fix ran stale under nk-v2 because only app.js changed.)
-const CACHE = 'nk-v43';
+const CACHE = 'nk-v44';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'favicon.svg', 'manifest.webmanifest', 'codes.json', 'codes-head.json'];
 const CHAIN = [
   'https://nusukkeys-cu9.pages.dev/',
